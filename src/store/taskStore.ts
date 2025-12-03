@@ -20,6 +20,8 @@ interface TaskState {
   selectTask: (id: string | null) => void
   setFilter: (filter: TaskState['filter']) => void
   getFilteredTasks: () => Task[]
+  reorderTasks: (fromId: string, toId: string) => Promise<void>
+  updateTaskOrder: (id: string, newOrder: number) => Promise<void>
 }
 
 export const useTaskStore = create<TaskState>((set, get) => ({
@@ -103,6 +105,61 @@ export const useTaskStore = create<TaskState>((set, get) => ({
         return false
       }
       return true
+    })
+  },
+
+  reorderTasks: async (fromId: string, toId: string) => {
+    const { tasks } = get()
+    const fromTask = tasks.find((t) => t.id === fromId)
+    const toTask = tasks.find((t) => t.id === toId)
+
+    if (!fromTask || !toTask) return
+
+    // Get tasks in the same scope (same project/section)
+    const scopeTasks = tasks.filter(
+      (t) => t.projectId === fromTask.projectId && t.sectionId === fromTask.sectionId
+    )
+
+    // Find indices
+    const fromIndex = scopeTasks.findIndex((t) => t.id === fromId)
+    const toIndex = scopeTasks.findIndex((t) => t.id === toId)
+
+    if (fromIndex === -1 || toIndex === -1) return
+
+    // Create a copy and reorder
+    const reordered = [...scopeTasks]
+    const [removed] = reordered.splice(fromIndex, 1)
+    reordered.splice(toIndex, 0, removed)
+
+    // Update orders
+    const now = new Date()
+    const updatedTasks = reordered.map((task, index) => ({
+      ...task,
+      order: index,
+      updatedAt: now,
+    }))
+
+    // Update database
+    for (const task of updatedTasks) {
+      await db.tasks.update(task.id, { order: task.order, updatedAt: now })
+    }
+
+    // Update state
+    const newTasks = tasks.map((task) => {
+      const updated = updatedTasks.find((t) => t.id === task.id)
+      return updated ? { ...task, order: updated.order, updatedAt: now } : task
+    })
+    set({ tasks: newTasks })
+  },
+
+  updateTaskOrder: async (id: string, newOrder: number) => {
+    const now = new Date()
+    await db.tasks.update(id, { order: newOrder, updatedAt: now })
+    const { tasks } = get()
+    set({
+      tasks: tasks.map((t) =>
+        t.id === id ? { ...t, order: newOrder, updatedAt: now } : t
+      ),
     })
   },
 }))

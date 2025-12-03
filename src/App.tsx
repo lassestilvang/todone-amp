@@ -2,12 +2,17 @@ import { useEffect, useState } from 'react'
 import { useAuthStore } from '@/store/authStore'
 import { useTaskStore } from '@/store/taskStore'
 import { useProjectStore } from '@/store/projectStore'
+import { initializeQuickAddStore } from '@/store/quickAddStore'
 import { Sidebar } from '@/components/Sidebar'
 import { InboxView } from '@/views/InboxView'
 import { TodayView } from '@/views/TodayView'
 import { UpcomingView } from '@/views/UpcomingView'
 import { AuthPage } from '@/pages/AuthPage'
 import { TaskDetailPanel } from '@/components/TaskDetailPanel'
+import { QuickAddModal } from '@/components/QuickAddModal'
+import { KeyboardShortcutsHelp } from '@/components/KeyboardShortcutsHelp'
+import { DragDropContextProvider } from '@/components/DragDropContext'
+import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts'
 
 function App() {
   const [currentView, setCurrentView] = useState('inbox')
@@ -17,6 +22,9 @@ function App() {
   const loadUser = useAuthStore((state) => state.loadUser)
   const loadTasks = useTaskStore((state) => state.loadTasks)
   const loadProjects = useProjectStore((state) => state.loadProjects)
+  
+  // Initialize keyboard shortcuts
+  useKeyboardShortcuts()
 
   // Initialize on mount
   useEffect(() => {
@@ -26,6 +34,9 @@ function App() {
     } else {
       useAuthStore.setState({ isLoading: false })
     }
+    
+    // Load quick add history
+    initializeQuickAddStore()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -69,13 +80,17 @@ function App() {
   }
 
   return (
-    <div className="flex h-screen bg-white">
-      <Sidebar currentView={currentView} onViewChange={setCurrentView} />
-      <main className="flex-1 flex flex-col overflow-hidden">
-        {renderView()}
-      </main>
-      <TaskDetailPanel />
-    </div>
+    <DragDropContextProvider>
+      <div className="flex h-screen bg-white">
+        <Sidebar currentView={currentView} onViewChange={setCurrentView} />
+        <main className="flex-1 flex flex-col overflow-hidden">
+          {renderView()}
+        </main>
+        <TaskDetailPanel />
+        <QuickAddModal />
+        <KeyboardShortcutsHelp />
+      </div>
+    </DragDropContextProvider>
   )
 }
 

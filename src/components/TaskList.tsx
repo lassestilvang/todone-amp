@@ -1,14 +1,16 @@
 import React from 'react'
 import { Task } from '@/types'
 import { TaskItem } from './TaskItem'
+import { DroppableTaskList } from './DroppableTaskList'
 
 interface TaskListProps {
   tasks: Task[]
   selectedTaskId?: string | null
-  onToggle: (id: string) => void
-  onSelect: (id: string) => void
+  onToggle?: (id: string) => void
+  onSelect?: (id: string) => void
   isLoading?: boolean
   emptyMessage?: string
+  isDraggable?: boolean
 }
 
 export const TaskList: React.FC<TaskListProps> = ({
@@ -18,6 +20,7 @@ export const TaskList: React.FC<TaskListProps> = ({
   onSelect,
   isLoading,
   emptyMessage = 'No tasks yet',
+  isDraggable = false,
 }) => {
   if (isLoading) {
     return (
@@ -37,6 +40,22 @@ export const TaskList: React.FC<TaskListProps> = ({
     )
   }
 
+  // If draggable, use DroppableTaskList
+  if (isDraggable) {
+    return (
+      <DroppableTaskList
+        tasks={tasks}
+        droppableId="task-list"
+        selectedTaskId={selectedTaskId}
+        onToggle={onToggle}
+        onSelect={onSelect}
+        emptyMessage={emptyMessage}
+        className="divide-y divide-gray-200 border-y border-gray-200"
+      />
+    )
+  }
+
+  // Otherwise use regular TaskItem list
   return (
     <div className="divide-y divide-gray-200 border-y border-gray-200">
       {tasks.map((task) => (

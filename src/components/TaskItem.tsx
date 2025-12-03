@@ -7,8 +7,8 @@ import { useTaskDetailStore } from '@/store/taskDetailStore'
 
 interface TaskItemProps {
   task: Task
-  onToggle: (id: string) => void
-  onSelect: (id: string) => void
+  onToggle?: (id: string) => void
+  onSelect?: (id: string) => void
   isSelected?: boolean
 }
 
@@ -32,7 +32,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, onToggle, onSelect, is
 
   return (
     <div
-      onClick={() => onSelect(task.id)}
+      onClick={() => onSelect?.(task.id)}
       className={cn(
         'flex items-center gap-3 px-4 py-2 border-l-4 cursor-pointer transition-all duration-150',
         isSelected ? 'bg-blue-50 border-blue-500' : 'border-transparent hover:bg-gray-50'
@@ -44,7 +44,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, onToggle, onSelect, is
         checked={task.completed}
         onChange={(e) => {
           e.stopPropagation()
-          onToggle(task.id)
+          onToggle?.(task.id)
         }}
         className={cn(
           'w-5 h-5 rounded border-2 cursor-pointer transition-all',

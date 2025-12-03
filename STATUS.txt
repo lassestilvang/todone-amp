@@ -15,12 +15,12 @@
 ┃   • 45+ items completed                                                   ┃
 ┃   • Duration: 1 session                                                   ┃
 ┃                                                                           ┃
-┃ Phase 2: Essential Features           █████░░░░░░░░░░░░░░░  14% (Week 1) ┃
-┃   • Week 1 ✅: Task detail panel, date/time pickers, editing             ┃
-┃   • Week 2: Quick add modal, keyboard shortcuts                          ┃
-┃   • Week 3-5: Drag&drop, filters, search, board, calendar               ┃
-┃   • 70+ items planned, 10+ completed                                     ┃
-┃   • Duration: 3-4 weeks (estimated)                                      ┃
+┃ Phase 2: Essential Features           ████████░░░░░░░░░░░░  28% (W1-W2) ┃
+┃   • Week 1 ✅: Task detail panel, date/time pickers, editing (10 features)┃
+┃   • Week 2 ✅: Quick add modal, keyboard shortcuts (10+ features)         ┃
+┃   • Week 3-5: Drag&drop, filters, search, board, calendar (pending)     ┃
+┃   • 70+ items planned, 20+ completed                                     ┃
+┃   • Duration: 3-4 weeks (on track)                                       ┃
 ┃                                                                           ┃
 ┃ Phase 3: Advanced Features            ░░░░░░░░░░░░░░░░░░░░   0% ⏳      ┃
 ┃   • Recurring tasks, calendar, templates, collaboration                  ┃
@@ -32,7 +32,7 @@
 ┃   • 60+ items planned                                                     ┃
 ┃   • Duration: 4-6 weeks (estimated)                                      ┃
 ┃                                                                           ┃
-┃ TOTAL COMPLETION:                     ████░░░░░░░░░░░░░░░░  22% (Week 1) ┃
+┃ TOTAL COMPLETION:                     ███████░░░░░░░░░░░░░  32% (W1-W2) ┃
 ┃                                                                           ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
@@ -118,32 +118,41 @@
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
 ┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
-┃ PHASE 2: WEEK 1 COMPLETE ✅ + WEEK 2 STARTING                            ┃
+┃ PHASE 2: WEEKS 1-2 COMPLETE ✅ → WEEK 3 STARTING                        ┃
 ┣━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┫
 ┃                                                                           ┃
-┃ Week 1 Completed (10+ features):                                          ┃
+┃ Week 1 ✅ Completed (10 features):                                        ┃
 ┃   ✅ Task detail panel with full modal editing                            ┃
-┃   ✅ DatePickerInput with calendar and natural language                   ┃
-┃   ✅ TimePickerInput with preset times and natural language               ┃
-┃   ✅ PrioritySelector, ProjectSelector, SectionSelector components        ┃
-┃   ✅ Task editing: title, description, due date/time, priority, project   ┃
-┃   ✅ Delete task with confirmation                                        ┃
-┃   ✅ Save/discard with unsaved changes indicator                          ┃
+┃   ✅ DatePickerInput with calendar + natural language                     ┃
+┃   ✅ TimePickerInput with preset times + natural language                 ┃
+┃   ✅ PrioritySelector, ProjectSelector, SectionSelector                   ┃
 ┃   ✅ taskDetailStore for state management                                 ┃
-┃   ✅ Integration with TaskItem click                                      ┃
+┃   ✅ Full editing: title, description, date/time, priority, project       ┃
+┃   ✅ Delete with confirmation, save/discard changes                       ┃
 ┃                                                                           ┃
-┃ Week 2 Priority (Next):                                                  ┃
-┃   1️⃣ Quick add modal (Cmd+K shortcut)                                    ┃
-┃   2️⃣ Keyboard shortcuts system (20+ shortcuts)                            ┃
-┃   3️⃣ Natural language parsing enhancement                                 ┃
+┃ Week 2 ✅ Completed (10+ features):                                       ┃
+┃   ✅ QuickAddModal with Cmd+K and Q shortcuts                             ┃
+┃   ✅ Natural language parsing: dates, times, priorities                    ┃
+┃   ✅ Display parsed properties as visual chips                            ┃
+┃   ✅ Recent items history (last 10 stored in localStorage)                ┃
+┃   ✅ keyboardStore + useKeyboardShortcuts hook                            ┃
+┃   ✅ KeyboardShortcutsHelp modal (? key) with categories                  ┃
+┃   ✅ Framework ready for: Ctrl+Enter, 1-4, T, M, W                       ┃
+┃   ✅ Global keyboard event listener with smart input detection            ┃
 ┃                                                                           ┃
-┃ Weeks 3-5:                                                                ┃
-┃   • Drag & drop, filters & labels, search, board/calendar views           ┃
+┃ Week 3-5 Priority:                                                        ┃
+┃   1️⃣ Drag & drop (@dnd-kit) - Task reordering, move between sections     ┃
+┃   2️⃣ Filters & Labels - Create, edit, filter by labels                   ┃
+┃   3️⃣ Search & Command Palette - Global search functionality              ┃
+┃   4️⃣ Sub-tasks - Unlimited nesting with keyboard support                 ┃
+┃   5️⃣ Board View - Kanban with columns by section/priority                ┃
+┃   6️⃣ Calendar View - Monthly/weekly/daily with drag to reschedule        ┃
 ┃                                                                           ┃
 ┃ Documentation:                                                            ┃
-┃   📄 PHASE_2_WEEK1_SUMMARY.md  (What was built this week)                ┃
-┃   📄 PHASE_2_CHECKLIST.md      (Full implementation guide)               ┃
-┃   📄 PROGRESS.md               (Quick status dashboard)                   ┃
+┃   📄 PHASE_2_WEEK1_SUMMARY.md  (Week 1 details)                          ┃
+┃   📄 PHASE_2_WEEK2_SUMMARY.md  (Week 2 details)                          ┃
+┃   📄 PHASE_2_CHECKLIST.md      (Full implementation guide - updated)      ┃
+┃   📄 PROGRESS.md               (Live status - 28% Phase 2)               ┃
 ┃                                                                           ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
@@ -231,18 +240,21 @@
 
 ╔════════════════════════════════════════════════════════════════════════════╗
 ║                                                                            ║
-║          ✨ Phase 2, Week 1 Complete - Moving to Week 2 ✨               ║
+║     ✨ Weeks 1-2 Complete! Task Detail Panel + Quick Add Modal Ready ✨   ║
 ║                                                                            ║
-║    Task Detail Panel is now fully functional. Users can:                  ║
-║      • Click any task to open detail modal                                ║
-║      • Edit all task properties (due date, time, priority, project)       ║
-║      • Save changes to IndexedDB                                          ║
-║      • Delete tasks with confirmation                                     ║
+║    Core Features Now Working:                                             ║
+║      🎯 Click any task → full edit modal with all properties              ║
+║      ⚡ Press Cmd+K → Quick add with natural language (dates, priority)   ║
+║      ⌨️  Press ? → Keyboard shortcuts help (13+ shortcuts listed)         ║
+║      📝 Natural language parsing for dates and times                      ║
+║      💾 Changes saved to IndexedDB instantly                              ║
+║      🔄 Quick add history preserved in localStorage                       ║
 ║                                                                            ║
-║    Next: Quick Add Modal (Cmd+K) and Keyboard Shortcuts                   ║
+║    Progress: 32% complete (20+ features in 2 weeks)                       ║
+║    Next: Drag & Drop, Filters & Labels, Search (Week 3+)                 ║
 ║                                                                            ║
 ╚════════════════════════════════════════════════════════════════════════════╝
 
 Last Updated: December 3, 2025
 Location: /Users/lasse/Sites/todone-amp
-Status: Phase 1 Complete (100%), Phase 2 Week 1 Complete (14% of Phase 2)
+Status: Phase 1 Complete (100%), Phase 2 Weeks 1-2 Complete (28% of Phase 2)

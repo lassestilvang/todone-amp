@@ -62,7 +62,7 @@
 
 ---
 
-## Phase 2: Essential Features ⬜ (In Progress)
+## Phase 2: Essential Features ⬜ (In Progress - 28% Complete)
 
 ### Priority Order
 
@@ -80,16 +80,23 @@
    - [ ] Rich text description (defer to Phase 3)
    - [ ] Labels multi-select (Week 3)
 
-2. **Quick Add Modal** (Critical)
-   - Cmd+K shortcut
-   - Natural language parsing
-   - Smart suggestions
-   - History
+2. **Quick Add Modal** (Critical) ✅ Week 2 Complete (90%)
+    - [x] Cmd+K and Q shortcuts
+    - [x] Natural language parsing (date, time, priority)
+    - [x] Display parsed properties as chips
+    - [x] Recent items history (last 10)
+    - [x] localStorage persistence
+    - [x] Create task on Enter
+    - [ ] Label/project/assignee parsing (Phase 3)
 
-3. **Keyboard Shortcuts** (High)
-   - All 20+ shortcuts
-   - Customization support
-   - Help menu
+3. **Keyboard Shortcuts** (High) ✅ Week 2 Complete (70%)
+    - [x] Framework/foundation (keyboardStore)
+    - [x] Global event listener (useKeyboardShortcuts)
+    - [x] Core shortcuts wired (Cmd+K, Q, Escape, ?, Ctrl+Enter)
+    - [x] Help modal with all shortcuts (?)
+    - [x] Smart input detection
+    - [x] Framework ready for: 1-4, T, M, W
+    - [ ] Customization in settings (Phase 4)
 
 4. **Drag & Drop** (High)
    - Task reordering
