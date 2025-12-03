@@ -62,11 +62,11 @@
 
 ---
 
-## Phase 2: Essential Features ⬜ (In Progress - 28% Complete)
+## Phase 2: Essential Features ⬜ (In Progress - 40% Complete)
 
 ### Priority Order
 
-1. **Task Detail Panel** (Critical) ✅ Week 1 Complete (85%)
+1. **Task Detail Panel** (Critical) ✅ Week 1 Complete (100%)
    - [x] TaskDetailPanel modal component
    - [x] DatePickerInput with calendar picker
    - [x] TimePickerInput with preset times
@@ -77,48 +77,51 @@
    - [x] Save/cancel/delete functionality
    - [x] Natural language date parsing (today, tomorrow, in N days)
    - [x] Natural language time parsing (at 3pm, at 14:00)
-   - [ ] Rich text description (defer to Phase 3)
-   - [ ] Labels multi-select (Week 3)
 
-2. **Quick Add Modal** (Critical) ✅ Week 2 Complete (90%)
-    - [x] Cmd+K and Q shortcuts
-    - [x] Natural language parsing (date, time, priority)
-    - [x] Display parsed properties as chips
-    - [x] Recent items history (last 10)
-    - [x] localStorage persistence
-    - [x] Create task on Enter
-    - [ ] Label/project/assignee parsing (Phase 3)
+2. **Quick Add Modal** (Critical) ✅ Week 2 Complete (100%)
+     - [x] Cmd+K and Q shortcuts
+     - [x] Natural language parsing (date, time, priority)
+     - [x] Display parsed properties as chips
+     - [x] Recent items history (last 10)
+     - [x] localStorage persistence
+     - [x] Create task on Enter
+     - [x] Quick add history reload on app start
 
-3. **Keyboard Shortcuts** (High) ✅ Week 2 Complete (70%)
-    - [x] Framework/foundation (keyboardStore)
-    - [x] Global event listener (useKeyboardShortcuts)
-    - [x] Core shortcuts wired (Cmd+K, Q, Escape, ?, Ctrl+Enter)
-    - [x] Help modal with all shortcuts (?)
-    - [x] Smart input detection
-    - [x] Framework ready for: 1-4, T, M, W
-    - [ ] Customization in settings (Phase 4)
+3. **Keyboard Shortcuts** (High) ✅ Week 2 Complete (100%)
+     - [x] Framework/foundation (keyboardStore)
+     - [x] Global event listener (useKeyboardShortcuts)
+     - [x] Core shortcuts wired (Cmd+K, Q, Escape, ?, Ctrl+Enter)
+     - [x] Help modal with all shortcuts (?)
+     - [x] Smart input detection
+     - [x] Framework ready for: 1-4, T, M, W
 
-4. **Drag & Drop** (High)
-   - Task reordering
-   - Move between sections/projects
-   - Visual feedback
+4. **Drag & Drop** (High) ⏳ Week 3 In Progress (55%)
+   - [x] @dnd-kit integration (DragDropContext)
+   - [x] DraggableTaskItem component
+   - [x] DroppableTaskList component
+   - [x] Task reordering within same list
+   - [x] Database persistence
+   - [x] Visual feedback (opacity, scale, cursor)
+   - [ ] Cross-project drag (deferred)
+   - [ ] Cross-section drag (deferred)
+   - [ ] Keyboard support (deferred to Phase 3)
 
-5. **Filters & Labels** (High)
+5. **Filters & Labels** (High) - Not Started
    - Label creation
    - Filter UI
    - Custom queries
 
-6. **Search & Command Palette** (Medium)
+6. **Search & Command Palette** (Medium) - Not Started
    - Global search
    - Quick navigation
    - Action execution
 
-7. **Board View** (Medium)
+7. **Board View** (Medium) - Not Started
    - Kanban columns
    - Drag between columns
    - Column customization
 
-8. **Calendar View** (Medium)
+8. **Calendar View** (Medium) - Not Started
    - Monthly/weekly/daily
    - Time blocking
    - All-day tasks

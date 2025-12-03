@@ -3,6 +3,8 @@ import { X, Trash2 } from 'lucide-react'
 import { cn } from '@/utils/cn'
 import { useTaskDetailStore } from '@/store/taskDetailStore'
 import { useTaskStore } from '@/store/taskStore'
+import { useLabelStore } from '@/store/labelStore'
+import { useAuthStore } from '@/store/authStore'
 import { Button } from '@/components/Button'
 import { Input } from '@/components/Input'
 import { DatePickerInput } from '@/components/DatePickerInput'
@@ -10,6 +12,7 @@ import { TimePickerInput } from '@/components/TimePickerInput'
 import { PrioritySelector } from '@/components/PrioritySelector'
 import { ProjectSelector } from '@/components/ProjectSelector'
 import { SectionSelector } from '@/components/SectionSelector'
+import { LabelSelector } from '@/components/LabelSelector'
 
 export function TaskDetailPanel() {
   const {
@@ -186,6 +189,20 @@ export function TaskDetailPanel() {
                 value={selectedTask.sectionId}
                 onChange={(sectionId) => {
                   updateSelectedTask({ sectionId })
+                }}
+              />
+            </div>
+
+            {/* Labels */}
+            <div>
+              <LabelSelector
+                selectedLabelIds={selectedTask.labels}
+                onAdd={(labelId) => {
+                  const updated = Array.from(new Set([...selectedTask.labels, labelId]))
+                  updateSelectedTask({ labels: updated })
+                }}
+                onRemove={(labelId) => {
+                  updateSelectedTask({ labels: selectedTask.labels.filter((id) => id !== labelId) })
                 }}
               />
             </div>
