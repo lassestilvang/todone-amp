@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { useAuthStore } from '@/store/authStore'
 import { useTaskStore } from '@/store/taskStore'
 import { useProjectStore } from '@/store/projectStore'
+import { useLabelStore } from '@/store/labelStore'
+import { useFilterStore } from '@/store/filterStore'
 import { initializeQuickAddStore } from '@/store/quickAddStore'
 import { Sidebar } from '@/components/Sidebar'
 import { InboxView } from '@/views/InboxView'
@@ -22,6 +24,8 @@ function App() {
   const loadUser = useAuthStore((state) => state.loadUser)
   const loadTasks = useTaskStore((state) => state.loadTasks)
   const loadProjects = useProjectStore((state) => state.loadProjects)
+  const loadLabels = useLabelStore((state) => state.loadLabels)
+  const loadFilters = useFilterStore((state) => state.loadFilters)
   
   // Initialize keyboard shortcuts
   useKeyboardShortcuts()
@@ -45,6 +49,8 @@ function App() {
     if (user) {
       loadTasks()
       loadProjects(user.id)
+      loadLabels(user.id)
+      loadFilters(user.id)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])

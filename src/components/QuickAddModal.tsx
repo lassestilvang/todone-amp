@@ -3,6 +3,8 @@ import { X, Clock, Zap } from 'lucide-react'
 import { cn } from '@/utils/cn'
 import { useQuickAddStore } from '@/store/quickAddStore'
 import { useTaskStore } from '@/store/taskStore'
+import { useLabelStore } from '@/store/labelStore'
+import { useProjectStore } from '@/store/projectStore'
 import { parseNaturalLanguageDate, parseNaturalLanguageTime } from '@/utils/date'
 
 interface ParsedTask {
@@ -10,13 +12,17 @@ interface ParsedTask {
   dueDate?: Date
   dueTime?: string
   priority?: 'p1' | 'p2' | 'p3' | 'p4'
+  projectId?: string
+  labelIds: string[]
 }
 
 export function QuickAddModal() {
   const { isOpen, closeQuickAdd, recentItems, addToRecent, clearRecent } = useQuickAddStore()
   const { createTask } = useTaskStore()
+  const labels = useLabelStore((state) => state.labels)
+  const projects = useProjectStore((state) => state.projects)
   const [input, setInput] = useState('')
-  const [parsed, setParsed] = useState<ParsedTask>({ content: '' })
+  const [parsed, setParsed] = useState<ParsedTask>({ content: '', labelIds: [] })
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -52,6 +58,30 @@ export function QuickAddModal() {
     let dueDate: Date | undefined
     let dueTime: string | undefined
     let priority: 'p1' | 'p2' | 'p3' | 'p4' | undefined
+    let projectId: string | undefined
+    const labelIds: string[] = []
+
+    // Parse project (#project_name)
+    const projectMatch = content.match(/#(\w+)/i)
+    if (projectMatch) {
+      const projectName = projectMatch[1].toLowerCase()
+      const project = projects.find((p) => p.name.toLowerCase() === projectName)
+      if (project) {
+        projectId = project.id
+        content = content.replace(projectMatch[0], '').trim()
+      }
+    }
+
+    // Parse labels (@label_name)
+    const labelMatches = content.matchAll(/@(\w+)/gi)
+    for (const match of labelMatches) {
+      const labelName = match[1].toLowerCase()
+      const label = labels.find((l) => l.name.toLowerCase() === labelName)
+      if (label && !labelIds.includes(label.id)) {
+        labelIds.push(label.id)
+        content = content.replace(match[0], '').trim()
+      }
+    }
 
     // Parse priority (p1, p2, p3, p4, !, !!, !!!)
     const priorityMatch = content.match(/(p[1-4]|!{1,3})\s*$/i)
@@ -91,6 +121,8 @@ export function QuickAddModal() {
       dueDate,
       dueTime,
       priority,
+      projectId,
+      labelIds,
     })
   }
 
@@ -111,16 +143,17 @@ export function QuickAddModal() {
         dueDate: parsed.dueDate,
         dueTime: parsed.dueTime,
         priority: parsed.priority || null,
+        projectId: parsed.projectId,
         order: 0,
         completed: false,
-        labels: [],
+        labels: parsed.labelIds,
         reminders: [],
         attachments: [],
       })
 
       addToRecent(parsed.content)
       setInput('')
-      setParsed({ content: '' })
+      setParsed({ content: '', labelIds: [] })
       closeQuickAdd()
     } catch (error) {
       console.error('Failed to create task:', error)
@@ -156,7 +189,7 @@ export function QuickAddModal() {
             <div>
               <h2 className="text-lg font-semibold text-gray-900">Quick Add Task</h2>
               <p className="text-xs text-gray-500 mt-1">
-                Try: "Buy groceries tomorrow at 3pm p1"
+                Try: "Buy groceries #project @label tomorrow at 3pm p1"
               </p>
             </div>
             <button
@@ -184,7 +217,7 @@ export function QuickAddModal() {
             />
 
             {/* Parsed Properties */}
-            {(parsed.dueDate || parsed.dueTime || parsed.priority) && (
+            {(parsed.dueDate || parsed.dueTime || parsed.priority || parsed.projectId || parsed.labelIds.length > 0) && (
               <div className="flex flex-wrap gap-2 p-3 bg-gray-50 rounded-lg border border-gray-200">
                 {parsed.priority && (
                   <div className="inline-flex items-center gap-1 px-3 py-1 bg-white border border-gray-300 rounded-full text-xs font-medium">
@@ -213,13 +246,31 @@ export function QuickAddModal() {
                 )}
 
                 {parsed.dueTime && (
-                  <div className="inline-flex items-center gap-1 px-3 py-1 bg-white border border-gray-300 rounded-full text-xs font-medium text-gray-700">
-                    <Clock size={14} />
-                    {parsed.dueTime}
-                  </div>
+                   <div className="inline-flex items-center gap-1 px-3 py-1 bg-white border border-gray-300 rounded-full text-xs font-medium text-gray-700">
+                     <Clock size={14} />
+                     {parsed.dueTime}
+                   </div>
+                 )}
+
+                {parsed.projectId && (
+                   <div className="inline-flex items-center gap-1 px-3 py-1 bg-white border border-gray-300 rounded-full text-xs font-medium text-gray-700">
+                     <span className="font-semibold">📁</span>
+                     {projects.find((p) => p.id === parsed.projectId)?.name}
+                   </div>
+                 )}
+
+                {parsed.labelIds.map((labelId) => {
+                   const label = labels.find((l) => l.id === labelId)
+                   if (!label) return null
+                   return (
+                     <div key={labelId} className="inline-flex items-center gap-1 px-3 py-1 bg-white border border-gray-300 rounded-full text-xs font-medium text-gray-700">
+                       <span className="font-semibold">🏷️</span>
+                       {label.name}
+                     </div>
+                   )
+                 })}
+                </div>
                 )}
-              </div>
-            )}
 
             {/* Submit Button */}
             <button
@@ -283,11 +334,11 @@ export function QuickAddModal() {
           {/* Help Text */}
           <div className="border-t border-gray-200 px-6 py-3 bg-blue-50 text-xs text-gray-600 space-y-1">
             <p>
-              <strong>Shortcuts:</strong> Use natural language like "tomorrow", "next Monday", "at 3pm",
-              "p1", "p2", etc.
+              <strong>Natural Language:</strong> Dates (today, tomorrow, Friday), Times (at 3pm, at 14:00),
+              Priority (p1-p4), Projects (#name), Labels (@name)
             </p>
             <p>
-              <strong>Examples:</strong> "Buy milk tomorrow p2" • "Team meeting Friday at 2pm p1"
+              <strong>Examples:</strong> "Buy milk tomorrow p2" • "Team meeting #project @urgent Friday at 2pm p1"
             </p>
           </div>
         </div>

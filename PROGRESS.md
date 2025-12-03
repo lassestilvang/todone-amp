@@ -62,7 +62,7 @@
 
 ---
 
-## Phase 2: Essential Features ⬜ (In Progress - 40% Complete)
+## Phase 2: Essential Features ⏳ (In Progress - 43% Complete)
 
 ### Priority Order
 
@@ -106,10 +106,11 @@
    - [ ] Cross-section drag (deferred)
    - [ ] Keyboard support (deferred to Phase 3)
 
-5. **Filters & Labels** (High) - Not Started
-   - Label creation
-   - Filter UI
-   - Custom queries
+5. **Filters & Labels** (High) ⏳ Week 4 In Progress (70%)
+   - [x] Label creation, editing, deletion (full CRUD)
+   - [x] Natural language parsing (#project @label)
+   - [ ] Filter UI and integration
+   - [ ] Custom query builder
 
 6. **Search & Command Palette** (Medium) - Not Started
    - Global search

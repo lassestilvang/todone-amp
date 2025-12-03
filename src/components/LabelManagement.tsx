@@ -15,7 +15,7 @@ interface LabelManagementProps {
 }
 
 export function LabelManagement({ isOpen, onClose, userId }: LabelManagementProps) {
-  const { labels, createLabel, updateLabel, deleteLabel, loadLabels } = useLabelStore()
+  const { labels, createLabel, updateLabel, deleteLabel } = useLabelStore()
   const [newLabelName, setNewLabelName] = useState('')
   const [newLabelColor, setNewLabelColor] = useState<LabelColor>('blue')
   const [editingId, setEditingId] = useState<string | null>(null)

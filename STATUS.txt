@@ -15,11 +15,13 @@
 ┃   • 45+ items completed                                                   ┃
 ┃   • Duration: 1 session                                                   ┃
 ┃                                                                           ┃
-┃ Phase 2: Essential Features           ████████░░░░░░░░░░░░  40% (W1-W3) ┃
+┃ Phase 2: Essential Features           █████████░░░░░░░░░░░  43% (W1-W4) ┃
 ┃   • Week 1 ✅: Task detail panel, date/time pickers, editing (10 features)┃
-┃   • Week 2 ✅: Quick add modal, keyboard shortcuts (10+ features)         ┃
-┃   • Week 3-5: Drag&drop, filters, search, board, calendar (pending)     ┃
-┃   • 70+ items planned, 20+ completed                                     ┃
+┃   • Week 2 ✅: Quick add modal, keyboard shortcuts (11 features)         ┃
+┃   • Week 3 ✅: Drag&drop foundation (8 features)                         ┃
+┃   • Week 4 🔄: Labels & natural language parsing (7 features - 70%)      ┃
+┃   • Week 5+: Search, sub-tasks, board, calendar (pending)               ┃
+┃   • 70+ items planned, 36+ completed                                     ┃
 ┃   • Duration: 3-4 weeks (on track)                                       ┃
 ┃                                                                           ┃
 ┃ Phase 3: Advanced Features            ░░░░░░░░░░░░░░░░░░░░   0% ⏳      ┃
@@ -32,7 +34,7 @@
 ┃   • 60+ items planned                                                     ┃
 ┃   • Duration: 4-6 weeks (estimated)                                      ┃
 ┃                                                                           ┃
-┃ TOTAL COMPLETION:                     ███████░░░░░░░░░░░░░  40% (W1-W3) ┃
+┃ TOTAL COMPLETION:                     █████████░░░░░░░░░░░  43% (W1-W4) ┃
 ┃                                                                           ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
@@ -141,29 +143,40 @@
 ┃   ✅ Global keyboard event listener with smart input detection            ┃
 ┃   ✅ History reload on app initialization                                 ┃
 ┃                                                                           ┃
-┃ Week 3 🔄 In Progress (8 features - 55%):                                 ┃
+┃ Week 3 ✅ Completed (8 features - 100%):                                  ┃
 ┃   ✅ DragDropContext (@dnd-kit integration)                               ┃
 ┃   ✅ DraggableTaskItem component                                          ┃
 ┃   ✅ DroppableTaskList component                                          ┃
 ┃   ✅ Task reordering within same list                                     ┃
 ┃   ✅ Database persistence for order                                       ┃
 ┃   ✅ Visual drag feedback (opacity, scale, cursor)                        ┃
-┃   🔄 Smooth animations (CSS transitions)                                  ┃
-┃   ⏳ Cross-project/section drag (deferred to Week 4)                      ┃
+┃   ✅ Smooth animations (CSS transitions)                                  ┃
+┃   ✅ Drag store for state management                                      ┃
 ┃                                                                           ┃
-┃ Week 4-5 Priority:                                                        ┃
-┃   1️⃣ Complete drag & drop - Cross-project/section support                ┃
-┃   2️⃣ Filters & Labels - Create, edit, filter by labels                   ┃
-┃   3️⃣ Search & Command Palette - Global search functionality              ┃
-┃   4️⃣ Sub-tasks - Unlimited nesting with keyboard support                 ┃
-┃   5️⃣ Board View - Kanban with columns by section/priority                ┃
-┃   6️⃣ Calendar View - Monthly/weekly/daily with drag to reschedule        ┃
+┃ Week 4 🔄 In Progress (7 features - 70%):                                 ┃
+┃   ✅ Natural language parsing for #project_name                           ┃
+┃   ✅ Natural language parsing for @label_name (multiple)                  ┃
+┃   ✅ Project chip display in quick add                                    ┃
+┃   ✅ Label chip display in quick add (multiple)                           ┃
+┃   ✅ LabelStore integration with App                                      ┃
+┃   ✅ FilterStore integration with App                                     ┃
+┃   ⏳ FilterStore UI integration (views, sidebar)                          ┃
+┃                                                                           ┃
+┃ Week 5-6 Priority:                                                        ┃
+┃   1️⃣ Search & Command Palette - Smart mode, global search               ┃
+┃   2️⃣ Sub-tasks - Unlimited nesting with keyboard support                 ┃
+┃   3️⃣ Board View - Kanban with columns by section/priority                ┃
+┃   4️⃣ Calendar View - Monthly/weekly/daily with drag to reschedule        ┃
+┃   5️⃣ Filter UI - Sidebar filters, saved custom filters                   ┃
 ┃                                                                           ┃
 ┃ Documentation:                                                            ┃
-┃   📄 PHASE_2_WEEK1_SUMMARY.md  (Week 1 details)                          ┃
-┃   📄 PHASE_2_WEEK2_SUMMARY.md  (Week 2 details)                          ┃
-┃   📄 PHASE_2_CHECKLIST.md      (Full implementation guide - updated)      ┃
-┃   📄 PROGRESS.md               (Live status - 28% Phase 2)               ┃
+┃   📄 PHASE_2_WEEK1_SUMMARY.md   (Week 1 details)                         ┃
+┃   📄 PHASE_2_WEEK2_SUMMARY.md   (Week 2 details)                         ┃
+┃   📄 PHASE_2_WEEK3_SUMMARY.md   (Week 3 details - drag foundation)        ┃
+┃   📄 PHASE_2_WEEK4_SUMMARY.md   (Week 4 details - labels & parsing)       ┃
+┃   📄 PHASE_2_CHECKLIST.md       (Full implementation guide - updated)     ┃
+┃   📄 PROGRESS.md                (Live status - 43% Phase 2)              ┃
+┃   📄 PHASE_2_CURRENT_STATUS.md  (Comprehensive report)                   ┃
 ┃                                                                           ┃
 ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
 
@@ -251,22 +264,23 @@
 
 ╔════════════════════════════════════════════════════════════════════════════╗
 ║                                                                            ║
-║     ✨ Weeks 1-3 in Progress! Drag & Drop Foundation Now Ready ✨        ║
+║   ✨ Weeks 1-4 in Progress! Natural Language Labels & Projects Ready ✨  ║
 ║                                                                            ║
 ║    Core Features Now Working:                                             ║
 ║      🎯 Click any task → full edit modal with all properties              ║
-║      ⚡ Press Cmd+K → Quick add with natural language (dates, priority)   ║
+║      ⚡ Press Cmd+K → Quick add with natural language parsing            ║
+║         Supports: dates, times, priority, #project, @label               ║
 ║      ⌨️  Press ? → Keyboard shortcuts help (13+ shortcuts listed)         ║
 ║      🔄 Drag tasks to reorder them (smooth animations, persists!)         ║
-║      📝 Natural language parsing for dates and times                      ║
+║      📝 Natural language parsing for dates, times, projects, labels       ║
 ║      💾 Changes saved to IndexedDB instantly                              ║
 ║      📚 Quick add history preserved in localStorage & reloaded             ║
 ║                                                                            ║
-║    Progress: 40% complete (29+ features in 3 weeks)                       ║
-║    Next: Complete drag & drop, Filters & Labels, Search (Week 4+)        ║
+║    Progress: 43% complete (36+ features in 4 weeks)                       ║
+║    Next: Search & Command Palette, Sub-tasks, Board View (Week 5+)       ║
 ║                                                                            ║
 ╚════════════════════════════════════════════════════════════════════════════╝
 
 Last Updated: December 3, 2025
 Location: /Users/lasse/Sites/todone-amp
-Status: Phase 1 Complete (100%), Phase 2 Weeks 1-2 Complete (28% of Phase 2)
+Status: Phase 1 Complete (100%), Phase 2 Weeks 1-4 In Progress (43% of Phase 2)
