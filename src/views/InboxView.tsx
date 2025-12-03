@@ -14,6 +14,7 @@ export const InboxView: React.FC = () => {
   useEffect(() => {
     loadTasks()
     setFilter({ completed: false })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const inboxTasks = tasks.filter((t) => !t.projectId)

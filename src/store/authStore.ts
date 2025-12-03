@@ -31,7 +31,7 @@ const defaultSettings: UserSettings = {
   enableNotifications: true,
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
+export const useAuthStore = create<AuthState>((set, get) => ({
   user: null,
   isAuthenticated: false,
   isLoading: true,
@@ -109,7 +109,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   },
 
   updateUser: async (updates) => {
-    const { user } = (set as any)((state: AuthState) => state)
+    const { user } = get()
     if (!user) return
 
     const updated = { ...user, ...updates }
@@ -118,8 +118,7 @@ export const useAuthStore = create<AuthState>((set) => ({
   },
 
   updateSettings: async (settings) => {
-    const state = (set as any)((s: AuthState) => s)
-    const { user } = state
+    const { user } = get()
     if (!user) return
 
     const updatedUser = {

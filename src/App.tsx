@@ -7,6 +7,7 @@ import { InboxView } from '@/views/InboxView'
 import { TodayView } from '@/views/TodayView'
 import { UpcomingView } from '@/views/UpcomingView'
 import { AuthPage } from '@/pages/AuthPage'
+import { TaskDetailPanel } from '@/components/TaskDetailPanel'
 
 function App() {
   const [currentView, setCurrentView] = useState('inbox')
@@ -25,6 +26,7 @@ function App() {
     } else {
       useAuthStore.setState({ isLoading: false })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Load data when user changes
@@ -33,6 +35,7 @@ function App() {
       loadTasks()
       loadProjects(user.id)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
 
   if (isLoading) {
@@ -71,6 +74,7 @@ function App() {
       <main className="flex-1 flex flex-col overflow-hidden">
         {renderView()}
       </main>
+      <TaskDetailPanel />
     </div>
   )
 }

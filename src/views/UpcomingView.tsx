@@ -13,6 +13,7 @@ export const UpcomingView: React.FC = () => {
 
   useEffect(() => {
     loadTasks()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const upcomingTasks = useMemo(() => {

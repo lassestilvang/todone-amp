@@ -3,6 +3,7 @@ import { Task } from '@/types'
 import { formatDueDate, isTaskOverdue } from '@/utils/date'
 import { cn } from '@/utils/cn'
 import { ChevronRight } from 'lucide-react'
+import { useTaskDetailStore } from '@/store/taskDetailStore'
 
 interface TaskItemProps {
   task: Task
@@ -22,6 +23,12 @@ const priorityConfig: Record<string, { color: string; icon: string }> = {
 export const TaskItem: React.FC<TaskItemProps> = ({ task, onToggle, onSelect, isSelected }) => {
   const priorityConfig_ = priorityConfig[task.priority ?? 'null']
   const dueDateOverdue = task.dueDate && isTaskOverdue(task.dueDate)
+  const openTaskDetail = useTaskDetailStore((state) => state.openTaskDetail)
+
+  const handleTaskClick = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    openTaskDetail(task.id, task)
+  }
 
   return (
     <div
@@ -52,7 +59,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, onToggle, onSelect, is
       </div>
 
       {/* Task Content */}
-      <div className="flex-1 min-w-0">
+      <div className="flex-1 min-w-0" onClick={handleTaskClick}>
         <p
           className={cn(
             'text-sm font-medium truncate',
