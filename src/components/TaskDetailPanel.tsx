@@ -13,6 +13,12 @@ import { SectionSelector } from '@/components/SectionSelector'
 import { LabelSelector } from '@/components/LabelSelector'
 import { RecurrenceSelector } from '@/components/RecurrenceSelector'
 import { SubTaskList } from '@/components/SubTaskList'
+import { AssigneeSelector } from '@/components/AssigneeSelector'
+import { CommentThread } from '@/components/CommentThread'
+import { ActivityFeed } from '@/components/ActivityFeed'
+import { RecurrenceExceptionManager } from '@/components/RecurrenceExceptionManager'
+import { RecurrenceInstancesList } from '@/components/RecurrenceInstancesList'
+import { RecurrenceCalendarView } from '@/components/RecurrenceCalendarView'
 
 export function TaskDetailPanel() {
   const {
@@ -180,6 +186,29 @@ export function TaskDetailPanel() {
               />
             </div>
 
+            {/* Recurrence Exceptions (if recurring) */}
+            {selectedTask.recurrence && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Recurrence Exceptions
+                </label>
+                <RecurrenceExceptionManager task={selectedTask} />
+              </div>
+            )}
+
+            {/* Recurrence Calendar (if recurring) */}
+            {selectedTask.recurrence && (
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Occurrences
+                </label>
+                <div className="grid grid-cols-2 gap-4">
+                  <RecurrenceCalendarView task={selectedTask} />
+                  <RecurrenceInstancesList task={selectedTask} />
+                </div>
+              </div>
+            )}
+
             {/* Project */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Project</label>
@@ -217,6 +246,17 @@ export function TaskDetailPanel() {
               />
             </div>
 
+            {/* Assignees */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Assign To</label>
+              <AssigneeSelector
+                assigneeIds={selectedTask.assigneeIds}
+                onChange={(assigneeIds) => {
+                  updateSelectedTask({ assigneeIds })
+                }}
+              />
+            </div>
+
             {/* Subtasks */}
             <div>
               <div className="flex items-center justify-between mb-3">
@@ -243,6 +283,19 @@ export function TaskDetailPanel() {
                   }
                 }}
               />
+            </div>
+
+            {/* Divider */}
+            <div className="border-t border-gray-200 pt-6" />
+
+            {/* Comments */}
+            <div>
+              <CommentThread taskId={selectedTask.id} />
+            </div>
+
+            {/* Activity Feed */}
+            <div>
+              <ActivityFeed taskId={selectedTask.id} />
             </div>
 
             {/* Unsaved Changes Indicator */}

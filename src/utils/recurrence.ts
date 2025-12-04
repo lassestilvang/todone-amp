@@ -190,6 +190,44 @@ export function formatRecurrencePattern(pattern: RecurrencePattern): string {
 }
 
 /**
+ * Handle editing a single instance vs all future instances
+ * Note: Mode is determined by user choice in UI
+ */
+export function getInstanceEditMode(): 'single' | 'future' | 'all' {
+  // Default to 'single' mode; UI will override based on user selection
+  return 'single'
+}
+
+/**
+ * Generate next N occurrences starting from a date
+ */
+export function getNextOccurrences(
+  currentDate: Date,
+  pattern: RecurrencePattern,
+  count: number = 5
+): Date[] {
+  const occurrences: Date[] = []
+  let current = new Date(currentDate)
+
+  for (let i = 0; i < count; i++) {
+    const next = getNextOccurrence(current, pattern)
+    if (!next) break
+
+    occurrences.push(new Date(next))
+    current = new Date(next)
+  }
+
+  return occurrences
+}
+
+/**
+ * Check if a date is an exception (skipped or rescheduled)
+ */
+export function isDateException(date: Date, exceptions: Date[]): boolean {
+  return exceptions.some((exc) => isSameDay(exc, date))
+}
+
+/**
  * Parse recurrence frequency from natural language
  */
 export function parseRecurrenceFromText(text: string): RecurrencePattern | null {

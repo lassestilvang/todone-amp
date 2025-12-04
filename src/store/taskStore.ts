@@ -1,7 +1,33 @@
 import { create } from 'zustand'
 import { db } from '@/db/database'
-import type { Task, RecurrencePattern } from '@/types'
+import type { Task, RecurrencePattern, ActivityAction } from '@/types'
 import { getNextOccurrence, validateRecurrencePattern } from '@/utils/recurrence'
+
+// Helper to log activity (will be called from stores)
+async function logActivity(
+  taskId: string,
+  userId: string,
+  action: ActivityAction,
+  changes?: Record<string, unknown>,
+  oldValue?: unknown,
+  newValue?: unknown
+) {
+  const activityId = `activity-${Date.now()}`
+  try {
+    await db.activities.add({
+      id: activityId,
+      taskId,
+      userId,
+      action,
+      changes,
+      oldValue,
+      newValue,
+      timestamp: new Date(),
+    })
+  } catch (error) {
+    console.error('Failed to log activity:', error)
+  }
+}
 
 interface TaskState {
   tasks: Task[]
@@ -38,6 +64,25 @@ interface TaskState {
   removeRecurrence: (taskId: string) => Promise<void>
   toggleRecurringTask: (taskId: string) => Promise<void>
   completeRecurringTask: (taskId: string) => Promise<void>
+  // Assignment actions
+  assignTask: (taskId: string, userId: string) => Promise<void>
+  unassignTask: (taskId: string, userId: string) => Promise<void>
+  getTaskAssignees: (taskId: string) => string[]
+  getTasksAssignedToUser: (userId: string) => Task[]
+  getTasksCreatedByUser: (userId: string) => Task[]
+  getUnassignedTasks: () => Task[]
+  // Recurrence instance operations
+  editRecurringTaskInstance: (
+    taskId: string,
+    instanceDate: Date,
+    updates: Partial<Task>,
+    mode: 'single' | 'future' | 'all'
+  ) => Promise<void>
+  deleteRecurringTaskInstance: (
+    taskId: string,
+    instanceDate: Date,
+    mode: 'single' | 'future' | 'all'
+  ) => Promise<void>
 }
 
 export const useTaskStore = create<TaskState>((set, get) => ({
@@ -54,6 +99,7 @@ export const useTaskStore = create<TaskState>((set, get) => ({
   createTask: async (taskData) => {
     const id = `task-${Date.now()}`
     const now = new Date()
+    const userId = taskData.createdBy || 'unknown'
     const newTask: Task = {
       ...taskData,
       id,
@@ -65,6 +111,10 @@ export const useTaskStore = create<TaskState>((set, get) => ({
       attachments: [],
     }
     await db.tasks.add(newTask)
+
+    // Log activity
+    await logActivity(id, userId, 'created', { content: taskData.content })
+
     const { tasks } = get()
     set({ tasks: [...tasks, newTask] })
     return id
@@ -95,12 +145,17 @@ export const useTaskStore = create<TaskState>((set, get) => ({
 
     const completed = !task.completed
     const completedAt = completed ? new Date() : undefined
+    const userId = task.createdBy || 'unknown'
 
     await db.tasks.update(id, { completed, completedAt })
+
+    // Log activity
+    await logActivity(id, userId, completed ? 'completed' : 'updated', {
+      status: completed ? 'completed' : 'active',
+    })
+
     set({
-      tasks: tasks.map((t) =>
-        t.id === id ? { ...t, completed, completedAt } : t
-      ),
+      tasks: tasks.map((t) => (t.id === id ? { ...t, completed, completedAt } : t)),
     })
   },
 
@@ -174,9 +229,7 @@ export const useTaskStore = create<TaskState>((set, get) => ({
     await db.tasks.update(id, { order: newOrder, updatedAt: now })
     const { tasks } = get()
     set({
-      tasks: tasks.map((t) =>
-        t.id === id ? { ...t, order: newOrder, updatedAt: now } : t
-      ),
+      tasks: tasks.map((t) => (t.id === id ? { ...t, order: newOrder, updatedAt: now } : t)),
     })
   },
 
@@ -237,7 +290,10 @@ export const useTaskStore = create<TaskState>((set, get) => ({
   deleteTaskAndSubtasks: async (id: string) => {
     const { tasks, getSubtasks } = get()
     const subtasks = getSubtasks(id)
-    const allToDelete = [id, ...subtasks.flatMap((st) => [st.id, ...getSubtasks(st.id).map((s) => s.id)])]
+    const allToDelete = [
+      id,
+      ...subtasks.flatMap((st) => [st.id, ...getSubtasks(st.id).map((s) => s.id)]),
+    ]
 
     for (const taskId of allToDelete) {
       await db.tasks.delete(taskId)
@@ -350,6 +406,175 @@ export const useTaskStore = create<TaskState>((set, get) => ({
     } else {
       // No more occurrences, just complete
       await useTaskStore.getState().toggleTask(taskId)
+    }
+  },
+
+  // Assignment methods
+  assignTask: async (taskId: string, userId: string) => {
+    const { tasks } = get()
+    const task = tasks.find((t) => t.id === taskId)
+    if (!task) return
+
+    const assigneeIds = task.assigneeIds || []
+    if (assigneeIds.includes(userId)) return // Already assigned
+
+    const newAssigneeIds = [...assigneeIds, userId]
+    const now = new Date()
+    const actorUserId = task.createdBy || 'unknown'
+
+    await db.tasks.update(taskId, {
+      assigneeIds: newAssigneeIds,
+      updatedAt: now,
+    })
+
+    // Log activity
+    await logActivity(taskId, actorUserId, 'assigned', { assignees: newAssigneeIds }, userId)
+
+    set({
+      tasks: tasks.map((t) =>
+        t.id === taskId ? { ...t, assigneeIds: newAssigneeIds, updatedAt: now } : t
+      ),
+    })
+  },
+
+  unassignTask: async (taskId: string, userId: string) => {
+    const { tasks } = get()
+    const task = tasks.find((t) => t.id === taskId)
+    if (!task) return
+
+    const assigneeIds = task.assigneeIds || []
+    const newAssigneeIds = assigneeIds.filter((id) => id !== userId)
+    const now = new Date()
+    const actorUserId = task.createdBy || 'unknown'
+
+    await db.tasks.update(taskId, {
+      assigneeIds: newAssigneeIds.length > 0 ? newAssigneeIds : undefined,
+      updatedAt: now,
+    })
+
+    // Log activity
+    await logActivity(taskId, actorUserId, 'unassigned', { assignees: newAssigneeIds }, userId)
+
+    set({
+      tasks: tasks.map((t) =>
+        t.id === taskId
+          ? {
+              ...t,
+              assigneeIds: newAssigneeIds.length > 0 ? newAssigneeIds : undefined,
+              updatedAt: now,
+            }
+          : t
+      ),
+    })
+  },
+
+  getTaskAssignees: (taskId: string) => {
+    const { tasks } = get()
+    const task = tasks.find((t) => t.id === taskId)
+    return task?.assigneeIds || []
+  },
+
+  getTasksAssignedToUser: (userId: string) => {
+    const { tasks } = get()
+    return tasks.filter((t) => t.assigneeIds?.includes(userId) || false)
+  },
+
+  getTasksCreatedByUser: (userId: string) => {
+    const { tasks } = get()
+    return tasks.filter((t) => t.createdBy === userId)
+  },
+
+  getUnassignedTasks: () => {
+    const { tasks } = get()
+    return tasks.filter((t) => !t.assigneeIds || t.assigneeIds.length === 0)
+  },
+
+  editRecurringTaskInstance: async (taskId, instanceDate, updates, mode) => {
+    const { tasks } = get()
+    const task = tasks.find((t) => t.id === taskId)
+    if (!task || !task.recurrence) return
+
+    const now = new Date()
+
+    if (mode === 'single') {
+      // Add exception for this date
+      const newExceptions = [...task.recurrence.exceptions, instanceDate]
+      const updatedRecurrence = {
+        ...task.recurrence,
+        exceptions: newExceptions,
+      }
+      await db.tasks.update(taskId, { recurrence: updatedRecurrence, updatedAt: now })
+      set({
+        tasks: tasks.map((t) =>
+          t.id === taskId ? { ...t, recurrence: updatedRecurrence, updatedAt: now } : t
+        ),
+      })
+    } else if (mode === 'future') {
+      // Remove recurrence after this date
+      const updated: Task = {
+        ...task,
+        recurrence: {
+          ...task.recurrence,
+          endDate: new Date(instanceDate.getTime() - 1),
+        },
+        updatedAt: now,
+      }
+      await db.tasks.update(taskId, updated)
+      set({
+        tasks: tasks.map((t) => (t.id === taskId ? updated : t)),
+      })
+    } else if (mode === 'all') {
+      // Apply updates to all instances
+      const updated: Task = { ...task, ...updates, updatedAt: now }
+      await db.tasks.update(taskId, updated)
+      set({
+        tasks: tasks.map((t) => (t.id === taskId ? updated : t)),
+      })
+    }
+  },
+
+  deleteRecurringTaskInstance: async (taskId, instanceDate, mode) => {
+    const { tasks } = get()
+    const task = tasks.find((t) => t.id === taskId)
+    if (!task || !task.recurrence) return
+
+    const now = new Date()
+
+    if (mode === 'single') {
+      // Skip this date
+      const newExceptions = [...task.recurrence.exceptions, instanceDate]
+      const updated = {
+        ...task,
+        recurrence: {
+          ...task.recurrence,
+          exceptions: newExceptions,
+        },
+        updatedAt: now,
+      }
+      await db.tasks.update(taskId, updated)
+      set({
+        tasks: tasks.map((t) => (t.id === taskId ? updated : t)),
+      })
+    } else if (mode === 'future') {
+      // End recurrence at this date
+      const updated = {
+        ...task,
+        recurrence: {
+          ...task.recurrence,
+          endDate: new Date(instanceDate.getTime() - 1),
+        },
+        updatedAt: now,
+      }
+      await db.tasks.update(taskId, updated)
+      set({
+        tasks: tasks.map((t) => (t.id === taskId ? updated : t)),
+      })
+    } else if (mode === 'all') {
+      // Delete task entirely
+      await db.tasks.delete(taskId)
+      set({
+        tasks: tasks.filter((t) => t.id !== taskId),
+      })
     }
   },
 }))

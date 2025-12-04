@@ -28,7 +28,71 @@ export function RecurrenceSelector({ value, onChange }: RecurrenceSelectorProps)
     { value: 'yearly', label: 'Yearly' },
   ]
 
+  const presets: Array<{ label: string; pattern: RecurrencePattern }> = [
+    {
+      label: 'Daily',
+      pattern: {
+        frequency: 'daily',
+        interval: 1,
+        startDate: new Date(),
+        exceptions: [],
+      },
+    },
+    {
+      label: 'Every Weekday',
+      pattern: {
+        frequency: 'weekly',
+        interval: 1,
+        daysOfWeek: [1, 2, 3, 4, 5],
+        startDate: new Date(),
+        exceptions: [],
+      },
+    },
+    {
+      label: 'Weekly',
+      pattern: {
+        frequency: 'weekly',
+        interval: 1,
+        startDate: new Date(),
+        exceptions: [],
+      },
+    },
+    {
+      label: 'Every 2 Weeks',
+      pattern: {
+        frequency: 'biweekly',
+        interval: 2,
+        startDate: new Date(),
+        exceptions: [],
+      },
+    },
+    {
+      label: 'Monthly',
+      pattern: {
+        frequency: 'monthly',
+        interval: 1,
+        dayOfMonth: new Date().getDate(),
+        startDate: new Date(),
+        exceptions: [],
+      },
+    },
+    {
+      label: 'Yearly',
+      pattern: {
+        frequency: 'yearly',
+        interval: 1,
+        startDate: new Date(),
+        exceptions: [],
+      },
+    },
+  ]
+
   const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+
+  const handlePreset = (preset: RecurrencePattern) => {
+    onChange(preset)
+    setIsOpen(false)
+  }
 
   const handleSave = () => {
     const pattern: RecurrencePattern = {
@@ -77,7 +141,32 @@ export function RecurrenceSelector({ value, onChange }: RecurrenceSelectorProps)
 
       {isOpen && (
         <div className="absolute z-50 mt-1 w-80 bg-white border border-gray-200 rounded-lg shadow-lg p-4 space-y-4">
-          {/* Frequency Selection */}
+           {/* Quick Presets */}
+           <div>
+             <label className="block text-xs font-semibold text-gray-600 uppercase mb-2 tracking-wide">
+               Quick Presets
+             </label>
+             <div className="grid grid-cols-2 gap-2">
+               {presets.map((preset) => (
+                 <button
+                   key={preset.label}
+                   onClick={() => handlePreset(preset.pattern)}
+                   className={cn(
+                     'px-2 py-1.5 text-xs font-medium rounded transition-colors',
+                     'border border-gray-200 hover:border-brand-400',
+                     'text-gray-700 hover:bg-brand-50'
+                   )}
+                 >
+                   {preset.label}
+                 </button>
+               ))}
+             </div>
+           </div>
+
+           {/* Divider */}
+           <div className="border-t border-gray-200" />
+
+           {/* Frequency Selection */}
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Frequency

@@ -5,6 +5,7 @@ import { useQuickAddStore } from '@/store/quickAddStore'
 import { useTaskStore } from '@/store/taskStore'
 import { useLabelStore } from '@/store/labelStore'
 import { useProjectStore } from '@/store/projectStore'
+import { useAuthStore } from '@/store/authStore'
 import { parseNaturalLanguageDate, parseNaturalLanguageTime } from '@/utils/date'
 import { parseRecurrenceFromText } from '@/utils/recurrence'
 import type { Task, Project, Label, RecurrencePattern } from '@/types'
@@ -34,6 +35,7 @@ type CommandMode = 'create' | 'search' | 'command'
 export function QuickAddModal() {
   const { isOpen, closeQuickAdd, recentItems, addToRecent, clearRecent } = useQuickAddStore()
   const { createTask, tasks } = useTaskStore()
+  const { user } = useAuthStore()
   const labels = useLabelStore((state) => state.labels)
   const projects = useProjectStore((state) => state.projects)
   const [input, setInput] = useState('')
@@ -271,6 +273,7 @@ export function QuickAddModal() {
         priority: parsed.priority || null,
         projectId: parsed.projectId,
         parentTaskId,
+        createdBy: user?.id,
         order: 0,
         completed: false,
         labels: parsed.labelIds,

@@ -7,10 +7,15 @@ import type {
   Label,
   Comment,
   Filter,
-  ActivityLog,
+  Activity,
   ProjectShare,
   Reminder,
   SyncQueue,
+  Team,
+  TeamMember,
+  RecurrenceInstance,
+  Template,
+  UserTemplate,
 } from '@/types'
 
 export class TodoneDB extends Dexie {
@@ -20,26 +25,36 @@ export class TodoneDB extends Dexie {
   tasks!: Table<Task>
   labels!: Table<Label>
   comments!: Table<Comment>
+  activities!: Table<Activity>
   filters!: Table<Filter>
-  activityLogs!: Table<ActivityLog>
   projectShares!: Table<ProjectShare>
   reminders!: Table<Reminder>
   syncQueue!: Table<SyncQueue>
+  teams!: Table<Team>
+  teamMembers!: Table<TeamMember>
+  recurrenceInstances!: Table<RecurrenceInstance>
+  templates!: Table<Template>
+  userTemplates!: Table<UserTemplate>
 
   constructor() {
     super('TodoneDB')
     this.version(1).stores({
       users: 'id, email',
-      projects: 'id, ownerId, parentProjectId, [ownerId+createdAt]',
+      projects: 'id, ownerId, teamId, parentProjectId, [ownerId+createdAt], [teamId+createdAt]',
       sections: 'id, projectId, [projectId+order]',
-      tasks: 'id, projectId, sectionId, parentTaskId, [projectId+order], [sectionId+order], completed, dueDate',
+      tasks: 'id, projectId, sectionId, parentTaskId, [projectId+order], [sectionId+order], completed, dueDate, createdBy',
       labels: 'id, ownerId, [ownerId+name]',
-      comments: 'id, taskId, [taskId+createdAt]',
+      comments: 'id, taskId, userId, [taskId+createdAt], [taskId+userId]',
+      activities: 'id, taskId, userId, [taskId+timestamp], [userId+timestamp], [taskId+action]',
       filters: 'id, ownerId, [ownerId+createdAt]',
-      activityLogs: 'id, taskId, [taskId+timestamp], [userId+timestamp]',
       projectShares: 'id, projectId, userId, [projectId+userId]',
       reminders: 'id, taskId, notified',
       syncQueue: 'id, entityType, synced, [synced+timestamp]',
+      teams: 'id, ownerId, [ownerId+createdAt]',
+      teamMembers: 'id, teamId, userId, [teamId+userId]',
+      recurrenceInstances: 'id, taskId, baseTaskId, dueDate, [taskId+dueDate], [baseTaskId+dueDate], completed',
+      templates: 'id, category, isPrebuilt, ownerId, [ownerId+createdAt], [category+isPrebuilt]',
+      userTemplates: 'id, userId, templateId, isFavorite, [userId+templateId], [userId+isFavorite]',
     })
   }
 }

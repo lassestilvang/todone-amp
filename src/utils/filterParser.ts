@@ -180,6 +180,10 @@ function evaluateCondition(task: Task, condition: ParsedFilter['condition']): bo
     case 'project':
       return task.projectId?.includes(value) || false
 
+    case 'assigned':
+    case 'assignee':
+      return evaluateAssignee(task, value)
+
     case 'due':
     case 'duedate':
       return evaluateDueDate(task, value)
@@ -198,6 +202,27 @@ function evaluateCondition(task: Task, condition: ParsedFilter['condition']): bo
     default:
       return false
   }
+}
+
+/**
+ * Evaluate assignee condition
+ */
+function evaluateAssignee(task: Task, value: string): boolean {
+  const v = value.toLowerCase()
+
+  // Check for "me" - currently always false in client context
+  // Will be resolved when task has createdBy user context
+  if (v === 'me') {
+    return false // TODO: Compare with current user from context
+  }
+
+  // Check for "unassigned"
+  if (v === 'unassigned') {
+    return !task.assigneeIds || task.assigneeIds.length === 0
+  }
+
+  // Check if specific userId matches any assignee
+  return task.assigneeIds?.some((id) => id.includes(v)) || false
 }
 
 /**
@@ -333,11 +358,14 @@ export function getFilterSuggestions(): string[] {
     'due:upcoming',
     'created:today',
     'search:keyword',
+    'assigned:me',
+    'assigned:unassigned',
     'priority:p1 AND status:active',
     '(priority:p1 OR priority:p2) AND status:active',
     'NOT status:completed',
     'label:urgent',
     'project:engineering',
+    'assigned:unassigned AND priority:p1',
   ]
 }
 

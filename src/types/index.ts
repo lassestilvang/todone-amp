@@ -7,12 +7,14 @@ export type Priority = 'p1' | 'p2' | 'p3' | 'p4' | null
 export type RecurrenceFrequency = 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'yearly'
 export type ViewType = 'list' | 'board' | 'calendar'
 export type UserRole = 'owner' | 'admin' | 'member'
+export type TeamRole = 'owner' | 'admin' | 'member'
 
 export interface User {
   id: string
   email: string
   name: string
   avatar?: string
+  currentTeamId?: string
   createdAt: Date
   settings: UserSettings
   karmaPoints: number
@@ -47,6 +49,27 @@ export interface UserSettings {
   enableNotifications: boolean
 }
 
+export interface Team {
+  id: string
+  name: string
+  description?: string
+  avatar?: string
+  ownerId: string
+  createdAt: Date
+  updatedAt: Date
+}
+
+export interface TeamMember {
+  id: string
+  teamId: string
+  userId: string
+  role: TeamRole
+  joinedAt: Date
+  email?: string
+  name?: string
+  avatar?: string
+}
+
 export interface Project {
   id: string
   name: string
@@ -56,6 +79,7 @@ export interface Project {
   isFavorite: boolean
   isShared: boolean
   parentProjectId?: string
+  teamId?: string
   ownerId: string
   createdAt: Date
   updatedAt: Date
@@ -72,6 +96,13 @@ export interface Section {
   updatedAt: Date
 }
 
+export interface RecurrenceException {
+  date: Date
+  reason: 'skipped' | 'rescheduled' | 'deleted'
+  newDate?: Date // For rescheduled exceptions
+  createdAt: Date
+}
+
 export interface RecurrencePattern {
   frequency: RecurrenceFrequency
   interval: number
@@ -80,6 +111,20 @@ export interface RecurrencePattern {
   startDate: Date
   endDate?: Date
   exceptions: Date[]
+  exceptionDetails?: RecurrenceException[]
+}
+
+export interface RecurrenceInstance {
+  id: string
+  taskId: string
+  dueDate: Date
+  baseTaskId: string
+  isException: boolean
+  exceptionReason?: 'skipped' | 'rescheduled' | 'deleted'
+  completed: boolean
+  completedAt?: Date
+  createdAt: Date
+  updatedAt: Date
 }
 
 export interface Task {
@@ -96,7 +141,8 @@ export interface Task {
   duration?: number
   recurrence?: RecurrencePattern
   parentTaskId?: string
-  assigneeId?: string
+  assigneeIds?: string[]
+  createdBy?: string
   createdAt: Date
   updatedAt: Date
   order: number
@@ -131,10 +177,12 @@ export interface Comment {
   taskId: string
   userId: string
   content: string
-  attachments: Attachment[]
   mentions: string[]
+  attachments: Attachment[]
   createdAt: Date
   updatedAt: Date
+  deletedAt?: Date
+  isDeleted?: boolean
 }
 
 export interface Attachment {
@@ -144,6 +192,32 @@ export interface Attachment {
   type: string
   size: number
   uploadedAt: Date
+}
+
+export type ActivityAction =
+  | 'created'
+  | 'updated'
+  | 'completed'
+  | 'deleted'
+  | 'moved'
+  | 'assigned'
+  | 'unassigned'
+  | 'commented'
+  | 'labeled'
+  | 'unlabeled'
+  | 'priorityChanged'
+  | 'dateChanged'
+  | 'statusChanged'
+
+export interface Activity {
+  id: string
+  taskId: string
+  userId: string
+  action: ActivityAction
+  changes?: Record<string, unknown>
+  oldValue?: unknown
+  newValue?: unknown
+  timestamp: Date
 }
 
 export interface Filter {
@@ -196,4 +270,56 @@ export interface SyncQueue {
   data: unknown
   timestamp: Date
   synced: boolean
+}
+
+export type TemplateCategory =
+  | 'work'
+  | 'personal'
+  | 'education'
+  | 'management'
+  | 'marketing'
+  | 'support'
+  | 'health'
+  | 'finance'
+  | 'custom'
+
+export interface TemplateTask {
+  content: string
+  description?: string
+  priority: Priority
+  labels?: string[]
+}
+
+export interface TemplateSection {
+  name: string
+  tasks: TemplateTask[]
+}
+
+export interface TemplateData {
+  sections: TemplateSection[]
+  labels?: string[]
+  description?: string
+}
+
+export interface Template {
+  id: string
+  name: string
+  description?: string
+  category: TemplateCategory
+  data: TemplateData
+  isPrebuilt: boolean
+  ownerId: string
+  thumbnail?: string
+  usageCount: number
+  createdAt: Date
+  updatedAt: Date
+}
+
+export interface UserTemplate {
+  id: string
+  userId: string
+  templateId: string
+  isFavorite: boolean
+  lastUsedAt?: Date
+  createdAt: Date
 }
