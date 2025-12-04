@@ -6,7 +6,8 @@ import { useTaskStore } from '@/store/taskStore'
 import { useLabelStore } from '@/store/labelStore'
 import { useProjectStore } from '@/store/projectStore'
 import { parseNaturalLanguageDate, parseNaturalLanguageTime } from '@/utils/date'
-import type { Task, Project, Label } from '@/types'
+import { parseRecurrenceFromText } from '@/utils/recurrence'
+import type { Task, Project, Label, RecurrencePattern } from '@/types'
 
 interface ParsedTask {
   content: string
@@ -14,7 +15,9 @@ interface ParsedTask {
   dueTime?: string
   priority?: 'p1' | 'p2' | 'p3' | 'p4'
   projectId?: string
+  parentTaskId?: string
   labelIds: string[]
+  recurrence?: RecurrencePattern | null
 }
 
 interface SearchResult {
@@ -38,6 +41,7 @@ export function QuickAddModal() {
   const [mode, setMode] = useState<CommandMode>('create')
   const [searchResults, setSearchResults] = useState<SearchResult[]>([])
   const [selectedResultIndex, setSelectedResultIndex] = useState(0)
+  const [parentTaskId, setParentTaskId] = useState<string | undefined>()
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -58,8 +62,18 @@ export function QuickAddModal() {
       }
     }
 
+    const handleSubtaskEvent = (event: Event) => {
+      const customEvent = event as CustomEvent
+      setParentTaskId(customEvent.detail?.parentId)
+      useQuickAddStore.setState({ isOpen: true })
+    }
+
     window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
+    window.addEventListener('openQuickAddForSubtask', handleSubtaskEvent)
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+      window.removeEventListener('openQuickAddForSubtask', handleSubtaskEvent)
+    }
   }, [isOpen, closeQuickAdd])
 
   useEffect(() => {
@@ -145,6 +159,7 @@ export function QuickAddModal() {
     let dueTime: string | undefined
     let priority: 'p1' | 'p2' | 'p3' | 'p4' | undefined
     let projectId: string | undefined
+    let recurrence: RecurrencePattern | null | undefined
     const labelIds: string[] = []
 
     // Parse project (#project_name)
@@ -166,6 +181,18 @@ export function QuickAddModal() {
       if (label && !labelIds.includes(label.id)) {
         labelIds.push(label.id)
         content = content.replace(match[0], '').trim()
+      }
+    }
+
+    // Parse recurrence (daily, weekly, biweekly, monthly, yearly, "every day", etc.)
+    const recurrenceMatch = content.match(
+      /(daily|weekly|biweekly|monthly|yearly|every day|every week|every 2 weeks|every month|every year)/i
+    )
+    if (recurrenceMatch) {
+      const pattern = parseRecurrenceFromText(recurrenceMatch[0])
+      if (pattern) {
+        recurrence = pattern
+        content = content.replace(recurrenceMatch[0], '').trim()
       }
     }
 
@@ -209,6 +236,7 @@ export function QuickAddModal() {
       priority,
       projectId,
       labelIds,
+      recurrence,
     })
   }
 
@@ -242,16 +270,19 @@ export function QuickAddModal() {
         dueTime: parsed.dueTime,
         priority: parsed.priority || null,
         projectId: parsed.projectId,
+        parentTaskId,
         order: 0,
         completed: false,
         labels: parsed.labelIds,
         reminders: [],
         attachments: [],
+        recurrence: parsed.recurrence || undefined,
       })
 
       addToRecent(parsed.content)
       setInput('')
       setParsed({ content: '', labelIds: [] })
+      setParentTaskId(undefined)
       closeQuickAdd()
     } catch (error) {
       console.error('Failed to create task:', error)
@@ -331,14 +362,16 @@ export function QuickAddModal() {
                 ) : (
                   <span className="flex items-center gap-2">
                     <Zap size={18} />
-                    Quick Add Task
+                    {parentTaskId ? 'Add Subtask' : 'Quick Add Task'}
                   </span>
                 )}
               </h2>
               <p className="text-xs text-gray-500 mt-1">
                 {mode === 'search'
                   ? 'Search tasks, projects, or labels'
-                  : 'Try: "Buy groceries #project @label tomorrow at 3pm p1"'}
+                  : parentTaskId
+                    ? 'Create subtask under parent task'
+                    : 'Try: "Buy groceries #project @label tomorrow at 3pm p1"'}
               </p>
             </div>
             <button

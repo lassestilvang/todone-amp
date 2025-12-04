@@ -1,8 +1,11 @@
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useTaskStore } from '@/store/taskStore'
+import { useFilterStore } from '@/store/filterStore'
 import { TaskList } from '@/components/TaskList'
+import { ViewSwitcher } from '@/components/ViewSwitcher'
 import { isAfter, startOfDay, endOfDay, addDays } from 'date-fns'
-import { Plus } from 'lucide-react'
+import { Plus, Filter } from 'lucide-react'
+import { FilterPanel } from '@/components/FilterPanel'
 
 export const UpcomingView: React.FC = () => {
   const tasks = useTaskStore((state) => state.getFilteredTasks())
@@ -10,6 +13,10 @@ export const UpcomingView: React.FC = () => {
   const selectTask = useTaskStore((state) => state.selectTask)
   const selectedTaskId = useTaskStore((state) => state.selectedTaskId)
   const loadTasks = useTaskStore((state) => state.loadTasks)
+  const applyFilterQuery = useFilterStore((state) => state.applyFilterQuery)
+
+  const [showFilterPanel, setShowFilterPanel] = useState(false)
+  const [advancedQuery, setAdvancedQuery] = useState('')
 
   useEffect(() => {
     loadTasks()
@@ -29,10 +36,15 @@ export const UpcomingView: React.FC = () => {
     )
   }, [tasks])
 
+  // Apply advanced filter query if set
+  const filteredUpcomingTasks = useMemo(() => {
+    return advancedQuery ? applyFilterQuery(advancedQuery, upcomingTasks) : upcomingTasks
+  }, [upcomingTasks, advancedQuery, applyFilterQuery])
+
   const groupedTasks = useMemo(() => {
     const groups: Record<string, typeof tasks> = {}
 
-    upcomingTasks.forEach((task) => {
+    filteredUpcomingTasks.forEach((task) => {
       if (task.dueDate) {
         const dateKey = task.dueDate.toISOString().split('T')[0]
         if (!groups[dateKey]) groups[dateKey] = []
@@ -41,21 +53,35 @@ export const UpcomingView: React.FC = () => {
     })
 
     return Object.entries(groups).sort(([dateA], [dateB]) => dateA.localeCompare(dateB))
-  }, [upcomingTasks])
+  }, [filteredUpcomingTasks])
 
   return (
     <div className="flex flex-col h-full">
       {/* Header */}
       <div className="px-6 py-4 border-b border-gray-200">
-        <h2 className="text-2xl font-bold text-gray-900">Upcoming</h2>
-        <p className="text-sm text-gray-500 mt-1">Next 7 days</p>
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-2xl font-bold text-gray-900">Upcoming</h2>
+            <p className="text-sm text-gray-500 mt-1">Next 7 days</p>
+          </div>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={() => setShowFilterPanel(true)}
+              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              title="Show filters"
+            >
+              <Filter size={20} className="text-gray-600" />
+            </button>
+            <ViewSwitcher variant="inline" />
+          </div>
+        </div>
       </div>
 
       {/* Content */}
       <div className="flex-1 overflow-y-auto">
         {groupedTasks.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-12 text-center">
-            <p className="text-gray-500 text-sm">No upcoming tasks</p>
+            <p className="text-gray-500 text-sm">{advancedQuery ? 'No tasks match this filter' : 'No upcoming tasks'}</p>
           </div>
         ) : (
           groupedTasks.map(([dateKey, dateTasks]) => {
@@ -92,6 +118,13 @@ export const UpcomingView: React.FC = () => {
           Add task
         </button>
       </div>
+
+      {/* Filter Panel */}
+      <FilterPanel 
+        isOpen={showFilterPanel} 
+        onClose={() => setShowFilterPanel(false)}
+        onAdvancedQueryChange={setAdvancedQuery}
+      />
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { db } from '@/db/database'
-import type { Filter } from '@/types'
+import type { Filter, Task } from '@/types'
+import { parseAndEvaluateFilter, applyAdvancedFilter } from '@/utils/filterParser'
 
 interface FilterState {
   filters: Filter[]
@@ -13,6 +14,8 @@ interface FilterState {
   setActiveFilter: (filterId: string | null) => void
   toggleFilterFavorite: (filterId: string) => Promise<void>
   getFilter: (id: string) => Filter | undefined
+  applyFilterQuery: (query: string, tasks: Task[]) => Task[]
+  evaluateTask: (task: Task, query: string) => boolean
 }
 
 export const useFilterStore = create<FilterState>((set, get) => ({
@@ -85,5 +88,13 @@ export const useFilterStore = create<FilterState>((set, get) => ({
   getFilter: (id: string) => {
     const { filters } = get()
     return filters.find((f) => f.id === id)
+  },
+
+  applyFilterQuery: (query: string, tasks: Task[]) => {
+    return applyAdvancedFilter(query, tasks)
+  },
+
+  evaluateTask: (task: Task, query: string) => {
+    return parseAndEvaluateFilter(query, task)
   },
 }))

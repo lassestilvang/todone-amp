@@ -4,6 +4,7 @@ import { formatDueDate, isTaskOverdue } from '@/utils/date'
 import { cn } from '@/utils/cn'
 import { ChevronRight } from 'lucide-react'
 import { useTaskDetailStore } from '@/store/taskDetailStore'
+import { RecurrenceBadge } from '@/components/RecurrenceBadge'
 
 interface TaskItemProps {
   task: Task
@@ -69,6 +70,9 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, onToggle, onSelect, is
           {task.content}
         </p>
       </div>
+
+      {/* Recurrence Badge */}
+      {task.recurrence && <RecurrenceBadge pattern={task.recurrence} size="sm" />}
 
       {/* Due Date */}
       {task.dueDate && (

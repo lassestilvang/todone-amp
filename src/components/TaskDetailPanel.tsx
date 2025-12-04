@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from 'react'
-import { X, Trash2 } from 'lucide-react'
+import { X, Trash2, Plus } from 'lucide-react'
 import { cn } from '@/utils/cn'
 import { useTaskDetailStore } from '@/store/taskDetailStore'
 import { useTaskStore } from '@/store/taskStore'
@@ -11,6 +11,8 @@ import { PrioritySelector } from '@/components/PrioritySelector'
 import { ProjectSelector } from '@/components/ProjectSelector'
 import { SectionSelector } from '@/components/SectionSelector'
 import { LabelSelector } from '@/components/LabelSelector'
+import { RecurrenceSelector } from '@/components/RecurrenceSelector'
+import { SubTaskList } from '@/components/SubTaskList'
 
 export function TaskDetailPanel() {
   const {
@@ -168,6 +170,16 @@ export function TaskDetailPanel() {
               />
             </div>
 
+            {/* Recurrence */}
+            <div>
+              <RecurrenceSelector
+                value={selectedTask.recurrence}
+                onChange={(pattern) => {
+                  updateSelectedTask({ recurrence: pattern })
+                }}
+              />
+            </div>
+
             {/* Project */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Project</label>
@@ -201,6 +213,34 @@ export function TaskDetailPanel() {
                 }}
                 onRemove={(labelId) => {
                   updateSelectedTask({ labels: selectedTask.labels.filter((id) => id !== labelId) })
+                }}
+              />
+            </div>
+
+            {/* Subtasks */}
+            <div>
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="text-sm font-semibold text-gray-700">Subtasks</h3>
+                <button
+                  onClick={() => {
+                    const event = new CustomEvent('openQuickAddForSubtask', { detail: { parentId: selectedTask.id } })
+                    window.dispatchEvent(event)
+                  }}
+                  className="flex items-center gap-1 px-2 py-1 text-sm text-brand-600 hover:bg-brand-50 rounded transition-colors"
+                >
+                  <Plus size={16} />
+                  Add Subtask
+                </button>
+              </div>
+              <SubTaskList
+                parentTaskId={selectedTask.id}
+                onSelectTask={(taskId) => {
+                  // Load the subtask in detail panel
+                  const { tasks } = useTaskStore.getState()
+                  const subtask = tasks.find((t) => t.id === taskId)
+                  if (subtask) {
+                    useTaskDetailStore.getState().openTaskDetail(taskId, subtask)
+                  }
                 }}
               />
             </div>

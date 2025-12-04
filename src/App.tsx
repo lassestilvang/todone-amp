@@ -2,13 +2,17 @@ import { useEffect, useState } from 'react'
 import { useAuthStore } from '@/store/authStore'
 import { useTaskStore } from '@/store/taskStore'
 import { useProjectStore } from '@/store/projectStore'
+import { useSectionStore } from '@/store/sectionStore'
 import { useLabelStore } from '@/store/labelStore'
 import { useFilterStore } from '@/store/filterStore'
+import { useViewStore } from '@/store/viewStore'
 import { initializeQuickAddStore } from '@/store/quickAddStore'
 import { Sidebar } from '@/components/Sidebar'
 import { InboxView } from '@/views/InboxView'
 import { TodayView } from '@/views/TodayView'
 import { UpcomingView } from '@/views/UpcomingView'
+import { BoardView } from '@/components/BoardView'
+import { CalendarView } from '@/components/CalendarView'
 import { AuthPage } from '@/pages/AuthPage'
 import { TaskDetailPanel } from '@/components/TaskDetailPanel'
 import { QuickAddModal } from '@/components/QuickAddModal'
@@ -24,8 +28,10 @@ function App() {
   const loadUser = useAuthStore((state) => state.loadUser)
   const loadTasks = useTaskStore((state) => state.loadTasks)
   const loadProjects = useProjectStore((state) => state.loadProjects)
+  const loadSections = useSectionStore((state) => state.loadSections)
   const loadLabels = useLabelStore((state) => state.loadLabels)
   const loadFilters = useFilterStore((state) => state.loadFilters)
+  const selectedView = useViewStore((state) => state.selectedView)
   
   // Initialize keyboard shortcuts
   useKeyboardShortcuts()
@@ -49,6 +55,7 @@ function App() {
     if (user) {
       loadTasks()
       loadProjects(user.id)
+      loadSections()
       loadLabels(user.id)
       loadFilters(user.id)
     }
@@ -73,6 +80,16 @@ function App() {
   }
 
   const renderView = () => {
+    // For standard views, render based on currentView
+    // For board/calendar, render based on selectedView
+    if (selectedView === 'board') {
+      return <BoardView projectId={currentView === 'inbox' ? undefined : currentView} />
+    }
+
+    if (selectedView === 'calendar') {
+      return <CalendarView />
+    }
+
     switch (currentView) {
       case 'inbox':
         return <InboxView />

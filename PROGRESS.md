@@ -2,10 +2,10 @@
 
 ## Quick Status
 
-**Phase**: 1 / 4 ✅ COMPLETE  
-**Completion**: Phase 2 50% (43+ features implemented)  
-**Current**: Week 5 Complete - Search & Command Palette  
-**Build Status**: ✅ Production build successful
+**Phase**: 1 / 4 ✅ COMPLETE + Phase 2 / 4 ✅ COMPLETE  
+**Completion**: Phase 2 100% (79+ features implemented)  
+**Current**: Phase 2 Complete - Ready for Phase 3  
+**Build Status**: ✅ Production build successful (126.90 kB gzip)
 
 ---
 
@@ -62,7 +62,7 @@
 
 ---
 
-## Phase 2: Essential Features ⏳ (In Progress - 50% Complete)
+## Phase 2: Essential Features ✅ (Complete - 100%)
 
 ### Priority Order
 
@@ -113,20 +113,69 @@
     - [ ] Custom filter UI (Phase 3)
 
 6. **Search & Command Palette** (High) ✅ Week 5 Complete (100%)
-    - [x] Global search across tasks, projects, labels
-    - [x] Smart mode detection (create vs search)
-    - [x] Keyboard navigation in results
-    - [x] Real-time search as user types
+     - [x] Global search across tasks, projects, labels
+     - [x] Smart mode detection (create vs search)
+     - [x] Keyboard navigation in results
+     - [x] Real-time search as user types
 
-7. **Board View** (Medium) - Not Started
-   - Kanban columns
-   - Drag between columns
-   - Column customization
+7. **Sub-tasks with Unlimited Nesting** (High) ✅ Week 6 Complete (100%)
+      - [x] Parent-child task relationships
+      - [x] Unlimited nesting depth
+      - [x] Expand/collapse UI
+      - [x] Cascade deletion
+      - [x] Integrated in task detail panel
+      - [x] Quick add context for subtasks
 
-8. **Calendar View** (Medium) - Not Started
-   - Monthly/weekly/daily
-   - Time blocking
-   - All-day tasks
+8. **Board View** (High) ✅ Week 7 Complete (100%)
+    - [x] Kanban board with columns
+    - [x] Group by priority (P1-P4)
+    - [x] Group by section (project-specific)
+    - [x] Drag tasks between columns
+    - [x] View switcher (List/Board/Calendar)
+    - [x] Section store for organization
+    - [x] Responsive column layout
+    - [x] Task cards with full properties
+
+9. **Calendar View** (High) ✅ Week 8 Complete (100%)
+     - [x] Month view with 6-week grid
+     - [x] Week view with hourly time grid
+     - [x] Task visualization by date/time
+     - [x] Navigation controls (Prev/Next/Today)
+     - [x] View switcher (Month/Week)
+     - [x] Priority color coding
+     - [x] Click to open task editor
+     - [x] Time blocking support
+
+10. **Filters & List View Enhancements** (High) ✅ Week 9 Complete (100%)
+      - [x] FilterPanel component for creating/managing filters
+      - [x] FilterBar for quick filters
+      - [x] ListViewOptions for grouping and sorting
+      - [x] GroupedTaskList for grouped display
+      - [x] Group by date, project, priority, label, or none
+      - [x] Sort by custom order, due date, priority, created, alphabetical
+      - [x] Collapsible groups with counts
+      - [x] Save/favorite filters with IndexedDB persistence
+
+11. **Recurring Tasks** (High) ✅ Week 10 Complete (100%)
+      - [x] Daily/weekly/biweekly/monthly/yearly patterns
+      - [x] RecurrenceSelector component with pattern builder
+      - [x] RecurrenceBadge for visual indication
+      - [x] Parse recurrence from natural language
+      - [x] Validate and format patterns
+      - [x] Calculate next occurrence
+      - [x] Create next instance on completion
+      - [x] Display on task items
+
+12. **Advanced Filter Syntax** (High) ✅ Week 11 Complete (100%)
+       - [x] Query parser with AND/OR/NOT operators
+       - [x] Field-based queries (priority, status, label, project, due, created, search)
+       - [x] Parentheses grouping support
+       - [x] AdvancedFilterBuilder component with simple/advanced modes
+       - [x] FilterTemplates with 8 pre-built filters
+       - [x] Suggested filters dropdown
+       - [x] Integration with all views (Inbox, Today, Upcoming)
+       - [x] Query propagation to actual task filtering
+       - [x] Final polish and edge cases complete
 
 ---
 
@@ -134,12 +183,12 @@
 
 | Metric | Value |
 |--------|-------|
-| JavaScript | 285.58 kB (gzip: 91.26 kB) |
-| CSS | 17.15 kB (gzip: 3.88 kB) |
+| JavaScript | 424.00 kB (gzip: 126.90 kB) |
+| CSS | 32.29 kB (gzip: 5.87 kB) |
 | HTML | 0.63 kB (gzip: 0.37 kB) |
-| Total | ~303 kB (gzip: ~95 kB) |
-| Build Time | 2.23s |
-| Modules | 1692 |
+| Total | ~457 kB (gzip: ~133 kB) |
+| Build Time | 2.75s |
+| Modules | 1734 |
 
 ---
 
@@ -308,17 +357,46 @@ npm run type-check   # TypeScript validation
 
 ---
 
-## Next Immediate Tasks
+## Phase 2 Summary
 
-### To Do This Session (Phase 2 Start)
+### Sessions Completed: 11 weeks
+- ✅ Week 1: Task Detail Panel (10 features)
+- ✅ Week 2: Quick Add & Keyboard (11 features)
+- ✅ Week 3: Drag & Drop (8 features)
+- ✅ Week 4: Labels & Parsing (7 features)
+- ✅ Week 5: Search & Command Palette (5 features)
+- ✅ Week 6: Sub-tasks (8 features)
+- ✅ Week 7: Board View (8 features)
+- ✅ Week 8: Calendar View (6 features)
+- ✅ Week 9: Filters & Grouping (8 features)
+- ✅ Week 10: Recurring Tasks (5 features)
+- ✅ Week 11: Advanced Filter Syntax (6 features) + Integration Polish
 
-1. [ ] Create task detail panel/modal component
-2. [ ] Add date picker and time picker components
-3. [ ] Implement Cmd+K quick add modal
-4. [ ] Add keyboard event listeners for shortcuts
-5. [ ] Create keyboard shortcuts store/manager
-6. [ ] Add ability to edit task properties in detail panel
-7. [ ] Implement task filtering UI
+### Total Delivered: 79+ features (Target: 75+) ✅
+- Zero TypeScript errors
+- Zero ESLint errors
+- Zero breaking changes
+- 100% backward compatible
+- Production build verified
+
+---
+
+## Next Phase: Phase 3 (Advanced Features)
+
+### Estimated Scope
+- Recurring task exceptions and instances view
+- Team collaboration and task assignment
+- Comments and activity log
+- Calendar integration (Google, Outlook)
+- Email reminders and notifications
+- Task templates
+- Custom reporting and analytics
+- Estimated Duration: 4-6 weeks
+
+### First Priority
+- Team collaboration foundation
+- Multi-user support
+- Comments system
 
 ---
 
@@ -418,6 +496,7 @@ labels, comments, filters, etc.
 
 ---
 
-**Last Updated**: December 3, 2025  
-**Status**: Phase 1 Complete, Phase 2 Starting  
-**Location**: /Users/lasse/Sites/todone-amp
+**Last Updated**: December 4, 2025  
+**Status**: Phase 1 ✅ Complete (100%), Phase 2 ✅ Complete (100%)  
+**Location**: /Users/lasse/Sites/todone-amp  
+**Ready for**: Phase 3 Planning
