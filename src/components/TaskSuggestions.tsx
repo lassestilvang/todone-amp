@@ -132,12 +132,10 @@ export const TaskSuggestions: React.FC<TaskSuggestionsProps> = ({
               {/* Action Button */}
               <button
                 onClick={() => {
-                  onSelect?.(
-                    {
-                      ...suggestion.suggestedTask,
-                      confidence: suggestion.confidence,
-                    } as any
-                  )
+                  onSelect?.({
+                    ...suggestion.suggestedTask,
+                    confidence: suggestion.confidence,
+                  } as ParsedTaskSuggestion)
                   onClose?.()
                 }}
                 className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-blue-500 hover:bg-blue-600 text-white font-medium text-sm transition-colors"

@@ -41,13 +41,33 @@ interface SyncActions {
 }
 
 const MAX_RETRIES = 3
-// const SYNC_LOG_RETENTION_DAYS = 30
+const SYNC_LOG_RETENTION_DAYS = 30
+const BACKOFF_MULTIPLIER = 2
+const INITIAL_BACKOFF_MS = 1000
+
+/**
+ * Calculate exponential backoff delay
+ */
+const getBackoffDelay = (retryCount: number): number => {
+  return INITIAL_BACKOFF_MS * Math.pow(BACKOFF_MULTIPLIER, retryCount)
+}
+
+/**
+ * Add jitter to prevent thundering herd
+ */
+const addJitter = (ms: number): number => {
+  return ms + Math.random() * 1000
+}
 
 export const useSyncStore = create<SyncState & SyncActions>((set, get) => {
   // Listen for online/offline events
   if (typeof window !== 'undefined') {
-    window.addEventListener('online', () => get().setOnlineStatus(true))
-    window.addEventListener('offline', () => get().setOnlineStatus(false))
+    window.addEventListener('online', () => {
+      get().setOnlineStatus(true)
+    })
+    window.addEventListener('offline', () => {
+      get().setOnlineStatus(false)
+    })
   }
 
   return {
@@ -84,6 +104,9 @@ export const useSyncStore = create<SyncState & SyncActions>((set, get) => {
         set({
           pendingOperations: pendingOps || [],
         })
+
+        // Clean up old sync logs
+        await get().clearOldLogs(SYNC_LOG_RETENTION_DAYS)
       } catch (error) {
         const errorMessage = error instanceof Error ? error.message : 'Failed to initialize sync'
         set({ error: errorMessage })
@@ -95,7 +118,7 @@ export const useSyncStore = create<SyncState & SyncActions>((set, get) => {
     ) => {
       const newOp: PendingOperation = {
         ...operation,
-        id: `pending-${Date.now()}`,
+        id: `pending-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
         createdAt: new Date(),
         retries: 0,
       }
@@ -115,6 +138,7 @@ export const useSyncStore = create<SyncState & SyncActions>((set, get) => {
         // Update state
         set((state) => ({
           pendingOperations: [...state.pendingOperations, newOp],
+          error: null,
         }))
       } catch (error) {
         const errorMessage = error instanceof Error ? error.message : 'Failed to add pending operation'
@@ -142,11 +166,18 @@ export const useSyncStore = create<SyncState & SyncActions>((set, get) => {
         return
       }
 
-      set({ isSyncing: true })
+      set({ isSyncing: true, error: null })
 
       try {
         for (const operation of state.pendingOperations) {
           try {
+            // Calculate backoff delay based on retry count
+            const backoffDelay = getBackoffDelay(operation.retries)
+            const delayWithJitter = addJitter(backoffDelay)
+
+            // Wait before retrying
+            await new Promise((resolve) => setTimeout(resolve, delayWithJitter))
+
             // Simulate API call - in real app, this would call your backend
             // For now, we'll just mark it as synced after a delay
             await new Promise((resolve) => setTimeout(resolve, 500))
@@ -155,7 +186,7 @@ export const useSyncStore = create<SyncState & SyncActions>((set, get) => {
 
             // Log success
             const log: SyncLog = {
-              id: `log-${Date.now()}`,
+              id: `log-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
               operation: `${operation.type} ${operation.entityType}`,
               status: 'success',
               timestamp: new Date(),
@@ -166,17 +197,25 @@ export const useSyncStore = create<SyncState & SyncActions>((set, get) => {
             }))
           } catch (error) {
             const errorMessage = error instanceof Error ? error.message : 'Sync failed'
+            const currentOp = get().pendingOperations.find((op) => op.id === operation.id)
 
-            // Increment retry count
+            if (!currentOp) return
+
+            const newRetryCount = currentOp.retries + 1
+            const shouldGiveUp = newRetryCount >= MAX_RETRIES
+
+            // Update operation with retry info
             const updatedOps = get().pendingOperations.map((op) =>
-              op.id === operation.id ? { ...op, retries: op.retries + 1, lastError: errorMessage } : op
+              op.id === operation.id
+                ? { ...op, retries: newRetryCount, lastError: errorMessage }
+                : op
             )
 
             // Log failure
             const log: SyncLog = {
-              id: `log-${Date.now()}`,
+              id: `log-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
               operation: `${operation.type} ${operation.entityType}`,
-              status: operation.retries >= MAX_RETRIES ? 'failed' : 'pending',
+              status: shouldGiveUp ? 'failed' : 'pending',
               timestamp: new Date(),
               error: errorMessage,
             }
@@ -204,11 +243,11 @@ export const useSyncStore = create<SyncState & SyncActions>((set, get) => {
 
       if (failedOps.length === 0) return
 
+      // Reset retry count for retry attempt
       set({
-        pendingOperations: state.pendingOperations.map((op) => ({
-          ...op,
-          retries: op.retries,
-        })),
+        pendingOperations: state.pendingOperations.map((op) =>
+          op.retries < MAX_RETRIES ? { ...op, retries: Math.max(0, op.retries - 1) } : op
+        ),
       })
 
       await get().syncPendingOperations()

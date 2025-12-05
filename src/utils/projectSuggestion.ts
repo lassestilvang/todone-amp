@@ -129,7 +129,7 @@ export function analyzeTaskComplexity(
   taskContent: string
 ): 'simple' | 'moderate' | 'complex' {
   const characteristics = {
-    hasMultipleParts: /\band\b|\,(?=[^,]{1,50}(?:,|$))/i.test(taskContent),
+    hasMultipleParts: /\band\b|,(?=[^,]{1,50}(?:,|$))/i.test(taskContent),
     hasTimeElement: /\b(tomorrow|today|next|in|at|by|until|before)\b/i.test(taskContent),
     hasDependencies: /\b(after|before|following|depends on|requires|needs)\b/i.test(
       taskContent
