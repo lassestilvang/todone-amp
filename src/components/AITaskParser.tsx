@@ -1,6 +1,9 @@
-import React, { useState } from 'react'
-import { Sparkles, AlertCircle, Check } from 'lucide-react'
+import React, { useState, useMemo } from 'react'
+import { Sparkles, AlertCircle, Check, Tag, FolderOpen } from 'lucide-react'
 import { useAIStore } from '@/store/aiStore'
+import { useProjectStore } from '@/store/projectStore'
+import { useLabelStore } from '@/store/labelStore'
+import { suggestProjectFromContent, suggestLabelsFromContent } from '@/utils/projectSuggestion'
 import type { Priority } from '@/types'
 import clsx from 'clsx'
 
@@ -27,7 +30,30 @@ export const AITaskParser: React.FC<AITaskParserProps> = ({
 }) => {
   const [input, setInput] = useState('')
   const [showSuggestions, setShowSuggestions] = useState(false)
-  const { suggestions, loading, error, parseTask, clearSuggestions } = useAIStore()
+  const { suggestions, loading, error, parseTask, clearSuggestions, detectAmbiguity } =
+    useAIStore()
+  const projects = useProjectStore((state) => state.projects)
+  const labels = useLabelStore((state) => state.labels)
+
+  // Compute project and label suggestions
+  const { projectSuggestion, labelSuggestions, isAmbiguous } = useMemo(() => {
+    if (!input.trim()) {
+      return { projectSuggestion: undefined, labelSuggestions: [], isAmbiguous: false }
+    }
+
+    const project = suggestProjectFromContent(input, projects)
+    const labelSuggestions = suggestLabelsFromContent(
+      input,
+      labels.map((l) => ({ id: l.id, name: l.name }))
+    )
+    const ambiguous = detectAmbiguity(input)
+
+    return {
+      projectSuggestion: project.confidence > 0.5 ? project : undefined,
+      labelSuggestions: labelSuggestions.filter((l) => l.confidence > 0.4),
+      isAmbiguous: ambiguous,
+    }
+  }, [input, projects, labels, detectAmbiguity])
 
   const handleInputChange = async (value: string) => {
     setInput(value)
@@ -101,6 +127,63 @@ export const AITaskParser: React.FC<AITaskParserProps> = ({
           <div className="flex items-center gap-2 mt-2 p-2 rounded-lg bg-red-50 dark:bg-red-900 text-red-700 dark:text-red-200">
             <AlertCircle className="w-4 h-4 flex-shrink-0" />
             <span className="text-sm">{error}</span>
+          </div>
+        )}
+
+        {/* Ambiguity Warning */}
+        {isAmbiguous && input.trim() && (
+          <div className="flex items-start gap-2 mt-2 p-2 rounded-lg bg-yellow-50 dark:bg-yellow-900 border border-yellow-200 dark:border-yellow-700">
+            <AlertCircle className="w-4 h-4 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-0.5" />
+            <div className="flex-1">
+              <p className="text-xs font-medium text-yellow-800 dark:text-yellow-100">
+                Input looks unclear
+              </p>
+              <p className="text-xs text-yellow-700 dark:text-yellow-200 mt-0.5">
+                Use clearer language or add more details
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Project & Label Suggestions */}
+        {input.trim() && (projectSuggestion || labelSuggestions.length > 0) && (
+          <div className="mt-3 space-y-2">
+            {projectSuggestion && (
+              <div className="flex items-center gap-2 p-2 rounded-lg bg-blue-50 dark:bg-blue-900">
+                <FolderOpen className="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0" />
+                <div className="flex-1 flex items-center justify-between min-w-0">
+                  <span className="text-sm text-blue-900 dark:text-blue-100 truncate">
+                    Project: <span className="font-medium">{projects.find((p) => p.id === projectSuggestion.projectId)?.name}</span>
+                  </span>
+                  <span className="text-xs text-blue-700 dark:text-blue-300 ml-2 flex-shrink-0">
+                    {Math.round(projectSuggestion.confidence * 100)}%
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {labelSuggestions.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {labelSuggestions.map((labelSugg) => {
+                  const label = labels.find((l) => l.id === labelSugg.labelId)
+                  return label ? (
+                    <div
+                      key={label.id}
+                      className="flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium transition-colors"
+                      style={{
+                        backgroundColor: label.color + '20',
+                        color: label.color,
+                        border: `1px solid ${label.color}40`,
+                      }}
+                    >
+                      <Tag className="w-3 h-3" />
+                      {label.name}
+                      <span className="text-xs opacity-70">({Math.round(labelSugg.confidence * 100)}%)</span>
+                    </div>
+                  ) : null
+                })}
+              </div>
+            )}
           </div>
         )}
       </div>
