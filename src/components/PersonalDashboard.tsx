@@ -82,7 +82,7 @@ export const PersonalDashboard: React.FC<PersonalDashboardProps> = ({ userId, cl
       </div>
 
       {/* AI Insights Widget */}
-      <AIInsights userId={userId} />
+      <AIInsights />
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">

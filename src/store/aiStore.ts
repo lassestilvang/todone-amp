@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import type { Priority, ParsedTaskSuggestion } from '@/types'
+import type { Priority } from '@/types'
 
 export interface ParsedTask {
   content: string
@@ -216,10 +216,6 @@ export const useAIStore = create<AIState & AIActions>((set, get) => ({
       const combinedText = `${emailSubject} ${emailBody}`
       const task = await get().parseTask(combinedText)
 
-      // Extract first sentence from email body as description
-      const sentences = emailBody.split(/[.!?]+/).filter((s) => s.trim())
-      const description = sentences[0]?.trim() || emailBody.substring(0, 150)
-
       return {
         ...task,
         content: emailSubject || task.content,
@@ -234,9 +230,12 @@ export const useAIStore = create<AIState & AIActions>((set, get) => ({
   suggestRelationships: (
     taskContent: string,
     existingTasks: Array<{ id: string; content: string }>
-  ): { parentTaskId?: string; dependencyIds: string[] } => {
+  ): { parentTaskId?: string | undefined; dependencyIds: string[] } => {
     const lowerContent = taskContent.toLowerCase()
-    const result = { parentTaskId: undefined, dependencyIds: [] as string[] }
+    const result: { parentTaskId?: string | undefined; dependencyIds: string[] } = {
+      parentTaskId: undefined,
+      dependencyIds: [] as string[],
+    }
 
     // Look for subtask indicators
     const subtaskKeywords = ['subtask of', 'sub-task of', 'part of', 'step in', 'related to']

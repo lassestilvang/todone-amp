@@ -4,7 +4,6 @@ import { useAIStore } from '@/store/aiStore'
 import { useTaskStore } from '@/store/taskStore'
 
 export interface AIInsightsProps {
-  userId?: string
   className?: string
 }
 
@@ -19,7 +18,7 @@ interface Insight {
   }
 }
 
-export const AIInsights: React.FC<AIInsightsProps> = ({ userId, className = '' }) => {
+export const AIInsights: React.FC<AIInsightsProps> = ({ className = '' }) => {
   const [insights, setInsights] = useState<Insight[]>([])
   const [loading, setLoading] = useState(true)
   const { getSimilarTasks } = useAIStore()

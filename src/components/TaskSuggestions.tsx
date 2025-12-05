@@ -7,8 +7,6 @@ import clsx from 'clsx'
 export interface TaskSuggestionsProps {
   text: string
   onSelect?: (suggestion: ParsedTaskSuggestion) => void
-  availableProjects?: Array<{ id: string; name: string }>
-  availableLabels?: string[]
   existingTasks?: Array<{ id: string; content: string }>
   isOpen?: boolean
   onClose?: () => void
@@ -24,8 +22,6 @@ const PRIORITY_LABELS: Record<Exclude<Priority, null>, string> = {
 export const TaskSuggestions: React.FC<TaskSuggestionsProps> = ({
   text,
   onSelect,
-  availableProjects = [],
-  availableLabels = [],
   existingTasks = [],
   isOpen = true,
   onClose,
@@ -85,7 +81,7 @@ export const TaskSuggestions: React.FC<TaskSuggestionsProps> = ({
               Suggestions
             </p>
           </div>
-          {suggestions.map((suggestion, index) => (
+          {suggestions.map((suggestion) => (
             <div
               key={suggestion.id}
               className="p-3 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors last:border-b-0"
@@ -136,7 +132,12 @@ export const TaskSuggestions: React.FC<TaskSuggestionsProps> = ({
               {/* Action Button */}
               <button
                 onClick={() => {
-                  onSelect?.(suggestion.suggestedTask)
+                  onSelect?.(
+                    {
+                      ...suggestion.suggestedTask,
+                      confidence: suggestion.confidence,
+                    } as any
+                  )
                   onClose?.()
                 }}
                 className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-blue-500 hover:bg-blue-600 text-white font-medium text-sm transition-colors"
