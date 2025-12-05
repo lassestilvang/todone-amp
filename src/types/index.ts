@@ -98,6 +98,7 @@ export interface Project {
   updatedAt: Date
   order: number
   archived: boolean
+  syncStatus?: 'synced' | 'pending' | 'syncing' | 'error'
 }
 
 export interface Section {
@@ -107,6 +108,7 @@ export interface Section {
   order: number
   createdAt: Date
   updatedAt: Date
+  syncStatus?: 'synced' | 'pending' | 'syncing' | 'error'
 }
 
 export interface RecurrenceException {
@@ -183,6 +185,7 @@ export interface Task {
   labels: string[]
   attachments: Attachment[]
   aiMetadata?: AIMetadata
+  syncStatus?: 'synced' | 'pending' | 'syncing' | 'error'
 }
 
 export interface Reminder {
@@ -216,6 +219,7 @@ export interface Label {
   isShared: boolean
   createdAt: Date
   updatedAt: Date
+  syncStatus?: 'synced' | 'pending' | 'syncing' | 'error'
 }
 
 export interface Comment {

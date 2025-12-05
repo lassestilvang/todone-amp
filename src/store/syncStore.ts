@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { db } from '@/db/database'
+import type { ConflictResolutionStrategy } from '@/utils/conflictResolution'
 
 export interface PendingOperation {
   id: string
@@ -38,6 +39,8 @@ interface SyncActions {
   getSyncStatus: () => SyncState
   clearOldLogs: (daysOld: number) => Promise<void>
   retryFailedOperations: () => Promise<void>
+  detectAndResolveConflicts: (strategy?: ConflictResolutionStrategy) => Promise<void>
+  updateSyncStatus: (entityType: string, entityId: string, status: 'synced' | 'pending' | 'syncing' | 'error') => Promise<void>
 }
 
 const MAX_RETRIES = 3
@@ -274,6 +277,63 @@ export const useSyncStore = create<SyncState & SyncActions>((set, get) => {
         }))
       } catch (error) {
         const errorMessage = error instanceof Error ? error.message : 'Failed to clear logs'
+        set({ error: errorMessage })
+      }
+    },
+
+    detectAndResolveConflicts: async () => {
+      try {
+        set({ error: null })
+
+        // In a real implementation, you would:
+        // 1. Compare local vs remote versions
+        // 2. Detect conflicts using detectConflict()
+        // 3. Resolve using resolveConflict() with the strategy
+        // 4. Apply the resolved values
+
+        // For now, log the capability
+        const log: SyncLog = {
+          id: `log-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`,
+          operation: 'conflict_detection',
+          status: 'success',
+          timestamp: new Date(),
+        }
+
+        set((state) => ({
+          syncLogs: [...state.syncLogs, log],
+        }))
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'Failed to detect conflicts'
+        set({ error: errorMessage })
+      }
+    },
+
+    updateSyncStatus: async (entityType: string, entityId: string, status: 'synced' | 'pending' | 'syncing' | 'error') => {
+      try {
+        // Update the syncStatus field on the entity
+        if (entityType === 'task') {
+          const task = await db.tasks?.get(entityId)
+          if (task) {
+            await db.tasks?.update(entityId, { syncStatus: status })
+          }
+        } else if (entityType === 'project') {
+          const project = await db.projects?.get(entityId)
+          if (project) {
+            await db.projects?.update(entityId, { syncStatus: status })
+          }
+        } else if (entityType === 'section') {
+          const section = await db.sections?.get(entityId)
+          if (section) {
+            await db.sections?.update(entityId, { syncStatus: status })
+          }
+        } else if (entityType === 'label') {
+          const label = await db.labels?.get(entityId)
+          if (label) {
+            await db.labels?.update(entityId, { syncStatus: status })
+          }
+        }
+      } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'Failed to update sync status'
         set({ error: errorMessage })
       }
     },

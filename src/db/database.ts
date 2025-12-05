@@ -54,12 +54,12 @@ export class TodoneDB extends Dexie {
 
   constructor() {
     super('TodoneDB')
-    this.version(2).stores({
+    this.version(3).stores({
       users: 'id, email',
-      projects: 'id, ownerId, teamId, parentProjectId, [ownerId+createdAt], [teamId+createdAt]',
-      sections: 'id, projectId, [projectId+order]',
-      tasks: 'id, projectId, sectionId, parentTaskId, [projectId+order], [sectionId+order], completed, dueDate, createdBy',
-      labels: 'id, ownerId, [ownerId+name]',
+      projects: 'id, ownerId, teamId, parentProjectId, syncStatus, [ownerId+createdAt], [teamId+createdAt]',
+      sections: 'id, projectId, syncStatus, [projectId+order]',
+      tasks: 'id, projectId, sectionId, parentTaskId, syncStatus, [projectId+order], [sectionId+order], completed, dueDate, createdBy',
+      labels: 'id, ownerId, syncStatus, [ownerId+name]',
       comments: 'id, taskId, userId, [taskId+createdAt], [taskId+userId]',
       activities: 'id, taskId, userId, [taskId+timestamp], [userId+timestamp], [taskId+action]',
       filters: 'id, ownerId, [ownerId+createdAt]',
