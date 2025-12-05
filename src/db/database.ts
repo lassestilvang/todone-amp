@@ -10,12 +10,20 @@ import type {
   Activity,
   ProjectShare,
   Reminder,
+  Notification,
   SyncQueue,
   Team,
   TeamMember,
   RecurrenceInstance,
   Template,
   UserTemplate,
+  CalendarIntegration,
+  CalendarEvent,
+  SyncHistory,
+  UserIntegration,
+  UserStats,
+  AchievementRecord,
+  UserAchievementRecord,
 } from '@/types'
 
 export class TodoneDB extends Dexie {
@@ -29,16 +37,24 @@ export class TodoneDB extends Dexie {
   filters!: Table<Filter>
   projectShares!: Table<ProjectShare>
   reminders!: Table<Reminder>
+  notifications!: Table<Notification>
   syncQueue!: Table<SyncQueue>
   teams!: Table<Team>
   teamMembers!: Table<TeamMember>
   recurrenceInstances!: Table<RecurrenceInstance>
   templates!: Table<Template>
   userTemplates!: Table<UserTemplate>
+  calendarIntegrations!: Table<CalendarIntegration>
+  calendarEvents!: Table<CalendarEvent>
+  syncHistory!: Table<SyncHistory>
+  userIntegrations!: Table<UserIntegration>
+  userStats!: Table<UserStats>
+  achievements!: Table<AchievementRecord>
+  userAchievements!: Table<UserAchievementRecord>
 
   constructor() {
     super('TodoneDB')
-    this.version(1).stores({
+    this.version(2).stores({
       users: 'id, email',
       projects: 'id, ownerId, teamId, parentProjectId, [ownerId+createdAt], [teamId+createdAt]',
       sections: 'id, projectId, [projectId+order]',
@@ -48,13 +64,21 @@ export class TodoneDB extends Dexie {
       activities: 'id, taskId, userId, [taskId+timestamp], [userId+timestamp], [taskId+action]',
       filters: 'id, ownerId, [ownerId+createdAt]',
       projectShares: 'id, projectId, userId, [projectId+userId]',
-      reminders: 'id, taskId, notified',
+      reminders: 'id, taskId, notified, [taskId+remindAt]',
+      notifications: 'id, userId, read, archived, [userId+read], [userId+createdAt]',
       syncQueue: 'id, entityType, synced, [synced+timestamp]',
       teams: 'id, ownerId, [ownerId+createdAt]',
       teamMembers: 'id, teamId, userId, [teamId+userId]',
       recurrenceInstances: 'id, taskId, baseTaskId, dueDate, [taskId+dueDate], [baseTaskId+dueDate], completed',
       templates: 'id, category, isPrebuilt, ownerId, [ownerId+createdAt], [category+isPrebuilt]',
       userTemplates: 'id, userId, templateId, isFavorite, [userId+templateId], [userId+isFavorite]',
+      calendarIntegrations: 'id, userId, service, [userId+service]',
+      calendarEvents: 'id, service, taskId, externalId, [taskId+externalId], [service+syncedAt]',
+      syncHistory: 'id, taskId, externalEventId, service, [taskId+service], [syncedAt+status]',
+      userIntegrations: 'id, userId, service, isConnected, [userId+service], [userId+isConnected]',
+      userStats: 'userId, [userId+karma], [karma]',
+      achievements: 'id, [createdAt]',
+      userAchievements: 'id, userId, achievementId, [userId+achievementId], [userId+unlockedAt]',
     })
   }
 }

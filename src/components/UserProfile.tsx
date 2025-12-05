@@ -1,9 +1,15 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Upload, Loader } from 'lucide-react'
 import { cn } from '@/utils/cn'
 import { useAuthStore } from '@/store/authStore'
+import { useGamificationStore } from '@/store/gamificationStore'
 import { Button } from './Button'
 import { Input } from './Input'
+import { KarmaWidget } from './KarmaWidget'
+import { AchievementsShowcase, AchievementStats } from './AchievementsShowcase'
+import { Leaderboard } from './Leaderboard'
+import { KarmaHistoryChart } from './KarmaHistoryChart'
+import { BadgesDisplay } from './BadgesDisplay'
 
 export interface UserProfileProps {
   className?: string
@@ -12,6 +18,7 @@ export interface UserProfileProps {
 
 export function UserProfile({ className, onSave }: UserProfileProps) {
   const { user, updateUser } = useAuthStore()
+  const initializeStats = useGamificationStore((state) => state.initializeStats)
   const [isEditing, setIsEditing] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [formData, setFormData] = useState({
@@ -20,6 +27,13 @@ export function UserProfile({ className, onSave }: UserProfileProps) {
   })
   const [avatarPreview, setAvatarPreview] = useState(user?.avatar || '')
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  // Initialize gamification stats
+  useEffect(() => {
+    if (user) {
+      initializeStats(user.id)
+    }
+  }, [user, initializeStats])
 
   if (!user) {
     return <div>Loading user profile...</div>
@@ -70,6 +84,38 @@ export function UserProfile({ className, onSave }: UserProfileProps) {
 
   return (
     <div className={cn('space-y-6', className)}>
+      {/* Gamification Section */}
+      <div className="space-y-4">
+        <h2 className="text-xl font-bold text-gray-900">Your Achievements</h2>
+        <KarmaWidget />
+        <AchievementStats />
+      </div>
+
+      {/* Karma History */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold text-gray-900">Karma Progress</h3>
+        <KarmaHistoryChart days={30} />
+      </div>
+
+      {/* Badges */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold text-gray-900">Earned Badges</h3>
+        <BadgesDisplay layout="grid" maxBadges={8} />
+      </div>
+
+      {/* Achievements Showcase */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold text-gray-900">All Achievements</h3>
+        <AchievementsShowcase columns={4} showLocked={true} size="medium" />
+      </div>
+
+      {/* Leaderboard */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold text-gray-900">Top Contributors</h3>
+        <Leaderboard limit={10} />
+      </div>
+
+      {/* Profile Settings */}
       <div className="bg-white rounded-lg border border-gray-200 p-6">
         <h2 className="text-xl font-bold text-gray-900 mb-6">Profile Settings</h2>
 

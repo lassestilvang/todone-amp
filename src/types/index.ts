@@ -32,6 +32,18 @@ export type KarmaLevel =
   | 'grandmaster'
   | 'enlightened'
 
+export interface NotificationPreferencesType {
+  enableEmailNotifications: boolean
+  enableBrowserNotifications: boolean
+  enableSoundNotifications: boolean
+  enablePushNotifications: boolean
+  quietHours?: {
+    enabled: boolean
+    startTime: string
+    endTime: string
+  }
+}
+
 export interface UserSettings {
   theme: 'light' | 'dark' | 'system'
   language: string
@@ -47,6 +59,7 @@ export interface UserSettings {
   daysOff: number[]
   vacationMode: boolean
   enableNotifications: boolean
+  notificationPreferences?: NotificationPreferencesType
 }
 
 export interface Team {
@@ -127,6 +140,26 @@ export interface RecurrenceInstance {
   updatedAt: Date
 }
 
+export interface AIMetadata {
+  parsedFromText?: string
+  extractedAt?: Date
+  confidence?: number
+  suggestedAlternatives?: ParsedTaskSuggestion[]
+  suggestedProjectId?: string
+  suggestedLabels?: string[]
+  suggestedParentTaskId?: string
+  suggestedDependencyTaskIds?: string[]
+  sourceType?: 'manual' | 'email' | 'natural_language'
+}
+
+export interface ParsedTaskSuggestion {
+  content: string
+  priority?: Priority
+  dueDate?: Date
+  dueTime?: string
+  confidence: number
+}
+
 export interface Task {
   id: string
   projectId?: string
@@ -149,16 +182,29 @@ export interface Task {
   reminders: Reminder[]
   labels: string[]
   attachments: Attachment[]
+  aiMetadata?: AIMetadata
 }
 
 export interface Reminder {
   id: string
   taskId: string
-  type: 'before' | 'at' | 'location'
+  type: 'before' | 'at' | 'location' | 'manual'
   minutesBefore?: number
   reminderTime?: string
   location?: string
+  remindAt: Date
   notified: boolean
+  createdAt: Date
+}
+
+export interface Notification {
+  id: string
+  userId: string
+  message: string
+  type: 'task_assigned' | 'task_shared' | 'reminder' | 'comment' | 'system'
+  relatedTaskId?: string
+  read: boolean
+  archived: boolean
   createdAt: Date
 }
 
@@ -208,6 +254,11 @@ export type ActivityAction =
   | 'priorityChanged'
   | 'dateChanged'
   | 'statusChanged'
+  | 'shared'
+  | 'unshared'
+  | 'permissionChanged'
+  | 'memberAdded'
+  | 'memberRemoved'
 
 export interface Activity {
   id: string
@@ -322,4 +373,126 @@ export interface UserTemplate {
   isFavorite: boolean
   lastUsedAt?: Date
   createdAt: Date
+}
+
+export type IntegrationService = 'google' | 'outlook' | 'slack' | 'email'
+export type SyncDirection = 'one-way' | 'two-way'
+export type SyncFrequency = 'realtime' | 'hourly' | 'daily'
+
+export interface CalendarIntegration {
+  id: string
+  userId: string
+  service: 'google' | 'outlook'
+  accessToken: string
+  refreshToken?: string
+  expiresAt?: Date
+  calendarId: string
+  calendarName: string
+  displayColor: string
+  selectedCalendars: string[]
+  syncEnabled: boolean
+  syncDirection: SyncDirection
+  syncFrequency: SyncFrequency
+  showExternalEvents: boolean
+  timeZone: string
+  connectedAt: Date
+  lastSyncAt?: Date
+  syncStatus: 'idle' | 'syncing' | 'error'
+  syncError?: string
+}
+
+export interface CalendarEvent {
+  id: string
+  externalId: string
+  service: 'google' | 'outlook'
+  taskId?: string
+  title: string
+  description?: string
+  startTime: Date
+  endTime: Date
+  duration: number
+  location?: string
+  attendees?: string[]
+  isAllDay: boolean
+  color?: string
+  syncedAt: Date
+}
+
+export interface SyncHistory {
+  id: string
+  taskId?: string
+  externalEventId?: string
+  service: IntegrationService
+  action: 'create' | 'update' | 'delete'
+  direction: 'to-service' | 'from-service'
+  syncedAt: Date
+  status: 'success' | 'failed' | 'pending'
+  error?: string
+  metadata?: Record<string, unknown>
+}
+
+export interface UserIntegration {
+  id: string
+  userId: string
+  service: IntegrationService
+  isConnected: boolean
+  accessToken?: string
+  refreshToken?: string
+  expiresAt?: Date
+  settings: Record<string, unknown>
+  connectedAt?: Date
+  disconnectedAt?: Date
+}
+
+export interface EmailIntegration extends UserIntegration {
+  forwardingAddress?: string
+  forwardingEnabled: boolean
+  parseEmailBody: boolean
+  extractDueDate: boolean
+  assignLabels: boolean
+  defaultProject?: string
+}
+
+export interface SlackIntegration extends UserIntegration {
+  teamId: string
+  teamName: string
+  slackUserId: string
+  slackWorkspaceUrl: string
+  notifyOnAssignment: boolean
+  notifyOnMention: boolean
+  notifyOnComments: boolean
+  notifyOnOverdue: boolean
+  dailyDigestEnabled: boolean
+  dailyDigestTime: string
+  digestChannel?: string
+}
+
+export interface UserStats {
+  userId: string
+  karma: number
+  karmaLevel: KarmaLevel
+  currentStreak: number
+  longestStreak: number
+  totalCompleted: number
+  lastCompletedAt?: Date
+  achievements: AchievementRecord[] | string[]
+  updatedAt: Date
+}
+
+export interface AchievementRecord {
+  id: string
+  name: string
+  description: string
+  icon: string
+  points: number
+  unlockCriteria?: Record<string, unknown>
+  createdAt: Date
+}
+
+export interface UserAchievementRecord {
+  id: string
+  userId: string
+  achievementId: string
+  unlockedAt: Date
+  progress?: number
 }

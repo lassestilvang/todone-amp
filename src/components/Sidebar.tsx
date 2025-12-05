@@ -1,6 +1,7 @@
 import React from 'react'
 import { useProjectStore } from '@/store/projectStore'
 import { useAuthStore } from '@/store/authStore'
+import { StreakBadge } from './StreakDisplay'
 import { cn } from '@/utils/cn'
 import { Plus, Star, Inbox, Calendar, TrendingUp } from 'lucide-react'
 
@@ -52,6 +53,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) =
             >
               <Icon className="w-4 h-4" />
               {label}
+              {id === 'today' && <StreakBadge inline />}
             </button>
           ))}
         </div>

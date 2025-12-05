@@ -16,7 +16,7 @@ import type { Task } from '@/types'
  */
 
 type FilterOperator = 'AND' | 'OR' | 'NOT'
-type ComparisonOperator = ':' | '=' | '<' | '>' | '!='
+type ComparisonOperator = ':' | '=' | '<' | '>' | '!=' | '<=' | '>=' | 'between'
 
 interface ParsedFilter {
   type: 'condition' | 'group'
@@ -26,6 +26,7 @@ interface ParsedFilter {
     field: string
     operator: ComparisonOperator
     value: string
+    value2?: string // For 'between' operator
   }
 }
 
@@ -39,6 +40,7 @@ function tokenize(query: string): string[] {
 
   for (let i = 0; i < query.length; i++) {
     const char = query[i]
+    const next = query[i + 1]
 
     if (char === '"') {
       inQuotes = !inQuotes
@@ -49,6 +51,18 @@ function tokenize(query: string): string[] {
         current = ''
       }
       if (!/\s/.test(char)) {
+        tokens.push(char)
+      }
+    } else if (!inQuotes && (char === '<' || char === '>' || char === '!')) {
+      // Handle comparison operators: <=, >=, !=, <, >
+      if (current) {
+        tokens.push(current)
+        current = ''
+      }
+      if ((char === '<' || char === '>' || char === '!') && next === '=') {
+        tokens.push(char + next)
+        i++
+      } else {
         tokens.push(char)
       }
     } else {
@@ -132,18 +146,42 @@ function parseQuery(tokens: string[]): ParsedFilter | null {
       return expr
     }
 
-    // Handle condition (field:value)
-    if (pos + 2 < tokens.length && tokens[pos + 1] === ':') {
+    // Handle condition (field:value, field<value, field>=value, etc.)
+    if (pos + 2 < tokens.length) {
       const field = tokens[pos]
-      const value = tokens[pos + 2]
-      pos += 3
-      return {
-        type: 'condition',
-        condition: {
-          field: field.toLowerCase(),
-          operator: ':',
-          value: value.replace(/^["']|["']$/g, ''), // Remove quotes if present
-        },
+      const op = tokens[pos + 1]
+
+      // Check for comparison operators
+      if ([':','=','<','>','!=','<=','>='].includes(op)) {
+        // Handle 'between' operator (field:value1,value2)
+        const value = tokens[pos + 2].replace(/^["']|["']$/g, '')
+        let value2: string | undefined
+        const nextPos = pos + 3
+
+        // Check for 'between' syntax: field value1 value2
+        if (op === ':' && nextPos < tokens.length && !['AND','OR','NOT','(',')'].includes(tokens[nextPos].toUpperCase())) {
+          value2 = tokens[nextPos].replace(/^["']|["']$/g, '')
+          pos += 4
+          return {
+            type: 'condition',
+            condition: {
+              field: field.toLowerCase(),
+              operator: 'between',
+              value,
+              value2,
+            },
+          }
+        }
+
+        pos += 3
+        return {
+          type: 'condition',
+          condition: {
+            field: field.toLowerCase(),
+            operator: op as ComparisonOperator,
+            value,
+          },
+        }
       }
     }
 
@@ -160,7 +198,17 @@ function parseQuery(tokens: string[]): ParsedFilter | null {
 function evaluateCondition(task: Task, condition: ParsedFilter['condition']): boolean {
   if (!condition) return false
 
-  const { field, value } = condition
+  const { field, value, value2, operator } = condition
+
+  // Handle numeric comparisons
+  if (['<', '>', '<=', '>=', '=', '!='].includes(operator)) {
+    return evaluateNumericComparison(task, field, operator as Exclude<ComparisonOperator, ':' | 'between'>, value)
+  }
+
+  // Handle range queries (between)
+  if (operator === 'between') {
+    return evaluateBetweenComparison(task, field, value, value2)
+  }
 
   switch (field) {
     case 'priority':
@@ -184,6 +232,14 @@ function evaluateCondition(task: Task, condition: ParsedFilter['condition']): bo
     case 'assignee':
       return evaluateAssignee(task, value)
 
+    case 'mycreated':
+    case 'mycreations':
+      return task.createdBy === value
+
+    case 'shared':
+    case 'inshared':
+      return evaluateShared(task, value)
+
     case 'due':
     case 'duedate':
       return evaluateDueDate(task, value)
@@ -191,6 +247,18 @@ function evaluateCondition(task: Task, condition: ParsedFilter['condition']): bo
     case 'created':
     case 'createddate':
       return evaluateCreatedDate(task, value)
+
+    case 'comments':
+    case 'commentcount':
+      return evaluateCommentCount(task, operator, value, value2)
+
+    case 'subtask':
+    case 'subtasks':
+      return evaluateSubtaskStatus(task, value)
+
+    case 'completed':
+    case 'completeddate':
+      return evaluateCompletedDate(task, value, value2, operator)
 
     case 'search':
     case 'text':
@@ -223,6 +291,20 @@ function evaluateAssignee(task: Task, value: string): boolean {
 
   // Check if specific userId matches any assignee
   return task.assigneeIds?.some((id) => id.includes(v)) || false
+}
+
+/**
+ * Evaluate shared project condition
+ */
+function evaluateShared(_task: Task, value: string): boolean {
+  const v = value.toLowerCase()
+
+  // Check for "true" or "yes"
+  if (v === 'true' || v === 'yes') {
+    return true // All tasks can be in shared projects - filter at store level
+  }
+
+  return false
 }
 
 /**
@@ -295,6 +377,200 @@ function evaluateCreatedDate(task: Task, value: string): boolean {
 }
 
 /**
+ * Evaluate numeric comparison (for comment count, etc.)
+ */
+function evaluateNumericComparison(
+  _task: Task,
+  field: string,
+  operator: Exclude<ComparisonOperator, ':' | 'between'>,
+  value: string
+): boolean {
+  let taskValue = 0
+
+  if (field === 'comments' || field === 'commentcount') {
+    // Note: actual comment count would need to be passed from DB
+    // For now, use 0 as placeholder
+    taskValue = 0
+  }
+
+  const compareValue = parseInt(value, 10)
+  if (isNaN(compareValue)) return false
+
+  switch (operator) {
+    case '=':
+      return taskValue === compareValue
+    case '!=':
+      return taskValue !== compareValue
+    case '<':
+      return taskValue < compareValue
+    case '>':
+      return taskValue > compareValue
+    case '<=':
+      return taskValue <= compareValue
+    case '>=':
+      return taskValue >= compareValue
+    default:
+      return false
+  }
+}
+
+/**
+ * Evaluate between (range) comparison
+ */
+function evaluateBetweenComparison(
+  task: Task,
+  field: string,
+  value1: string,
+  value2?: string
+): boolean {
+  if (!value2) return false
+
+  if (field === 'due' || field === 'duedate') {
+    if (!task.dueDate) return false
+    const taskTime = new Date(task.dueDate).getTime()
+    const start = new Date(value1).getTime()
+    const end = new Date(value2).getTime()
+    return taskTime >= start && taskTime <= end
+  }
+
+  if (field === 'created' || field === 'createddate') {
+    const taskTime = task.createdAt.getTime()
+    const start = new Date(value1).getTime()
+    const end = new Date(value2).getTime()
+    return taskTime >= start && taskTime <= end
+  }
+
+  if (field === 'completed' || field === 'completeddate') {
+    if (!task.completedAt) return false
+    const taskTime = task.completedAt.getTime()
+    const start = new Date(value1).getTime()
+    const end = new Date(value2).getTime()
+    return taskTime >= start && taskTime <= end
+  }
+
+  return false
+}
+
+/**
+ * Evaluate comment count
+ */
+function evaluateCommentCount(
+  _task: Task,
+  operator: ComparisonOperator,
+  value: string,
+  value2?: string
+): boolean {
+  // Placeholder: actual comment count would be fetched from DB
+  // This would be enhanced when comment count is available
+  const commentCount = 0
+  const compareValue = parseInt(value, 10)
+
+  if (isNaN(compareValue)) return false
+
+  switch (operator) {
+    case '=':
+    case ':':
+      return commentCount === compareValue
+    case '!=':
+      return commentCount !== compareValue
+    case '<':
+      return commentCount < compareValue
+    case '>':
+      return commentCount > compareValue
+    case '<=':
+      return commentCount <= compareValue
+    case '>=':
+      return commentCount >= compareValue
+    case 'between': {
+      if (!value2) return false
+      const endValue = parseInt(value2, 10)
+      return !isNaN(endValue) && commentCount >= compareValue && commentCount <= endValue
+    }
+    default:
+      return false
+  }
+}
+
+/**
+ * Evaluate subtask status
+ */
+function evaluateSubtaskStatus(task: Task, value: string): boolean {
+  const v = value.toLowerCase()
+
+  // Check for parent task (has parentTaskId)
+  if (v === 'parent' || v === 'hassubtasks') {
+    // Would need to check if task has child tasks
+    // For now, use parentTaskId presence as indicator
+    return !task.parentTaskId
+  }
+
+  // Check for subtask (is a child task)
+  if (v === 'subtask' || v === 'child') {
+    return Boolean(task.parentTaskId)
+  }
+
+  return false
+}
+
+/**
+ * Evaluate completed date condition
+ */
+function evaluateCompletedDate(
+  task: Task,
+  value: string,
+  value2?: string,
+  operator?: ComparisonOperator
+): boolean {
+  if (!task.completedAt) return false
+
+  const completedDate = new Date(task.completedAt)
+  const completedDateNormalized = new Date(
+    completedDate.getFullYear(),
+    completedDate.getMonth(),
+    completedDate.getDate()
+  )
+
+  const now = new Date()
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+
+  const v = value.toLowerCase()
+
+  if (v === 'today') {
+    return completedDateNormalized.getTime() === today.getTime()
+  }
+
+  if (v === 'yesterday') {
+    const yesterday = new Date(today)
+    yesterday.setDate(yesterday.getDate() - 1)
+    return completedDateNormalized.getTime() === yesterday.getTime()
+  }
+
+  if (v === 'thisweek') {
+    const weekStart = new Date(today)
+    weekStart.setDate(weekStart.getDate() - today.getDay())
+    const weekEnd = new Date(weekStart)
+    weekEnd.setDate(weekEnd.getDate() + 7)
+    return completedDateNormalized >= weekStart && completedDateNormalized < weekEnd
+  }
+
+  if (v === 'thismonth') {
+    return (
+      completedDateNormalized.getFullYear() === today.getFullYear() &&
+      completedDateNormalized.getMonth() === today.getMonth()
+    )
+  }
+
+  // Handle date range with operator
+  if (operator === 'between' && value2) {
+    const start = new Date(value).getTime()
+    const end = new Date(value2).getTime()
+    return completedDate.getTime() >= start && completedDate.getTime() <= end
+  }
+
+  return false
+}
+
+/**
  * Evaluate AST against a task
  */
 function evaluateAST(ast: ParsedFilter | null, task: Task): boolean {
@@ -357,16 +633,89 @@ export function getFilterSuggestions(): string[] {
     'due:overdue',
     'due:upcoming',
     'created:today',
+    'completed:today',
+    'completed:thisweek',
     'search:keyword',
     'assigned:me',
     'assigned:unassigned',
+    'mycreated:me',
+    'shared:true',
+    'subtask:child',
+    'subtask:parent',
+    'comments>0',
+    'comments>=5',
     'priority:p1 AND status:active',
     '(priority:p1 OR priority:p2) AND status:active',
     'NOT status:completed',
     'label:urgent',
     'project:engineering',
     'assigned:unassigned AND priority:p1',
+    'due:2025-01-01 2025-12-31',
+    'completed:2025-01-01 2025-01-31',
   ]
+}
+
+/**
+ * Get field name suggestions for autocomplete
+ */
+export function getFieldNameSuggestions(): string[] {
+  return [
+    'priority',
+    'status',
+    'due',
+    'duedate',
+    'created',
+    'createddate',
+    'completed',
+    'completeddate',
+    'assigned',
+    'assignee',
+    'label',
+    'project',
+    'search',
+    'text',
+    'shared',
+    'subtask',
+    'comments',
+    'commentcount',
+    'mycreated',
+    'inshared',
+  ]
+}
+
+/**
+ * Get value suggestions for a field
+ */
+export function getValueSuggestions(field: string): string[] {
+  const f = field.toLowerCase()
+
+  switch (f) {
+    case 'priority':
+      return ['p1', 'p2', 'p3', 'p4']
+    case 'status':
+    case 'state':
+      return ['active', 'completed', 'done']
+    case 'due':
+    case 'duedate':
+      return ['today', 'tomorrow', 'overdue', 'upcoming', 'thisweek']
+    case 'created':
+    case 'createddate':
+      return ['today', 'yesterday']
+    case 'completed':
+    case 'completeddate':
+      return ['today', 'yesterday', 'thisweek', 'thismonth']
+    case 'assigned':
+    case 'assignee':
+      return ['me', 'unassigned']
+    case 'subtask':
+    case 'subtasks':
+      return ['subtask', 'child', 'parent', 'hassubtasks']
+    case 'shared':
+    case 'inshared':
+      return ['true', 'yes']
+    default:
+      return []
+  }
 }
 
 /**

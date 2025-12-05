@@ -1,11 +1,28 @@
 import { create } from 'zustand'
 import { db } from '@/db/database'
 import type { Filter, Task } from '@/types'
-import { parseAndEvaluateFilter, applyAdvancedFilter } from '@/utils/filterParser'
+import {
+  parseAndEvaluateFilter,
+  applyAdvancedFilter,
+  getFilterSuggestions,
+  getFieldNameSuggestions,
+  getValueSuggestions,
+} from '@/utils/filterParser'
+
+interface SavedQuery {
+  id: string
+  query: string
+  label: string
+  usageCount: number
+  lastUsedAt: Date
+}
 
 interface FilterState {
   filters: Filter[]
   activeFilterId: string | null
+  savedQueries: SavedQuery[]
+  queryCache: Map<string, Task[]>
+  recentQueries: string[]
 
   loadFilters: (userId: string) => Promise<void>
   createFilter: (filter: Omit<Filter, 'id' | 'createdAt' | 'updatedAt'>) => Promise<string>
@@ -16,11 +33,24 @@ interface FilterState {
   getFilter: (id: string) => Filter | undefined
   applyFilterQuery: (query: string, tasks: Task[]) => Task[]
   evaluateTask: (task: Task, query: string) => boolean
+
+  // Query caching and suggestions
+  saveQuery: (query: string, label: string) => void
+  deleteSavedQuery: (id: string) => void
+  getSuggestions: (partial: string) => string[]
+  getFieldSuggestions: () => string[]
+  getValueSuggestions: (field: string) => string[]
+  clearQueryCache: () => void
+  addRecentQuery: (query: string) => void
+  getRecentQueries: () => string[]
 }
 
 export const useFilterStore = create<FilterState>((set, get) => ({
   filters: [],
   activeFilterId: null,
+  savedQueries: [],
+  queryCache: new Map(),
+  recentQueries: [],
 
   loadFilters: async (userId: string) => {
     const filters = await db.filters.where('ownerId').equals(userId).toArray()
@@ -91,10 +121,77 @@ export const useFilterStore = create<FilterState>((set, get) => ({
   },
 
   applyFilterQuery: (query: string, tasks: Task[]) => {
-    return applyAdvancedFilter(query, tasks)
+    const { queryCache } = get()
+    const cached = queryCache.get(query)
+    if (cached) {
+      return cached
+    }
+
+    const result = applyAdvancedFilter(query, tasks)
+    queryCache.set(query, result)
+    return result
   },
 
   evaluateTask: (task: Task, query: string) => {
     return parseAndEvaluateFilter(query, task)
+  },
+
+  // Query caching and suggestions
+  saveQuery: (query: string, label: string) => {
+    const { savedQueries } = get()
+    const id = `query-${Date.now()}`
+    const newQuery: SavedQuery = {
+      id,
+      query,
+      label,
+      usageCount: 0,
+      lastUsedAt: new Date(),
+    }
+    set({ savedQueries: [...savedQueries, newQuery] })
+  },
+
+  deleteSavedQuery: (id: string) => {
+    const { savedQueries } = get()
+    set({ savedQueries: savedQueries.filter((q) => q.id !== id) })
+  },
+
+  getSuggestions: (partial: string) => {
+    if (!partial.trim()) {
+      return getFilterSuggestions()
+    }
+
+    const { savedQueries } = get()
+    const lowerPartial = partial.toLowerCase()
+
+    // Combine saved queries and default suggestions
+    const allSuggestions = [
+      ...getFilterSuggestions(),
+      ...savedQueries.map((q) => q.query),
+    ]
+
+    return allSuggestions.filter((s) => s.toLowerCase().includes(lowerPartial))
+  },
+
+  getFieldSuggestions: () => {
+    return getFieldNameSuggestions()
+  },
+
+  getValueSuggestions: (field: string) => {
+    return getValueSuggestions(field)
+  },
+
+  clearQueryCache: () => {
+    set({ queryCache: new Map() })
+  },
+
+  addRecentQuery: (query: string) => {
+    const { recentQueries } = get()
+    const updated = [query, ...recentQueries.filter((q) => q !== query)].slice(0, 10)
+    set({ recentQueries: updated })
+  },
+
+  getRecentQueries: () => {
+    const { recentQueries } = get()
+    return recentQueries
   },
 }))

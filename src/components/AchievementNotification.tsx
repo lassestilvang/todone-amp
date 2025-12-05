@@ -1,0 +1,143 @@
+import React, { useEffect, useState } from 'react'
+import { X, Award } from 'lucide-react'
+import clsx from 'clsx'
+
+export interface AchievementNotificationProps {
+  id: string
+  name: string
+  description: string
+  icon: string
+  points: number
+  onClose?: () => void
+}
+
+export const AchievementNotification: React.FC<AchievementNotificationProps> = ({
+  name,
+  description,
+  icon,
+  points,
+  onClose,
+}) => {
+  const [isVisible, setIsVisible] = useState(true)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(false)
+      onClose?.()
+    }, 5000)
+
+    return () => clearTimeout(timer)
+  }, [onClose])
+
+  if (!isVisible) return null
+
+  return (
+    <div
+      className={clsx(
+        'fixed bottom-4 right-4 max-w-sm p-4 rounded-lg shadow-lg',
+        'bg-gradient-to-r from-amber-50 to-yellow-50 dark:from-amber-900 dark:to-yellow-900',
+        'border border-amber-200 dark:border-amber-700',
+        'animate-in slide-in-from-bottom-5 duration-300'
+      )}
+      role="status"
+      aria-live="polite"
+      aria-label={`Achievement unlocked: ${name}`}
+    >
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex items-start gap-3">
+          {/* Icon */}
+          <div className="text-4xl flex-shrink-0">{icon}</div>
+
+          {/* Content */}
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 mb-1">
+              <Award className="w-4 h-4 text-amber-600 dark:text-amber-400 flex-shrink-0" />
+              <h3 className="font-bold text-gray-900 dark:text-white truncate">{name}</h3>
+            </div>
+            <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">{description}</p>
+            <div className="flex items-center gap-1">
+              <span className="text-xs font-semibold text-amber-600 dark:text-amber-400">
+                +{points} Karma
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Close Button */}
+        <button
+          onClick={() => {
+            setIsVisible(false)
+            onClose?.()
+          }}
+          className="flex-shrink-0 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+          aria-label="Close notification"
+        >
+          <X className="w-4 h-4" />
+        </button>
+      </div>
+
+      {/* Progress bar */}
+      <div className="mt-3 h-1 bg-amber-200 dark:bg-amber-800 rounded-full overflow-hidden">
+        <div
+          className="h-full bg-gradient-to-r from-amber-400 to-yellow-400 dark:from-amber-500 dark:to-yellow-500 animate-shrink"
+          style={{
+            animation: 'shrink 5s linear forwards',
+          }}
+        />
+      </div>
+
+      <style>{`
+        @keyframes shrink {
+          from {
+            width: 100%;
+          }
+          to {
+            width: 0%;
+          }
+        }
+      `}</style>
+    </div>
+  )
+}
+
+// Provider component to manage multiple notifications
+interface NotificationItem extends AchievementNotificationProps {
+  id: string
+}
+
+export const AchievementNotificationContainer: React.FC = () => {
+  const [notifications, setNotifications] = useState<NotificationItem[]>([])
+
+  const addNotification = (notification: Omit<NotificationItem, 'id'>) => {
+    const id = `notification-${Date.now()}`
+    const newNotification: NotificationItem = {
+      ...notification,
+      id,
+    }
+
+    setNotifications((prev) => [...prev, newNotification])
+  }
+
+  const removeNotification = (id: string) => {
+    setNotifications((prev) => prev.filter((n) => n.id !== id))
+  }
+
+  // Expose global function for adding notifications
+  React.useEffect(() => {
+    (window as unknown as { addAchievementNotification?: typeof addNotification })
+      .addAchievementNotification = addNotification
+  }, [])
+
+  return (
+    <div className="fixed bottom-4 right-4 space-y-2 pointer-events-none">
+      {notifications.map((notification) => (
+        <div key={notification.id} className="pointer-events-auto">
+          <AchievementNotification
+            {...notification}
+            onClose={() => removeNotification(notification.id)}
+          />
+        </div>
+      ))}
+    </div>
+  )
+}

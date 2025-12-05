@@ -1,0 +1,78 @@
+{
+  "name": "Todone - Task Management",
+  "short_name": "Todone",
+  "description": "From to-do to todone - Advanced task management with gamification",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#0d47a1",
+  "background_color": "#ffffff",
+  "categories": ["productivity"],
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%230d47a1' width='192' height='192'/><text x='50%' y='50%' font-size='120' font-weight='bold' fill='white' text-anchor='middle' dominant-baseline='middle'>T</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect fill='%230d47a1' width='512' height='512'/><text x='50%' y='50%' font-size='320' font-weight='bold' fill='white' text-anchor='middle' dominant-baseline='middle'>T</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 540 720'><rect fill='%23f5f5f5' width='540' height='720'/><text x='270' y='360' font-size='60' font-weight='bold' fill='%230d47a1' text-anchor='middle' dominant-baseline='middle'>Todone</text></svg>",
+      "sizes": "540x720",
+      "type": "image/svg+xml",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1280 720'><rect fill='%23f5f5f5' width='1280' height='720'/><text x='640' y='360' font-size='100' font-weight='bold' fill='%230d47a1' text-anchor='middle' dominant-baseline='middle'>Todone</text></svg>",
+      "sizes": "1280x720",
+      "type": "image/svg+xml",
+      "form_factor": "wide"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Quick Add Task",
+      "short_name": "Add Task",
+      "description": "Quickly add a new task",
+      "url": "/?action=quickadd",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%230d47a1' width='192' height='192'/><text x='50%' y='50%' font-size='120' font-weight='bold' fill='white' text-anchor='middle' dominant-baseline='middle'>+</text></svg>",
+          "sizes": "192x192",
+          "type": "image/svg+xml"
+        }
+      ]
+    },
+    {
+      "name": "View Today",
+      "short_name": "Today",
+      "description": "View today's tasks",
+      "url": "/?view=today",
+      "icons": [
+        {
+          "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%230d47a1' width='192' height='192'/><text x='50%' y='50%' font-size='120' font-weight='bold' fill='white' text-anchor='middle' dominant-baseline='middle'>📅</text></svg>",
+          "sizes": "192x192",
+          "type": "image/svg+xml"
+        }
+      ]
+    }
+  ],
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url"
+    }
+  }
+}

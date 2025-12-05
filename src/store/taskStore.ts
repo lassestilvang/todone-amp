@@ -83,6 +83,10 @@ interface TaskState {
     instanceDate: Date,
     mode: 'single' | 'future' | 'all'
   ) => Promise<void>
+  // Shared project queries
+  getTasksInSharedProject: (projectId: string) => Task[]
+  getMyContributionsInSharedProject: (projectId: string, userId: string) => Task[]
+  getTasksAssignedToMeInSharedProject: (projectId: string, userId: string) => Task[]
 }
 
 export const useTaskStore = create<TaskState>((set, get) => ({
@@ -153,6 +157,20 @@ export const useTaskStore = create<TaskState>((set, get) => ({
     await logActivity(id, userId, completed ? 'completed' : 'updated', {
       status: completed ? 'completed' : 'active',
     })
+
+    // Trigger gamification on task completion
+    if (completed) {
+      try {
+        const { useGamificationStore } = await import('@/store/gamificationStore')
+        const gamificationStore = useGamificationStore.getState()
+        // Award karma with priority multiplier (base 10 points)
+        await gamificationStore.addKarma(userId, 10, task.priority)
+        // Update streak and check for achievement unlocks
+        await gamificationStore.updateStreak(userId)
+      } catch (error) {
+        console.warn('Failed to update gamification stats:', error)
+      }
+    }
 
     set({
       tasks: tasks.map((t) => (t.id === id ? { ...t, completed, completedAt } : t)),
@@ -534,47 +552,65 @@ export const useTaskStore = create<TaskState>((set, get) => ({
   },
 
   deleteRecurringTaskInstance: async (taskId, instanceDate, mode) => {
+     const { tasks } = get()
+     const task = tasks.find((t) => t.id === taskId)
+     if (!task || !task.recurrence) return
+
+     const now = new Date()
+
+     if (mode === 'single') {
+       // Skip this date
+       const newExceptions = [...task.recurrence.exceptions, instanceDate]
+       const updated = {
+         ...task,
+         recurrence: {
+           ...task.recurrence,
+           exceptions: newExceptions,
+         },
+         updatedAt: now,
+       }
+       await db.tasks.update(taskId, updated)
+       set({
+         tasks: tasks.map((t) => (t.id === taskId ? updated : t)),
+       })
+     } else if (mode === 'future') {
+       // End recurrence at this date
+       const updated = {
+         ...task,
+         recurrence: {
+           ...task.recurrence,
+           endDate: new Date(instanceDate.getTime() - 1),
+         },
+         updatedAt: now,
+       }
+       await db.tasks.update(taskId, updated)
+       set({
+         tasks: tasks.map((t) => (t.id === taskId ? updated : t)),
+       })
+     } else if (mode === 'all') {
+       // Delete task entirely
+       await db.tasks.delete(taskId)
+       set({
+         tasks: tasks.filter((t) => t.id !== taskId),
+       })
+     }
+   },
+
+  // Shared project query methods
+  getTasksInSharedProject: (projectId: string) => {
     const { tasks } = get()
-    const task = tasks.find((t) => t.id === taskId)
-    if (!task || !task.recurrence) return
-
-    const now = new Date()
-
-    if (mode === 'single') {
-      // Skip this date
-      const newExceptions = [...task.recurrence.exceptions, instanceDate]
-      const updated = {
-        ...task,
-        recurrence: {
-          ...task.recurrence,
-          exceptions: newExceptions,
-        },
-        updatedAt: now,
-      }
-      await db.tasks.update(taskId, updated)
-      set({
-        tasks: tasks.map((t) => (t.id === taskId ? updated : t)),
-      })
-    } else if (mode === 'future') {
-      // End recurrence at this date
-      const updated = {
-        ...task,
-        recurrence: {
-          ...task.recurrence,
-          endDate: new Date(instanceDate.getTime() - 1),
-        },
-        updatedAt: now,
-      }
-      await db.tasks.update(taskId, updated)
-      set({
-        tasks: tasks.map((t) => (t.id === taskId ? updated : t)),
-      })
-    } else if (mode === 'all') {
-      // Delete task entirely
-      await db.tasks.delete(taskId)
-      set({
-        tasks: tasks.filter((t) => t.id !== taskId),
-      })
-    }
+    return tasks.filter((t) => t.projectId === projectId)
   },
-}))
+
+  getMyContributionsInSharedProject: (projectId: string, userId: string) => {
+    const { tasks } = get()
+    return tasks.filter((t) => t.projectId === projectId && t.createdBy === userId)
+  },
+
+  getTasksAssignedToMeInSharedProject: (projectId: string, userId: string) => {
+    const { tasks } = get()
+    return tasks.filter(
+      (t) => t.projectId === projectId && t.assigneeIds?.includes(userId)
+    )
+  },
+  }))
