@@ -20,6 +20,8 @@ import { KeyboardShortcutsHelp } from '@/components/KeyboardShortcutsHelp'
 import { DragDropContextProvider } from '@/components/DragDropContext'
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts'
 
+type ViewIdType = string
+
 function App() {
   const [currentView, setCurrentView] = useState('inbox')
   const user = useAuthStore((state) => state.user)
@@ -32,6 +34,7 @@ function App() {
   const loadLabels = useLabelStore((state) => state.loadLabels)
   const loadFilters = useFilterStore((state) => state.loadFilters)
   const selectedView = useViewStore((state) => state.selectedView)
+  const setSelectedView = useViewStore((state) => state.setSelectedView)
   
   // Initialize keyboard shortcuts
   useKeyboardShortcuts()
@@ -61,6 +64,15 @@ function App() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
+
+  // Handle view changes from sidebar - reset to list view
+  const handleViewChange = (view: ViewIdType) => {
+    setCurrentView(view)
+    // Reset to list view when changing main navigation
+    if (view === 'inbox' || view === 'today' || view === 'upcoming') {
+      setSelectedView('list')
+    }
+  }
 
   if (isLoading) {
     return (
@@ -105,7 +117,7 @@ function App() {
   return (
     <DragDropContextProvider>
       <div className="flex h-screen bg-white">
-        <Sidebar currentView={currentView} onViewChange={setCurrentView} />
+        <Sidebar currentView={currentView} onViewChange={handleViewChange} />
         <main className="flex-1 flex flex-col overflow-hidden">
           {renderView()}
         </main>

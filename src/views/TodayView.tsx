@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react'
 import { useTaskStore } from '@/store/taskStore'
 import { useFilterStore } from '@/store/filterStore'
+import { useQuickAddStore } from '@/store/quickAddStore'
 import { TaskList } from '@/components/TaskList'
 import { ViewSwitcher } from '@/components/ViewSwitcher'
 import { isTaskDueToday, isTaskOverdue } from '@/utils/date'
@@ -14,6 +15,7 @@ export const TodayView: React.FC = () => {
   const selectedTaskId = useTaskStore((state) => state.selectedTaskId)
   const loadTasks = useTaskStore((state) => state.loadTasks)
   const applyFilterQuery = useFilterStore((state) => state.applyFilterQuery)
+  const openQuickAdd = useQuickAddStore((state) => state.openQuickAdd)
 
   const [showFilterPanel, setShowFilterPanel] = useState(false)
   const [advancedQuery, setAdvancedQuery] = useState('')
@@ -124,7 +126,10 @@ export const TodayView: React.FC = () => {
 
       {/* Quick Add Footer */}
       <div className="border-t border-gray-200 px-6 py-4 bg-gray-50">
-        <button className="w-full flex items-center justify-center gap-2 px-4 py-2 text-gray-700 font-medium hover:bg-white border border-gray-300 rounded-md transition-colors">
+        <button 
+          onClick={openQuickAdd}
+          className="w-full flex items-center justify-center gap-2 px-4 py-2 text-gray-700 font-medium hover:bg-white border border-gray-300 rounded-md transition-colors"
+        >
           <Plus className="w-4 h-4" />
           Add task
         </button>

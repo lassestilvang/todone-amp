@@ -1,9 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useProjectStore } from '@/store/projectStore'
 import { useAuthStore } from '@/store/authStore'
+import { useLabelStore } from '@/store/labelStore'
 import { StreakBadge } from './StreakDisplay'
+import { CreateProjectModal } from './CreateProjectModal'
 import { cn } from '@/utils/cn'
-import { Plus, Star, Inbox, Calendar, TrendingUp } from 'lucide-react'
+import { Plus, Star, Inbox, Calendar, TrendingUp, Tag, Sliders } from 'lucide-react'
 
 interface SidebarProps {
   currentView: string
@@ -11,9 +13,11 @@ interface SidebarProps {
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) => {
+  const [showCreateProjectModal, setShowCreateProjectModal] = useState(false)
   const projects = useProjectStore((state) => state.projects)
   const selectedProjectId = useProjectStore((state) => state.selectedProjectId)
   const selectProject = useProjectStore((state) => state.selectProject)
+  const labels = useLabelStore((state) => state.labels)
   const user = useAuthStore((state) => state.user)
 
   const mainViews = [
@@ -62,7 +66,11 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) =
         <div className="mb-4">
           <div className="flex items-center justify-between px-3 py-2 mb-2">
             <h3 className="text-xs font-semibold text-gray-600 uppercase">Projects</h3>
-            <button className="p-1 hover:bg-gray-100 rounded">
+            <button
+              onClick={() => setShowCreateProjectModal(true)}
+              className="p-1 hover:bg-gray-100 rounded transition-colors"
+              title="Create new project"
+            >
               <Plus className="w-4 h-4 text-gray-400" />
             </button>
           </div>
@@ -92,6 +100,70 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) =
             ))}
           </div>
         </div>
+
+        {/* Labels */}
+        {labels.length > 0 && (
+          <div className="mb-4">
+            <div className="flex items-center gap-2 px-3 py-2 mb-2">
+              <Tag className="w-3 h-3 text-gray-400" />
+              <h3 className="text-xs font-semibold text-gray-600 uppercase">Labels</h3>
+            </div>
+
+            <div className="space-y-1">
+              {labels.map((label) => (
+                <button
+                  key={label.id}
+                  onClick={() => onViewChange(`label-${label.id}`)}
+                  className={cn(
+                    'w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors text-left',
+                    currentView === `label-${label.id}`
+                      ? 'bg-blue-100 text-blue-700'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  )}
+                >
+                  <div
+                    className="w-2 h-2 rounded-full"
+                    style={{ backgroundColor: label.color }}
+                  />
+                  <span className="flex-1 truncate">{label.name}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Quick Filters */}
+        <div className="mb-4">
+          <div className="flex items-center gap-2 px-3 py-2 mb-2">
+            <Sliders className="w-3 h-3 text-gray-400" />
+            <h3 className="text-xs font-semibold text-gray-600 uppercase">Filters</h3>
+          </div>
+
+          <div className="space-y-1">
+            <button
+              onClick={() => onViewChange('filter-completed')}
+              className={cn(
+                'w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors text-left',
+                currentView === 'filter-completed'
+                  ? 'bg-blue-100 text-blue-700'
+                  : 'text-gray-700 hover:bg-gray-100'
+              )}
+            >
+              ✓ Completed
+            </button>
+            <button
+              onClick={() => onViewChange('filter-overdue')}
+              className={cn(
+                'w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors text-left',
+                currentView === 'filter-overdue'
+                  ? 'bg-blue-100 text-blue-700'
+                  : 'text-gray-700 hover:bg-gray-100'
+              )}
+            >
+              ⚠ Overdue
+            </button>
+          </div>
+        </div>
       </nav>
 
       {/* User Profile */}
@@ -108,6 +180,12 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) =
           </div>
         </div>
       )}
+
+      {/* Create Project Modal */}
+      <CreateProjectModal
+        isOpen={showCreateProjectModal}
+        onClose={() => setShowCreateProjectModal(false)}
+      />
     </div>
   )
 }

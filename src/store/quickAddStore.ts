@@ -63,8 +63,17 @@ export function initializeQuickAddStore() {
   try {
     const stored = localStorage.getItem('quickAddHistory')
     if (stored) {
-      const items = JSON.parse(stored)
-      useQuickAddStore.setState({ recentItems: items })
+      const items = JSON.parse(stored) as Array<{
+        id: string
+        content: string
+        timestamp: string | Date
+      }>
+      // Convert timestamp strings back to Date objects
+      const convertedItems: QuickAddItem[] = items.map((item) => ({
+        ...item,
+        timestamp: typeof item.timestamp === 'string' ? new Date(item.timestamp) : item.timestamp,
+      }))
+      useQuickAddStore.setState({ recentItems: convertedItems })
     }
   } catch {
     // Silent fail
