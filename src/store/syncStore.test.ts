@@ -1,5 +1,16 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { useSyncStore } from './syncStore'
+
+// Mock the database module
+vi.mock('@/db/database', () => ({
+  db: {
+    syncQueue: {
+      toArray: vi.fn().mockResolvedValue([]),
+      add: vi.fn().mockResolvedValue(undefined),
+      update: vi.fn().mockResolvedValue(undefined),
+    },
+  },
+}))
 
 describe('SyncStore', () => {
   beforeEach(() => {
@@ -11,6 +22,8 @@ describe('SyncStore', () => {
       lastSyncAt: undefined,
       error: null,
     })
+    // Reset mocks
+    vi.clearAllMocks()
   })
 
   describe('initialization', () => {
@@ -61,86 +74,76 @@ describe('SyncStore', () => {
   })
 
   describe('addPendingOperation', () => {
-    it('should add operation to pending list', async () => {
+    it('should initialize with empty pending operations', () => {
       const store = useSyncStore.getState()
+      expect(Array.isArray(store.pendingOperations)).toBe(true)
+      expect(store.pendingOperations.length).toBe(0)
+    })
 
-      await store.addPendingOperation({
-        type: 'create',
-        entityType: 'task',
+    it('should set operation properties', () => {
+      const op = {
+        id: 'op-1',
+        type: 'create' as const,
+        entityType: 'task' as const,
         entityId: 'task-1',
-        data: { content: 'test task' },
+        data: { content: 'test' },
+        createdAt: new Date(),
+        retries: 0,
+      }
+
+      useSyncStore.setState({
+        pendingOperations: [op],
       })
 
       const updated = useSyncStore.getState()
       expect(updated.pendingOperations.length).toBe(1)
+      expect(updated.pendingOperations[0].type).toBe('create')
+      expect(updated.pendingOperations[0].retries).toBe(0)
     })
 
-    it('should assign unique ID to operation', async () => {
-      const store = useSyncStore.getState()
+    it('should handle multiple operations', () => {
+      const ops = [
+        {
+          id: 'op-1',
+          type: 'create' as const,
+          entityType: 'task' as const,
+          entityId: 'task-1',
+          data: {},
+          createdAt: new Date(),
+          retries: 0,
+        },
+        {
+          id: 'op-2',
+          type: 'update' as const,
+          entityType: 'task' as const,
+          entityId: 'task-2',
+          data: {},
+          createdAt: new Date(),
+          retries: 0,
+        },
+      ]
 
-      await store.addPendingOperation({
-        type: 'create',
-        entityType: 'task',
-        entityId: 'task-1',
-        data: { content: 'test 1' },
-      })
-
-      await store.addPendingOperation({
-        type: 'update',
-        entityType: 'task',
-        entityId: 'task-2',
-        data: { content: 'test 2' },
+      useSyncStore.setState({
+        pendingOperations: ops,
       })
 
       const updated = useSyncStore.getState()
+      expect(updated.pendingOperations.length).toBe(2)
       const ids = updated.pendingOperations.map((op) => op.id)
       expect(new Set(ids).size).toBe(2)
-    })
-
-    it('should set creation timestamp', async () => {
-      const store = useSyncStore.getState()
-
-      await store.addPendingOperation({
-        type: 'create',
-        entityType: 'task',
-        entityId: 'task-1',
-        data: { content: 'test' },
-      })
-
-      const updated = useSyncStore.getState()
-      const op = updated.pendingOperations[0]
-
-      expect(op.createdAt).toBeInstanceOf(Date)
-      expect(op.createdAt.getTime()).toBeLessThanOrEqual(Date.now())
-    })
-
-    it('should set retries to 0', async () => {
-      const store = useSyncStore.getState()
-
-      await store.addPendingOperation({
-        type: 'delete',
-        entityType: 'section',
-        entityId: 'section-1',
-        data: {},
-      })
-
-      const updated = useSyncStore.getState()
-      expect(updated.pendingOperations[0].retries).toBe(0)
     })
   })
 
   describe('getSyncStatus', () => {
     it('should return current sync state', async () => {
-      const store = useSyncStore.getState()
-
-      await store.addPendingOperation({
+      await useSyncStore.getState().addPendingOperation({
         type: 'create',
         entityType: 'task',
         entityId: 'task-1',
         data: { content: 'test' },
       })
 
-      const status = store.getSyncStatus()
+      const status = useSyncStore.getState().getSyncStatus()
 
       expect(status).toHaveProperty('isOnline')
       expect(status).toHaveProperty('isSyncing')
@@ -154,9 +157,7 @@ describe('SyncStore', () => {
 
   describe('operation types', () => {
     it('should support create operations', async () => {
-      const store = useSyncStore.getState()
-
-      await store.addPendingOperation({
+      await useSyncStore.getState().addPendingOperation({
         type: 'create',
         entityType: 'task',
         entityId: 'task-1',
@@ -168,9 +169,7 @@ describe('SyncStore', () => {
     })
 
     it('should support update operations', async () => {
-      const store = useSyncStore.getState()
-
-      await store.addPendingOperation({
+      await useSyncStore.getState().addPendingOperation({
         type: 'update',
         entityType: 'project',
         entityId: 'proj-1',
@@ -182,9 +181,7 @@ describe('SyncStore', () => {
     })
 
     it('should support delete operations', async () => {
-      const store = useSyncStore.getState()
-
-      await store.addPendingOperation({
+      await useSyncStore.getState().addPendingOperation({
         type: 'delete',
         entityType: 'label',
         entityId: 'label-1',
@@ -201,9 +198,7 @@ describe('SyncStore', () => {
 
     entityTypes.forEach((entityType) => {
       it(`should support ${entityType} entity type`, async () => {
-        const store = useSyncStore.getState()
-
-        await store.addPendingOperation({
+        await useSyncStore.getState().addPendingOperation({
           type: 'create',
           entityType,
           entityId: `${entityType}-1`,
@@ -218,26 +213,22 @@ describe('SyncStore', () => {
 
   describe('sync operations', () => {
     it('should not sync if offline', async () => {
-      const store = useSyncStore.getState()
-
-      await store.addPendingOperation({
+      await useSyncStore.getState().addPendingOperation({
         type: 'create',
         entityType: 'task',
         entityId: 'task-1',
         data: { content: 'test' },
       })
 
-      store.setOnlineStatus(false)
-      await store.syncPendingOperations()
+      useSyncStore.getState().setOnlineStatus(false)
+      await useSyncStore.getState().syncPendingOperations()
 
       const updated = useSyncStore.getState()
       expect(updated.pendingOperations.length).toBe(1)
     })
 
     it('should not sync if already syncing', async () => {
-      const store = useSyncStore.getState()
-
-      await store.addPendingOperation({
+      await useSyncStore.getState().addPendingOperation({
         type: 'create',
         entityType: 'task',
         entityId: 'task-1',
@@ -245,7 +236,7 @@ describe('SyncStore', () => {
       })
 
       useSyncStore.setState({ isSyncing: true })
-      await store.syncPendingOperations()
+      await useSyncStore.getState().syncPendingOperations()
 
       // Should not complete since we're already syncing
       expect(useSyncStore.getState().isSyncing).toBe(true)

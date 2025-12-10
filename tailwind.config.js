@@ -46,6 +46,9 @@ export default {
         md: '6px',
         lg: '8px',
       },
+      scale: {
+        102: '1.02',
+      },
       animation: {
         fadeIn: 'fadeIn 0.15s ease-in-out',
         slideUp: 'slideUp 0.3s ease-out',

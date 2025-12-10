@@ -35,8 +35,8 @@ export function DroppableTaskList({
       <div
         ref={setNodeRef}
         className={cn(
-          'space-y-2 transition-all',
-          isOver && 'bg-brand-50 border-2 border-brand-300 rounded-lg p-2',
+          'space-y-2 transition-all duration-200 ease-out',
+          isOver && 'bg-brand-50 border-2 border-brand-300 rounded-lg p-2 shadow-sm',
           className
         )}
       >

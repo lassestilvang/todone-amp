@@ -2,8 +2,9 @@ import React from 'react'
 import { Task } from '@/types'
 import { formatDueDate, isTaskOverdue } from '@/utils/date'
 import { cn } from '@/utils/cn'
-import { ChevronRight } from 'lucide-react'
+import { ChevronRight, CheckCircle2 } from 'lucide-react'
 import { useTaskDetailStore } from '@/store/taskDetailStore'
+import { useTaskStore } from '@/store/taskStore'
 import { RecurrenceBadge } from '@/components/RecurrenceBadge'
 
 interface TaskItemProps {
@@ -25,6 +26,9 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, onToggle, onSelect, is
   const priorityConfig_ = priorityConfig[task.priority ?? 'null']
   const dueDateOverdue = task.dueDate && isTaskOverdue(task.dueDate)
   const openTaskDetail = useTaskDetailStore((state) => state.openTaskDetail)
+  const { getSubtasks } = useTaskStore()
+  const subtasks = getSubtasks(task.id)
+  const completedSubtasks = subtasks.filter((st) => st.completed).length
 
   const handleTaskClick = (e: React.MouseEvent) => {
     e.stopPropagation()
@@ -73,6 +77,16 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, onToggle, onSelect, is
 
       {/* Recurrence Badge */}
       {task.recurrence && <RecurrenceBadge pattern={task.recurrence} size="sm" />}
+
+      {/* Subtask Counter */}
+      {subtasks.length > 0 && (
+        <div className="flex items-center gap-1 px-2 py-1 bg-gray-100 rounded text-xs font-medium text-gray-600">
+          <CheckCircle2 className="w-3 h-3" />
+          <span>
+            {completedSubtasks}/{subtasks.length}
+          </span>
+        </div>
+      )}
 
       {/* Due Date */}
       {task.dueDate && (

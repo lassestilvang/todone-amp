@@ -10,6 +10,7 @@ interface SectionState {
   updateSection: (id: string, updates: Partial<Section>) => Promise<void>
   deleteSection: (id: string) => Promise<void>
   getSectionsByProject: (projectId: string) => Section[]
+  reorderSections: (projectId: string, sectionIds: string[]) => Promise<void>
 }
 
 export const useSectionStore = create<SectionState>((set, get) => ({
@@ -53,5 +54,26 @@ export const useSectionStore = create<SectionState>((set, get) => ({
   getSectionsByProject: (projectId: string) => {
     const { sections } = get()
     return sections.filter((s) => s.projectId === projectId).sort((a, b) => a.order - b.order)
+  },
+
+  reorderSections: async (_projectId: string, sectionIds: string[]) => {
+    const now = new Date()
+    const updates: Record<string, Partial<Section>> = {}
+
+    sectionIds.forEach((sectionId, index) => {
+      updates[sectionId] = { order: index, updatedAt: now }
+    })
+
+    // Update database
+    for (const [sectionId, update] of Object.entries(updates)) {
+      await db.sections.update(sectionId, update)
+    }
+
+    // Update store
+    const { sections } = get()
+    const updated = sections.map((s) =>
+      updates[s.id] ? { ...s, ...updates[s.id] } : s
+    )
+    set({ sections: updated })
   },
 }))

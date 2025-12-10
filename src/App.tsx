@@ -17,6 +17,7 @@ import { AuthPage } from '@/pages/AuthPage'
 import { TaskDetailPanel } from '@/components/TaskDetailPanel'
 import { QuickAddModal } from '@/components/QuickAddModal'
 import { KeyboardShortcutsHelp } from '@/components/KeyboardShortcutsHelp'
+import { UndoNotification } from '@/components/UndoNotification'
 import { DragDropContextProvider } from '@/components/DragDropContext'
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts'
 
@@ -37,7 +38,7 @@ function App() {
   const setSelectedView = useViewStore((state) => state.setSelectedView)
   
   // Initialize keyboard shortcuts
-  useKeyboardShortcuts()
+  useKeyboardShortcuts(null)
 
   // Initialize on mount
   useEffect(() => {
@@ -124,6 +125,7 @@ function App() {
         <TaskDetailPanel />
         <QuickAddModal />
         <KeyboardShortcutsHelp />
+        <UndoNotification />
       </div>
     </DragDropContextProvider>
   )

@@ -1,10 +1,12 @@
 import React from 'react'
 import { cn } from '@/utils/cn'
+import type { LucideIcon } from 'lucide-react'
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'ghost' | 'danger'
   size?: 'sm' | 'md' | 'lg'
   isLoading?: boolean
+  icon?: LucideIcon
   children: React.ReactNode
 }
 
@@ -22,7 +24,7 @@ const sizes = {
 }
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ variant = 'primary', size = 'md', isLoading, disabled, children, className, ...props }, ref) => {
+  ({ variant = 'primary', size = 'md', isLoading, disabled, icon: Icon, children, className, ...props }, ref) => {
     return (
       <button
         ref={ref}
@@ -47,6 +49,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
             />
           </svg>
         )}
+        {Icon && <Icon className="mr-2 h-4 w-4" />}
         {children}
       </button>
     )

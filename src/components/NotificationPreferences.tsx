@@ -1,204 +1,264 @@
-import { useState } from 'react'
-import { useNotificationStore } from '@/store/notificationStore'
 import { useAuthStore } from '@/store/authStore'
-import { cn } from '@/utils/cn'
-import { Bell, Mail, Volume2, Smartphone } from 'lucide-react'
+import { Button } from '@/components/Button'
+import { Input } from '@/components/Input'
+import {
+  Bell,
+  Mail,
+  Smartphone,
+  Volume2,
+  Clock,
+  X,
+  Save,
+} from 'lucide-react'
+import { useState } from 'react'
 
 interface NotificationPreferencesProps {
-  className?: string
+  isOpen: boolean
+  onClose: () => void
 }
 
-export function NotificationPreferences({ className }: NotificationPreferencesProps) {
-  const { user } = useAuthStore()
-  const { preferences, updatePreferences } = useNotificationStore()
-  const [isSaving, setIsSaving] = useState(false)
-  const [quietHours, setQuietHours] = useState(preferences.quietHours || {
-    enabled: false,
-    startTime: '22:00',
-    endTime: '08:00',
-  })
+export function NotificationPreferences({ isOpen, onClose }: NotificationPreferencesProps) {
+  const { user, updateUser } = useAuthStore()
+  const quietHours = user?.settings.notificationPreferences?.quietHours
+  const [quietEnabled, setQuietEnabled] = useState(quietHours?.enabled || false)
+  const [quietHourStart, setQuietHourStart] = useState(quietHours?.startTime || '22:00')
+  const [quietHourEnd, setQuietHourEnd] = useState(quietHours?.endTime || '08:00')
+  const [browserNotifs, setBrowserNotifs] = useState(
+    user?.settings.notificationPreferences?.enableBrowserNotifications !== false
+  )
+  const [emailNotifs, setEmailNotifs] = useState(
+    user?.settings.notificationPreferences?.enableEmailNotifications !== false
+  )
+  const [pushNotifs, setPushNotifs] = useState(
+    user?.settings.notificationPreferences?.enablePushNotifications !== false
+  )
+  const [soundEnabled, setSoundEnabled] = useState(
+    user?.settings.notificationPreferences?.enableSoundNotifications !== false
+  )
 
-  const handleToggle = async (key: string) => {
-    if (!user) return
-    setIsSaving(true)
-    try {
-      await updatePreferences(user.id, {
-        [key]: !preferences[key as keyof typeof preferences],
-      })
-    } finally {
-      setIsSaving(false)
-    }
-  }
+  if (!isOpen || !user) return null
 
-  const handleQuietHoursToggle = async () => {
-    if (!user) return
-    setIsSaving(true)
-    try {
-      await updatePreferences(user.id, {
-        quietHours: {
-          ...quietHours,
-          enabled: !quietHours.enabled,
+  const handleSave = async () => {
+    await updateUser({
+      settings: {
+        ...user.settings,
+        notificationPreferences: {
+          ...user.settings.notificationPreferences,
+          enableBrowserNotifications: browserNotifs,
+          enableEmailNotifications: emailNotifs,
+          enablePushNotifications: pushNotifs,
+          enableSoundNotifications: soundEnabled,
+          quietHours: {
+            enabled: quietEnabled,
+            startTime: quietHourStart,
+            endTime: quietHourEnd,
+          },
         },
-      })
-    } finally {
-      setIsSaving(false)
-    }
+      },
+    })
+    onClose()
   }
 
-  const handleQuietHourChange = async (field: 'startTime' | 'endTime', value: string) => {
-    if (!user) return
-    const newQuietHours = { ...quietHours, [field]: value }
-    setQuietHours(newQuietHours)
-    setIsSaving(true)
-    try {
-      await updatePreferences(user.id, {
-        quietHours: newQuietHours,
-      })
-    } finally {
-      setIsSaving(false)
+  const handleRequestBrowserPermission = async () => {
+    if ('Notification' in window && Notification.permission === 'default') {
+      const permission = await Notification.requestPermission()
+      if (permission === 'granted') {
+        setBrowserNotifs(true)
+        new Notification('Notifications enabled!', {
+          body: 'You will now receive browser notifications.',
+          icon: '/icon-192.png',
+        })
+      }
     }
   }
-
-  const preferenceOptions = [
-    {
-      key: 'enableBrowserNotifications',
-      label: 'Browser Notifications',
-      icon: Bell,
-      description: 'Show desktop notifications',
-    },
-    {
-      key: 'enableEmailNotifications',
-      label: 'Email Notifications',
-      icon: Mail,
-      description: 'Receive email updates',
-    },
-    {
-      key: 'enableSoundNotifications',
-      label: 'Sound Notifications',
-      icon: Volume2,
-      description: 'Play notification sounds',
-    },
-    {
-      key: 'enablePushNotifications',
-      label: 'Push Notifications',
-      icon: Smartphone,
-      description: 'Push notifications on mobile',
-    },
-  ]
 
   return (
-    <div className={cn('space-y-6 rounded border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-900', className)}>
-      <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-        Notification Preferences
-      </h3>
-
-      {/* Toggle options */}
-      <div className="space-y-4">
-        {preferenceOptions.map(({ key, label, icon: Icon, description }) => (
-          <div
-            key={key}
-            className="flex items-center justify-between rounded border border-gray-100 p-3 dark:border-gray-800"
-          >
-            <div className="flex items-start gap-3">
-              <Icon className="mt-0.5 h-5 w-5 text-gray-500 dark:text-gray-400" />
-              <div>
-                <p className="font-medium text-gray-900 dark:text-white">{label}</p>
-                <p className="text-sm text-gray-500 dark:text-gray-400">{description}</p>
-              </div>
-            </div>
-            <button
-              onClick={() => {
-                const keyMap = {
-                  enableBrowserNotifications: 'enableBrowserNotifications',
-                  enableEmailNotifications: 'enableEmailNotifications',
-                  enableSoundNotifications: 'enableSoundNotifications',
-                  enablePushNotifications: 'enablePushNotifications',
-                }
-                handleToggle(keyMap[key as keyof typeof keyMap])
-              }}
-              disabled={isSaving}
-              className={cn(
-                'relative inline-flex h-6 w-11 flex-shrink-0 items-center rounded-full transition-colors',
-                preferences[key as keyof typeof preferences]
-                  ? 'bg-blue-600'
-                  : 'bg-gray-300 dark:bg-gray-700'
-              )}
-            >
-              <span
-                className={cn(
-                  'inline-block h-4 w-4 transform rounded-full bg-white transition-transform',
-                  preferences[key as keyof typeof preferences] ? 'translate-x-6' : 'translate-x-1'
-                )}
-              />
-            </button>
-          </div>
-        ))}
-      </div>
-
-      {/* Quiet hours */}
-      <div className="border-t border-gray-200 pt-6 dark:border-gray-700">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="font-medium text-gray-900 dark:text-white">Quiet Hours</p>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Disable notifications during these hours
-            </p>
-          </div>
+    <div className="fixed inset-0 z-50 flex items-end bg-black bg-opacity-50 md:items-center">
+      <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-xl md:rounded-2xl dark:bg-gray-900">
+        <div className="mb-6 flex items-center justify-between">
+          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+            Notification Preferences
+          </h2>
           <button
-            onClick={handleQuietHoursToggle}
-            disabled={isSaving}
-            className={cn(
-              'relative inline-flex h-6 w-11 flex-shrink-0 items-center rounded-full transition-colors',
-              quietHours.enabled ? 'bg-blue-600' : 'bg-gray-300 dark:bg-gray-700'
-            )}
+            onClick={onClose}
+            className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
           >
-            <span
-              className={cn(
-                'inline-block h-4 w-4 transform rounded-full bg-white transition-transform',
-                quietHours.enabled ? 'translate-x-6' : 'translate-x-1'
-              )}
-            />
+            <X className="h-5 w-5" />
           </button>
         </div>
 
-        {quietHours.enabled && (
-          <div className="mt-4 grid grid-cols-2 gap-3">
-            <div>
-              <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
-                From
-              </label>
+        <div className="space-y-6">
+          {/* Browser Notifications */}
+          <div className="rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
+            <label className="flex cursor-pointer items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Bell className="h-5 w-5 text-blue-500" />
+                <div>
+                  <p className="font-medium text-gray-900 dark:text-white">
+                    Browser Notifications
+                  </p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Alerts in your browser
+                  </p>
+                </div>
+              </div>
               <input
-                type="time"
-                value={quietHours.startTime}
-                onChange={(e) =>
-                  handleQuietHourChange('startTime', e.target.value)
-                }
-                className="w-full rounded border border-gray-300 px-2 py-1.5 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                type="checkbox"
+                checked={browserNotifs}
+                onChange={(e) => {
+                  if (e.target.checked) {
+                    handleRequestBrowserPermission()
+                  } else {
+                    setBrowserNotifs(false)
+                  }
+                }}
+                className="h-5 w-5 rounded border-gray-300 text-brand-500"
               />
-            </div>
-            <div>
-              <label className="mb-1 block text-sm font-medium text-gray-700 dark:text-gray-300">
-                To
-              </label>
+            </label>
+          </div>
+
+          {/* Email Notifications */}
+          <div className="rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
+            <label className="flex cursor-pointer items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Mail className="h-5 w-5 text-green-500" />
+                <div>
+                  <p className="font-medium text-gray-900 dark:text-white">
+                    Email Notifications
+                  </p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Alerts sent to your email
+                  </p>
+                </div>
+              </div>
               <input
-                type="time"
-                value={quietHours.endTime}
-                onChange={(e) =>
-                  handleQuietHourChange('endTime', e.target.value)
-                }
-                className="w-full rounded border border-gray-300 px-2 py-1.5 dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                type="checkbox"
+                checked={emailNotifs}
+                onChange={(e) => setEmailNotifs(e.target.checked)}
+                className="h-5 w-5 rounded border-gray-300 text-brand-500"
               />
+            </label>
+          </div>
+
+          {/* Push Notifications */}
+          <div className="rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
+            <label className="flex cursor-pointer items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Smartphone className="h-5 w-5 text-purple-500" />
+                <div>
+                  <p className="font-medium text-gray-900 dark:text-white">
+                    Push Notifications
+                  </p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Mobile app alerts
+                  </p>
+                </div>
+              </div>
+              <input
+                type="checkbox"
+                checked={pushNotifs}
+                onChange={(e) => setPushNotifs(e.target.checked)}
+                className="h-5 w-5 rounded border-gray-300 text-brand-500"
+              />
+            </label>
+          </div>
+
+          {/* Sound Notifications */}
+          <div className="rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
+            <label className="flex cursor-pointer items-center justify-between">
+              <div className="flex items-center gap-3">
+                <Volume2 className="h-5 w-5 text-orange-500" />
+                <div>
+                  <p className="font-medium text-gray-900 dark:text-white">
+                    Sound Effects
+                  </p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Play notification sounds
+                  </p>
+                </div>
+              </div>
+              <input
+                type="checkbox"
+                checked={soundEnabled}
+                onChange={(e) => setSoundEnabled(e.target.checked)}
+                className="h-5 w-5 rounded border-gray-300 text-brand-500"
+              />
+            </label>
+          </div>
+
+          {/* Quiet Hours */}
+          <div className="rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
+            <label className="mb-4 flex cursor-pointer items-center gap-3">
+              <Clock className="h-5 w-5 text-gray-600 dark:text-gray-400" />
+              <div className="flex-1">
+                <p className="font-medium text-gray-900 dark:text-white">Quiet Hours</p>
+                <p className="text-sm text-gray-600 dark:text-gray-400">
+                  No notifications between these times
+                </p>
+              </div>
+              <input
+                type="checkbox"
+                checked={quietEnabled}
+                onChange={(e) => setQuietEnabled(e.target.checked)}
+                className="h-5 w-5 rounded border-gray-300 text-brand-500"
+              />
+            </label>
+            {quietEnabled && (
+              <div className="space-y-3">
+                <Input
+                  type="time"
+                  value={quietHourStart}
+                  onChange={(e) => setQuietHourStart(e.target.value)}
+                  label="Start time"
+                />
+                <Input
+                  type="time"
+                  value={quietHourEnd}
+                  onChange={(e) => setQuietHourEnd(e.target.value)}
+                  label="End time"
+                />
+              </div>
+            )}
+          </div>
+
+          {/* Notification Types */}
+          <div className="rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
+            <p className="mb-3 font-medium text-gray-900 dark:text-white">
+              Notification Types
+            </p>
+            <div className="space-y-2">
+              {[
+                { label: 'Task assigned', id: 'task_assigned' },
+                { label: 'Task shared', id: 'task_shared' },
+                { label: 'Comments', id: 'comment' },
+                { label: 'Reminders', id: 'reminder' },
+                { label: 'System updates', id: 'system' },
+              ].map((type) => (
+                <label key={type.id} className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    defaultChecked
+                    className="h-4 w-4 rounded border-gray-300 text-brand-500"
+                  />
+                  <span className="text-sm text-gray-700 dark:text-gray-300">
+                    {type.label}
+                  </span>
+                </label>
+              ))}
             </div>
           </div>
-        )}
-      </div>
+        </div>
 
-      {/* Info box */}
-      <div className="rounded-lg bg-blue-50 p-3 dark:bg-blue-900">
-        <p className="text-xs text-blue-800 dark:text-blue-200">
-          💡 Notification preferences are saved locally. Email and push notifications require backend
-          configuration.
-        </p>
+        {/* Action Buttons */}
+        <div className="mt-6 flex gap-3">
+          <Button variant="secondary" onClick={onClose} className="flex-1">
+            Cancel
+          </Button>
+          <Button onClick={handleSave} className="flex-1 gap-2">
+            <Save className="h-4 w-4" />
+            Save Changes
+          </Button>
+        </div>
       </div>
     </div>
   )

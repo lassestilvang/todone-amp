@@ -501,6 +501,663 @@ export const PREBUILT_TEMPLATES: Omit<Template, 'id' | 'createdAt' | 'updatedAt'
       ],
     },
   },
+  // Additional Work templates
+  {
+    name: 'Product Launch',
+    description: 'Checklist for launching a new product',
+    category: 'work',
+    isPrebuilt: true,
+    ownerId: SYSTEM_USER_ID,
+    usageCount: 0,
+    data: {
+      sections: [
+        {
+          name: 'Pre-Launch',
+          tasks: [
+            { content: 'Finalize product features', priority: 'p1' },
+            { content: 'Complete beta testing', priority: 'p1' },
+            { content: 'Prepare marketing materials', priority: 'p1' },
+            { content: 'Train sales team', priority: 'p2' },
+          ],
+        },
+        {
+          name: 'Launch Day',
+          tasks: [
+            { content: 'Go live on website', priority: 'p1' },
+            { content: 'Send announcement email', priority: 'p1' },
+            { content: 'Post on social media', priority: 'p1' },
+            { content: 'Monitor support channels', priority: 'p1' },
+          ],
+        },
+        {
+          name: 'Post-Launch',
+          tasks: [
+            { content: 'Monitor customer feedback', priority: 'p2' },
+            { content: 'Address issues immediately', priority: 'p1' },
+            { content: 'Gather success metrics', priority: 'p2' },
+            { content: 'Plan next iteration', priority: 'p3' },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    name: 'Presentation Prep',
+    description: 'Prepare and deliver successful presentation',
+    category: 'work',
+    isPrebuilt: true,
+    ownerId: SYSTEM_USER_ID,
+    usageCount: 0,
+    data: {
+      sections: [
+        {
+          name: 'Planning',
+          tasks: [
+            { content: 'Define presentation objective', priority: 'p1' },
+            { content: 'Identify target audience', priority: 'p2' },
+            { content: 'Create presentation outline', priority: 'p1' },
+          ],
+        },
+        {
+          name: 'Creation',
+          tasks: [
+            { content: 'Design slides', priority: 'p1' },
+            { content: 'Add visuals and graphics', priority: 'p2' },
+            { content: 'Include data and charts', priority: 'p1' },
+            { content: 'Review for clarity', priority: 'p2' },
+          ],
+        },
+        {
+          name: 'Rehearsal',
+          tasks: [
+            { content: 'Practice delivery', priority: 'p1' },
+            { content: 'Time the presentation', priority: 'p2' },
+            { content: 'Prepare speaker notes', priority: 'p2' },
+            { content: 'Get feedback from peers', priority: 'p3' },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    name: 'Website Redesign',
+    description: 'Plan and execute website redesign project',
+    category: 'work',
+    isPrebuilt: true,
+    ownerId: SYSTEM_USER_ID,
+    usageCount: 0,
+    data: {
+      sections: [
+        {
+          name: 'Discovery',
+          tasks: [
+            { content: 'Analyze current site performance', priority: 'p1' },
+            { content: 'Gather user feedback', priority: 'p2' },
+            { content: 'Research competitor sites', priority: 'p2' },
+            { content: 'Define goals and KPIs', priority: 'p1' },
+          ],
+        },
+        {
+          name: 'Design',
+          tasks: [
+            { content: 'Create wireframes', priority: 'p1' },
+            { content: 'Design mockups', priority: 'p1' },
+            { content: 'Get stakeholder approval', priority: 'p1' },
+            { content: 'Create style guide', priority: 'p2' },
+          ],
+        },
+        {
+          name: 'Development',
+          tasks: [
+            { content: 'Code frontend', priority: 'p1' },
+            { content: 'Integrate backend', priority: 'p1' },
+            { content: 'Set up hosting', priority: 'p2' },
+            { content: 'Test functionality', priority: 'p1' },
+          ],
+        },
+        {
+          name: 'Launch',
+          tasks: [
+            { content: 'Migrate content', priority: 'p1' },
+            { content: 'Set up redirects', priority: 'p1' },
+            { content: 'Monitor performance', priority: 'p2' },
+            { content: 'Gather feedback', priority: 'p3' },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    name: 'Performance Review Cycle',
+    description: 'Conduct employee performance reviews',
+    category: 'management',
+    isPrebuilt: true,
+    ownerId: SYSTEM_USER_ID,
+    usageCount: 0,
+    data: {
+      sections: [
+        {
+          name: 'Preparation',
+          tasks: [
+            { content: 'Schedule review meetings', priority: 'p1' },
+            { content: 'Review performance metrics', priority: 'p1' },
+            { content: 'Gather 360 feedback', priority: 'p2' },
+            { content: 'Prepare feedback notes', priority: 'p1' },
+          ],
+        },
+        {
+          name: 'Reviews',
+          tasks: [
+            { content: 'Conduct one-on-ones', priority: 'p1' },
+            { content: 'Discuss strengths', priority: 'p2' },
+            { content: 'Address improvement areas', priority: 'p2' },
+            { content: 'Set goals for next period', priority: 'p1' },
+          ],
+        },
+        {
+          name: 'Follow-up',
+          tasks: [
+            { content: 'Document reviews', priority: 'p1' },
+            { content: 'Discuss compensation changes', priority: 'p1' },
+            { content: 'Create development plans', priority: 'p2' },
+            { content: 'Schedule check-ins', priority: 'p2' },
+          ],
+        },
+      ],
+    },
+  },
+  // Additional Personal templates
+  {
+    name: 'Home Renovation',
+    description: 'Plan and manage home renovation project',
+    category: 'personal',
+    isPrebuilt: true,
+    ownerId: SYSTEM_USER_ID,
+    usageCount: 0,
+    data: {
+      sections: [
+        {
+          name: 'Planning',
+          tasks: [
+            { content: 'Define vision and budget', priority: 'p1' },
+            { content: 'Get design estimates', priority: 'p1' },
+            { content: 'Obtain permits', priority: 'p1' },
+            { content: 'Schedule contractors', priority: 'p2' },
+          ],
+        },
+        {
+          name: 'Execution',
+          tasks: [
+            { content: 'Demolition', priority: 'p1' },
+            { content: 'Construction work', priority: 'p1' },
+            { content: 'Electrical and plumbing', priority: 'p1' },
+            { content: 'Finishing touches', priority: 'p2' },
+          ],
+        },
+        {
+          name: 'Inspection',
+          tasks: [
+            { content: 'Final inspection', priority: 'p1' },
+            { content: 'Fix issues', priority: 'p1' },
+            { content: 'Final walkthrough', priority: 'p2' },
+            { content: 'Get paid invoices', priority: 'p1' },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    name: 'Wedding Planning',
+    description: 'Comprehensive wedding planning checklist',
+    category: 'personal',
+    isPrebuilt: true,
+    ownerId: SYSTEM_USER_ID,
+    usageCount: 0,
+    data: {
+      sections: [
+        {
+          name: '12 Months Before',
+          tasks: [
+            { content: 'Set wedding date and budget', priority: 'p1' },
+            { content: 'Choose venue', priority: 'p1' },
+            { content: 'Hire planner', priority: 'p2' },
+            { content: 'Make guest list', priority: 'p1' },
+          ],
+        },
+        {
+          name: '6 Months Before',
+          tasks: [
+            { content: 'Send save-the-date', priority: 'p1' },
+            { content: 'Hire photographer', priority: 'p1' },
+            { content: 'Select dress and attire', priority: 'p1' },
+            { content: 'Plan honeymoon', priority: 'p2' },
+          ],
+        },
+        {
+          name: '3 Months Before',
+          tasks: [
+            { content: 'Send formal invitations', priority: 'p1' },
+            { content: 'Book caterer', priority: 'p1' },
+            { content: 'Plan ceremony', priority: 'p1' },
+            { content: 'Arrange accommodations', priority: 'p2' },
+          ],
+        },
+        {
+          name: '1 Month Before',
+          tasks: [
+            { content: 'Finalize guest count', priority: 'p1' },
+            { content: 'Confirm all vendors', priority: 'p1' },
+            { content: 'Final dress fitting', priority: 'p2' },
+            { content: 'Plan rehearsal dinner', priority: 'p2' },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    name: 'Home Move Checklist',
+    description: 'Organize moving to a new home',
+    category: 'personal',
+    isPrebuilt: true,
+    ownerId: SYSTEM_USER_ID,
+    usageCount: 0,
+    data: {
+      sections: [
+        {
+          name: 'Before Moving',
+          tasks: [
+            { content: 'Find new place', priority: 'p1' },
+            { content: 'Book movers', priority: 'p1' },
+            { content: 'Notify utilities', priority: 'p2' },
+            { content: 'Change address', priority: 'p1' },
+          ],
+        },
+        {
+          name: 'Packing',
+          tasks: [
+            { content: 'Declutter', priority: 'p1' },
+            { content: 'Collect boxes', priority: 'p2' },
+            { content: 'Pack non-essentials', priority: 'p2' },
+            { content: 'Pack essentials last', priority: 'p1' },
+          ],
+        },
+        {
+          name: 'Moving Day',
+          tasks: [
+            { content: 'Do final walkthrough', priority: 'p2' },
+            { content: 'Load moving truck', priority: 'p1' },
+            { content: 'Unload at new place', priority: 'p1' },
+            { content: 'Return keys', priority: 'p2' },
+          ],
+        },
+        {
+          name: 'After Moving',
+          tasks: [
+            { content: 'Unpack essentials', priority: 'p1' },
+            { content: 'Set up utilities', priority: 'p1' },
+            { content: 'Register vehicles', priority: 'p2' },
+            { content: 'Unpack remaining boxes', priority: 'p3' },
+          ],
+        },
+      ],
+    },
+  },
+  // Additional Education templates
+  {
+    name: 'Semester Planning',
+    description: 'Organize courses and assignments for a semester',
+    category: 'education',
+    isPrebuilt: true,
+    ownerId: SYSTEM_USER_ID,
+    usageCount: 0,
+    data: {
+      sections: [
+        {
+          name: 'Course Setup',
+          tasks: [
+            { content: 'Register for courses', priority: 'p1' },
+            { content: 'Buy textbooks', priority: 'p2' },
+            { content: 'Create study schedule', priority: 'p1' },
+            { content: 'Join study groups', priority: 'p3' },
+          ],
+        },
+        {
+          name: 'Coursework',
+          tasks: [
+            { content: 'Attend lectures', priority: 'p1' },
+            { content: 'Complete readings', priority: 'p1' },
+            { content: 'Take notes', priority: 'p1' },
+            { content: 'Do assignments', priority: 'p1' },
+          ],
+        },
+        {
+          name: 'Exams',
+          tasks: [
+            { content: 'Create study guides', priority: 'p1' },
+            { content: 'Review notes', priority: 'p1' },
+            { content: 'Take practice tests', priority: 'p2' },
+            { content: 'Take final exams', priority: 'p1' },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    name: 'Thesis Writing',
+    description: 'Structure for completing a thesis or dissertation',
+    category: 'education',
+    isPrebuilt: true,
+    ownerId: SYSTEM_USER_ID,
+    usageCount: 0,
+    data: {
+      sections: [
+        {
+          name: 'Proposal',
+          tasks: [
+            { content: 'Choose topic', priority: 'p1' },
+            { content: 'Research similar works', priority: 'p1' },
+            { content: 'Write proposal', priority: 'p1' },
+            { content: 'Get advisor approval', priority: 'p1' },
+          ],
+        },
+        {
+          name: 'Research',
+          tasks: [
+            { content: 'Conduct literature review', priority: 'p1' },
+            { content: 'Design methodology', priority: 'p1' },
+            { content: 'Collect data', priority: 'p1' },
+            { content: 'Analyze results', priority: 'p1' },
+          ],
+        },
+        {
+          name: 'Writing',
+          tasks: [
+            { content: 'Write chapters', priority: 'p1' },
+            { content: 'Get committee feedback', priority: 'p1' },
+            { content: 'Revise drafts', priority: 'p1' },
+            { content: 'Final proofread', priority: 'p1' },
+          ],
+        },
+        {
+          name: 'Defense',
+          tasks: [
+            { content: 'Schedule defense', priority: 'p1' },
+            { content: 'Prepare presentation', priority: 'p1' },
+            { content: 'Defend thesis', priority: 'p1' },
+            { content: 'Submit final version', priority: 'p1' },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    name: 'Study for Certification',
+    description: 'Prepare for professional certification exam',
+    category: 'education',
+    isPrebuilt: true,
+    ownerId: SYSTEM_USER_ID,
+    usageCount: 0,
+    data: {
+      sections: [
+        {
+          name: 'Preparation',
+          tasks: [
+            { content: 'Register for exam', priority: 'p1' },
+            { content: 'Buy study materials', priority: 'p2' },
+            { content: 'Create study plan', priority: 'p1' },
+            { content: 'Find study partner', priority: 'p3' },
+          ],
+        },
+        {
+          name: 'Study',
+          tasks: [
+            { content: 'Cover topic 1', priority: 'p1' },
+            { content: 'Cover topic 2', priority: 'p1' },
+            { content: 'Take practice tests', priority: 'p1' },
+            { content: 'Review weak areas', priority: 'p1' },
+          ],
+        },
+        {
+          name: 'Exam',
+          tasks: [
+            { content: 'Final review', priority: 'p1' },
+            { content: 'Get rest', priority: 'p2' },
+            { content: 'Take exam', priority: 'p1' },
+            { content: 'Receive results', priority: 'p2' },
+          ],
+        },
+      ],
+    },
+  },
+  // Additional Marketing templates
+  {
+    name: 'Content Calendar',
+    description: 'Plan and schedule social media content',
+    category: 'marketing',
+    isPrebuilt: true,
+    ownerId: SYSTEM_USER_ID,
+    usageCount: 0,
+    data: {
+      sections: [
+        {
+          name: 'Planning',
+          tasks: [
+            { content: 'Define monthly themes', priority: 'p1' },
+            { content: 'Create content ideas', priority: 'p1' },
+            { content: 'Assign posting schedules', priority: 'p2' },
+          ],
+        },
+        {
+          name: 'Week 1-2',
+          tasks: [
+            { content: 'Create graphics', priority: 'p1' },
+            { content: 'Write captions', priority: 'p1' },
+            { content: 'Schedule posts', priority: 'p2' },
+          ],
+        },
+        {
+          name: 'Week 3-4',
+          tasks: [
+            { content: 'Monitor engagement', priority: 'p2' },
+            { content: 'Respond to comments', priority: 'p2' },
+            { content: 'Plan next month', priority: 'p3' },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    name: 'SEO Optimization',
+    description: 'Improve website search engine optimization',
+    category: 'marketing',
+    isPrebuilt: true,
+    ownerId: SYSTEM_USER_ID,
+    usageCount: 0,
+    data: {
+      sections: [
+        {
+          name: 'Audit',
+          tasks: [
+            { content: 'Analyze current rankings', priority: 'p1' },
+            { content: 'Research keywords', priority: 'p1' },
+            { content: 'Audit content', priority: 'p2' },
+            { content: 'Check backlinks', priority: 'p2' },
+          ],
+        },
+        {
+          name: 'Optimization',
+          tasks: [
+            { content: 'Update meta tags', priority: 'p1' },
+            { content: 'Optimize headings', priority: 'p1' },
+            { content: 'Improve page speed', priority: 'p1' },
+            { content: 'Add internal links', priority: 'p2' },
+          ],
+        },
+        {
+          name: 'Monitoring',
+          tasks: [
+            { content: 'Track rankings', priority: 'p2' },
+            { content: 'Monitor traffic', priority: 'p2' },
+            { content: 'Analyze user behavior', priority: 'p2' },
+            { content: 'Adjust strategy', priority: 'p3' },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    name: 'Email Marketing',
+    description: 'Plan and execute email marketing campaign',
+    category: 'marketing',
+    isPrebuilt: true,
+    ownerId: SYSTEM_USER_ID,
+    usageCount: 0,
+    data: {
+      sections: [
+        {
+          name: 'Strategy',
+          tasks: [
+            { content: 'Define email goal', priority: 'p1' },
+            { content: 'Segment audience', priority: 'p1' },
+            { content: 'Choose template', priority: 'p2' },
+          ],
+        },
+        {
+          name: 'Creation',
+          tasks: [
+            { content: 'Write subject line', priority: 'p1' },
+            { content: 'Write email body', priority: 'p1' },
+            { content: 'Add call-to-action', priority: 'p1' },
+            { content: 'Test email', priority: 'p2' },
+          ],
+        },
+        {
+          name: 'Execution',
+          tasks: [
+            { content: 'Schedule send time', priority: 'p2' },
+            { content: 'Send email', priority: 'p1' },
+            { content: 'Monitor opens', priority: 'p2' },
+            { content: 'Track clicks', priority: 'p2' },
+          ],
+        },
+      ],
+    },
+  },
+  // Additional Support templates
+  {
+    name: 'Knowledge Base Creation',
+    description: 'Build comprehensive knowledge base',
+    category: 'support',
+    isPrebuilt: true,
+    ownerId: SYSTEM_USER_ID,
+    usageCount: 0,
+    data: {
+      sections: [
+        {
+          name: 'Planning',
+          tasks: [
+            { content: 'Identify common questions', priority: 'p1' },
+            { content: 'Outline article topics', priority: 'p1' },
+            { content: 'Assign writers', priority: 'p2' },
+          ],
+        },
+        {
+          name: 'Writing',
+          tasks: [
+            { content: 'Write getting started', priority: 'p1' },
+            { content: 'Write how-to guides', priority: 'p1' },
+            { content: 'Write troubleshooting', priority: 'p1' },
+            { content: 'Add screenshots', priority: 'p2' },
+          ],
+        },
+        {
+          name: 'Publishing',
+          tasks: [
+            { content: 'Review articles', priority: 'p1' },
+            { content: 'Upload to system', priority: 'p1' },
+            { content: 'Create search index', priority: 'p2' },
+            { content: 'Monitor usage', priority: 'p3' },
+          ],
+        },
+      ],
+    },
+  },
+  // Additional Health templates
+  {
+    name: 'Nutrition Plan',
+    description: 'Plan weekly meals and groceries',
+    category: 'health',
+    isPrebuilt: true,
+    ownerId: SYSTEM_USER_ID,
+    usageCount: 0,
+    data: {
+      sections: [
+        {
+          name: 'Breakfast Ideas',
+          tasks: [
+            { content: 'Oatmeal with berries', priority: null },
+            { content: 'Scrambled eggs', priority: null },
+            { content: 'Yogurt parfait', priority: null },
+          ],
+        },
+        {
+          name: 'Lunch Ideas',
+          tasks: [
+            { content: 'Grilled chicken salad', priority: null },
+            { content: 'Turkey sandwich', priority: null },
+            { content: 'Fish with vegetables', priority: null },
+          ],
+        },
+        {
+          name: 'Dinner Ideas',
+          tasks: [
+            { content: 'Pasta primavera', priority: null },
+            { content: 'Grilled salmon', priority: null },
+            { content: 'Stir fry', priority: null },
+          ],
+        },
+      ],
+    },
+  },
+  // Additional Finance templates
+  {
+    name: 'Tax Preparation',
+    description: 'Organize documents for tax filing',
+    category: 'finance',
+    isPrebuilt: true,
+    ownerId: SYSTEM_USER_ID,
+    usageCount: 0,
+    data: {
+      sections: [
+        {
+          name: 'Gather Documents',
+          tasks: [
+            { content: 'Collect W-2s', priority: 'p1' },
+            { content: 'Collect 1099s', priority: 'p1' },
+            { content: 'Gather receipts', priority: 'p1' },
+            { content: 'Organize deductions', priority: 'p1' },
+          ],
+        },
+        {
+          name: 'Preparation',
+          tasks: [
+            { content: 'Calculate income', priority: 'p1' },
+            { content: 'List deductions', priority: 'p1' },
+            { content: 'Review credits', priority: 'p2' },
+          ],
+        },
+        {
+          name: 'Filing',
+          tasks: [
+            { content: 'Fill out forms', priority: 'p1' },
+            { content: 'Double-check numbers', priority: 'p1' },
+            { content: 'File return', priority: 'p1' },
+            { content: 'Pay taxes', priority: 'p1' },
+          ],
+        },
+      ],
+    },
+  },
 ]
 
 /**

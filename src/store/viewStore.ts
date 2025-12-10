@@ -4,6 +4,13 @@ export type ViewType = 'list' | 'board' | 'calendar'
 
 export type BoardColumnType = 'section' | 'priority' | 'assignee' | 'custom'
 
+export interface ColumnConfig {
+  id: string
+  label: string
+  visible: boolean
+  sortable: boolean
+}
+
 interface ViewState {
   // Global view preferences
   selectedView: ViewType
@@ -27,6 +34,10 @@ interface ViewState {
   listSortBy?: 'due-date' | 'priority' | 'created' | 'alphabetical' | 'custom'
   setListGroupBy: (groupBy: 'none' | 'date' | 'project' | 'priority' | 'label') => void
   setListSortBy: (sortBy: 'due-date' | 'priority' | 'created' | 'alphabetical' | 'custom') => void
+
+  // List view columns
+  listColumns?: ColumnConfig[]
+  setListColumns: (columns: ColumnConfig[]) => void
 
   // Collapsed groups in list view
   collapsedGroups: Set<string>
@@ -57,6 +68,11 @@ export const useViewStore = create<ViewState>((set, get) => ({
   },
   setListSortBy: (sortBy) => {
     set({ listSortBy: sortBy })
+  },
+
+  listColumns: undefined,
+  setListColumns: (columns) => {
+    set({ listColumns: columns })
   },
 
   collapsedGroups: new Set(),

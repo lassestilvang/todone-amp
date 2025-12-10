@@ -46,6 +46,7 @@ export interface NotificationPreferencesType {
 
 export interface UserSettings {
   theme: 'light' | 'dark' | 'system'
+  accentColor?: string
   language: string
   timeFormat: '12h' | '24h'
   dateFormat: string
@@ -58,8 +59,12 @@ export interface UserSettings {
   weeklyGoal: number
   daysOff: number[]
   vacationMode: boolean
+  experimentalFeatures?: boolean
   enableNotifications: boolean
   notificationPreferences?: NotificationPreferencesType
+  showOnLeaderboard?: boolean
+  allowAnalytics?: boolean
+  shareAchievements?: boolean
 }
 
 export interface Team {

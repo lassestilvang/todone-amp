@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { ChevronLeft, ChevronRight, Calendar as CalendarIcon } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Clock } from 'lucide-react'
 import { useTaskStore } from '@/store/taskStore'
 import { useTaskDetailStore } from '@/store/taskDetailStore'
 import { cn } from '@/utils/cn'
@@ -14,9 +14,10 @@ import {
   startOfWeek,
   endOfWeek,
 } from 'date-fns'
+import { TimeBlockingView } from '@/components/TimeBlockingView'
 import type { Task } from '@/types'
 
-type CalendarViewType = 'month' | 'week'
+type CalendarViewType = 'month' | 'week' | 'timeblock'
 
 interface DayTasksMap {
   [key: string]: Task[]
@@ -91,6 +92,19 @@ export function CalendarView() {
               >
                 Week
               </button>
+              <button
+                onClick={() => setViewType('timeblock')}
+                className={cn(
+                  'px-3 py-2 rounded-md text-sm font-medium transition-all flex items-center gap-1',
+                  viewType === 'timeblock'
+                    ? 'bg-white text-brand-600 shadow-sm'
+                    : 'text-gray-700 hover:text-gray-900'
+                )}
+                title="Time blocking view"
+              >
+                <Clock size={16} />
+                Time
+              </button>
             </div>
 
             {/* Navigation */}
@@ -127,11 +141,13 @@ export function CalendarView() {
 
       {/* Calendar Content */}
       <div className="flex-1 overflow-auto">
-        {viewType === 'month' ? (
+        {viewType === 'month' && (
           <MonthView currentDate={currentDate} tasksByDate={tasksByDate} onTaskClick={openTaskDetail} />
-        ) : (
+        )}
+        {viewType === 'week' && (
           <WeekView currentDate={currentDate} tasksByDate={tasksByDate} onTaskClick={openTaskDetail} />
         )}
+        {viewType === 'timeblock' && <TimeBlockingView selectedDate={currentDate} />}
       </div>
     </div>
   )
@@ -245,8 +261,26 @@ function WeekView({ currentDate, tasksByDate, onTaskClick }: WeekViewProps) {
   const weekStart = startOfWeek(currentDate)
   const weekEnd = endOfWeek(currentDate)
   const days = eachDayOfInterval({ start: weekStart, end: weekEnd })
+  const [currentTime, setCurrentTime] = useState<number | null>(null)
 
   const hours = Array.from({ length: 24 }, (_, i) => i)
+
+  // Update current time indicator
+  useState(() => {
+    const now = new Date()
+    if (days.some((day) => isToday(day))) {
+      setCurrentTime((now.getHours() + now.getMinutes() / 60) * 64) // 64px per hour
+    }
+
+    const interval = setInterval(() => {
+      const now = new Date()
+      if (days.some((day) => isToday(day))) {
+        setCurrentTime((now.getHours() + now.getMinutes() / 60) * 64)
+      }
+    }, 60000) // Update every minute
+
+    return () => clearInterval(interval)
+  })
 
   return (
     <div className="flex flex-col h-full">
@@ -254,7 +288,13 @@ function WeekView({ currentDate, tasksByDate, onTaskClick }: WeekViewProps) {
       <div className="grid grid-cols-8 gap-px bg-gray-200 border-b border-gray-200 sticky top-0 bg-white z-10">
         <div className="bg-gray-50 py-2 px-2 text-center text-xs font-semibold text-gray-600">Time</div>
         {days.map((day) => (
-          <div key={format(day, 'yyyy-MM-dd')} className="bg-gray-50 py-2 px-2 text-center">
+          <div 
+            key={format(day, 'yyyy-MM-dd')} 
+            className={cn(
+              'bg-gray-50 py-2 px-2 text-center',
+              isToday(day) && 'bg-blue-50 border-b-2 border-blue-300'
+            )}
+          >
             <div className="text-xs font-semibold text-gray-700">{format(day, 'EEE')}</div>
             <div className={cn('text-lg font-bold', isToday(day) && 'text-blue-600')}>
               {format(day, 'd')}
@@ -265,7 +305,17 @@ function WeekView({ currentDate, tasksByDate, onTaskClick }: WeekViewProps) {
       </div>
 
       {/* Time Grid */}
-      <div className="flex-1 overflow-y-auto">
+      <div className="flex-1 overflow-y-auto relative">
+        {/* Current time indicator */}
+        {currentTime !== null && (
+          <div
+            className="absolute left-0 right-0 h-1 bg-red-500 z-20 pointer-events-none"
+            style={{ top: `${currentTime}px` }}
+          >
+            <div className="absolute -left-2 -top-1.5 w-4 h-4 bg-red-500 rounded-full border-2 border-white shadow-md" />
+          </div>
+        )}
+
         <div className="grid grid-cols-8 gap-px bg-gray-200 auto-rows-min">
           {/* Time Column */}
           <div className="bg-white border-r border-gray-200 sticky left-0 z-10">

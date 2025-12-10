@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { Loader2 } from 'lucide-react'
+import React, { useEffect, useState } from 'react'
+import { Loader2, TrendingUp, CheckCircle, Clock, Zap } from 'lucide-react'
 import {
   LineChart,
   Line,
@@ -14,9 +14,12 @@ import {
   PieChart,
   Pie,
   Cell,
+  AreaChart,
+  Area,
 } from 'recharts'
 import { useAnalyticsStore } from '@/store/analyticsStore'
 import { useAuthStore } from '@/store/authStore'
+import { useGamificationStore } from '@/store/gamificationStore'
 import { cn } from '@/utils/cn'
 
 interface ProductivityChartProps {
@@ -31,7 +34,9 @@ export const ProductivityChart: React.FC<ProductivityChartProps> = ({
   className,
 }) => {
   const user = useAuthStore((state) => state.user)
+  const { userStats } = useGamificationStore()
   const { productivityData, getProductivityTimeline, isLoading } = useAnalyticsStore()
+  const [selectedMetric, setSelectedMetric] = useState<'all' | 'completed' | 'created'>('all')
 
   useEffect(() => {
     if (user?.id) {
@@ -69,26 +74,172 @@ export const ProductivityChart: React.FC<ProductivityChartProps> = ({
     created: d.tasksCreated,
   }))
 
+  const totalCompleted = productivityData.reduce((sum, d) => sum + d.tasksCompleted, 0)
+  const totalCreated = productivityData.reduce((sum, d) => sum + d.tasksCreated, 0)
+  const completionRate = totalCreated > 0 ? ((totalCompleted / totalCreated) * 100).toFixed(1) : 0
+  const avgCompletedPerDay = (totalCompleted / productivityData.length).toFixed(1)
+
+  interface StatCardProps {
+    icon: React.FC<{ className?: string }>
+    label: string
+    value: React.ReactNode
+    change?: string
+  }
+
+  const StatCard = ({ icon: Icon, label, value, change }: StatCardProps) => (
+    <div className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
+      <div className="flex items-start justify-between">
+        <div>
+          <p className="text-xs text-gray-600 dark:text-gray-400">{label}</p>
+          <p className="mt-1 text-2xl font-bold text-gray-900 dark:text-white">{value}</p>
+          {change && <p className="mt-1 text-xs text-green-600 dark:text-green-400">↑ {change}</p>}
+        </div>
+        <Icon className="h-5 w-5 text-gray-400 dark:text-gray-600" />
+      </div>
+    </div>
+  )
+
   return (
-    <div className={cn('space-y-4', className)}>
-      {/* Line Chart - Trend */}
-      <div className="rounded-lg border border-gray-200 p-4">
-        <h3 className="mb-4 text-sm font-medium text-gray-900">Completion Trend</h3>
+    <div className={cn('space-y-6', className)}>
+      {/* Key Metrics */}
+      <div>
+        <h2 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Your Productivity</h2>
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <StatCard
+            icon={CheckCircle}
+            label="Total Completed"
+            value={totalCompleted}
+            change={`${avgCompletedPerDay}/day`}
+          />
+          <StatCard
+            icon={Clock}
+            label="Total Created"
+            value={totalCreated}
+            change={userStats ? `${userStats.currentStreak} day streak` : undefined}
+          />
+          <StatCard
+            icon={TrendingUp}
+            label="Completion Rate"
+            value={`${completionRate}%`}
+            change={totalCreated > totalCompleted ? 'Tasks pending' : 'On track'}
+          />
+          <StatCard
+            icon={Zap}
+            label="Total Karma"
+            value={userStats?.karma || 0}
+            change={`Level ${userStats?.karmaLevel || 'N/A'}`}
+          />
+        </div>
+      </div>
+
+      {/* Chart Type Selector */}
+      <div className="flex gap-2 border-b border-gray-200 dark:border-gray-700">
+        {['all', 'completed', 'created'].map((metric) => (
+          <button
+            key={metric}
+            onClick={() => setSelectedMetric(metric as 'all' | 'completed' | 'created')}
+            className={cn(
+              'px-3 py-2 text-sm font-medium border-b-2 transition-colors',
+              selectedMetric === metric
+                ? 'border-blue-500 text-blue-600 dark:text-blue-400'
+                : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+            )}
+          >
+            {metric === 'all' ? 'All Metrics' : metric === 'completed' ? 'Completed' : 'Created'}
+          </button>
+        ))}
+      </div>
+
+      {/* Area Chart - Trend */}
+      <div className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
+        <h3 className="mb-4 text-sm font-semibold text-gray-900 dark:text-white">Completion Trend</h3>
         <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={chartData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="date" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Line
-              type="monotone"
-              dataKey="completed"
-              stroke="#10b981"
-              strokeWidth={2}
-              name="Completed"
-            />
-          </LineChart>
+          {selectedMetric === 'all' ? (
+            <AreaChart data={chartData}>
+              <defs>
+                <linearGradient id="colorCompleted" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#10b981" stopOpacity={0.8} />
+                  <stop offset="95%" stopColor="#10b981" stopOpacity={0.1} />
+                </linearGradient>
+                <linearGradient id="colorCreated" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.8} />
+                  <stop offset="95%" stopColor="#3b82f6" stopOpacity={0.1} />
+                </linearGradient>
+              </defs>
+              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+              <XAxis dataKey="date" stroke="#9ca3af" />
+              <YAxis stroke="#9ca3af" />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: '#1f2937',
+                  border: 'none',
+                  borderRadius: '8px',
+                  color: '#fff',
+                }}
+              />
+              <Legend />
+              <Area
+                type="monotone"
+                dataKey="completed"
+                stroke="#10b981"
+                fill="url(#colorCompleted)"
+                name="Completed"
+                isAnimationActive
+              />
+              <Area
+                type="monotone"
+                dataKey="created"
+                stroke="#3b82f6"
+                fill="url(#colorCreated)"
+                name="Created"
+                isAnimationActive
+              />
+            </AreaChart>
+          ) : selectedMetric === 'completed' ? (
+            <LineChart data={chartData}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+              <XAxis dataKey="date" stroke="#9ca3af" />
+              <YAxis stroke="#9ca3af" />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: '#1f2937',
+                  border: 'none',
+                  borderRadius: '8px',
+                  color: '#fff',
+                }}
+              />
+              <Line
+                type="monotone"
+                dataKey="completed"
+                stroke="#10b981"
+                strokeWidth={2}
+                name="Completed"
+                isAnimationActive
+              />
+            </LineChart>
+          ) : (
+            <LineChart data={chartData}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+              <XAxis dataKey="date" stroke="#9ca3af" />
+              <YAxis stroke="#9ca3af" />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: '#1f2937',
+                  border: 'none',
+                  borderRadius: '8px',
+                  color: '#fff',
+                }}
+              />
+              <Line
+                type="monotone"
+                dataKey="created"
+                stroke="#3b82f6"
+                strokeWidth={2}
+                name="Created"
+                isAnimationActive
+              />
+            </LineChart>
+          )}
         </ResponsiveContainer>
       </div>
 

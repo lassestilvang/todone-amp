@@ -1,105 +1,181 @@
 import { useEffect } from 'react'
-import { useKeyboardStore } from '@/store/keyboardStore'
-import { useQuickAddStore } from '@/store/quickAddStore'
-import { useTaskDetailStore } from '@/store/taskDetailStore'
 import { useTaskStore } from '@/store/taskStore'
+import { useBulkActionStore } from '@/store/bulkActionStore'
 
-/**
- * Hook to set up global keyboard shortcuts
- * Should be called once in App.tsx
- */
-export function useKeyboardShortcuts() {
-  const { isHelpOpen, toggleHelp } = useKeyboardStore()
-  const { openQuickAdd } = useQuickAddStore()
-  const { closeTaskDetail } = useTaskDetailStore()
-  const { toggleTask, selectedTaskId, tasks } = useTaskStore()
+interface ShortcutActions {
+  onQuickAdd?: () => void
+  onComplete?: () => void
+  onDelete?: () => void
+  onDuplicate?: () => void
+  onSearch?: () => void
+  onToggleFavorite?: () => void
+}
+
+export function useKeyboardShortcuts(
+  selectedTaskId: string | null,
+  actions: ShortcutActions = {}
+) {
+  const taskStore = useTaskStore()
+  const bulkStore = useBulkActionStore()
 
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      // Don't handle if user is typing in an input/textarea (unless it's a shortcut)
-      const isInput = ['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement).tagName)
-      
-      // ? - Show help
-      if (e.key === '?' && !isInput) {
+    const handleKeyDown = async (e: KeyboardEvent) => {
+      const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0
+      const isCtrlCmd = isMac ? e.metaKey : e.ctrlKey
+
+      // Ctrl/Cmd + K: Quick add modal
+      if (isCtrlCmd && e.key === 'k') {
         e.preventDefault()
-        toggleHelp()
-        return
+        actions.onQuickAdd?.()
       }
 
-      // Skip other shortcuts if help is open or input is focused
-      if (isHelpOpen || (isInput && e.key !== 'Escape')) {
-        return
+      // Q: Quick add task
+      if (e.key === 'q' && !e.ctrlKey && !e.metaKey) {
+        e.preventDefault()
+        actions.onQuickAdd?.()
       }
 
-      // Escape - Close modal
+      // Escape: Close dialogs/deselect
       if (e.key === 'Escape') {
-        closeTaskDetail()
-        return
+        bulkStore.clearSelection()
       }
 
-      // Ctrl/Cmd + K - Quick add (handled in QuickAddModal)
-      // Q - Quick add
-      if (e.key.toLowerCase() === 'q' && !isInput) {
+      // Ctrl/Cmd + Enter: Complete selected task
+      if (isCtrlCmd && e.key === 'Enter' && selectedTaskId) {
         e.preventDefault()
-        openQuickAdd()
-        return
+        await taskStore.toggleTask(selectedTaskId)
+        actions.onComplete?.()
       }
 
-      // Ctrl/Cmd + Enter - Complete selected task
-      if ((e.metaKey || e.ctrlKey) && e.key === 'Enter' && !isInput) {
+      // 1-4: Set priority (only if task selected)
+      if (selectedTaskId && ['1', '2', '3', '4'].includes(e.key)) {
         e.preventDefault()
-        if (selectedTaskId) {
-          toggleTask(selectedTaskId)
-        }
-        return
+        const priorityMap: Record<string, 'p1' | 'p2' | 'p3' | 'p4'> = { '1': 'p1', '2': 'p2', '3': 'p3', '4': 'p4' }
+        await taskStore.updateTask(selectedTaskId, { priority: priorityMap[e.key] })
       }
 
-      // Number keys for priority (only if task is selected/editing)
-      if (/^[1-4]$/.test(e.key) && !isInput && selectedTaskId) {
-        e.preventDefault()
-        const priority = ('p' + e.key) as 'p1' | 'p2' | 'p3' | 'p4'
-        
-        // Find the task and update it
-        const task = tasks.find(t => t.id === selectedTaskId)
-        if (task) {
-          // This would need to be exposed from store
-          // For now, this is a placeholder
-          console.log(`Would set task priority to ${priority}`)
-        }
-        return
-      }
-
-      // T - Due today (only if task is selected)
-      if (e.key.toLowerCase() === 't' && !isInput && selectedTaskId) {
+      // T: Set due date to today
+      if (e.key === 't' && !e.ctrlKey && !e.metaKey && selectedTaskId) {
         e.preventDefault()
         const today = new Date()
         today.setHours(0, 0, 0, 0)
-        console.log('Would set task due date to today')
-        return
+        await taskStore.updateTask(selectedTaskId, { dueDate: today })
       }
 
-      // M - Due tomorrow
-      if (e.key.toLowerCase() === 'm' && !isInput && selectedTaskId) {
+      // M: Set due date to tomorrow
+      if (e.key === 'm' && !e.ctrlKey && !e.metaKey && selectedTaskId) {
         e.preventDefault()
         const tomorrow = new Date()
         tomorrow.setDate(tomorrow.getDate() + 1)
         tomorrow.setHours(0, 0, 0, 0)
-        console.log('Would set task due date to tomorrow')
-        return
+        await taskStore.updateTask(selectedTaskId, { dueDate: tomorrow })
       }
 
-      // W - Due next week
-      if (e.key.toLowerCase() === 'w' && !isInput && selectedTaskId) {
+      // W: Set due date to next week
+      if (e.key === 'w' && !e.ctrlKey && !e.metaKey && selectedTaskId) {
         e.preventDefault()
         const nextWeek = new Date()
         nextWeek.setDate(nextWeek.getDate() + 7)
         nextWeek.setHours(0, 0, 0, 0)
-        console.log('Would set task due date to next week')
-        return
+        await taskStore.updateTask(selectedTaskId, { dueDate: nextWeek })
+      }
+
+      // /: Focus search
+      if (e.key === '/' && !e.ctrlKey && !e.metaKey) {
+        e.preventDefault()
+        actions.onSearch?.()
+      }
+
+      // ?: Show keyboard shortcuts help
+      if (e.shiftKey && e.key === '?') {
+        e.preventDefault()
+        // Will be handled by component
+      }
+
+      // Delete: Delete selected task(s)
+      if (e.key === 'Delete' && selectedTaskId) {
+        e.preventDefault()
+        const selectedCount = bulkStore.getSelectedCount()
+        if (selectedCount > 0) {
+          await bulkStore.deleteSelected()
+        } else {
+          await taskStore.deleteTask(selectedTaskId)
+        }
+        actions.onDelete?.()
+      }
+
+      // Ctrl/Cmd + D: Duplicate task
+      if (isCtrlCmd && e.key === 'd' && selectedTaskId) {
+        e.preventDefault()
+        await taskStore.duplicateTask(selectedTaskId, true)
+        actions.onDuplicate?.()
+      }
+
+      // Note: Toggle favorite is handled at project level, not task level
+      // Tasks don't have isFavorite property
+
+      // A: Toggle multi-select mode
+      if (e.key === 'a' && !e.ctrlKey && !e.metaKey) {
+        e.preventDefault()
+        if (bulkStore.isSelectMode) {
+          bulkStore.exitSelectMode()
+        } else {
+          bulkStore.enterSelectMode()
+        }
+      }
+
+      // Shift + A: Select all visible
+      if (e.shiftKey && e.key === 'A') {
+        e.preventDefault()
+        const tasks = taskStore.tasks
+        bulkStore.selectMultiple(tasks.map((t) => t.id))
+      }
+
+      // Arrow Up/Down: Navigate (handled elsewhere, but can be extended)
+      if (['ArrowUp', 'ArrowDown'].includes(e.key)) {
+        // Navigation logic handled by component
+      }
+
+      // Ctrl/Cmd + Up/Down: Move task up/down in list
+      if (isCtrlCmd && ['ArrowUp', 'ArrowDown'].includes(e.key) && selectedTaskId) {
+        e.preventDefault()
+        const tasks = taskStore.tasks
+        const currentIndex = tasks.findIndex((t) => t.id === selectedTaskId)
+        if (currentIndex === -1) return
+        
+        if (e.key === 'ArrowUp' && currentIndex > 0) {
+          const taskAbove = tasks[currentIndex - 1]
+          await taskStore.reorderTasks(selectedTaskId, taskAbove.id)
+        } else if (e.key === 'ArrowDown' && currentIndex < tasks.length - 1) {
+          const taskBelow = tasks[currentIndex + 1]
+          await taskStore.reorderTasks(selectedTaskId, taskBelow.id)
+        }
+      }
+
+      // Ctrl/Cmd + ] / [: Indent/outdent
+      if (isCtrlCmd && (e.key === ']' || e.key === '[') && selectedTaskId) {
+        e.preventDefault()
+        const tasks = taskStore.tasks
+        const currentIndex = tasks.findIndex((t) => t.id === selectedTaskId)
+        if (currentIndex === -1) return
+        
+        if (e.key === ']') {
+          // Indent: Make this task a subtask of the task above
+          if (currentIndex > 0) {
+            const taskAbove = tasks[currentIndex - 1]
+            await taskStore.indentTask(selectedTaskId, taskAbove.id)
+          }
+        } else if (e.key === '[') {
+          // Outdent: Remove parent task
+          const task = tasks.find((t) => t.id === selectedTaskId)
+          if (task?.parentTaskId) {
+            await taskStore.promoteSubtask(selectedTaskId)
+          }
+        }
       }
     }
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [isHelpOpen, toggleHelp, openQuickAdd, closeTaskDetail, selectedTaskId, toggleTask, tasks])
+  }, [selectedTaskId, actions, taskStore, bulkStore])
 }

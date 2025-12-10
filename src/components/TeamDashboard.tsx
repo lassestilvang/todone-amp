@@ -1,178 +1,219 @@
-import React, { useEffect } from 'react'
-import { Users, BarChart3, Activity, TrendingUp } from 'lucide-react'
-import { useAnalyticsStore } from '@/store/analyticsStore'
+import React from 'react'
+import { Users, Activity, TrendingUp, AlertCircle, Calendar } from 'lucide-react'
 import { useTeamStore } from '@/store/teamStore'
-import { cn } from '@/utils/cn'
+import type { TeamMember } from '@/types'
 
-interface TeamDashboardProps {
-  teamId: string
-  className?: string
+interface TeamMemberWithMetrics extends TeamMember {
+  tasksAssigned?: number
+  tasksCompleted?: number
+  tasksOverdue?: number
+  status?: 'active' | 'inactive'
+  lastActive?: Date | string
 }
 
-export const TeamDashboard: React.FC<TeamDashboardProps> = ({ teamId, className }) => {
-  const analyticsStore = useAnalyticsStore()
-  const teamStore = useTeamStore()
+interface TeamDashboardProps {
+  teamId?: string
+}
 
-  useEffect(() => {
-    // Load team analytics
-    const now = new Date()
-    const thirtyDaysAgo = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000)
-    analyticsStore.getTeamAnalytics(teamId, { start: thirtyDaysAgo, end: now })
-  }, [teamId, analyticsStore])
+export const TeamDashboard: React.FC<TeamDashboardProps> = ({ teamId }) => {
+  const { teams } = useTeamStore()
+  // In a real app, this would come from useTeamMemberStore
+  const members: TeamMemberWithMetrics[] = []
 
-  const memberStats = analyticsStore.memberStats
-  const team = teamStore.teams.find((t) => t.id === teamId)
+  const currentTeam = teamId ? teams.find((t) => t.id === teamId) : teams[0]
+  const teamMembers = members.filter((m) => m.teamId === currentTeam?.id)
 
-  // Calculate team totals
-  const teamTotal = memberStats.reduce((acc, m) => acc + m.tasksCreated, 0)
-  const teamCompleted = memberStats.reduce((acc, m) => acc + m.tasksCompleted, 0)
-  const teamCompletionRate = teamTotal > 0 ? (teamCompleted / teamTotal) * 100 : 0
+  const calculateMetrics = () => {
+    return {
+      totalMembers: teamMembers.length,
+      activeToday: teamMembers.filter((m: TeamMemberWithMetrics) => {
+        const lastActive = new Date(m.lastActive || 0)
+        const today = new Date()
+        return (
+          lastActive.toDateString() === today.toDateString() && m.status === 'active'
+        )
+      }).length,
+      tasksAssigned: teamMembers.reduce((sum: number, m: TeamMemberWithMetrics) => sum + (m.tasksAssigned || 0), 0),
+      completionRate: teamMembers.length
+        ? Math.round(
+            (teamMembers.reduce((sum: number, m: TeamMemberWithMetrics) => sum + (m.tasksCompleted || 0), 0) /
+              teamMembers.reduce((sum: number, m: TeamMemberWithMetrics) => sum + (m.tasksAssigned || 0), 0)) *
+              100
+          ) || 0
+        : 0,
+    }
+  }
 
-  // Sort by most productive
-  const topPerformers = [...memberStats].sort((a, b) => b.tasksCompleted - a.tasksCompleted)
+  const metrics = calculateMetrics()
+
+  const getRiskLevel = (member: TeamMemberWithMetrics): 'high' | 'medium' | 'low' => {
+    const overdueTasks = member?.tasksOverdue || 0
+    const total = member?.tasksAssigned || 0
+
+    if (overdueTasks > total * 0.5) return 'high'
+    if (overdueTasks > total * 0.25) return 'medium'
+    return 'low'
+  }
+
+  const atRiskMembers = teamMembers.filter((m: TeamMemberWithMetrics) => getRiskLevel(m) !== 'low')
 
   return (
-    <div className={cn('space-y-6', className)}>
+    <div className="flex flex-col gap-6">
       {/* Header */}
-      <div>
-        <h1 className="text-3xl font-bold text-gray-900">Team Dashboard</h1>
-        <p className="mt-1 text-sm text-gray-600">{team?.name} team performance</p>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <Users className="h-6 w-6 text-brand-500" />
+          <h2 className="text-xl font-semibold text-gray-900">Team Dashboard</h2>
+        </div>
+        {currentTeam && <p className="text-sm text-gray-600">{currentTeam.name}</p>}
       </div>
 
-      {/* Team Overview Stats */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-4">
-        {/* Total Tasks */}
-        <div className="rounded-lg border border-gray-200 bg-white p-6">
-          <div className="flex items-start justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-600">Total Tasks</p>
-              <p className="mt-2 text-3xl font-bold text-gray-900">{teamTotal}</p>
-              <p className="mt-1 text-xs text-gray-500">Last 30 days</p>
-            </div>
-            <BarChart3 className="h-8 w-8 text-blue-500" />
-          </div>
+      {/* Key Metrics */}
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
+        <div className="rounded-lg border border-gray-200 bg-white p-4">
+          <p className="text-xs font-medium text-gray-600">Total Members</p>
+          <p className="mt-2 text-2xl font-bold text-gray-900">{metrics.totalMembers}</p>
         </div>
 
-        {/* Team Completion Rate */}
-        <div className="rounded-lg border border-gray-200 bg-white p-6">
-          <div className="flex items-start justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-600">Completion Rate</p>
-              <p className="mt-2 text-3xl font-bold text-gray-900">{Math.round(teamCompletionRate)}%</p>
-              <p className="mt-1 text-xs text-gray-500">{teamCompleted} completed</p>
-            </div>
-            <TrendingUp className="h-8 w-8 text-green-500" />
-          </div>
+        <div className="rounded-lg border border-gray-200 bg-white p-4">
+          <p className="text-xs font-medium text-gray-600">Active Today</p>
+          <p className="mt-2 text-2xl font-bold text-green-600">{metrics.activeToday}</p>
         </div>
 
-        {/* Team Members */}
-        <div className="rounded-lg border border-gray-200 bg-white p-6">
-          <div className="flex items-start justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-600">Team Members</p>
-              <p className="mt-2 text-3xl font-bold text-gray-900">{memberStats.length}</p>
-              <p className="mt-1 text-xs text-gray-500">Active contributors</p>
-            </div>
-            <Users className="h-8 w-8 text-purple-500" />
-          </div>
+        <div className="rounded-lg border border-gray-200 bg-white p-4">
+          <p className="text-xs font-medium text-gray-600">Tasks Assigned</p>
+          <p className="mt-2 text-2xl font-bold text-blue-600">{metrics.tasksAssigned}</p>
         </div>
 
-        {/* Average per Member */}
-        <div className="rounded-lg border border-gray-200 bg-white p-6">
-          <div className="flex items-start justify-between">
-            <div>
-              <p className="text-sm font-medium text-gray-600">Avg per Member</p>
-              <p className="mt-2 text-3xl font-bold text-gray-900">
-                {memberStats.length > 0 ? Math.round(teamTotal / memberStats.length) : 0}
-              </p>
-              <p className="mt-1 text-xs text-gray-500">Tasks/person</p>
-            </div>
-            <Activity className="h-8 w-8 text-orange-500" />
-          </div>
+        <div className="rounded-lg border border-gray-200 bg-white p-4">
+          <p className="text-xs font-medium text-gray-600">Completion Rate</p>
+          <p className="mt-2 text-2xl font-bold text-brand-500">{metrics.completionRate}%</p>
         </div>
       </div>
 
-      {/* Member Performance Table */}
-      {memberStats.length > 0 && (
-        <div className="rounded-lg border border-gray-200 bg-white overflow-hidden">
-          <div className="px-6 py-4 border-b border-gray-200 bg-gray-50">
-            <h2 className="text-lg font-semibold text-gray-900">Member Performance</h2>
-          </div>
+      {/* Team Members Workload */}
+      <div className="flex flex-col gap-4 rounded-lg border border-gray-200 bg-white p-4">
+        <div className="flex items-center gap-2">
+          <TrendingUp className="h-5 w-5 text-brand-500" />
+          <h3 className="font-semibold text-gray-900">Team Workload</h3>
+        </div>
 
-          <div className="divide-y divide-gray-200">
-            {memberStats.map((member, index) => (
-              <div
-                key={member.userId}
-                className="px-6 py-4 hover:bg-gray-50 transition"
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-3">
-                    {member.avatar && (
-                      <img
-                        src={member.avatar}
-                        alt={member.name}
-                        className="h-8 w-8 rounded-full"
-                      />
-                    )}
-                    <div>
-                      <p className="font-medium text-gray-900">{member.name}</p>
-                      <p className="text-xs text-gray-500">
-                        #{index + 1} • {member.tasksCompleted}/{member.tasksCreated} tasks
-                      </p>
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm font-semibold text-gray-900">
-                      {Math.round(member.completionRate)}%
-                    </p>
-                    <p className="text-xs text-gray-500">completion</p>
-                  </div>
+        <div className="flex flex-col gap-3">
+          {teamMembers.length > 0 ? (
+            teamMembers.map((member: TeamMemberWithMetrics) => (
+              <div key={member.id} className="flex flex-col gap-2 border-b border-gray-100 pb-3">
+                <div className="flex items-center justify-between">
+                  <p className="font-medium text-gray-900">{member.name}</p>
+                  <span
+                    className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${
+                      member.status === 'active'
+                        ? 'bg-green-100 text-green-800'
+                        : 'bg-gray-100 text-gray-800'
+                    }`}
+                  >
+                    {member.status === 'active' ? 'Active' : 'Inactive'}
+                  </span>
+                </div>
+
+                <div className="flex items-center justify-between text-sm text-gray-600">
+                  <span>
+                    {member.tasksCompleted || 0} / {member.tasksAssigned || 0} tasks completed
+                  </span>
+                  <span className="font-medium">
+                    {member.tasksAssigned ? Math.round(((member.tasksCompleted || 0) / member.tasksAssigned) * 100) : 0}%
+                  </span>
                 </div>
 
                 {/* Progress bar */}
-                <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div className="h-2 w-full rounded-full bg-gray-200">
                   <div
-                    className="h-full bg-blue-500 transition-all"
+                    className="h-full rounded-full bg-brand-500 transition-all duration-300"
                     style={{
-                      width: `${member.completionRate}%`,
+                      width: `${member.tasksAssigned ? Math.round(((member.tasksCompleted || 0) / member.tasksAssigned) * 100) : 0}%`,
                     }}
                   />
                 </div>
+
+                {member.tasksOverdue ? (
+                  <p className="text-xs text-red-600">
+                    {member.tasksOverdue} overdue task{member.tasksOverdue !== 1 ? 's' : ''}
+                  </p>
+                ) : null}
+              </div>
+            ))
+          ) : (
+            <p className="text-sm text-gray-500">No team members yet</p>
+          )}
+        </div>
+      </div>
+
+      {/* At-Risk Tasks */}
+      {atRiskMembers.length > 0 && (
+        <div className="flex flex-col gap-4 rounded-lg border border-red-200 bg-red-50 p-4">
+          <div className="flex items-center gap-2">
+            <AlertCircle className="h-5 w-5 text-red-600" />
+            <h3 className="font-semibold text-red-900">At-Risk Members</h3>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            {atRiskMembers.map((member: TeamMemberWithMetrics) => (
+              <div key={member.id} className="rounded bg-white p-3">
+                <p className="font-medium text-gray-900">{member.name}</p>
+                <p className="text-xs text-red-600">
+                  {member.tasksOverdue} overdue / {member.tasksAssigned} assigned
+                </p>
               </div>
             ))}
           </div>
         </div>
       )}
 
-      {/* Top Performers */}
-      {topPerformers.length > 0 && (
-        <div className="rounded-lg border border-gray-200 bg-white p-6">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">🏆 Top Performers</h2>
-
-          <div className="space-y-3">
-            {topPerformers.slice(0, 3).map((member, index) => (
-              <div
-                key={member.userId}
-                className="flex items-center gap-4 rounded-lg bg-gray-50 p-4"
-              >
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-yellow-100 font-semibold text-yellow-800">
-                  {index + 1}
-                </span>
-
-                <div className="flex-1">
-                  <p className="font-medium text-gray-900">{member.name}</p>
-                  <p className="text-sm text-gray-600">{member.tasksCompleted} completed tasks</p>
-                </div>
-
-                <div className="text-right">
-                  <p className="text-lg font-bold text-gray-900">{member.tasksCompleted}</p>
-                  <p className="text-xs text-gray-500">tasks</p>
-                </div>
-              </div>
-            ))}
-          </div>
+      {/* Team Activity */}
+      <div className="flex flex-col gap-4 rounded-lg border border-gray-200 bg-white p-4">
+        <div className="flex items-center gap-2">
+          <Activity className="h-5 w-5 text-brand-500" />
+          <h3 className="font-semibold text-gray-900">Recent Activity</h3>
         </div>
-      )}
+
+        <div className="flex flex-col gap-3">
+          {teamMembers.slice(0, 5).map((member: TeamMemberWithMetrics) => (
+            <div key={member.id} className="flex items-center justify-between border-b border-gray-100 pb-2 text-sm">
+              <span className="text-gray-700">{member.name} completed a task</span>
+              <span className="text-xs text-gray-500">
+                {member.lastActive
+                  ? new Date(member.lastActive).toLocaleTimeString([], {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })
+                  : 'Never'}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Quick Links */}
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+        <button className="flex flex-col items-center gap-2 rounded-lg border border-gray-200 bg-white p-4 hover:bg-gray-50">
+          <Users className="h-5 w-5 text-brand-500" />
+          <span className="text-xs font-medium text-gray-900">Members</span>
+        </button>
+
+        <button className="flex flex-col items-center gap-2 rounded-lg border border-gray-200 bg-white p-4 hover:bg-gray-50">
+          <Calendar className="h-5 w-5 text-brand-500" />
+          <span className="text-xs font-medium text-gray-900">Schedule</span>
+        </button>
+
+        <button className="flex flex-col items-center gap-2 rounded-lg border border-gray-200 bg-white p-4 hover:bg-gray-50">
+          <TrendingUp className="h-5 w-5 text-brand-500" />
+          <span className="text-xs font-medium text-gray-900">Analytics</span>
+        </button>
+
+        <button className="flex flex-col items-center gap-2 rounded-lg border border-gray-200 bg-white p-4 hover:bg-gray-50">
+          <Activity className="h-5 w-5 text-brand-500" />
+          <span className="text-xs font-medium text-gray-900">Reports</span>
+        </button>
+      </div>
     </div>
   )
 }

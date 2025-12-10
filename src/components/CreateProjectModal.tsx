@@ -30,6 +30,11 @@ export function CreateProjectModal({ isOpen, onClose }: CreateProjectModalProps)
         description: description.trim(),
         color: selectedColor,
         isFavorite: false,
+        isShared: false,
+        viewType: 'list',
+        ownerId: 'current-user',
+        order: 0,
+        archived: false,
       })
       setName('')
       setDescription('')

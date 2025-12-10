@@ -1,8 +1,9 @@
 import { useEffect, useState, useCallback } from 'react'
-import { X, Trash2, Plus } from 'lucide-react'
+import { X, Trash2, Plus, Copy, FolderPlus } from 'lucide-react'
 import { cn } from '@/utils/cn'
 import { useTaskDetailStore } from '@/store/taskDetailStore'
 import { useTaskStore } from '@/store/taskStore'
+import { useProjectStore } from '@/store/projectStore'
 import { Button } from '@/components/Button'
 import { Input } from '@/components/Input'
 import { DatePickerInput } from '@/components/DatePickerInput'
@@ -19,6 +20,7 @@ import { ActivityFeed } from '@/components/ActivityFeed'
 import { RecurrenceExceptionManager } from '@/components/RecurrenceExceptionManager'
 import { RecurrenceInstancesList } from '@/components/RecurrenceInstancesList'
 import { RecurrenceCalendarView } from '@/components/RecurrenceCalendarView'
+import { RichTextEditor } from '@/components/RichTextEditor'
 
 export function TaskDetailPanel() {
   const {
@@ -29,8 +31,10 @@ export function TaskDetailPanel() {
     updateSelectedTask,
     setHasUnsavedChanges,
   } = useTaskDetailStore()
-  const { updateTask, deleteTask } = useTaskStore()
+  const { updateTask, deleteTask, duplicateTask } = useTaskStore()
+  const { createProject } = useProjectStore()
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false)
+  const [copied, setCopied] = useState(false)
 
   const handleSave = async () => {
     if (!selectedTask) return
@@ -52,6 +56,58 @@ export function TaskDetailPanel() {
       closeTaskDetail()
     } catch (error) {
       console.error('Failed to delete task:', error)
+    }
+  }
+
+  const handleCopyLink = () => {
+    if (!selectedTask) return
+    const link = `${window.location.origin}?task=${selectedTask.id}`
+    navigator.clipboard.writeText(link)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+
+  const handleDuplicate = async () => {
+    if (!selectedTask) return
+    try {
+      await duplicateTask(selectedTask.id, true)
+      closeTaskDetail()
+    } catch (error) {
+      console.error('Failed to duplicate task:', error)
+    }
+  }
+
+  const handleConvertToProject = async () => {
+    if (!selectedTask) return
+    if (!window.confirm('Convert this task to a project? Subtasks will become sections.')) {
+      return
+    }
+
+    try {
+      const { tasks } = useTaskStore.getState()
+      const subtasks = tasks.filter((t) => t.parentTaskId === selectedTask.id)
+
+      await createProject({
+        name: selectedTask.content,
+        description: selectedTask.description || '',
+        color: 'blue',
+        viewType: 'list',
+        isFavorite: false,
+        isShared: false,
+        ownerId: 'demo-user',
+        order: 0,
+        archived: false,
+      })
+
+      // Note: Subtasks need manual migration to project sections
+      if (subtasks.length > 0) {
+        console.info('Note: Subtasks need manual migration to project sections')
+      }
+
+      await deleteTask(selectedTask.id)
+      closeTaskDetail()
+    } catch (error) {
+      console.error('Failed to convert task to project:', error)
     }
   }
 
@@ -127,19 +183,12 @@ export function TaskDetailPanel() {
             {/* Description */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
-              <textarea
+              <RichTextEditor
                 value={selectedTask.description || ''}
-                onChange={(e) => {
-                  updateSelectedTask({ description: e.target.value })
+                onChange={(html) => {
+                  updateSelectedTask({ description: html })
                 }}
                 placeholder="Add notes or details..."
-                rows={4}
-                className={cn(
-                  'w-full px-3 py-2 border border-gray-300 rounded-md',
-                  'text-sm placeholder-gray-500',
-                  'focus:outline-none focus:ring-2 focus:ring-brand-500',
-                  'resize-none'
-                )}
               />
             </div>
 
@@ -199,9 +248,7 @@ export function TaskDetailPanel() {
             {/* Recurrence Calendar (if recurring) */}
             {selectedTask.recurrence && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Occurrences
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Occurrences</label>
                 <div className="grid grid-cols-2 gap-4">
                   <RecurrenceCalendarView task={selectedTask} />
                   <RecurrenceInstancesList task={selectedTask} />
@@ -263,7 +310,9 @@ export function TaskDetailPanel() {
                 <h3 className="text-sm font-semibold text-gray-700">Subtasks</h3>
                 <button
                   onClick={() => {
-                    const event = new CustomEvent('openQuickAddForSubtask', { detail: { parentId: selectedTask.id } })
+                    const event = new CustomEvent('openQuickAddForSubtask', {
+                      detail: { parentId: selectedTask.id },
+                    })
                     window.dispatchEvent(event)
                   }}
                   className="flex items-center gap-1 px-2 py-1 text-sm text-brand-600 hover:bg-brand-50 rounded transition-colors"
@@ -307,33 +356,52 @@ export function TaskDetailPanel() {
           </div>
 
           {/* Footer */}
-          <div className="sticky bottom-0 bg-gray-50 border-t border-gray-200 px-6 py-4 flex items-center justify-between">
-            <button
-              onClick={() => setShowDeleteConfirm(!showDeleteConfirm)}
-              className={cn(
-                'p-2 text-red-600 hover:bg-red-50 rounded-md transition-colors',
-                showDeleteConfirm && 'bg-red-50'
-              )}
-              title="Delete task"
-            >
-              <Trash2 size={18} />
-            </button>
+          <div className="sticky bottom-0 bg-gray-50 border-t border-gray-200 px-6 py-4 flex items-center justify-between gap-4">
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleCopyLink}
+                className="p-2 text-gray-600 hover:bg-gray-200 rounded-md transition-colors"
+                title="Copy task link"
+              >
+                <Copy size={18} />
+              </button>
+              {copied && <span className="text-xs text-gray-600">Copied!</span>}
+
+              <button
+                onClick={handleDuplicate}
+                className="p-2 text-gray-600 hover:bg-gray-200 rounded-md transition-colors"
+                title="Duplicate task"
+              >
+                <Plus size={18} />
+              </button>
+
+              <button
+                onClick={handleConvertToProject}
+                className="p-2 text-gray-600 hover:bg-gray-200 rounded-md transition-colors"
+                title="Convert task to project"
+              >
+                <FolderPlus size={18} />
+              </button>
+
+              <button
+                onClick={() => setShowDeleteConfirm(!showDeleteConfirm)}
+                className={cn(
+                  'p-2 text-red-600 hover:bg-red-50 rounded-md transition-colors',
+                  showDeleteConfirm && 'bg-red-50'
+                )}
+                title="Delete task"
+              >
+                <Trash2 size={18} />
+              </button>
+            </div>
 
             {showDeleteConfirm && (
               <div className="flex items-center gap-2">
                 <p className="text-sm text-gray-700">Delete task?</p>
-                <Button
-                  onClick={handleDelete}
-                  variant="danger"
-                  size="sm"
-                >
+                <Button onClick={handleDelete} variant="danger" size="sm">
                   Delete
                 </Button>
-                <Button
-                  onClick={() => setShowDeleteConfirm(false)}
-                  variant="secondary"
-                  size="sm"
-                >
+                <Button onClick={() => setShowDeleteConfirm(false)} variant="secondary" size="sm">
                   Cancel
                 </Button>
               </div>
@@ -341,16 +409,10 @@ export function TaskDetailPanel() {
 
             {!showDeleteConfirm && (
               <div className="flex gap-2">
-                <Button
-                  onClick={handleClose}
-                  variant="secondary"
-                >
+                <Button onClick={handleClose} variant="secondary">
                   Cancel
                 </Button>
-                <Button
-                  onClick={handleSave}
-                  disabled={!hasUnsavedChanges}
-                >
+                <Button onClick={handleSave} disabled={!hasUnsavedChanges}>
                   Save Changes
                 </Button>
               </div>

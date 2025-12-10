@@ -26,6 +26,7 @@ export function DraggableTaskItem({
 
   const style = {
     transform: CSS.Translate.toString(transform),
+    transition: isDragging ? 'none' : 'transform 200ms cubic-bezier(0.2, 0, 0, 1)',
   }
 
   return (
@@ -33,16 +34,16 @@ export function DraggableTaskItem({
       ref={setNodeRef}
       style={style}
       className={cn(
-        'transition-all',
-        isDragging && 'opacity-50',
-        isDragOverlay && 'shadow-xl scale-105 opacity-100'
+        'transform transition-all duration-200 ease-out',
+        isDragging && 'opacity-50 scale-95',
+        isDragOverlay && 'shadow-2xl scale-105 opacity-100 rotate-2'
       )}
     >
       <div
         {...attributes}
         {...listeners}
         className={cn(
-          'cursor-grab active:cursor-grabbing',
+          'cursor-grab active:cursor-grabbing select-none',
           isDragging && 'cursor-grabbing'
         )}
       >

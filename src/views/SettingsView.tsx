@@ -1,0 +1,613 @@
+import React, { useState } from 'react'
+import { useAuthStore } from '@/store/authStore'
+import { useTaskStore } from '@/store/taskStore'
+import { useProjectStore } from '@/store/projectStore'
+import { useSectionStore } from '@/store/sectionStore'
+import { useLabelStore } from '@/store/labelStore'
+import { useFilterStore } from '@/store/filterStore'
+import { useGamificationStore } from '@/store/gamificationStore'
+import {
+  Settings,
+  User,
+  Lock,
+  Bell,
+  Palette,
+  Languages,
+  Eye,
+  Download,
+  Trash2,
+  ChevronDown,
+  type LucideIcon,
+} from 'lucide-react'
+import { Button } from '@/components/Button'
+import { cn } from '@/utils/cn'
+import { exportDataAsJSON, exportTasksAsCSV, downloadFile } from '@/utils/exportImport'
+
+type SettingsTab = 'account' | 'app' | 'privacy' | 'notifications' | 'theme'
+
+interface LanguageOption {
+  code: string
+  name: string
+  nativeName: string
+}
+
+const LANGUAGES: LanguageOption[] = [
+  { code: 'en', name: 'English', nativeName: 'English' },
+  { code: 'es', name: 'Spanish', nativeName: 'Español' },
+  { code: 'fr', name: 'French', nativeName: 'Français' },
+  { code: 'de', name: 'German', nativeName: 'Deutsch' },
+  { code: 'it', name: 'Italian', nativeName: 'Italiano' },
+  { code: 'pt', name: 'Portuguese', nativeName: 'Português' },
+  { code: 'ru', name: 'Russian', nativeName: 'Русский' },
+  { code: 'ja', name: 'Japanese', nativeName: '日本語' },
+  { code: 'zh', name: 'Chinese', nativeName: '中文' },
+  { code: 'ko', name: 'Korean', nativeName: '한국어' },
+  { code: 'ar', name: 'Arabic', nativeName: 'العربية' },
+  { code: 'hi', name: 'Hindi', nativeName: 'हिन्दी' },
+  { code: 'pl', name: 'Polish', nativeName: 'Polski' },
+  { code: 'tr', name: 'Turkish', nativeName: 'Türkçe' },
+  { code: 'nl', name: 'Dutch', nativeName: 'Nederlands' },
+  { code: 'sv', name: 'Swedish', nativeName: 'Svenska' },
+  { code: 'da', name: 'Danish', nativeName: 'Dansk' },
+  { code: 'no', name: 'Norwegian', nativeName: 'Norsk' },
+  { code: 'fi', name: 'Finnish', nativeName: 'Suomi' },
+]
+
+const THEMES = [
+  { id: 'light', name: 'Light', icon: '☀️' },
+  { id: 'dark', name: 'Dark', icon: '🌙' },
+  { id: 'system', name: 'System', icon: '⚙️' },
+]
+
+const ACCENT_COLORS = [
+  { name: 'Blue', value: 'blue-600', hex: '#2563eb' },
+  { name: 'Green', value: 'green-600', hex: '#16a34a' },
+  { name: 'Purple', value: 'purple-600', hex: '#9333ea' },
+  { name: 'Orange', value: 'orange-600', hex: '#ea580c' },
+  { name: 'Red', value: 'red-600', hex: '#dc2626' },
+  { name: 'Pink', value: 'pink-600', hex: '#db2777' },
+  { name: 'Indigo', value: 'indigo-600', hex: '#4f46e5' },
+  { name: 'Emerald', value: 'emerald-600', hex: '#059669' },
+]
+
+export const SettingsView: React.FC = () => {
+  const { user, updateUser, logout } = useAuthStore()
+  const { tasks } = useTaskStore()
+  const { projects } = useProjectStore()
+  const { sections } = useSectionStore()
+  const { labels } = useLabelStore()
+  const { filters } = useFilterStore()
+  useGamificationStore() // Initialize if needed
+  const [activeTab, setActiveTab] = useState<SettingsTab>('account')
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+  const [showLanguageDropdown, setShowLanguageDropdown] = useState(false)
+  const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
+
+  if (!user) return null
+
+  const handlePasswordChange = () => {
+    if (!password) return
+    // In a real app, this would call a backend API
+    alert('Password changed successfully! (Demo - not persisted)')
+    setPassword('')
+  }
+
+  const handleDeleteAccount = async () => {
+    if (window.confirm('Are you sure you want to delete your account? This action cannot be undone.')) {
+      // In a real app, this would call a backend API
+      localStorage.removeItem('userId')
+      logout()
+    }
+  }
+
+  const handleDataExport = () => {
+    if (!user) return
+    const exportData = exportDataAsJSON(projects, tasks, sections, labels, filters, user.name, user.email)
+    downloadFile(JSON.stringify(exportData, null, 2), `todone-export-${Date.now()}.json`, 'application/json')
+  }
+
+  const handleCSVExport = () => {
+    if (!user) return
+    const labelsMap = new Map(labels.map((label) => [label.id, label]))
+    const csvContent = exportTasksAsCSV(tasks, labelsMap)
+    downloadFile(csvContent, `todone-tasks-${Date.now()}.csv`, 'text/csv')
+  }
+
+  const handleLanguageChange = (langCode: string) => {
+    // In a real app, this would apply translations
+    updateUser({
+      ...user,
+      settings: {
+        ...user.settings,
+        language: langCode,
+      },
+    })
+    setShowLanguageDropdown(false)
+  }
+
+  const handleThemeChange = (theme: string) => {
+    updateUser({
+      ...user,
+      settings: {
+        ...user.settings,
+        theme: theme as 'light' | 'dark' | 'system',
+      },
+    })
+  }
+
+  const handlePrivacyToggle = (key: string, value: boolean) => {
+    updateUser({
+      ...user,
+      settings: {
+        ...user.settings,
+        [key]: value,
+      },
+    })
+  }
+
+  const SettingsSection = ({ title, description }: { title: string; description: string }) => (
+    <div className="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">{title}</h3>
+      <p className="text-sm text-gray-600 dark:text-gray-400">{description}</p>
+    </div>
+  )
+
+  const TabButton = ({ tab, icon: Icon, label }: { tab: SettingsTab; icon: LucideIcon; label: string }) => (
+    <button
+      onClick={() => setActiveTab(tab)}
+      className={cn(
+        'flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors',
+        activeTab === tab
+          ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200'
+          : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+      )}
+    >
+      <Icon className="h-5 w-5" />
+      {label}
+    </button>
+  )
+
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      <div className="max-w-5xl mx-auto p-4 sm:p-6 lg:p-8">
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+            <Settings className="h-8 w-8" />
+            Settings
+          </h1>
+          <p className="text-gray-600 dark:text-gray-400 mt-2">Manage your account and preferences</p>
+        </div>
+
+        {/* Tabs */}
+        <div className="flex flex-wrap gap-2 mb-8 p-4 bg-white dark:bg-gray-800 rounded-lg">
+          <TabButton tab="account" icon={User} label="Account" />
+          <TabButton tab="app" icon={Palette} label="App" />
+          <TabButton tab="notifications" icon={Bell} label="Notifications" />
+          <TabButton tab="privacy" icon={Eye} label="Privacy" />
+          <TabButton tab="theme" icon={Lock} label="Theme" />
+        </div>
+
+        {/* Content */}
+        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 sm:p-8 shadow-sm">
+          {/* Account Settings */}
+          {activeTab === 'account' && (
+            <div>
+              <SettingsSection
+                title="Profile Information"
+                description="Update your personal details"
+              />
+
+              <div className="space-y-4 mb-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    value={user.name}
+                    onChange={(e) => updateUser({ ...user, name: e.target.value })}
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    value={user.email}
+                    disabled
+                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white"
+                  />
+                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Email cannot be changed</p>
+                </div>
+              </div>
+
+              <SettingsSection
+                title="Password"
+                description="Change your password regularly for security"
+              />
+
+              <div className="space-y-4 mb-6">
+                <div className="relative">
+                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                    New Password
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={showPassword ? 'text' : 'password'}
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      placeholder="Enter new password"
+                      className="w-full px-3 py-2 pr-10 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700"
+                    />
+                    <button
+                      onClick={() => setShowPassword(!showPassword)}
+                      className="absolute right-3 top-8 text-gray-500"
+                    >
+                      {showPassword ? '🙈' : '👁️'}
+                    </button>
+                  </div>
+                </div>
+                <Button onClick={handlePasswordChange} variant="primary" className="w-full sm:w-auto">
+                  Update Password
+                </Button>
+              </div>
+
+              <SettingsSection
+                title="Data Management"
+                description="Export your tasks and data"
+              />
+
+              <div className="space-y-2 mb-6">
+                <Button
+                  onClick={handleDataExport}
+                  variant="secondary"
+                  className="w-full sm:w-auto flex items-center gap-2"
+                >
+                  <Download className="h-4 w-4" />
+                  Export All Data (JSON)
+                </Button>
+                <Button
+                  onClick={handleCSVExport}
+                  variant="secondary"
+                  className="w-full sm:w-auto flex items-center gap-2"
+                >
+                  <Download className="h-4 w-4" />
+                  Export Tasks (CSV)
+                </Button>
+              </div>
+
+              <SettingsSection
+                title="Danger Zone"
+                description="Irreversible actions"
+              />
+
+              <Button
+                onClick={() => setIsDeleteModalOpen(true)}
+                variant="danger"
+                className="flex items-center gap-2"
+              >
+                <Trash2 className="h-4 w-4" />
+                Delete Account
+              </Button>
+            </div>
+          )}
+
+          {/* App Settings */}
+          {activeTab === 'app' && (
+            <div>
+              <SettingsSection
+                title="Language"
+                description="Choose your preferred language"
+              />
+
+              <div className="mb-6 relative">
+                <button
+                  onClick={() => setShowLanguageDropdown(!showLanguageDropdown)}
+                  className="flex items-center justify-between w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                >
+                  <span className="flex items-center gap-2">
+                    <Languages className="h-5 w-5" />
+                    {LANGUAGES.find((l) => l.code === user.settings?.language)?.nativeName ||
+                      'English'}
+                  </span>
+                  <ChevronDown className="h-4 w-4" />
+                </button>
+
+                {showLanguageDropdown && (
+                  <div className="absolute top-full mt-1 w-full bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg z-10 max-h-64 overflow-y-auto">
+                    {LANGUAGES.map((lang) => (
+                      <button
+                        key={lang.code}
+                        onClick={() => handleLanguageChange(lang.code)}
+                        className="w-full text-left px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 flex items-center gap-2"
+                      >
+                        {lang.code === user.settings?.language && <span className="text-blue-600">✓</span>}
+                        <span>{lang.nativeName}</span>
+                        {lang.code !== lang.code.toUpperCase() && (
+                          <span className="text-gray-500 text-sm">({lang.name})</span>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <SettingsSection
+                title="App Preferences"
+                description="Customize how Todone works for you"
+              />
+
+              <div className="space-y-3 mb-6">
+                <label className="flex items-center gap-3">
+                  <input
+                    type="checkbox"
+                    checked={user.settings?.enableKarma ?? true}
+                    onChange={(e) => handlePrivacyToggle('enableKarma', e.target.checked)}
+                    className="h-4 w-4 rounded border-gray-300"
+                  />
+                  <span className="text-sm text-gray-700 dark:text-gray-300">Enable karma system</span>
+                </label>
+
+                <label className="flex items-center gap-3">
+                  <input
+                    type="checkbox"
+                    checked={user.settings?.vacationMode ?? false}
+                    onChange={(e) => handlePrivacyToggle('vacationMode', e.target.checked)}
+                    className="h-4 w-4 rounded border-gray-300"
+                  />
+                  <span className="text-sm text-gray-700 dark:text-gray-300">Vacation mode (disable streaks)</span>
+                </label>
+              </div>
+
+              <SettingsSection
+                title="Experimental Features"
+                description="Try new features before they're officially released"
+              />
+
+              <div className="space-y-3">
+                <label className="flex items-center gap-3">
+                  <input
+                    type="checkbox"
+                    checked={user.settings?.experimentalFeatures ?? false}
+                    onChange={(e) => handlePrivacyToggle('experimentalFeatures', e.target.checked)}
+                    className="h-4 w-4 rounded border-gray-300"
+                  />
+                  <span className="text-sm text-gray-700 dark:text-gray-300">Enable experimental features</span>
+                </label>
+                <p className="text-xs text-gray-500 dark:text-gray-400 ml-7">
+                  These features may be unstable and are subject to change
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Notifications */}
+          {activeTab === 'notifications' && (
+            <div>
+              <SettingsSection
+                title="Notification Preferences"
+                description="Control how you receive notifications"
+              />
+
+              <div className="space-y-3">
+                <label className="flex items-center gap-3">
+                  <input
+                    type="checkbox"
+                    defaultChecked={true}
+                    className="h-4 w-4 rounded border-gray-300"
+                  />
+                  <span className="text-sm text-gray-700 dark:text-gray-300">Browser notifications</span>
+                </label>
+
+                <label className="flex items-center gap-3">
+                  <input
+                    type="checkbox"
+                    defaultChecked={true}
+                    className="h-4 w-4 rounded border-gray-300"
+                  />
+                  <span className="text-sm text-gray-700 dark:text-gray-300">Email notifications</span>
+                </label>
+
+                <label className="flex items-center gap-3">
+                  <input
+                    type="checkbox"
+                    defaultChecked={false}
+                    className="h-4 w-4 rounded border-gray-300"
+                  />
+                  <span className="text-sm text-gray-700 dark:text-gray-300">Push notifications</span>
+                </label>
+
+                <label className="flex items-center gap-3">
+                  <input
+                    type="checkbox"
+                    defaultChecked={true}
+                    className="h-4 w-4 rounded border-gray-300"
+                  />
+                  <span className="text-sm text-gray-700 dark:text-gray-300">Sound notifications</span>
+                </label>
+              </div>
+
+              <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
+                <h3 className="font-medium text-gray-900 dark:text-white mb-3">Quiet Hours</h3>
+                <div className="space-y-3">
+                  <label className="flex items-center gap-3">
+                    <input type="checkbox" defaultChecked={false} className="h-4 w-4 rounded" />
+                    <span className="text-sm text-gray-700 dark:text-gray-300">Enable quiet hours</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Privacy Settings */}
+          {activeTab === 'privacy' && (
+            <div>
+              <SettingsSection
+                title="Privacy & Data"
+                description="Control your data and privacy settings"
+              />
+
+              <div className="space-y-4 mb-6">
+                <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                  <label className="flex items-start gap-3">
+                    <input
+                      type="checkbox"
+                      checked={user.settings?.showOnLeaderboard ?? false}
+                      onChange={(e) => handlePrivacyToggle('showOnLeaderboard', e.target.checked)}
+                      className="h-4 w-4 rounded border-gray-300 mt-1"
+                    />
+                    <div>
+                      <span className="text-sm font-medium text-gray-900 dark:text-white">
+                        Show profile on leaderboard
+                      </span>
+                      <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                        Allow other users to see your name and karma level on the global leaderboard
+                      </p>
+                    </div>
+                  </label>
+                </div>
+
+                <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                  <label className="flex items-start gap-3">
+                    <input
+                      type="checkbox"
+                      checked={user.settings?.allowAnalytics ?? true}
+                      onChange={(e) => handlePrivacyToggle('allowAnalytics', e.target.checked)}
+                      className="h-4 w-4 rounded border-gray-300 mt-1"
+                    />
+                    <div>
+                      <span className="text-sm font-medium text-gray-900 dark:text-white">
+                        Allow analytics collection
+                      </span>
+                      <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                        Help us improve by sharing usage statistics (no personal data)
+                      </p>
+                    </div>
+                  </label>
+                </div>
+
+                <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                  <label className="flex items-start gap-3">
+                    <input
+                      type="checkbox"
+                      checked={user.settings?.shareAchievements ?? false}
+                      onChange={(e) => handlePrivacyToggle('shareAchievements', e.target.checked)}
+                      className="h-4 w-4 rounded border-gray-300 mt-1"
+                    />
+                    <div>
+                      <span className="text-sm font-medium text-gray-900 dark:text-white">Share achievements</span>
+                      <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                        Allow friends to see when you unlock new badges and achievements
+                      </p>
+                    </div>
+                  </label>
+                </div>
+              </div>
+
+              <SettingsSection
+                title="Sessions & Security"
+                description="Manage your active sessions"
+              />
+
+              <div className="p-3 bg-gray-50 dark:bg-gray-700 rounded-lg mb-3 text-sm text-gray-700 dark:text-gray-300">
+                <p className="font-medium mb-1">Current Session</p>
+                <p className="text-xs">Browser • {new Date().toLocaleDateString()}</p>
+              </div>
+
+              <Button variant="secondary" className="w-full sm:w-auto">
+                Sign Out All Other Sessions
+              </Button>
+            </div>
+          )}
+
+          {/* Theme Settings */}
+          {activeTab === 'theme' && (
+            <div>
+              <SettingsSection
+                title="Theme"
+                description="Choose your preferred color scheme"
+              />
+
+              <div className="grid grid-cols-3 gap-3 mb-6">
+                {THEMES.map((theme) => (
+                  <button
+                    key={theme.id}
+                    onClick={() => handleThemeChange(theme.id)}
+                    className={cn(
+                      'p-4 rounded-lg border-2 transition-all text-center',
+                      user.settings?.theme === theme.id
+                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900'
+                        : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
+                    )}
+                  >
+                    <div className="text-2xl mb-2">{theme.icon}</div>
+                    <p className="text-sm font-medium text-gray-900 dark:text-white">{theme.name}</p>
+                  </button>
+                ))}
+              </div>
+
+              <SettingsSection
+                title="Accent Color"
+                description="Customize the primary accent color"
+              />
+
+              <div className="grid grid-cols-4 sm:grid-cols-8 gap-3">
+                {ACCENT_COLORS.map((color) => (
+                  <button
+                    key={color.value}
+                    onClick={() =>
+                      updateUser({
+                       ...user,
+                       settings: {
+                         ...user.settings,
+                         accentColor: color.value,
+                       },
+                     })
+                   }
+                    className={cn(
+                      'h-12 w-12 rounded-lg border-2 transition-all flex items-center justify-center',
+                      user.settings?.accentColor === color.value
+                        ? 'border-gray-900 dark:border-white'
+                        : 'border-transparent hover:border-gray-400 dark:hover:border-gray-500',
+                      color.value
+                    )}
+                    title={color.name}
+                  >
+                    {user.settings?.accentColor === color.value && (
+                      <span className="text-white text-lg">✓</span>
+                    )}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Delete Account Modal */}
+      {isDeleteModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
+          <div className="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md w-full">
+            <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Delete Account?</h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-4">
+              This will permanently delete your account and all associated data. This action cannot be undone.
+            </p>
+            <div className="flex gap-3 justify-end">
+              <Button onClick={() => setIsDeleteModalOpen(false)} variant="secondary">
+                Cancel
+              </Button>
+              <Button onClick={handleDeleteAccount} variant="danger">
+                Delete Account
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}

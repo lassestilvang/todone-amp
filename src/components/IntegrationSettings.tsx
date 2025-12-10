@@ -40,7 +40,7 @@ export const IntegrationSettings: React.FC<IntegrationSettingsProps> = ({
       icon: <Calendar className="h-5 w-5" />,
       title: 'Calendar Integration',
       description: 'Sync with Google Calendar and Outlook',
-      component: <CalendarIntegration />,
+      component: <CalendarIntegration platform="google" />,
     },
     {
       id: 'email',

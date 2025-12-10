@@ -87,6 +87,10 @@ interface TaskState {
   getTasksInSharedProject: (projectId: string) => Task[]
   getMyContributionsInSharedProject: (projectId: string, userId: string) => Task[]
   getTasksAssignedToMeInSharedProject: (projectId: string, userId: string) => Task[]
+  // Duplication
+  duplicateTask: (taskId: string, includeSubtasks: boolean) => Promise<string>
+  duplicateTaskWithSubtasks: (taskId: string) => Promise<string>
+  completeAllSubtasks: (taskId: string) => Promise<void>
 }
 
 export const useTaskStore = create<TaskState>((set, get) => ({
@@ -612,5 +616,87 @@ export const useTaskStore = create<TaskState>((set, get) => ({
     return tasks.filter(
       (t) => t.projectId === projectId && t.assigneeIds?.includes(userId)
     )
+  },
+
+  duplicateTask: async (taskId: string, includeSubtasks: boolean) => {
+    const { tasks } = get()
+    const task = tasks.find((t) => t.id === taskId)
+    if (!task) return taskId
+
+    const now = new Date()
+    const newId = `task-${Date.now()}`
+    const newTask: Task = {
+      ...task,
+      id: newId,
+      content: `${task.content} (copy)`,
+      completed: false,
+      completedAt: undefined,
+      createdAt: now,
+      updatedAt: now,
+      parentTaskId: task.parentTaskId, // Keep same parent
+      reminders: [],
+    }
+
+    await db.tasks.add(newTask)
+    set({ tasks: [...tasks, newTask] })
+
+    // Duplicate subtasks if requested
+    if (includeSubtasks) {
+      const subtasks = tasks.filter((t) => t.parentTaskId === taskId)
+      for (const subtask of subtasks) {
+        const subId = `task-${Date.now() + Math.random()}`
+        const newSubtask: Task = {
+          ...subtask,
+          id: subId,
+          content: `${subtask.content} (copy)`,
+          completed: false,
+          completedAt: undefined,
+          createdAt: now,
+          updatedAt: now,
+          parentTaskId: newId, // Point to new parent
+          reminders: [],
+        }
+        await db.tasks.add(newSubtask)
+      }
+      // Reload all tasks
+      const allTasks = await db.tasks.toArray()
+      set({ tasks: allTasks })
+    }
+
+    return newId
+  },
+
+  duplicateTaskWithSubtasks: async (taskId: string): Promise<string> => {
+    return get().duplicateTask(taskId, true)
+  },
+
+  completeAllSubtasks: async (taskId: string) => {
+    const { tasks, getSubtasks } = get()
+    const subtasks = getSubtasks(taskId)
+    const now = new Date()
+    const userId = tasks.find((t) => t.id === taskId)?.createdBy || 'unknown'
+
+    for (const subtask of subtasks) {
+      if (!subtask.completed) {
+        await db.tasks.update(subtask.id, {
+          completed: true,
+          completedAt: now,
+          updatedAt: now,
+        })
+
+        // Recursively complete nested subtasks
+        const nestedSubtasks = getSubtasks(subtask.id)
+        if (nestedSubtasks.length > 0) {
+          await get().completeAllSubtasks(subtask.id)
+        }
+
+        // Log activity
+        await logActivity(subtask.id, userId, 'completed', { status: 'completed' })
+      }
+    }
+
+    // Reload tasks
+    const allTasks = await db.tasks.toArray()
+    set({ tasks: allTasks })
   },
   }))
