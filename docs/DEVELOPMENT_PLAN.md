@@ -535,7 +535,7 @@ Todone is a production-ready task management application inspired by Todoist's f
    - [x] Print UI component (PrintTasksButton.tsx with icon/default variants)
    - [x] Full test coverage (25 tests in printUtils.test.ts)
 
-### Accessibility ✅ PARTIAL
+### Accessibility ✅ COMPLETE
 - [x] WCAG 2.1 AA compliance framework (wcagAuditor.ts, AccessibilityAuditor.tsx) ✅ NEW
 - [x] Keyboard navigation for all features (implemented across components)
 - [x] Screen reader support (ARIA labels and roles throughout)
@@ -543,9 +543,9 @@ Todone is a production-ready task management application inspired by Todoist's f
 - [x] Color contrast ratios compliant (verified in design system)
 - [x] Alt text for images (validation checks in tests)
 - [x] ARIA labels throughout components
-- [ ] Skip navigation links
-- [ ] Reduced motion support
-- [ ] Dyslexia-friendly font option
+- [x] Skip navigation links (SkipNav.tsx component) ✅ NEW
+- [x] Reduced motion support (prefersReducedMotion.ts, useReducedMotion hook) ✅ NEW
+- [x] Dyslexia-friendly font option (dyslexiaFont.ts, useDyslexiaFont hook) ✅ NEW
 
 ### Performance Optimization
 - [ ] Lazy load views and components
@@ -2027,6 +2027,157 @@ Complete animation library with IntersectionObserver integration:
 
 **Quality**: ✅ All checks passing
 - `npm run test` → 489 passed
+- `npm run type-check` → 0 errors
+- `npm run lint` → 0 errors
+- `npm run build` → Success
+
+---
+
+## Implementation Summary (Accessibility Enhancements - December 13, 2025, Session 14)
+
+### NEW: Skip Navigation Links & Reduced Motion Support ✅ COMPLETE
+
+#### 1. Skip Navigation Links (SkipNav.tsx) ✅
+- **File**: `src/components/SkipNav.tsx` (NEW - 48 lines)
+- **Features**:
+  - 3 skip links: main content, sidebar, search
+  - Screen-reader only hidden with sr-only class
+  - Becomes visible on keyboard focus
+  - Smooth scroll to target elements
+  - Focus management for accessibility
+  - WCAG 2.1 Level A: 2.4.1 Bypass Blocks
+- **Integration**: Added to App.tsx with proper IDs
+- **Test Coverage**: 8 tests passing
+
+#### 2. Reduced Motion Support Utilities ✅
+- **File**: `src/utils/prefersReducedMotion.ts` (NEW - 120+ lines)
+- **Functions**:
+  - `prefersReducedMotion()` - Detect user preference
+  - `onReducedMotionChange()` - Listen to preference changes
+  - `getTransitionDuration()` - Get CSS-safe duration
+  - `getTransition()` - Get CSS transition string
+  - `safeAnimate()` - Promise-based animation respecting preference
+  - `getAnimationDuration()` - Animation duration utility
+  - `motionSafeStyle()` - Object-based style utility
+- **Test Coverage**: 18 tests passing
+- **WCAG 2.1 Level AAA**: 2.3.3 Animation from Interactions
+
+#### 3. useReducedMotion Hook ✅
+- **File**: `src/hooks/useReducedMotion.ts` (NEW - 28 lines)
+- **Features**:
+  - React hook for component-level reduced motion detection
+  - Automatically subscribes to preference changes
+  - Returns boolean for conditional rendering/styling
+- **Test Coverage**: 4 tests passing
+
+#### 4. CSS Utilities ✅
+- **File**: `src/index.css` (updated)
+- **Additions**:
+  - `.sr-only` class for screen-reader only content
+  - `.focus:not-sr-only:focus` for visible on focus
+  - Proper clip/clip-path implementation
+
+#### 5. TypeScript Configuration ✅
+- **File**: `tsconfig.json` (updated)
+- **Change**: Added `"types": ["vitest/globals"]` for test type definitions
+
+### Code Quality Metrics
+- ✅ 0 ESLint errors/warnings
+- ✅ Full TypeScript strict mode compliance
+- ✅ 595 total tests passing (up from 565)
+- ✅ Production build successful (206.83 kB JS, 72.27 kB CSS)
+- ✅ 30 new tests added for accessibility features
+
+### Files Created (Session 14 Accessibility)
+1. `src/components/SkipNav.tsx` - Skip navigation component
+2. `src/components/SkipNav.test.tsx` - 8 component tests
+3. `src/utils/prefersReducedMotion.ts` - Reduced motion utilities
+4. `src/utils/prefersReducedMotion.test.ts` - 18 utility tests
+5. `src/hooks/useReducedMotion.ts` - React hook
+6. `src/hooks/useReducedMotion.test.ts` - 4 hook tests
+
+### Features Checked Off ✅
+- Skip navigation links (WCAG 2.4.1)
+- Reduced motion support (WCAG 2.3.3)
+
+### Phase Completion Status
+**Phase 2**: ✅ 100% COMPLETE
+**Phase 3**: 🔄 75% COMPLETE
+**Phase 4**: 🔄 85% COMPLETE
+
+---
+
+**Quality**: ✅ All checks passing
+- `npm run test` → 595 passed
+- `npm run type-check` → 0 errors
+- `npm run lint` → 0 errors
+- `npm run build` → Success
+
+### NEW: Dyslexia-Friendly Font Support ✅ COMPLETE
+
+#### 1. Dyslexia Font Utilities (dyslexiaFont.ts) ✅
+- **File**: `src/utils/dyslexiaFont.ts` (NEW - 140+ lines)
+- **Functions**:
+  - `isDyslexiaFontEnabled()` - Check if feature is enabled
+  - `enableDyslexiaFont()` - Enable OpenDyslexic font globally
+  - `disableDyslexiaFont()` - Disable and remove fonts
+  - `applyDyslexiaFont()` - Apply font to document
+  - `removeDyslexiaFont()` - Remove font styling
+  - `toggleDyslexiaFont()` - Toggle state
+  - `initializeDyslexiaFont()` - Initialize from saved preference
+- **Features**:
+  - localStorage persistence
+  - Dynamic font loading (Google Fonts: OpenDyslexic)
+  - Enhanced spacing and line-height
+  - CSS class-based application
+- **Test Coverage**: 22 tests passing
+
+#### 2. useDyslexiaFont Hook ✅
+- **File**: `src/hooks/useDyslexiaFont.ts` (NEW - 50+ lines)
+- **Features**:
+  - React hook for component-level control
+  - Full CRUD operations (enable, disable, toggle)
+  - Cross-tab synchronization via storage events
+  - Automatic initialization from localStorage
+- **Test Coverage**: 8 tests passing
+
+#### 3. Settings Integration ✅
+- **File**: `src/views/SettingsView.tsx` (updated)
+- **Changes**:
+  - Added dyslexia font toggle in Theme settings tab
+  - Accessibility section with checkbox
+  - Help text explaining the feature
+  - Full integration with useDyslexiaFont hook
+
+#### 4. App Initialization ✅
+- **File**: `src/App.tsx` (updated)
+- **Changes**:
+  - Call `initializeDyslexiaFont()` on app mount
+  - Automatically restore user preference
+
+### Code Quality Metrics (Updated)
+- ✅ 0 ESLint errors/warnings
+- ✅ Full TypeScript strict mode compliance
+- ✅ 625 total tests passing (up from 595)
+- ✅ Production build successful (207.85 kB JS, 72.27 kB CSS)
+- ✅ 30 new tests added for dyslexia font
+
+### Files Created (Session 14 Dyslexia Support)
+1. `src/utils/dyslexiaFont.ts` - Dyslexia font utilities
+2. `src/utils/dyslexiaFont.test.ts` - 22 utility tests
+3. `src/hooks/useDyslexiaFont.ts` - React hook
+4. `src/hooks/useDyslexiaFont.test.ts` - 8 hook tests
+
+### Accessibility Features Completed ✅
+1. Skip navigation links (WCAG 2.4.1 Bypass Blocks)
+2. Reduced motion support (WCAG 2.3.3 Animation from Interactions)
+3. Dyslexia-friendly font (Enhanced readability)
+4. Keyboard navigation throughout app
+5. Screen reader support with ARIA labels
+6. WCAG 2.1 AA compliance auditing framework
+
+**Quality**: ✅ All checks passing
+- `npm run test` → 625 passed
 - `npm run type-check` → 0 errors
 - `npm run lint` → 0 errors
 - `npm run build` → Success

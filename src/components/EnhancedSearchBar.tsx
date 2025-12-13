@@ -107,15 +107,16 @@ export const EnhancedSearchBar: React.FC<EnhancedSearchBarProps> = ({
       <div className="relative">
         <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
         <input
-          ref={inputRef}
-          type="text"
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          onKeyDown={handleKeyDown}
-          onFocus={() => setIsOpen(true)}
-          placeholder={placeholder}
-          className="w-full rounded-lg border border-gray-200 bg-white py-2 pl-10 pr-20 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-        />
+           id="search-bar"
+           ref={inputRef}
+           type="text"
+           value={value}
+           onChange={(e) => onChange(e.target.value)}
+           onKeyDown={handleKeyDown}
+           onFocus={() => setIsOpen(true)}
+           placeholder={placeholder}
+           className="w-full rounded-lg border border-gray-200 bg-white py-2 pl-10 pr-20 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+         />
         <div className="absolute right-2 top-1/2 flex -translate-y-1/2 gap-1">
           {value && (
             <button

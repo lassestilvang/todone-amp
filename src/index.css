@@ -32,6 +32,19 @@
   .card {
     @apply bg-white rounded-lg shadow-sm border border-gray-200;
   }
+
+  /* Screen reader only - for accessibility skip links */
+  .sr-only {
+    @apply absolute w-1 h-1 p-0 m-0 overflow-hidden border-0;
+    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
+  }
+
+  .focus\:not-sr-only:focus {
+    @apply relative w-auto h-auto p-2 m-0 overflow-visible;
+    clip: auto;
+    clip-path: none;
+  }
 }
 
 /* Animations */

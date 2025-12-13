@@ -22,6 +22,7 @@ import {
 import { Button } from '@/components/Button'
 import { cn } from '@/utils/cn'
 import { exportDataAsJSON, exportTasksAsCSV, downloadFile } from '@/utils/exportImport'
+import { useDyslexiaFont } from '@/hooks/useDyslexiaFont'
 
 type SettingsTab = 'account' | 'app' | 'privacy' | 'notifications' | 'theme'
 
@@ -78,6 +79,7 @@ export const SettingsView: React.FC = () => {
   const { labels } = useLabelStore()
   const { filters } = useFilterStore()
   useGamificationStore() // Initialize if needed
+  const { enabled: dyslexiaEnabled, toggle: toggleDyslexiaFont } = useDyslexiaFont()
   const [activeTab, setActiveTab] = useState<SettingsTab>('account')
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false)
@@ -584,8 +586,32 @@ export const SettingsView: React.FC = () => {
                   </button>
                 ))}
               </div>
-            </div>
-          )}
+
+              <SettingsSection
+                title="Accessibility"
+                description="Enhanced readability options for dyslexia support"
+              />
+
+              <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                <label className="flex items-center gap-3">
+                  <input
+                    type="checkbox"
+                    checked={dyslexiaEnabled}
+                    onChange={() => toggleDyslexiaFont()}
+                    className="h-4 w-4 rounded border-gray-300"
+                  />
+                  <div>
+                    <span className="text-sm font-medium text-gray-900 dark:text-white">
+                      Dyslexia-friendly font (OpenDyslexic)
+                    </span>
+                    <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                      Use OpenDyslexic font designed to improve readability for people with dyslexia
+                    </p>
+                  </div>
+                </label>
+              </div>
+              </div>
+              )}
         </div>
       </div>
 

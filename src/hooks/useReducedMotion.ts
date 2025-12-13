@@ -1,39 +1,25 @@
 import { useEffect, useState } from 'react'
+import { prefersReducedMotion, onReducedMotionChange } from '@/utils/prefersReducedMotion'
 
 /**
- * Hook to detect if user prefers reduced motion
- * Returns true if user has enabled "Reduce motion" in OS settings
+ * Hook to detect and track user's reduced motion preference
+ * Allows React components to respect accessibility settings
+ * @returns boolean - true if user prefers reduced motion
  */
 export const useReducedMotion = (): boolean => {
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+  const [prefersReduced, setPrefersReduced] = useState(false)
 
   useEffect(() => {
-    // Check initial preference
-    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
-    setPrefersReducedMotion(mediaQuery.matches)
+    // Set initial value
+    setPrefersReduced(prefersReducedMotion())
 
     // Listen for changes
-    const handleChange = (e: MediaQueryListEvent) => {
-      setPrefersReducedMotion(e.matches)
-    }
+    const unsubscribe = onReducedMotionChange((reduced) => {
+      setPrefersReduced(reduced)
+    })
 
-    mediaQuery.addEventListener('change', handleChange)
-    return () => mediaQuery.removeEventListener('change', handleChange)
+    return unsubscribe
   }, [])
 
-  return prefersReducedMotion
-}
-
-/**
- * Hook to get animation config based on user preference
- */
-export const useAnimationConfig = () => {
-  const prefersReducedMotion = useReducedMotion()
-
-  return {
-    shouldAnimate: !prefersReducedMotion,
-    duration: prefersReducedMotion ? 0 : 300,
-    delay: prefersReducedMotion ? 0 : 150,
-    transitionClass: prefersReducedMotion ? '' : 'transition-all duration-300',
-  }
+  return prefersReduced
 }

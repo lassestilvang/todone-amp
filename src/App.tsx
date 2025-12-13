@@ -7,7 +7,9 @@ import { useLabelStore } from '@/store/labelStore'
 import { useFilterStore } from '@/store/filterStore'
 import { useViewStore } from '@/store/viewStore'
 import { initializeQuickAddStore } from '@/store/quickAddStore'
+import { initializeDyslexiaFont } from '@/utils/dyslexiaFont'
 import { Sidebar } from '@/components/Sidebar'
+import { SkipNav } from '@/components/SkipNav'
 import { InboxView } from '@/views/InboxView'
 import { TodayView } from '@/views/TodayView'
 import { UpcomingView } from '@/views/UpcomingView'
@@ -51,6 +53,9 @@ function App() {
     
     // Load quick add history
     initializeQuickAddStore()
+    
+    // Initialize dyslexia font preference
+    initializeDyslexiaFont()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -117,9 +122,12 @@ function App() {
 
   return (
     <DragDropContextProvider>
+      <SkipNav />
       <div className="flex h-screen bg-white">
-        <Sidebar currentView={currentView} onViewChange={handleViewChange} />
-        <main className="flex-1 flex flex-col overflow-hidden">
+        <div id="sidebar" role="navigation" aria-label="Main navigation" tabIndex={-1}>
+          <Sidebar currentView={currentView} onViewChange={handleViewChange} />
+        </div>
+        <main id="main-content" className="flex-1 flex flex-col overflow-hidden" tabIndex={-1}>
           {renderView()}
         </main>
         <TaskDetailPanel />
