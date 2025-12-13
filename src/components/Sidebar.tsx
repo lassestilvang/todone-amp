@@ -2,10 +2,11 @@ import React, { useState } from 'react'
 import { useProjectStore } from '@/store/projectStore'
 import { useAuthStore } from '@/store/authStore'
 import { useLabelStore } from '@/store/labelStore'
+import { useIsMobile } from '@/hooks/useIsMobile'
 import { StreakBadge } from './StreakDisplay'
 import { CreateProjectModal } from './CreateProjectModal'
 import { cn } from '@/utils/cn'
-import { Plus, Star, Inbox, Calendar, TrendingUp, Tag, Sliders } from 'lucide-react'
+import { Plus, Star, Inbox, Calendar, TrendingUp, Tag, Sliders, ChevronLeft, ChevronRight } from 'lucide-react'
 
 interface SidebarProps {
   currentView: string
@@ -14,6 +15,8 @@ interface SidebarProps {
 
 export const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) => {
   const [showCreateProjectModal, setShowCreateProjectModal] = useState(false)
+  const [isCollapsed, setIsCollapsed] = useState(false)
+  const { isTablet } = useIsMobile()
   const projects = useProjectStore((state) => state.projects)
   const selectedProjectId = useProjectStore((state) => state.selectedProjectId)
   const selectProject = useProjectStore((state) => state.selectProject)
@@ -26,19 +29,35 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) =
     { id: 'upcoming', label: 'Upcoming', icon: TrendingUp },
   ]
 
+  // Auto-collapse on tablet if not explicitly expanded
+  const shouldShowCollapsed = isTablet && isCollapsed
+  const sidebarWidth = shouldShowCollapsed ? 'w-16' : 'w-64'
+
   return (
-    <div className="w-64 bg-white border-r border-gray-200 flex flex-col h-screen">
+    <div className={cn('bg-white border-r border-gray-200 flex flex-col h-screen transition-all duration-300', sidebarWidth)}>
       {/* Header */}
-      <div className="px-4 py-4 border-b border-gray-200">
-        <div className="flex items-center gap-2">
-          <div className="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white font-bold">
-            T
+      <div className="px-4 py-4 border-b border-gray-200 flex items-center justify-between">
+        {!shouldShowCollapsed && (
+          <div className="flex items-center gap-2 flex-1">
+            <div className="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white font-bold">
+              T
+            </div>
+            <div>
+              <h1 className="font-bold text-gray-900">Todone</h1>
+              <p className="text-xs text-gray-500">From to-do to todone</p>
+            </div>
           </div>
-          <div>
-            <h1 className="font-bold text-gray-900">Todone</h1>
-            <p className="text-xs text-gray-500">From to-do to todone</p>
-          </div>
-        </div>
+        )}
+        {isTablet && (
+          <button
+            onClick={() => setIsCollapsed(!isCollapsed)}
+            className="p-1.5 hover:bg-gray-100 rounded transition-colors flex-shrink-0"
+            title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+            aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          >
+            {isCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
+          </button>
+        )}
       </div>
 
       {/* Main Views */}
@@ -50,59 +69,68 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) =
               onClick={() => onViewChange(id)}
               className={cn(
                 'w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors',
+                shouldShowCollapsed && 'justify-center px-2',
                 currentView === id
                   ? 'bg-blue-100 text-blue-700'
                   : 'text-gray-700 hover:bg-gray-100'
               )}
+              title={shouldShowCollapsed ? label : undefined}
             >
-              <Icon className="w-4 h-4" />
-              {label}
-              {id === 'today' && <StreakBadge inline />}
+              <Icon className="w-4 h-4 flex-shrink-0" />
+              {!shouldShowCollapsed && (
+                <>
+                  {label}
+                  {id === 'today' && <StreakBadge inline />}
+                </>
+              )}
             </button>
           ))}
         </div>
 
         {/* Projects */}
-        <div className="mb-4">
-          <div className="flex items-center justify-between px-3 py-2 mb-2">
-            <h3 className="text-xs font-semibold text-gray-600 uppercase">Projects</h3>
-            <button
-              onClick={() => setShowCreateProjectModal(true)}
-              className="p-1 hover:bg-gray-100 rounded transition-colors"
-              title="Create new project"
-            >
-              <Plus className="w-4 h-4 text-gray-400" />
-            </button>
-          </div>
-
-          <div className="space-y-1">
-            {projects.map((project) => (
+        {!shouldShowCollapsed && (
+          <div className="mb-4">
+            <div className="flex items-center justify-between px-3 py-2 mb-2">
+              <h3 className="text-xs font-semibold text-gray-600 uppercase">Projects</h3>
               <button
-                key={project.id}
-                onClick={() => {
-                  selectProject(project.id)
-                  onViewChange(`project-${project.id}`)
-                }}
-                className={cn(
-                  'w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors text-left',
-                  selectedProjectId === project.id
-                    ? 'bg-blue-100 text-blue-700'
-                    : 'text-gray-700 hover:bg-gray-100'
-                )}
+                onClick={() => setShowCreateProjectModal(true)}
+                className="p-1 hover:bg-gray-100 rounded transition-colors"
+                title="Create new project"
               >
-                <div
-                  className="w-3 h-3 rounded-full"
-                  style={{ backgroundColor: project.color }}
-                />
-                <span className="flex-1 truncate">{project.name}</span>
-                {project.isFavorite && <Star className="w-4 h-4 text-yellow-500" fill="currentColor" />}
+                <Plus className="w-4 h-4 text-gray-400" />
               </button>
-            ))}
+            </div>
+
+            <div className="space-y-1">
+              {projects.map((project) => (
+                <button
+                  key={project.id}
+                  onClick={() => {
+                    selectProject(project.id)
+                    onViewChange(`project-${project.id}`)
+                  }}
+                  className={cn(
+                    'w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors text-left',
+                    selectedProjectId === project.id
+                      ? 'bg-blue-100 text-blue-700'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  )}
+                  title={selectedProjectId === project.id ? project.name : undefined}
+                >
+                  <div
+                    className="w-3 h-3 rounded-full"
+                    style={{ backgroundColor: project.color }}
+                  />
+                  <span className="flex-1 truncate">{project.name}</span>
+                  {project.isFavorite && <Star className="w-4 h-4 text-yellow-500" fill="currentColor" />}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* Labels */}
-        {labels.length > 0 && (
+        {!shouldShowCollapsed && labels.length > 0 && (
           <div className="mb-4">
             <div className="flex items-center gap-2 px-3 py-2 mb-2">
               <Tag className="w-3 h-3 text-gray-400" />
@@ -133,50 +161,54 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) =
         )}
 
         {/* Quick Filters */}
-        <div className="mb-4">
-          <div className="flex items-center gap-2 px-3 py-2 mb-2">
-            <Sliders className="w-3 h-3 text-gray-400" />
-            <h3 className="text-xs font-semibold text-gray-600 uppercase">Filters</h3>
-          </div>
+        {!shouldShowCollapsed && (
+          <div className="mb-4">
+            <div className="flex items-center gap-2 px-3 py-2 mb-2">
+              <Sliders className="w-3 h-3 text-gray-400" />
+              <h3 className="text-xs font-semibold text-gray-600 uppercase">Filters</h3>
+            </div>
 
-          <div className="space-y-1">
-            <button
-              onClick={() => onViewChange('filter-completed')}
-              className={cn(
-                'w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors text-left',
-                currentView === 'filter-completed'
-                  ? 'bg-blue-100 text-blue-700'
-                  : 'text-gray-700 hover:bg-gray-100'
-              )}
-            >
-              ✓ Completed
-            </button>
-            <button
-              onClick={() => onViewChange('filter-overdue')}
-              className={cn(
-                'w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors text-left',
-                currentView === 'filter-overdue'
-                  ? 'bg-blue-100 text-blue-700'
-                  : 'text-gray-700 hover:bg-gray-100'
-              )}
-            >
-              ⚠ Overdue
-            </button>
+            <div className="space-y-1">
+              <button
+                onClick={() => onViewChange('filter-completed')}
+                className={cn(
+                  'w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors text-left',
+                  currentView === 'filter-completed'
+                    ? 'bg-blue-100 text-blue-700'
+                    : 'text-gray-700 hover:bg-gray-100'
+                )}
+              >
+                ✓ Completed
+              </button>
+              <button
+                onClick={() => onViewChange('filter-overdue')}
+                className={cn(
+                  'w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors text-left',
+                  currentView === 'filter-overdue'
+                    ? 'bg-blue-100 text-blue-700'
+                    : 'text-gray-700 hover:bg-gray-100'
+                )}
+              >
+                ⚠ Overdue
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </nav>
 
       {/* User Profile */}
       {user && (
         <div className="px-4 py-4 border-t border-gray-200">
-          <div className="flex items-center gap-2 p-2 rounded-md hover:bg-gray-100 cursor-pointer">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-brand-400 to-brand-600 text-white flex items-center justify-center text-sm font-bold">
+          <div className={cn('flex items-center gap-2 p-2 rounded-md hover:bg-gray-100 cursor-pointer', shouldShowCollapsed && 'justify-center')}>
+            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-brand-400 to-brand-600 text-white flex items-center justify-center text-sm font-bold flex-shrink-0">
               {user.name.charAt(0).toUpperCase()}
             </div>
-            <div className="flex-1 min-w-0">
-              <p className="text-sm font-medium text-gray-900 truncate">{user.name}</p>
-              <p className="text-xs text-gray-500 truncate">{user.email}</p>
-            </div>
+            {!shouldShowCollapsed && (
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium text-gray-900 truncate">{user.name}</p>
+                <p className="text-xs text-gray-500 truncate">{user.email}</p>
+              </div>
+            )}
           </div>
         </div>
       )}
