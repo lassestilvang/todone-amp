@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Search, X, Save } from 'lucide-react'
 import { useFilterStore } from '@/store/filterStore'
+import { useDebounce } from '@/hooks/useDebounce'
 import { cn } from '@/utils/cn'
 
 interface EnhancedSearchBarProps {
@@ -9,6 +10,7 @@ interface EnhancedSearchBarProps {
   onSearch: (query: string) => void
   className?: string
   placeholder?: string
+  debounceDelay?: number
 }
 
 export const EnhancedSearchBar: React.FC<EnhancedSearchBarProps> = ({
@@ -17,6 +19,7 @@ export const EnhancedSearchBar: React.FC<EnhancedSearchBarProps> = ({
   onSearch,
   className,
   placeholder = 'Filter tasks (e.g., priority:p1 due:today)',
+  debounceDelay = 300,
 }) => {
   const [isOpen, setIsOpen] = useState(false)
   const [suggestions, setSuggestions] = useState<string[]>([])
@@ -27,11 +30,12 @@ export const EnhancedSearchBar: React.FC<EnhancedSearchBarProps> = ({
   const containerRef = useRef<HTMLDivElement>(null)
 
   const filterStore = useFilterStore()
+  const debouncedValue = useDebounce(value, debounceDelay)
 
-  // Get suggestions
+  // Get suggestions from debounced value
   useEffect(() => {
-    if (value.length > 0) {
-      const newSuggestions = filterStore.getSuggestions(value)
+    if (debouncedValue.length > 0) {
+      const newSuggestions = filterStore.getSuggestions(debouncedValue)
       setSuggestions(newSuggestions.slice(0, 8))
       setSelectedIndex(-1)
       setIsOpen(true)
@@ -39,7 +43,7 @@ export const EnhancedSearchBar: React.FC<EnhancedSearchBarProps> = ({
       setSuggestions(filterStore.getRecentQueries().slice(0, 5))
       setIsOpen(true)
     }
-  }, [value, filterStore])
+  }, [debouncedValue, filterStore])
 
   // Handle keyboard navigation
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
