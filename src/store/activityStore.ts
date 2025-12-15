@@ -19,6 +19,9 @@ interface ActivityState {
   getActivityById: (activityId: string) => Activity | undefined
   getActivityCount: (taskId: string) => number
   getActivitiesByAction: (taskId: string, action: ActivityAction) => Activity[]
+  getAllActivities: () => Promise<Activity[]>
+  exportActivityLogAsCSV: () => string
+  exportActivityLogAsJSON: () => string
 }
 
 export const useActivityStore = create<ActivityState>((set, get) => ({
@@ -91,5 +94,51 @@ export const useActivityStore = create<ActivityState>((set, get) => ({
   getActivitiesByAction: (taskId: string, action: ActivityAction) => {
     const { activities } = get()
     return activities.filter((a) => a.taskId === taskId && a.action === action)
+  },
+
+  getAllActivities: async () => {
+    try {
+      const activities = await db.activities.toArray()
+      return activities.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
+    } catch (error) {
+      console.error('Failed to fetch all activities:', error)
+      return []
+    }
+  },
+
+  exportActivityLogAsCSV: () => {
+    const { activities } = get()
+    const headers = ['ID', 'Task ID', 'User ID', 'Action', 'Timestamp', 'Changes', 'Old Value', 'New Value']
+    const rows = activities.map((activity) => [
+      activity.id,
+      activity.taskId,
+      activity.userId,
+      activity.action,
+      new Date(activity.timestamp).toISOString(),
+      activity.changes ? JSON.stringify(activity.changes) : '',
+      activity.oldValue ? JSON.stringify(activity.oldValue) : '',
+      activity.newValue ? JSON.stringify(activity.newValue) : '',
+    ])
+
+    const csv = [
+      headers.join(','),
+      ...rows.map((row) =>
+        row
+          .map((cell) => {
+            if (typeof cell === 'string' && (cell.includes(',') || cell.includes('"') || cell.includes('\n'))) {
+              return `"${cell.replace(/"/g, '""')}"`
+            }
+            return cell
+          })
+          .join(','),
+      ),
+    ].join('\n')
+
+    return csv
+  },
+
+  exportActivityLogAsJSON: () => {
+    const { activities } = get()
+    return JSON.stringify(activities, null, 2)
   },
 }))

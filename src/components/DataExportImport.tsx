@@ -5,6 +5,7 @@ import { useSectionStore } from '@/store/sectionStore'
 import { useLabelStore } from '@/store/labelStore'
 import { useFilterStore } from '@/store/filterStore'
 import { useAuthStore } from '@/store/authStore'
+import { useTemplateStore } from '@/store/templateStore'
 import {
   exportDataAsJSON,
   exportTasksAsCSV,
@@ -15,15 +16,19 @@ import {
   parseImportedData,
   validateImportedData,
 } from '@/utils/exportImport'
-import { Download, Upload, FileJson, FileText } from 'lucide-react'
+import { Download, Upload, FileJson, FileText, Package } from 'lucide-react'
 import { Button } from '@/components/Button'
 import { cn } from '@/utils/cn'
 
 export function DataExportImport() {
-  const [activeTab, setActiveTab] = useState<'export' | 'import'>('export')
+  const [activeTab, setActiveTab] = useState<'export' | 'import' | 'templates'>('export')
   const [exportFormat, setExportFormat] = useState<'json' | 'csv' | 'report'>('json')
   const [importError, setImportError] = useState<string | null>(null)
   const [importSuccess, setImportSuccess] = useState(false)
+
+  const [templateName, setTemplateName] = useState('')
+  const [templateApplyError, setTemplateApplyError] = useState<string | null>(null)
+  const [templateApplySuccess, setTemplateApplySuccess] = useState(false)
 
   const user = useAuthStore((state) => state.user)
   const tasks = useTaskStore((state) => state.tasks)
@@ -35,6 +40,8 @@ export function DataExportImport() {
   const createProject = useProjectStore((state) => state.createProject)
   const createSection = useSectionStore((state) => state.createSection)
   const createLabel = useLabelStore((state) => state.createLabel)
+  const applyTemplate = useTemplateStore((state) => state.applyTemplate)
+  const templates = useTemplateStore((state) => state.templates)
 
   const labelMap = new Map(labels.map((l) => [l.id, l]))
 
@@ -123,6 +130,26 @@ export function DataExportImport() {
     }
   }
 
+  const handleApplyTemplate = async (templateId: string) => {
+    if (!user || !templateName.trim()) {
+      setTemplateApplyError('Please enter a project name')
+      return
+    }
+
+    try {
+      await applyTemplate(templateId, templateName, user.id)
+      setTemplateApplySuccess(true)
+      setTemplateApplyError(null)
+      setTemplateName('')
+      setTimeout(() => setTemplateApplySuccess(false), 5000)
+    } catch (error) {
+      setTemplateApplyError(
+        error instanceof Error ? error.message : 'Failed to apply template. Please try again.'
+      )
+      setTemplateApplySuccess(false)
+    }
+  }
+
   return (
     <div className="space-y-6">
       {/* Tabs */}
@@ -140,18 +167,30 @@ export function DataExportImport() {
           Export Data
         </button>
         <button
-          onClick={() => setActiveTab('import')}
-          className={cn(
-            'px-4 py-2 font-medium transition-colors border-b-2 -mb-px',
-            activeTab === 'import'
-              ? 'border-brand-600 text-brand-600'
-              : 'border-transparent text-gray-500 hover:text-gray-700'
-          )}
-        >
-          <Upload className="w-4 h-4 mr-2 inline" />
-          Import Data
-        </button>
-      </div>
+            onClick={() => setActiveTab('import')}
+            className={cn(
+              'px-4 py-2 font-medium transition-colors border-b-2 -mb-px',
+              activeTab === 'import'
+                ? 'border-brand-600 text-brand-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700'
+            )}
+          >
+            <Upload className="w-4 h-4 mr-2 inline" />
+            Import Data
+          </button>
+          <button
+            onClick={() => setActiveTab('templates')}
+            className={cn(
+              'px-4 py-2 font-medium transition-colors border-b-2 -mb-px',
+              activeTab === 'templates'
+                ? 'border-brand-600 text-brand-600'
+                : 'border-transparent text-gray-500 hover:text-gray-700'
+            )}
+          >
+            <Package className="w-4 h-4 mr-2 inline" />
+            Templates
+          </button>
+        </div>
 
       {/* Export Tab */}
       {activeTab === 'export' && (
@@ -288,6 +327,89 @@ export function DataExportImport() {
               <li>• Labels and projects will be merged with existing ones</li>
             </ul>
           </div>
+        </div>
+      )}
+
+      {/* Templates Tab */}
+      {activeTab === 'templates' && (
+        <div className="space-y-4">
+          <p className="text-sm text-gray-600">
+            Create projects from pre-built templates. Choose a template and give it a custom name.
+          </p>
+
+          {templateApplySuccess && (
+            <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
+              <p className="text-green-800 font-medium">✓ Template applied successfully!</p>
+              <p className="text-sm text-green-700 mt-1">Your new project has been created.</p>
+            </div>
+          )}
+
+          {templateApplyError && (
+            <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
+              <p className="text-red-800 font-medium">✗ Failed to apply template</p>
+              <p className="text-sm text-red-700 mt-1">{templateApplyError}</p>
+            </div>
+          )}
+
+          {templates.length === 0 ? (
+            <div className="text-center py-8">
+              <Package className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+              <p className="text-gray-600">No templates available yet.</p>
+              <p className="text-sm text-gray-500 mt-1">Create a project and save it as a template.</p>
+            </div>
+          ) : (
+            <>
+              <div className="space-y-3 max-h-96 overflow-y-auto">
+                {templates.map((template) => (
+                  <div
+                    key={template.id}
+                    className="p-4 border border-gray-200 rounded-lg hover:border-brand-300 transition-colors"
+                  >
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <h4 className="font-medium text-gray-900">{template.name}</h4>
+                        <p className="text-sm text-gray-500 mt-1">
+                          {template.description || 'No description'}
+                        </p>
+                        <p className="text-xs text-gray-400 mt-2">
+                          Category: {template.category}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="space-y-3 pt-4 border-t">
+                <label className="block">
+                  <span className="text-sm font-medium text-gray-700 mb-1 block">
+                    Project Name
+                  </span>
+                  <input
+                    type="text"
+                    value={templateName}
+                    onChange={(e) => setTemplateName(e.target.value)}
+                    placeholder="Enter a name for the new project"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent outline-none"
+                  />
+                </label>
+
+                <div className="flex gap-2">
+                  {templates.slice(0, 1).map((template) => (
+                    <Button
+                      key={template.id}
+                      onClick={() => handleApplyTemplate(template.id)}
+                      disabled={!templateName.trim()}
+                      className="flex-1"
+                    >
+                      <Package className="w-4 h-4 mr-2" />
+                      Use {template.name}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
         </div>
       )}
     </div>

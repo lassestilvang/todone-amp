@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <!-- Green background with rounded corners -->
+  <rect width="128" height="128" fill="#10b981" rx="24"/>
+  
+  <!-- Checkmark symbol -->
+  <g transform="translate(64, 64)">
+    <path d="M -30,-5 L -10,20 L 30,-20" stroke="white" stroke-width="14" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>
