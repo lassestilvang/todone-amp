@@ -23,14 +23,19 @@ export function useKeyboardShortcuts(
       const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0
       const isCtrlCmd = isMac ? e.metaKey : e.ctrlKey
 
+      // Check if user is typing in an input or textarea
+      const target = e.target as HTMLElement
+      const isInputField =
+        target instanceof HTMLInputElement || target instanceof HTMLTextAreaElement
+
       // Ctrl/Cmd + K: Quick add modal
       if (isCtrlCmd && e.key === 'k') {
         e.preventDefault()
         actions.onQuickAdd?.()
       }
 
-      // Q: Quick add task
-      if (e.key === 'q' && !e.ctrlKey && !e.metaKey) {
+      // Q: Quick add task (skip if typing in input)
+      if (e.key === 'q' && !e.ctrlKey && !e.metaKey && !isInputField) {
         e.preventDefault()
         actions.onQuickAdd?.()
       }
@@ -54,16 +59,16 @@ export function useKeyboardShortcuts(
         await taskStore.updateTask(selectedTaskId, { priority: priorityMap[e.key] })
       }
 
-      // T: Set due date to today
-      if (e.key === 't' && !e.ctrlKey && !e.metaKey && selectedTaskId) {
+      // T: Set due date to today (skip if typing in input)
+      if (e.key === 't' && !e.ctrlKey && !e.metaKey && selectedTaskId && !isInputField) {
         e.preventDefault()
         const today = new Date()
         today.setHours(0, 0, 0, 0)
         await taskStore.updateTask(selectedTaskId, { dueDate: today })
       }
 
-      // M: Set due date to tomorrow
-      if (e.key === 'm' && !e.ctrlKey && !e.metaKey && selectedTaskId) {
+      // M: Set due date to tomorrow (skip if typing in input)
+      if (e.key === 'm' && !e.ctrlKey && !e.metaKey && selectedTaskId && !isInputField) {
         e.preventDefault()
         const tomorrow = new Date()
         tomorrow.setDate(tomorrow.getDate() + 1)
@@ -71,8 +76,8 @@ export function useKeyboardShortcuts(
         await taskStore.updateTask(selectedTaskId, { dueDate: tomorrow })
       }
 
-      // W: Set due date to next week
-      if (e.key === 'w' && !e.ctrlKey && !e.metaKey && selectedTaskId) {
+      // W: Set due date to next week (skip if typing in input)
+      if (e.key === 'w' && !e.ctrlKey && !e.metaKey && selectedTaskId && !isInputField) {
         e.preventDefault()
         const nextWeek = new Date()
         nextWeek.setDate(nextWeek.getDate() + 7)
@@ -80,8 +85,8 @@ export function useKeyboardShortcuts(
         await taskStore.updateTask(selectedTaskId, { dueDate: nextWeek })
       }
 
-      // /: Focus search
-      if (e.key === '/' && !e.ctrlKey && !e.metaKey) {
+      // /: Focus search (skip if typing in input)
+      if (e.key === '/' && !e.ctrlKey && !e.metaKey && !isInputField) {
         e.preventDefault()
         actions.onSearch?.()
       }
@@ -92,8 +97,8 @@ export function useKeyboardShortcuts(
         // Will be handled by component
       }
 
-      // Delete: Delete selected task(s)
-      if (e.key === 'Delete' && selectedTaskId) {
+      // Delete: Delete selected task(s) (skip if typing in input)
+      if (e.key === 'Delete' && selectedTaskId && !isInputField) {
         e.preventDefault()
         const selectedCount = bulkStore.getSelectedCount()
         if (selectedCount > 0) {
@@ -114,8 +119,8 @@ export function useKeyboardShortcuts(
       // Note: Toggle favorite is handled at project level, not task level
       // Tasks don't have isFavorite property
 
-      // A: Toggle multi-select mode
-      if (e.key === 'a' && !e.ctrlKey && !e.metaKey) {
+      // A: Toggle multi-select mode (skip if typing in input)
+      if (e.key === 'a' && !e.ctrlKey && !e.metaKey && !isInputField) {
         e.preventDefault()
         if (bulkStore.isSelectMode) {
           bulkStore.exitSelectMode()
@@ -124,8 +129,8 @@ export function useKeyboardShortcuts(
         }
       }
 
-      // Shift + A: Select all visible
-      if (e.shiftKey && e.key === 'A') {
+      // Shift + A: Select all visible (skip if typing in input)
+      if (e.shiftKey && e.key === 'A' && !isInputField) {
         e.preventDefault()
         const tasks = taskStore.tasks
         bulkStore.selectMultiple(tasks.map((t) => t.id))
@@ -136,8 +141,8 @@ export function useKeyboardShortcuts(
         // Navigation logic handled by component
       }
 
-      // Ctrl/Cmd + Up/Down: Move task up/down in list
-      if (isCtrlCmd && ['ArrowUp', 'ArrowDown'].includes(e.key) && selectedTaskId) {
+      // Ctrl/Cmd + Up/Down: Move task up/down in list (skip if typing in input)
+      if (isCtrlCmd && ['ArrowUp', 'ArrowDown'].includes(e.key) && selectedTaskId && !isInputField) {
         e.preventDefault()
         const tasks = taskStore.tasks
         const currentIndex = tasks.findIndex((t) => t.id === selectedTaskId)
@@ -152,8 +157,8 @@ export function useKeyboardShortcuts(
         }
       }
 
-      // Ctrl/Cmd + ] / [: Indent/outdent
-      if (isCtrlCmd && (e.key === ']' || e.key === '[') && selectedTaskId) {
+      // Ctrl/Cmd + ] / [: Indent/outdent (skip if typing in input)
+      if (isCtrlCmd && (e.key === ']' || e.key === '[') && selectedTaskId && !isInputField) {
         e.preventDefault()
         const tasks = taskStore.tasks
         const currentIndex = tasks.findIndex((t) => t.id === selectedTaskId)
