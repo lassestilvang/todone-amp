@@ -43,6 +43,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       const user = await db.users.where('email').equals(email).first()
       if (!user) throw new Error('User not found')
 
+      localStorage.setItem('userId', user.id)
       set({
         user,
         isAuthenticated: true,
@@ -75,6 +76,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
       await db.users.add(newUser)
       await initializeDatabase(userId)
 
+      localStorage.setItem('userId', newUser.id)
       set({
         user: newUser,
         isAuthenticated: true,
@@ -87,11 +89,11 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   },
 
   logout: async () => {
+    localStorage.removeItem('userId')
     set({
       user: null,
       isAuthenticated: false,
     })
-    // TODO: Clear session/tokens
   },
 
   loadUser: async (userId: string) => {

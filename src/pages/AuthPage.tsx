@@ -31,11 +31,6 @@ export const AuthPage: React.FC = () => {
       } else {
         await login(email)
       }
-      // Save userId for persistence
-      const user = useAuthStore.getState().user
-      if (user) {
-        localStorage.setItem('userId', user.id)
-      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred')
       setIsLoading(false)
