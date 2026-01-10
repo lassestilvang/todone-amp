@@ -519,17 +519,39 @@ export const useTaskStore = create<TaskState>((set, get) => ({
     const now = new Date()
 
     if (mode === 'single') {
-      // Add exception for this date
+      // Create a new standalone task with the updates for this specific date
+      const instanceTask: Task = {
+        ...task,
+        id: `task-${Date.now()}-instance`,
+        content: updates.content ?? task.content,
+        description: updates.description ?? task.description,
+        priority: updates.priority ?? task.priority,
+        dueDate: updates.dueDate ?? instanceDate,
+        dueTime: updates.dueTime ?? task.dueTime,
+        labels: updates.labels ?? task.labels,
+        recurrence: undefined, // Single instance, no recurrence
+        createdAt: now,
+        updatedAt: now,
+      }
+
+      // Add the instance task to the database
+      await db.tasks.add(instanceTask)
+
+      // Add exception for this date in the original recurring task
       const newExceptions = [...task.recurrence.exceptions, instanceDate]
       const updatedRecurrence = {
         ...task.recurrence,
         exceptions: newExceptions,
       }
       await db.tasks.update(taskId, { recurrence: updatedRecurrence, updatedAt: now })
+
       set({
-        tasks: tasks.map((t) =>
-          t.id === taskId ? { ...t, recurrence: updatedRecurrence, updatedAt: now } : t
-        ),
+        tasks: [
+          ...tasks.map((t) =>
+            t.id === taskId ? { ...t, recurrence: updatedRecurrence, updatedAt: now } : t
+          ),
+          instanceTask,
+        ],
       })
     } else if (mode === 'future') {
       // Remove recurrence after this date

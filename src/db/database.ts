@@ -89,8 +89,8 @@ export const db = new TodoneDB()
  * Initialize database with default data for new users
  */
 export async function initializeDatabase(userId: string): Promise<void> {
-  const existingUser = await db.users.get(userId)
-  if (existingUser) return
+  const existingInbox = await db.projects.where({ ownerId: userId, name: 'Inbox' }).first()
+  if (existingInbox) return
 
   // Create default inbox project
   const inboxProject: Project = {

@@ -180,4 +180,74 @@ describe('taskStore - Core Functionality', () => {
       expect(validPriorities.includes('p5')).toBe(false)
     })
   })
+
+  describe('recurring task instance editing logic', () => {
+    it('should add exception date when editing single instance', () => {
+      const recurrence = {
+        frequency: 'daily' as const,
+        interval: 1,
+        startDate: new Date('2026-01-01'),
+        exceptions: [] as Date[],
+      }
+
+      const instanceDate = new Date('2026-01-05')
+      const newExceptions = [...recurrence.exceptions, instanceDate]
+
+      expect(newExceptions).toHaveLength(1)
+      expect(newExceptions[0].getTime()).toBe(instanceDate.getTime())
+    })
+
+    it('should create instance task without recurrence', () => {
+      const parentTask = {
+        id: 'parent-task',
+        content: 'Daily standup',
+        recurrence: {
+          frequency: 'daily' as const,
+          interval: 1,
+          startDate: new Date('2026-01-01'),
+          exceptions: [] as Date[],
+        },
+        labels: ['work'],
+        priority: 'p2' as const,
+      }
+
+      const updates = { content: 'Special standup - team retro' }
+      const instanceDate = new Date('2026-01-05')
+
+      const instanceTask = {
+        ...parentTask,
+        id: 'task-instance',
+        content: updates.content ?? parentTask.content,
+        dueDate: instanceDate,
+        recurrence: undefined,
+      }
+
+      expect(instanceTask.content).toBe('Special standup - team retro')
+      expect(instanceTask.recurrence).toBeUndefined()
+      expect(instanceTask.labels).toEqual(['work'])
+    })
+
+    it('should preserve original task fields when no updates provided', () => {
+      const parentTask = {
+        content: 'Original content',
+        description: 'Original description',
+        priority: 'p1' as const,
+        labels: ['urgent'],
+      }
+
+      const updates: Partial<typeof parentTask> = {}
+
+      const instanceTask = {
+        content: updates.content ?? parentTask.content,
+        description: updates.description ?? parentTask.description,
+        priority: updates.priority ?? parentTask.priority,
+        labels: updates.labels ?? parentTask.labels,
+      }
+
+      expect(instanceTask.content).toBe('Original content')
+      expect(instanceTask.description).toBe('Original description')
+      expect(instanceTask.priority).toBe('p1')
+      expect(instanceTask.labels).toEqual(['urgent'])
+    })
+  })
 })

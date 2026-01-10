@@ -10,6 +10,8 @@ import { initializeQuickAddStore } from '@/store/quickAddStore'
 import { initializeDyslexiaFont } from '@/utils/dyslexiaFont'
 import { Sidebar } from '@/components/Sidebar'
 import { SkipNav } from '@/components/SkipNav'
+import { ResponsiveLayout } from '@/components/ResponsiveLayout'
+import { MobileNavigation } from '@/components/MobileNavigation'
 import { InboxView } from '@/views/InboxView'
 import { TodayView } from '@/views/TodayView'
 import { UpcomingView } from '@/views/UpcomingView'
@@ -20,6 +22,7 @@ import { TaskDetailPanel } from '@/components/TaskDetailPanel'
 import { QuickAddModal } from '@/components/QuickAddModal'
 import { KeyboardShortcutsHelp } from '@/components/KeyboardShortcutsHelp'
 import { UndoNotification } from '@/components/UndoNotification'
+import { AchievementNotificationCenter } from '@/components/AchievementNotificationCenter'
 import { DragDropContextProvider } from '@/components/DragDropContext'
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts'
 
@@ -123,18 +126,25 @@ function App() {
   return (
     <DragDropContextProvider>
       <SkipNav />
-      <div className="flex h-screen bg-white">
-        <div id="sidebar" role="navigation" aria-label="Main navigation" tabIndex={-1}>
-          <Sidebar currentView={currentView} onViewChange={handleViewChange} />
-        </div>
+      <ResponsiveLayout
+        sidebar={
+          <div id="sidebar" role="navigation" aria-label="Main navigation" tabIndex={-1}>
+            <Sidebar currentView={currentView} onViewChange={handleViewChange} />
+          </div>
+        }
+        mobileNav={
+          <MobileNavigation currentView={currentView} onViewChange={handleViewChange} />
+        }
+      >
         <main id="main-content" className="flex-1 flex flex-col overflow-hidden" tabIndex={-1}>
           {renderView()}
         </main>
-        <TaskDetailPanel />
-        <QuickAddModal />
-        <KeyboardShortcutsHelp />
-        <UndoNotification />
-      </div>
+      </ResponsiveLayout>
+      <TaskDetailPanel />
+      <QuickAddModal />
+      <KeyboardShortcutsHelp />
+      <UndoNotification />
+      <AchievementNotificationCenter />
     </DragDropContextProvider>
   )
 }

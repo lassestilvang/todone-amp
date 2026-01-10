@@ -6,7 +6,9 @@ const RUNTIME_CACHE = 'todone-runtime-v1'
 const URLS_TO_CACHE = [
   '/',
   '/index.html',
-  '/manifest.json',
+  '/manifest.webmanifest',
+  '/icons/icon-192.svg',
+  '/icons/icon-512.svg',
 ]
 
 // Install event - cache essential assets
@@ -154,8 +156,8 @@ self.addEventListener('push', (event) => {
   if (event.data) {
     const options = {
       body: event.data.text(),
-      icon: '/manifest.json',
-      badge: '/manifest.json',
+      icon: '/icons/icon-192.svg',
+      badge: '/icons/icon-192.svg',
     }
     event.waitUntil(
       self.registration.showNotification('Todone', options)
