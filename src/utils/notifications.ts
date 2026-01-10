@@ -1,3 +1,5 @@
+import { logger } from '@/utils/logger'
+
 /**
  * Browser notification utilities
  */
@@ -61,7 +63,7 @@ export function sendBrowserNotification(options: NotificationOptions): Notificat
 
     return notification
   } catch {
-    console.error('Failed to send browser notification:', options)
+    logger.error('Failed to send browser notification:', options)
     return null
   }
 }
@@ -116,7 +118,7 @@ export function registerServiceWorkerNotifications(): void {
       if (event.data && event.data.type === 'NOTIFICATION_CLICK') {
         const { notificationId } = event.data
         // Handle notification action
-        console.log('Notification clicked:', notificationId)
+        logger.info('Notification clicked:', notificationId)
       }
     })
   })

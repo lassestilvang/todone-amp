@@ -1,4 +1,5 @@
 import type { Task } from '@/types'
+import { logger } from '@/utils/logger'
 
 /**
  * Advanced filter syntax parser
@@ -606,7 +607,7 @@ export function parseAndEvaluateFilter(query: string, task: Task): boolean {
     const ast = parseQuery(tokens)
     return evaluateAST(ast, task)
   } catch (error) {
-    console.error('Filter parse error:', error)
+    logger.error('Filter parse error:', error)
     return false
   }
 }

@@ -2,6 +2,8 @@ import { create } from 'zustand'
 import { db } from '@/db/database'
 import type { Task, RecurrencePattern, ActivityAction } from '@/types'
 import { getNextOccurrence, validateRecurrencePattern } from '@/utils/recurrence'
+import { useGamificationStore } from '@/store/gamificationStore'
+import { logger } from '@/utils/logger'
 
 // Helper to log activity (will be called from stores)
 async function logActivity(
@@ -25,7 +27,7 @@ async function logActivity(
       timestamp: new Date(),
     })
   } catch (error) {
-    console.error('Failed to log activity:', error)
+    logger.error('Failed to log activity:', error)
   }
 }
 
@@ -164,16 +166,11 @@ export const useTaskStore = create<TaskState>((set, get) => ({
 
     // Trigger gamification on task completion
     if (completed) {
-      try {
-        const { useGamificationStore } = await import('@/store/gamificationStore')
-        const gamificationStore = useGamificationStore.getState()
-        // Award karma with priority multiplier (base 10 points)
-        await gamificationStore.addKarma(userId, 10, task.priority)
-        // Update streak and check for achievement unlocks
-        await gamificationStore.updateStreak(userId)
-      } catch (error) {
-        console.warn('Failed to update gamification stats:', error)
-      }
+      const gamificationStore = useGamificationStore.getState()
+      // Award karma with priority multiplier (base 10 points)
+      await gamificationStore.addKarma(userId, 10, task.priority)
+      // Update streak and check for achievement unlocks
+      await gamificationStore.updateStreak(userId)
     }
 
     set({
@@ -233,10 +230,12 @@ export const useTaskStore = create<TaskState>((set, get) => ({
       updatedAt: now,
     }))
 
-    // Update database
-    for (const task of updatedTasks) {
-      await db.tasks.update(task.id, { order: task.order, updatedAt: now })
-    }
+    // Update database atomically
+    await db.transaction('rw', db.tasks, async () => {
+      for (const task of updatedTasks) {
+        await db.tasks.update(task.id, { order: task.order, updatedAt: now })
+      }
+    })
 
     // Update state
     const newTasks = tasks.map((task) => {

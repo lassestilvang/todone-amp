@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from 'react'
 import { X, Trash2, Plus, Copy, FolderPlus } from 'lucide-react'
 import { cn } from '@/utils/cn'
 import { useTaskDetailStore } from '@/store/taskDetailStore'
+import { logger } from '@/utils/logger'
 import { useTaskStore } from '@/store/taskStore'
 import { useProjectStore } from '@/store/projectStore'
 import { Button } from '@/components/Button'
@@ -44,7 +45,7 @@ export function TaskDetailPanel() {
       setHasUnsavedChanges(false)
       closeTaskDetail()
     } catch (error) {
-      console.error('Failed to save task:', error)
+      logger.error('Failed to save task:', error)
     }
   }
 
@@ -55,7 +56,7 @@ export function TaskDetailPanel() {
       await deleteTask(selectedTask.id)
       closeTaskDetail()
     } catch (error) {
-      console.error('Failed to delete task:', error)
+      logger.error('Failed to delete task:', error)
     }
   }
 
@@ -73,7 +74,7 @@ export function TaskDetailPanel() {
       await duplicateTask(selectedTask.id, true)
       closeTaskDetail()
     } catch (error) {
-      console.error('Failed to duplicate task:', error)
+      logger.error('Failed to duplicate task:', error)
     }
   }
 
@@ -101,13 +102,13 @@ export function TaskDetailPanel() {
 
       // Note: Subtasks need manual migration to project sections
       if (subtasks.length > 0) {
-        console.info('Note: Subtasks need manual migration to project sections')
+        logger.info('Note: Subtasks need manual migration to project sections')
       }
 
       await deleteTask(selectedTask.id)
       closeTaskDetail()
     } catch (error) {
-      console.error('Failed to convert task to project:', error)
+      logger.error('Failed to convert task to project:', error)
     }
   }
 

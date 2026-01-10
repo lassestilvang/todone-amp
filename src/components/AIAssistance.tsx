@@ -3,6 +3,7 @@ import { useAIStore } from '@/store/aiStore'
 import { Sparkles, Copy, RefreshCw, ThumbsUp, ThumbsDown, Loader } from 'lucide-react'
 import { Button } from '@/components/Button'
 import { cn } from '@/utils/cn'
+import { logger } from '@/utils/logger'
 
 export interface AISuggestion {
   id: string
@@ -56,7 +57,7 @@ export function AIAssistance({
         ])
       }
     } catch (error) {
-      console.error('Failed to get suggestions:', error)
+      logger.error('Failed to get suggestions:', error)
     } finally {
       setIsLoading(false)
     }

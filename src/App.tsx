@@ -45,7 +45,7 @@ function App() {
   // Initialize keyboard shortcuts
   useKeyboardShortcuts(null)
 
-  // Initialize on mount
+  // Initialize on mount - runs once, loadUser is a stable Zustand action
   useEffect(() => {
     const userId = localStorage.getItem('userId')
     if (userId) {
@@ -59,10 +59,9 @@ function App() {
     
     // Initialize dyslexia font preference
     initializeDyslexiaFont()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [loadUser])
 
-  // Load data when user changes
+  // Load data when user changes - Zustand actions are stable references
   useEffect(() => {
     if (user) {
       loadTasks()
@@ -71,8 +70,7 @@ function App() {
       loadLabels(user.id)
       loadFilters(user.id)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user])
+  }, [user, loadTasks, loadProjects, loadSections, loadLabels, loadFilters])
 
   // Handle view changes from sidebar - reset to list view
   const handleViewChange = (view: ViewIdType) => {

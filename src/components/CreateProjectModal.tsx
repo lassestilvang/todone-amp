@@ -4,6 +4,7 @@ import { useProjectStore } from '@/store/projectStore'
 import { Button } from './Button'
 import { Input } from './Input'
 import { cn } from '@/utils/cn'
+import { logger } from '@/utils/logger'
 
 interface CreateProjectModalProps {
   isOpen: boolean
@@ -41,7 +42,7 @@ export function CreateProjectModal({ isOpen, onClose }: CreateProjectModalProps)
       setSelectedColor(PROJECT_COLORS[0])
       onClose()
     } catch (error) {
-      console.error('Failed to create project:', error)
+      logger.error('Failed to create project:', error)
     } finally {
       setIsLoading(false)
     }

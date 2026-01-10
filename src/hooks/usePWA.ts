@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { logger } from '@/utils/logger'
 
 interface InstallPromptEvent extends Event {
   prompt: () => Promise<void>
@@ -30,10 +31,10 @@ export const usePWA = () => {
         scope: '/',
       })
         .then((registration) => {
-          console.log('[PWA] Service worker registered:', registration)
+          logger.info('[PWA] Service worker registered:', registration)
         })
         .catch((error) => {
-          console.warn('[PWA] Service worker registration failed:', error)
+          logger.warn('[PWA] Service worker registration failed:', error)
         })
     }
   }, [])
@@ -63,7 +64,7 @@ export const usePWA = () => {
     const handleAppInstalled = () => {
       setInstallPrompt(null)
       setState((prev) => ({ ...prev, isInstalled: true, isInstallable: false }))
-      console.log('[PWA] App installed')
+      logger.info('[PWA] App installed')
     }
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt)
@@ -89,21 +90,21 @@ export const usePWA = () => {
 
   const install = async () => {
     if (!installPrompt) {
-      console.warn('[PWA] Install prompt not available')
+      logger.warn('[PWA] Install prompt not available')
       return
     }
 
     try {
       await installPrompt.prompt()
       const { outcome } = await installPrompt.userChoice
-      console.log('[PWA] User choice:', outcome)
+      logger.info('[PWA] User choice:', outcome)
 
       if (outcome === 'accepted') {
         setInstallPrompt(null)
         setState((prev) => ({ ...prev, isInstallable: false }))
       }
     } catch (error) {
-      console.error('[PWA] Installation failed:', error)
+      logger.error('[PWA] Installation failed:', error)
     }
   }
 

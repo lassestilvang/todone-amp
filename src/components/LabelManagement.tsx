@@ -7,6 +7,7 @@ import { Input } from '@/components/Input'
 import { Button } from '@/components/Button'
 import type { Label } from '@/types'
 import type { LabelColor } from '@/store/labelStore'
+import { logger } from '@/utils/logger'
 
 interface LabelManagementProps {
   isOpen: boolean
@@ -35,7 +36,7 @@ export function LabelManagement({ isOpen, onClose, userId }: LabelManagementProp
       setNewLabelName('')
       setNewLabelColor('blue')
     } catch (error) {
-      console.error('Failed to create label:', error)
+      logger.error('Failed to create label:', error)
     }
   }
 
@@ -49,7 +50,7 @@ export function LabelManagement({ isOpen, onClose, userId }: LabelManagementProp
       })
       setEditingId(null)
     } catch (error) {
-      console.error('Failed to update label:', error)
+      logger.error('Failed to update label:', error)
     }
   }
 
@@ -58,7 +59,7 @@ export function LabelManagement({ isOpen, onClose, userId }: LabelManagementProp
       try {
         await deleteLabel(id)
       } catch (error) {
-        console.error('Failed to delete label:', error)
+        logger.error('Failed to delete label:', error)
       }
     }
   }

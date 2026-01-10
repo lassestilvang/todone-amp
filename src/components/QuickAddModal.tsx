@@ -9,6 +9,7 @@ import { useAuthStore } from '@/store/authStore'
 import { parseNaturalLanguageDate, parseNaturalLanguageTime } from '@/utils/date'
 import { parseRecurrenceFromText } from '@/utils/recurrence'
 import type { Task, Project, Label, RecurrencePattern } from '@/types'
+import { logger } from '@/utils/logger'
 
 interface ParsedTask {
   content: string
@@ -288,7 +289,7 @@ export function QuickAddModal() {
       setParentTaskId(undefined)
       closeQuickAdd()
     } catch (error) {
-      console.error('Failed to create task:', error)
+      logger.error('Failed to create task:', error)
     }
   }
 

@@ -3,6 +3,7 @@ import { X, RotateCcw } from 'lucide-react'
 import { useUndoRedoStore } from '@/store/undoRedoStore'
 import { useTaskStore } from '@/store/taskStore'
 import { Button } from '@/components/Button'
+import { logger } from '@/utils/logger'
 
 export function UndoNotification() {
   const { deletedTasks, removeDeletedTask } = useUndoRedoStore()
@@ -48,7 +49,7 @@ export function UndoNotification() {
       })
       removeDeletedTask(latestDeleted.task.id)
     } catch (error) {
-      console.error('Failed to restore task:', error)
+      logger.error('Failed to restore task:', error)
     }
   }
 

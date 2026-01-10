@@ -1,3 +1,32 @@
+/**
+ * @fileoverview Sync Store - Local-First Architecture
+ *
+ * IMPORTANT: This is a LOCAL-FIRST, OFFLINE-FIRST application.
+ *
+ * All data is persisted locally in IndexedDB via Dexie.js. This sync layer
+ * is intentionally a STUB implementation designed for future extensibility.
+ *
+ * Key Architecture Decisions:
+ * 1. LOCAL-FIRST: All data operations write directly to IndexedDB. The app
+ *    works fully offline with no network dependency.
+ *
+ * 2. SYNC QUEUE FOR EXTENSIBILITY: The pending operations queue exists to
+ *    enable future backend sync integration. Currently, operations are
+ *    queued and then immediately marked as "synced" locally.
+ *
+ * 3. NO NETWORK CALLS: syncPendingOperations() simulates sync completion
+ *    by marking queued operations as synced after a brief delay. No actual
+ *    HTTP requests are made.
+ *
+ * 4. CONFLICT RESOLUTION READY: The conflict detection infrastructure is
+ *    in place for when real sync is implemented.
+ *
+ * To implement real sync in the future:
+ * - Replace the simulated delay in syncPendingOperations() with actual API calls
+ * - Implement proper conflict detection in detectAndResolveConflicts()
+ * - Add authentication and API endpoint configuration
+ */
+
 import { create } from 'zustand'
 import { db } from '@/db/database'
 import type { ConflictResolutionStrategy } from '@/utils/conflictResolution'

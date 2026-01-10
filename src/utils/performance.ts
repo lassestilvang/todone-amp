@@ -1,3 +1,5 @@
+import { logger } from '@/utils/logger'
+
 /**
  * Performance optimization utilities
  * Includes lazy loading, image optimization, and bundle analysis
@@ -109,7 +111,7 @@ export const measurePerformance = async <T>(
   const result = await fn()
   const duration = performance.now() - start
 
-  console.log(`[Performance] ${name}: ${duration.toFixed(2)}ms`)
+  logger.info(`[Performance] ${name}: ${duration.toFixed(2)}ms`)
 
   return { result, duration }
 }
@@ -141,13 +143,13 @@ export const monitorLongTasks = () => {
     try {
       const observer = new PerformanceObserver((list) => {
         for (const entry of list.getEntries()) {
-          console.warn(`[Long Task] ${entry.name}: ${entry.duration.toFixed(2)}ms`)
+          logger.warn(`[Long Task] ${entry.name}: ${entry.duration.toFixed(2)}ms`)
         }
       })
       observer.observe({ entryTypes: ['longtask'] })
       return observer
     } catch {
-      console.log('Long task monitoring not supported')
+      logger.info('Long task monitoring not supported')
       return null
     }
   }

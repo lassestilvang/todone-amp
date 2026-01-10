@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Mail, Zap, Chrome, Unlink2, Link as LinkIcon, Settings } from 'lucide-react'
 import { Button } from './Button'
 import { useIntegrationStore } from '@/store/integrationStore'
+import { logger } from '@/utils/logger'
 
 interface Integration {
   id: string
@@ -44,12 +45,12 @@ export const IntegrationManager: React.FC = () => {
   ]
 
   const handleConnect = (integrationId: string) => {
-    console.log(`Connecting ${integrationId}...`)
+    logger.info(`Connecting ${integrationId}...`)
     // In production, this would initiate OAuth flow or show connection modal
   }
 
   const handleDisconnect = (integrationId: string) => {
-    console.log(`Disconnecting ${integrationId}...`)
+    logger.info(`Disconnecting ${integrationId}...`)
     // In production, this would disconnect and cleanup
   }
 

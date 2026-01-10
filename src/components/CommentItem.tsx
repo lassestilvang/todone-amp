@@ -6,6 +6,7 @@ import { useAuthStore } from '@/store/authStore'
 import { useTeamMemberStore } from '@/store/teamMemberStore'
 import type { Comment } from '@/types'
 import { Button } from './Button'
+import { logger } from '@/utils/logger'
 
 export interface CommentItemProps {
   comment: Comment
@@ -46,7 +47,7 @@ export function CommentItem({ comment, className }: CommentItemProps) {
       await updateComment(comment.id, editContent.trim())
       setIsEditing(false)
     } catch (error) {
-      console.error('Failed to update comment:', error)
+      logger.error('Failed to update comment:', error)
     } finally {
       setIsLoading(false)
     }
@@ -59,7 +60,7 @@ export function CommentItem({ comment, className }: CommentItemProps) {
     try {
       await deleteComment(comment.id)
     } catch (error) {
-      console.error('Failed to delete comment:', error)
+      logger.error('Failed to delete comment:', error)
     } finally {
       setIsLoading(false)
     }

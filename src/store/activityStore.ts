@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { db } from '@/db/database'
+import { logger } from '@/utils/logger'
 import type { Activity, ActivityAction } from '@/types'
 
 interface ActivityState {
@@ -101,7 +102,7 @@ export const useActivityStore = create<ActivityState>((set, get) => ({
       const activities = await db.activities.toArray()
       return activities.sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
     } catch (error) {
-      console.error('Failed to fetch all activities:', error)
+      logger.error('Failed to fetch all activities:', error)
       return []
     }
   },

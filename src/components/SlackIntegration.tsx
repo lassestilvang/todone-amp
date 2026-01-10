@@ -11,6 +11,7 @@ import { useIntegrationStore } from '@/store/integrationStore'
 import { useAuthStore } from '@/store/authStore'
 import { cn } from '@/utils/cn'
 import type { SlackIntegration as SlackIntegrationType } from '@/types'
+import { logger } from '@/utils/logger'
 
 interface SlackIntegrationPanelProps {
   className?: string
@@ -43,7 +44,7 @@ export const SlackIntegration: React.FC<SlackIntegrationPanelProps> = ({ classNa
 
   const handleConnect = async () => {
     // Simulate OAuth flow
-    console.log('Connecting to Slack...')
+    logger.info('Connecting to Slack...')
     setIsConnected(true)
   }
 

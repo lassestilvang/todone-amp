@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { db } from '@/db/database'
+import { logger } from '@/utils/logger'
 
 export interface CompletionStats {
   totalTasks: number
@@ -438,7 +439,7 @@ export const useAnalyticsStore = create<AnalyticsState>((set, get) => ({
       link.click()
       URL.revokeObjectURL(url)
     } catch (error) {
-      console.error('Failed to export CSV:', error)
+      logger.error('Failed to export CSV:', error)
     }
   },
 
@@ -454,7 +455,7 @@ export const useAnalyticsStore = create<AnalyticsState>((set, get) => ({
       link.click()
       URL.revokeObjectURL(url)
     } catch (error) {
-      console.error('Failed to export PDF:', error)
+      logger.error('Failed to export PDF:', error)
     }
   },
 

@@ -1,5 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { lazyWithDelay, preloadComponent, lazyLoadPatterns } from './lazyLoadUtils'
+import * as loggerModule from './logger'
 
 describe('lazyLoadUtils', () => {
   it('should export lazyWithDelay function', () => {
@@ -52,11 +53,11 @@ describe('lazyLoadUtils', () => {
     const mockImport = vi.fn(() =>
       Promise.reject(new Error('Import failed'))
     )
-    const consoleSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
+    const loggerSpy = vi.spyOn(loggerModule.logger, 'warn').mockImplementation(() => {})
 
     await preloadComponent(mockImport)
 
-    expect(consoleSpy).toHaveBeenCalledWith('Failed to preload component:', expect.any(Error))
-    consoleSpy.mockRestore()
+    expect(loggerSpy).toHaveBeenCalledWith('Failed to preload component:', expect.any(Error))
+    loggerSpy.mockRestore()
   })
 })

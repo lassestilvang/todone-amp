@@ -11,6 +11,7 @@ import {
 } from '@dnd-kit/core'
 import { useDragStore } from '@/store/dragStore'
 import { useTaskStore } from '@/store/taskStore'
+import { logger } from '@/utils/logger'
 
 interface DragDropContextProviderProps {
   children: React.ReactNode
@@ -48,7 +49,7 @@ export function DragDropContextProvider({ children }: DragDropContextProviderPro
     try {
       await reorderTasks(active.id as string, over.id as string)
     } catch (error) {
-      console.error('Failed to reorder tasks:', error)
+      logger.error('Failed to reorder tasks:', error)
     } finally {
       reset()
     }

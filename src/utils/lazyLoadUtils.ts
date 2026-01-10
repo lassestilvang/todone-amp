@@ -1,4 +1,5 @@
 import { ComponentType } from 'react'
+import { logger } from '@/utils/logger'
 
 /**
  * Create a lazy-loaded component with delay
@@ -30,7 +31,7 @@ export async function preloadComponent(
   try {
     await importFunc()
   } catch (error) {
-    console.warn('Failed to preload component:', error)
+    logger.warn('Failed to preload component:', error)
   }
 }
 

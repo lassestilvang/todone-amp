@@ -5,6 +5,7 @@ import { useRecurrenceStore } from '@/store/recurrenceStore'
 import { DatePickerInput } from './DatePickerInput'
 import { Button } from './Button'
 import type { Task } from '@/types'
+import { logger } from '@/utils/logger'
 
 export interface RecurrenceExceptionManagerProps {
   task: Task
@@ -46,7 +47,7 @@ export function RecurrenceExceptionManager({
       setExceptions(new Map(exceptions.set(selectedDate.toISOString(), 'skipped')))
       setSelectedDate(undefined)
     } catch (error) {
-      console.error('Failed to skip date:', error)
+      logger.error('Failed to skip date:', error)
     } finally {
       setIsLoading(false)
     }
@@ -62,7 +63,7 @@ export function RecurrenceExceptionManager({
       setSelectedDate(undefined)
       setRescheduleDate(undefined)
     } catch (error) {
-      console.error('Failed to reschedule date:', error)
+      logger.error('Failed to reschedule date:', error)
     } finally {
       setIsLoading(false)
     }

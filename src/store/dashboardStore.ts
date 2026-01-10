@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { logger } from '@/utils/logger'
 
 export type WidgetType =
   | 'completion-stats'
@@ -70,7 +71,7 @@ export const useDashboardStore = create<DashboardState>((set, get) => ({
         set({ activeLayoutId: layouts[0].id })
       }
     } catch (error) {
-      console.error('Failed to load dashboard layouts:', error)
+      logger.error('Failed to load dashboard layouts:', error)
     }
   },
 
@@ -117,7 +118,7 @@ export const useDashboardStore = create<DashboardState>((set, get) => ({
 
       return id
     } catch (error) {
-      console.error('Failed to create dashboard layout:', error)
+      logger.error('Failed to create dashboard layout:', error)
       return ''
     }
   },
@@ -136,7 +137,7 @@ export const useDashboardStore = create<DashboardState>((set, get) => ({
         localStorage.setItem(`dashboard-layouts-${userId}`, JSON.stringify(updated))
       }
     } catch (error) {
-      console.error('Failed to update dashboard layout:', error)
+      logger.error('Failed to update dashboard layout:', error)
     }
   },
 
@@ -155,7 +156,7 @@ export const useDashboardStore = create<DashboardState>((set, get) => ({
         localStorage.setItem(`dashboard-layouts-${userId}`, JSON.stringify(deleted))
       }
     } catch (error) {
-      console.error('Failed to delete dashboard layout:', error)
+      logger.error('Failed to delete dashboard layout:', error)
     }
   },
 
@@ -184,7 +185,7 @@ export const useDashboardStore = create<DashboardState>((set, get) => ({
         localStorage.setItem(`dashboard-layouts-${userId}`, JSON.stringify(updated))
       }
     } catch (error) {
-      console.error('Failed to add widget:', error)
+      logger.error('Failed to add widget:', error)
     }
   },
 
@@ -208,7 +209,7 @@ export const useDashboardStore = create<DashboardState>((set, get) => ({
         localStorage.setItem(`dashboard-layouts-${userId}`, JSON.stringify(updated))
       }
     } catch (error) {
-      console.error('Failed to remove widget:', error)
+      logger.error('Failed to remove widget:', error)
     }
   },
 
@@ -234,7 +235,7 @@ export const useDashboardStore = create<DashboardState>((set, get) => ({
         localStorage.setItem(`dashboard-layouts-${userId}`, JSON.stringify(updated))
       }
     } catch (error) {
-      console.error('Failed to update widget:', error)
+      logger.error('Failed to update widget:', error)
     }
   },
 
@@ -258,7 +259,7 @@ export const useDashboardStore = create<DashboardState>((set, get) => ({
         localStorage.setItem(`dashboard-layouts-${userId}`, JSON.stringify(updated))
       }
     } catch (error) {
-      console.error('Failed to reorder widgets:', error)
+      logger.error('Failed to reorder widgets:', error)
     }
   },
 
@@ -284,7 +285,7 @@ export const useDashboardStore = create<DashboardState>((set, get) => ({
         localStorage.setItem(`dashboard-layouts-${userId}`, JSON.stringify(updated))
       }
     } catch (error) {
-      console.error('Failed to toggle widget minimize:', error)
+      logger.error('Failed to toggle widget minimize:', error)
     }
   },
 

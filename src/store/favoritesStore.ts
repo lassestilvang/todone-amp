@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { db } from '@/db/database'
+import { logger } from '@/utils/logger'
 
 import type { Task, Project } from '@/types'
 
@@ -42,7 +43,7 @@ export const useFavoritesStore = create<FavoritesState>()(
             await db.tasks.update(taskId, { isFavorite: newFavorites.has(taskId) })
           }
         } catch (error) {
-          console.error('Failed to update favorite:', error)
+          logger.error('Failed to update favorite:', error)
         }
 
         set({ favoriteTaskIds: newFavorites })
@@ -57,7 +58,7 @@ export const useFavoritesStore = create<FavoritesState>()(
           const tasks = await db.tasks.toArray()
           return tasks.filter((t) => (t as Task & { isFavorite?: boolean }).isFavorite === true) as Task[]
         } catch (error) {
-          console.error('Failed to get favorite tasks:', error)
+          logger.error('Failed to get favorite tasks:', error)
           return []
         }
       },
@@ -79,7 +80,7 @@ export const useFavoritesStore = create<FavoritesState>()(
             await db.projects.update(projectId, { isFavorite: newFavorites.has(projectId) })
           }
         } catch (error) {
-          console.error('Failed to update favorite:', error)
+          logger.error('Failed to update favorite:', error)
         }
 
         set({ favoriteProjectIds: newFavorites })
@@ -94,7 +95,7 @@ export const useFavoritesStore = create<FavoritesState>()(
           const projects = await db.projects.toArray()
           return projects.filter((p) => p.isFavorite === true) as Project[]
         } catch (error) {
-          console.error('Failed to get favorite projects:', error)
+          logger.error('Failed to get favorite projects:', error)
           return []
         }
       },
@@ -111,7 +112,7 @@ export const useFavoritesStore = create<FavoritesState>()(
             favoriteProjectIds: new Set(favoriteProjects.map((p) => p.id)),
           })
         } catch (error) {
-          console.error('Failed to load favorites:', error)
+          logger.error('Failed to load favorites:', error)
         }
       },
     }),

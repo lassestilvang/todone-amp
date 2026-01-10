@@ -1,5 +1,6 @@
 import { Task } from '@/types'
 import { format } from 'date-fns'
+import { logger } from '@/utils/logger'
 
 /**
  * Print utilities for tasks and reports
@@ -331,7 +332,7 @@ export function generateProductivityReport(
 export function printContent(content: string): void {
   const printWindow = window.open('', '_blank')
   if (!printWindow) {
-    console.error('Failed to open print window')
+    logger.error('Failed to open print window')
     return
   }
 

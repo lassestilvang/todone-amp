@@ -3,6 +3,7 @@ import { Calendar, Link as LinkIcon, Unlink2, Settings, RefreshCw } from 'lucide
 import { Button } from './Button'
 import { useIntegrationStore } from '@/store/integrationStore'
 import type { CalendarIntegration as CalendarIntegrationType } from '@/types'
+import { logger } from '@/utils/logger'
 
 interface CalendarIntegrationProps {
   platform: 'google' | 'outlook'
@@ -132,7 +133,7 @@ export const CalendarIntegration: React.FC<CalendarIntegrationProps> = ({
               checked={integration.syncEnabled}
               onChange={() => {
                 // Toggle sync enabled logic
-                console.log('Toggle sync enabled')
+                logger.info('Toggle sync enabled')
               }}
               className="h-4 w-4 rounded border-gray-300 text-brand-500"
             />
@@ -145,7 +146,7 @@ export const CalendarIntegration: React.FC<CalendarIntegrationProps> = ({
               checked={integration.showExternalEvents}
               onChange={() => {
                 // Toggle show external events logic
-                console.log('Toggle show external events')
+                logger.info('Toggle show external events')
               }}
               className="h-4 w-4 rounded border-gray-300 text-brand-500"
             />
@@ -158,7 +159,7 @@ export const CalendarIntegration: React.FC<CalendarIntegrationProps> = ({
               defaultChecked
               onChange={() => {
                 // Toggle show all-day events logic
-                console.log('Toggle show all-day events')
+                logger.info('Toggle show all-day events')
               }}
               className="h-4 w-4 rounded border-gray-300 text-brand-500"
             />

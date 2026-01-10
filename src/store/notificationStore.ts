@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { db } from '@/db/database'
+import { logger } from '@/utils/logger'
 import type { Notification, NotificationPreferencesType } from '@/types'
 
 export type NotificationType = 'task_assigned' | 'task_shared' | 'reminder' | 'comment' | 'system'
@@ -73,7 +74,7 @@ export const useNotificationStore = create<NotificationStoreState>((set, get) =>
         set({ preferences: user.settings.notificationPreferences })
       }
     } catch (error) {
-      console.error('Failed to load notification preferences:', error)
+      logger.error('Failed to load notification preferences:', error)
     }
   },
 
@@ -187,7 +188,7 @@ export const useNotificationStore = create<NotificationStoreState>((set, get) =>
         })
       }
     } catch (error) {
-      console.error('Failed to save notification preferences:', error)
+      logger.error('Failed to save notification preferences:', error)
     }
   },
 

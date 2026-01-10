@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { Mic, MicOff, RefreshCw, Check, AlertCircle } from 'lucide-react'
 import { Button } from './Button'
+import { logger } from '@/utils/logger'
 
 interface ExtractedTask {
   title: string
@@ -40,7 +41,7 @@ export const RambleVoiceInput: React.FC = () => {
       setError('')
     } catch (err) {
       setError('Microphone access denied. Please check your browser permissions.')
-      console.error('Error accessing microphone:', err)
+      logger.error('Error accessing microphone:', err)
     }
   }
 
@@ -82,7 +83,7 @@ export const RambleVoiceInput: React.FC = () => {
       setExtractedTasks(mockTasks)
     } catch (err) {
       setError('Failed to process audio. Please try again.')
-      console.error('Error processing audio:', err)
+      logger.error('Error processing audio:', err)
     } finally {
       setIsProcessing(false)
     }

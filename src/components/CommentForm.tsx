@@ -6,6 +6,7 @@ import { useAuthStore } from '@/store/authStore'
 import { useTeamMemberStore } from '@/store/teamMemberStore'
 import { useTeamStore } from '@/store/teamStore'
 import { Button } from './Button'
+import { logger } from '@/utils/logger'
 
 export interface CommentFormProps {
   taskId: string
@@ -127,7 +128,7 @@ export function CommentForm({
       setMentions([])
       onSuccess?.()
     } catch (error) {
-      console.error('Failed to add comment:', error)
+      logger.error('Failed to add comment:', error)
     } finally {
       setIsLoading(false)
     }

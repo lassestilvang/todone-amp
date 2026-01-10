@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Share2, UserPlus, Trash2, Lock, Eye, Edit3 } from 'lucide-react'
 import { Button } from './Button'
 import { useAuthStore } from '@/store/authStore'
+import { logger } from '@/utils/logger'
 
 interface ProjectSharingProps {
   projectId: string
@@ -28,7 +29,7 @@ export const ProjectSharing: React.FC<ProjectSharingProps> = ({ projectId, onClo
       return
     }
 
-    console.log('Adding collaborator:', { projectId, inviteEmail, inviteRole })
+    logger.info('Adding collaborator:', { projectId, inviteEmail, inviteRole })
 
     setInviteEmail('')
     setInviteRole('member')
@@ -37,12 +38,12 @@ export const ProjectSharing: React.FC<ProjectSharingProps> = ({ projectId, onClo
   }
 
   const handleRoleChange = (shareId: string, newRole: 'member' | 'admin' | 'viewer') => {
-    console.log('Update role logic here', { shareId, newRole })
+    logger.info('Update role logic here', { shareId, newRole })
   }
 
   const handleRemove = (shareId: string) => {
     if (confirm('Remove this collaborator?')) {
-      console.log('Remove logic here', { shareId })
+      logger.info('Remove logic here', { shareId })
     }
   }
 

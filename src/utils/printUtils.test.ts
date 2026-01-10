@@ -7,6 +7,7 @@ import {
   exportTasksAsHTML,
 } from './printUtils'
 import { Task } from '@/types'
+import * as loggerModule from './logger'
 
 describe('Print Utilities', () => {
   let mockTasks: Task[]
@@ -218,11 +219,12 @@ describe('Print Utilities', () => {
 
     it('should handle print window being blocked', () => {
       vi.spyOn(window, 'open').mockReturnValue(null)
-      const consoleSpy = vi.spyOn(console, 'error')
+      const loggerSpy = vi.spyOn(loggerModule.logger, 'error').mockImplementation(() => {})
 
       printContent('<html><body>Test</body></html>')
 
-      expect(consoleSpy).toHaveBeenCalledWith('Failed to open print window')
+      expect(loggerSpy).toHaveBeenCalledWith('Failed to open print window')
+      loggerSpy.mockRestore()
     })
   })
 

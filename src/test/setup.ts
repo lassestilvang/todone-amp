@@ -29,6 +29,12 @@ Object.defineProperty(window, 'localStorage', {
   value: localStorageMock,
 })
 
+// Mock window.scrollTo
+Object.defineProperty(window, 'scrollTo', {
+  value: vi.fn(),
+  writable: true,
+})
+
 // Mock Dexie and IndexedDB if needed
 global.indexedDB = {
   open: vi.fn(),

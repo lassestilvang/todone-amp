@@ -6,6 +6,7 @@ import { useProjectStore } from '@/store/projectStore'
 import { AdvancedFilterBuilder } from '@/components/AdvancedFilterBuilder'
 import { FilterTemplates } from '@/components/FilterTemplates'
 import { cn } from '@/utils/cn'
+import { logger } from '@/utils/logger'
 
 interface FilterPanelProps {
   isOpen: boolean
@@ -70,7 +71,7 @@ export function FilterPanel({ isOpen, onClose, onAdvancedQueryChange }: FilterPa
       setFilterRules([])
       setIsCreating(false)
     } catch (error) {
-      console.error('Failed to create filter:', error)
+      logger.error('Failed to create filter:', error)
     }
   }
 
