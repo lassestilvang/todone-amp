@@ -1,16 +1,17 @@
 # Todone - Required Fixes & Improvements
 
 **Created**: January 9, 2026  
+**Updated**: January 10, 2026  
 **Priority**: Critical issues must be fixed before production deployment
 
 ---
 
-## 🔴 Critical Issues (Must Fix)
+## ✅ Completed Fixes
 
 ### 1. Database Initialization Bug
 **File**: `src/db/database.ts` (lines 91-111)  
 **Priority**: 🔴 CRITICAL  
-**Status**: ⏳ TODO
+**Status**: ✅ FIXED
 
 **Problem**: New users never get a default inbox project created.
 
@@ -40,7 +41,7 @@ export async function initializeDatabase(userId: string): Promise<void> {
 ### 2. PWA Manifest is Browser Extension Manifest
 **File**: `public/manifest.json`  
 **Priority**: 🔴 CRITICAL  
-**Status**: ⏳ TODO
+**Status**: ✅ FIXED (created public/manifest.webmanifest)
 
 **Problem**: The manifest.json is a Chrome Extension Manifest V3, not a PWA web app manifest. PWA installation will not work.
 
@@ -73,7 +74,7 @@ export async function initializeDatabase(userId: string): Promise<void> {
 ### 3. AchievementNotificationCenter Not Rendered
 **File**: `src/App.tsx`  
 **Priority**: 🔴 CRITICAL  
-**Status**: ⏳ TODO
+**Status**: ✅ FIXED
 
 **Problem**: The `AchievementNotificationCenter` component exists but is not mounted in the app, so achievement toasts never display.
 
@@ -90,7 +91,7 @@ import { AchievementNotificationCenter } from '@/components/AchievementNotificat
 ### 4. ResponsiveLayout Not Used
 **File**: `src/App.tsx`  
 **Priority**: 🔴 CRITICAL  
-**Status**: ⏳ TODO
+**Status**: ✅ FIXED (integrated ResponsiveLayout and MobileNavigation)
 
 **Problem**: Documentation claims responsive layout with mobile navigation, but `App.tsx` uses plain `<div>` layout. Mobile views (MobileInboxView, MobileNavigation) exist but aren't integrated.
 
@@ -103,11 +104,11 @@ import { AchievementNotificationCenter } from '@/components/AchievementNotificat
 ### 5. Recurrence Edit Instance Bug
 **File**: `src/store/taskStore.ts` (lines 514-556)  
 **Priority**: 🔴 CRITICAL  
-**Status**: ⏳ TODO
+**Status**: ✅ FIXED
 
 **Problem**: `editRecurringTaskInstance` ignores the `updates` parameter in `'single'` mode - it only adds an exception date (skip), not an actual edit.
 
-**Fix**: Implement proper single-instance editing using `RecurrenceInstance` table, or rename the mode to accurately reflect "skip" behavior.
+**Fix**: Now creates a new standalone task with the updates applied and adds the original date as an exception to skip it.
 
 ---
 
@@ -116,7 +117,7 @@ import { AchievementNotificationCenter } from '@/components/AchievementNotificat
 ### 6. Centralize User Persistence
 **Files**: `src/store/authStore.ts`, `src/pages/AuthPage.tsx`  
 **Priority**: 🟡 HIGH  
-**Status**: ⏳ TODO
+**Status**: ✅ FIXED
 
 **Problem**: localStorage persistence is done in AuthPage, not authStore. Logout doesn't clear localStorage.
 
@@ -149,15 +150,11 @@ localStorage.removeItem('userId')
 ### 8. Service Worker Icon Paths
 **File**: `public/service-worker.js`  
 **Priority**: 🟡 HIGH  
-**Status**: ⏳ TODO
+**Status**: ✅ FIXED (now uses /icons/icon-192.svg)
 
 **Problem**: Service worker uses `/manifest.json` as notification icon (it's JSON, not an image).
 
-**Fix**:
-```javascript
-icon: '/icons/icon-192.png',
-badge: '/icons/badge-72.png',
-```
+**Fix**: Updated to use `/icons/icon-192.svg` for icon and badge.
 
 ---
 
