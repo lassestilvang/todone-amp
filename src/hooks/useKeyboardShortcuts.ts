@@ -9,6 +9,7 @@ interface ShortcutActions {
   onDuplicate?: () => void
   onSearch?: () => void
   onToggleFavorite?: () => void
+  onFocusMode?: () => void
 }
 
 export function useKeyboardShortcuts(
@@ -38,6 +39,12 @@ export function useKeyboardShortcuts(
       if (e.key === 'q' && !e.ctrlKey && !e.metaKey && !isInputField) {
         e.preventDefault()
         actions.onQuickAdd?.()
+      }
+
+      // Ctrl/Cmd + Shift + F: Toggle Focus Mode
+      if (isCtrlCmd && e.shiftKey && e.key === 'f') {
+        e.preventDefault()
+        actions.onFocusMode?.()
       }
 
       // Escape: Close dialogs/deselect

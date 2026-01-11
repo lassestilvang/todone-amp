@@ -150,4 +150,11 @@ export const DEFAULT_SHORTCUTS: KeyboardShortcut[] = [
       useKeyboardStore.setState({ isHelpOpen: true })
     },
   },
+  {
+    key: 'f',
+    ctrlCmd: true,
+    shift: true,
+    description: 'Toggle Focus Mode',
+    action: () => {},
+  },
 ]

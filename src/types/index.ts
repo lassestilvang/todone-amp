@@ -505,3 +505,31 @@ export interface UserAchievementRecord {
   unlockedAt: Date
   progress?: number
 }
+
+export type FocusSessionType = 'focus' | 'short-break' | 'long-break'
+
+export type FocusSoundType = 'bell' | 'chime' | 'none'
+
+export interface FocusSession {
+  id: string
+  userId: string
+  taskId: string | null
+  startTime: Date
+  endTime: Date | null
+  duration: number
+  type: FocusSessionType
+  completed: boolean
+  interruptions: number
+}
+
+export interface FocusSettings {
+  userId: string
+  focusDuration: number
+  shortBreakDuration: number
+  longBreakDuration: number
+  sessionsUntilLongBreak: number
+  autoStartBreaks: boolean
+  autoStartFocus: boolean
+  soundEnabled: boolean
+  soundType: FocusSoundType
+}

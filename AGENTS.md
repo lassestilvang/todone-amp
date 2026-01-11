@@ -1,6 +1,11 @@
 # AGENTS.md - Todone Task Management Application
 
+Always make sure to update the AGENTS.md file with any new agents or changes to existing ones.
+
+**IMPORTANT**: Code must lint and type check, tests must pass, and the project must build after completing changes.
+
 ## Build & Commands
+
 - **Dev**: `npm run dev` (Vite dev server)
 - **Build**: `npm run build` (TypeScript + Vite)
 - **Test**: `npm run test` (Vitest)
@@ -9,6 +14,7 @@
 - **Type check**: `npm run type-check` (TypeScript)
 
 ## Architecture
+
 - **Frontend**: React 18 + TypeScript + Vite
 - **Database**: Dexie.js (IndexedDB wrapper) in `src/db/`
 - **State**: Zustand in `src/store/`
@@ -17,6 +23,7 @@
 - **Structure**: `src/` → components, hooks, pages, store, types, utils, views
 
 ## Code Style
+
 - **Format**: Prettier (semi: false, singleQuote: true, printWidth: 100, tabWidth: 2)
 - **Linting**: ESLint + @typescript-eslint (strict rules, zero warnings)
 - **Imports**: ES modules, path alias `@/*` maps to `src/*`

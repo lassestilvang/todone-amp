@@ -25,6 +25,7 @@ import { UndoNotification } from '@/components/UndoNotification'
 import { AchievementNotificationCenter } from '@/components/AchievementNotificationCenter'
 import { DragDropContextProvider } from '@/components/DragDropContext'
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts'
+import { FocusModeWidget } from '@/components/FocusMode'
 
 type ViewIdType = string
 
@@ -143,6 +144,7 @@ function App() {
       <KeyboardShortcutsHelp />
       <UndoNotification />
       <AchievementNotificationCenter />
+      {user && <FocusModeWidget userId={user.id} />}
     </DragDropContextProvider>
   )
 }

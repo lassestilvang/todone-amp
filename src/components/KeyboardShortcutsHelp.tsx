@@ -22,6 +22,9 @@ export function KeyboardShortcutsHelp() {
     'Search': DEFAULT_SHORTCUTS.filter(s => 
       ['/'].includes(s.key)
     ),
+    'Focus Mode': DEFAULT_SHORTCUTS.filter(s => 
+      s.key.toLowerCase() === 'f' && s.ctrlCmd && s.shift
+    ),
   }
 
   return (
