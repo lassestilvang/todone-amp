@@ -6,7 +6,7 @@ import { useIsMobile } from '@/hooks/useIsMobile'
 import { StreakBadge } from './StreakDisplay'
 import { CreateProjectModal } from './CreateProjectModal'
 import { cn } from '@/utils/cn'
-import { Plus, Star, Inbox, Calendar, TrendingUp, Tag, Sliders, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Plus, Star, Inbox, Calendar, TrendingUp, Tag, Sliders, ChevronLeft, ChevronRight, Grid3X3 } from 'lucide-react'
 
 interface SidebarProps {
   currentView: string
@@ -27,6 +27,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) =
     { id: 'inbox', label: 'Inbox', icon: Inbox },
     { id: 'today', label: 'Today', icon: Calendar },
     { id: 'upcoming', label: 'Upcoming', icon: TrendingUp },
+    { id: 'eisenhower', label: 'Eisenhower', icon: Grid3X3 },
   ]
 
   // Auto-collapse on tablet if not explicitly expanded

@@ -15,6 +15,7 @@ import { MobileNavigation } from '@/components/MobileNavigation'
 import { InboxView } from '@/views/InboxView'
 import { TodayView } from '@/views/TodayView'
 import { UpcomingView } from '@/views/UpcomingView'
+import { EisenhowerView } from '@/views/EisenhowerView'
 import { BoardView } from '@/components/BoardView'
 import { CalendarView } from '@/components/CalendarView'
 import { AuthPage } from '@/pages/AuthPage'
@@ -77,7 +78,7 @@ function App() {
   const handleViewChange = (view: ViewIdType) => {
     setCurrentView(view)
     // Reset to list view when changing main navigation
-    if (view === 'inbox' || view === 'today' || view === 'upcoming') {
+    if (view === 'inbox' || view === 'today' || view === 'upcoming' || view === 'eisenhower') {
       setSelectedView('list')
     }
   }
@@ -117,6 +118,8 @@ function App() {
         return <TodayView />
       case 'upcoming':
         return <UpcomingView />
+      case 'eisenhower':
+        return <EisenhowerView />
       default:
         return <InboxView />
     }

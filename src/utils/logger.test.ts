@@ -1,10 +1,8 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 
 describe('Logger utility', () => {
-  let originalEnv: ImportMetaEnv | undefined
-
   beforeEach(() => {
-    originalEnv = import.meta.env
+    // Store env reference for potential future use
   })
 
   afterEach(() => {
