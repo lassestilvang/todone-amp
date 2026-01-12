@@ -10,6 +10,9 @@ Always make sure to update the AGENTS.md file with any new agents or changes to 
 - **Build**: `npm run build` (TypeScript + Vite)
 - **Test**: `npm run test` (Vitest)
 - **Single test**: `npm run test -- path/to/test.ts`
+- **E2E Test**: `npm run test:e2e` (Playwright, all browsers)
+- **E2E Test UI**: `npm run test:e2e:ui` (Playwright interactive UI)
+- **E2E Chromium**: `npm run test:e2e:chromium` (Playwright, Chromium only)
 - **Lint**: `npm run lint` (ESLint, zero warnings)
 - **Type check**: `npm run type-check` (TypeScript)
 
