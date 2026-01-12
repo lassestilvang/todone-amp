@@ -1,285 +1,249 @@
-import React, { useState, useMemo } from 'react'
-import { Sparkles, AlertCircle, Check, Tag, FolderOpen } from 'lucide-react'
-import { useAIStore } from '@/store/aiStore'
-import { useProjectStore } from '@/store/projectStore'
-import { useLabelStore } from '@/store/labelStore'
-import { suggestProjectFromContent, suggestLabelsFromContent } from '@/utils/projectSuggestion'
-import type { Priority } from '@/types'
-import clsx from 'clsx'
+import { useMemo } from 'react'
+import {
+  Calendar,
+  Clock,
+  Flag,
+  FolderOpen,
+  Tag,
+  MapPin,
+  Timer,
+  Repeat,
+  Sparkles,
+  Check,
+  X,
+  type LucideIcon,
+} from 'lucide-react'
+import { cn } from '@/utils/cn'
+import type { ParsedTaskIntent, ParsedField } from '@/utils/nlp'
 
-export interface AITaskParserProps {
-  onTaskParsed?: (task: {
-    content: string
-    priority?: Priority
-    dueDate?: Date
-    dueTime?: string
-  }) => void
-  placeholder?: string
+interface AITaskParserProps {
+  parsed: ParsedTaskIntent
+  onFieldRemove?: (field: string) => void
+  showConfidence?: boolean
+  className?: string
 }
 
-const PRIORITY_LABELS: Record<Exclude<Priority, null>, string> = {
-  p1: 'P1 - Urgent',
-  p2: 'P2 - High',
-  p3: 'P3 - Medium',
-  p4: 'P4 - Low',
+const FIELD_CONFIG: Record<
+  string,
+  {
+    icon: LucideIcon
+    label: string
+    colorClass: string
+  }
+> = {
+  dueDate: {
+    icon: Calendar,
+    label: 'Due',
+    colorClass: 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-800',
+  },
+  dueTime: {
+    icon: Clock,
+    label: 'Time',
+    colorClass: 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-800',
+  },
+  priority: {
+    icon: Flag,
+    label: 'Priority',
+    colorClass: 'bg-orange-100 text-orange-800 border-orange-200 dark:bg-orange-900/30 dark:text-orange-300 dark:border-orange-800',
+  },
+  project: {
+    icon: FolderOpen,
+    label: 'Project',
+    colorClass: 'bg-purple-100 text-purple-800 border-purple-200 dark:bg-purple-900/30 dark:text-purple-300 dark:border-purple-800',
+  },
+  labels: {
+    icon: Tag,
+    label: 'Labels',
+    colorClass: 'bg-green-100 text-green-800 border-green-200 dark:bg-green-900/30 dark:text-green-300 dark:border-green-800',
+  },
+  location: {
+    icon: MapPin,
+    label: 'Location',
+    colorClass: 'bg-red-100 text-red-800 border-red-200 dark:bg-red-900/30 dark:text-red-300 dark:border-red-800',
+  },
+  duration: {
+    icon: Timer,
+    label: 'Duration',
+    colorClass: 'bg-cyan-100 text-cyan-800 border-cyan-200 dark:bg-cyan-900/30 dark:text-cyan-300 dark:border-cyan-800',
+  },
+  recurrence: {
+    icon: Repeat,
+    label: 'Repeats',
+    colorClass: 'bg-indigo-100 text-indigo-800 border-indigo-200 dark:bg-indigo-900/30 dark:text-indigo-300 dark:border-indigo-800',
+  },
 }
 
-export const AITaskParser: React.FC<AITaskParserProps> = ({
-  onTaskParsed,
-  placeholder = 'Type or describe your task... (e.g., "urgent meeting tomorrow at 2pm")',
-}) => {
-  const [input, setInput] = useState('')
-  const [showSuggestions, setShowSuggestions] = useState(false)
-  const { suggestions, loading, error, parseTask, clearSuggestions, detectAmbiguity } =
-    useAIStore()
-  const projects = useProjectStore((state) => state.projects)
-  const labels = useLabelStore((state) => state.labels)
+function getPriorityColor(priority: string): string {
+  switch (priority) {
+    case 'p1':
+      return 'bg-red-100 text-red-800 border-red-200 dark:bg-red-900/30 dark:text-red-300 dark:border-red-800'
+    case 'p2':
+      return 'bg-orange-100 text-orange-800 border-orange-200 dark:bg-orange-900/30 dark:text-orange-300 dark:border-orange-800'
+    case 'p3':
+      return 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-800'
+    case 'p4':
+      return 'bg-gray-100 text-gray-800 border-gray-200 dark:bg-gray-800/50 dark:text-gray-300 dark:border-gray-700'
+    default:
+      return FIELD_CONFIG.priority.colorClass
+  }
+}
 
-  // Compute project and label suggestions
-  const { projectSuggestion, labelSuggestions, isAmbiguous } = useMemo(() => {
-    if (!input.trim()) {
-      return { projectSuggestion: undefined, labelSuggestions: [], isAmbiguous: false }
-    }
+function formatFieldValue(field: ParsedField, parsed: ParsedTaskIntent): string {
+  switch (field.field) {
+    case 'dueDate':
+      if (parsed.dueDate) {
+        const now = new Date()
+        const isToday = parsed.dueDate.toDateString() === now.toDateString()
+        const tomorrow = new Date(now)
+        tomorrow.setDate(tomorrow.getDate() + 1)
+        const isTomorrow = parsed.dueDate.toDateString() === tomorrow.toDateString()
 
-    const project = suggestProjectFromContent(input, projects)
-    const labelSuggestions = suggestLabelsFromContent(
-      input,
-      labels.map((l) => ({ id: l.id, name: l.name }))
-    )
-    const ambiguous = detectAmbiguity(input)
+        if (isToday) return 'Today'
+        if (isTomorrow) return 'Tomorrow'
 
-    return {
-      projectSuggestion: project.confidence > 0.5 ? project : undefined,
-      labelSuggestions: labelSuggestions.filter((l) => l.confidence > 0.4),
-      isAmbiguous: ambiguous,
-    }
-  }, [input, projects, labels, detectAmbiguity])
-
-  const handleInputChange = async (value: string) => {
-    setInput(value)
-
-    if (value.trim().length > 2) {
-      try {
-        await parseTask(value)
-        setShowSuggestions(true)
-      } catch {
-        // Error is handled by the store
+        return parsed.dueDate.toLocaleDateString('en-US', {
+          weekday: 'short',
+          month: 'short',
+          day: 'numeric',
+        })
       }
-    } else {
-      clearSuggestions()
-      setShowSuggestions(false)
-    }
+      return field.value
+    case 'dueTime':
+      if (parsed.dueTime) {
+        const [hours, minutes] = parsed.dueTime.split(':').map(Number)
+        const period = hours >= 12 ? 'PM' : 'AM'
+        const displayHour = hours % 12 || 12
+        return `${displayHour}:${String(minutes).padStart(2, '0')} ${period}`
+      }
+      return field.value
+    case 'priority':
+      return field.value.toUpperCase()
+    case 'duration':
+      if (parsed.duration) {
+        if (parsed.duration >= 60) {
+          const hours = Math.floor(parsed.duration / 60)
+          const mins = parsed.duration % 60
+          return mins > 0 ? `${hours}h ${mins}m` : `${hours}h`
+        }
+        return `${parsed.duration}m`
+      }
+      return field.value
+    case 'recurrence':
+      return field.value.charAt(0).toUpperCase() + field.value.slice(1)
+    default:
+      return field.value
   }
+}
 
-  const handleAcceptSuggestion = (index: number) => {
-    const suggestion = suggestions[index]
-    if (suggestion) {
-      onTaskParsed?.(suggestion.suggestedTask)
-      setInput('')
-      clearSuggestions()
-      setShowSuggestions(false)
-    }
-  }
+export function AITaskParser({
+  parsed,
+  onFieldRemove,
+  showConfidence = false,
+  className,
+}: AITaskParserProps) {
+  const hasFields = parsed.parsedFields.length > 0
 
-  const handleManualAdd = () => {
-    if (input.trim()) {
-      onTaskParsed?.({
-        content: input,
-      })
-      setInput('')
-      clearSuggestions()
-      setShowSuggestions(false)
-    }
+  const sortedFields = useMemo(() => {
+    const order = ['dueDate', 'dueTime', 'priority', 'project', 'labels', 'recurrence', 'duration', 'location']
+    return [...parsed.parsedFields].sort((a, b) => {
+      const aIndex = order.indexOf(a.field)
+      const bIndex = order.indexOf(b.field)
+      return (aIndex === -1 ? 999 : aIndex) - (bIndex === -1 ? 999 : bIndex)
+    })
+  }, [parsed.parsedFields])
+
+  if (!hasFields) {
+    return null
   }
 
   return (
-    <div className="relative w-full">
-      {/* Input Field */}
-      <div className="relative">
-        <div className="flex items-center gap-2 p-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-transparent transition-all">
-          <Sparkles className="w-5 h-5 text-blue-500 flex-shrink-0" />
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => handleInputChange(e.target.value)}
-            placeholder={placeholder}
-            className="flex-1 bg-transparent outline-none text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400"
-            aria-label="Task input with AI parsing"
-            autoComplete="off"
-          />
-          {input.trim() && (
-            <button
-              onClick={() => {
-                setInput('')
-                clearSuggestions()
-                setShowSuggestions(false)
-              }}
-              className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
-              aria-label="Clear input"
-            >
-              ×
-            </button>
-          )}
-        </div>
-
-        {/* Error Message */}
-        {error && (
-          <div className="flex items-center gap-2 mt-2 p-2 rounded-lg bg-red-50 dark:bg-red-900 text-red-700 dark:text-red-200">
-            <AlertCircle className="w-4 h-4 flex-shrink-0" />
-            <span className="text-sm">{error}</span>
-          </div>
-        )}
-
-        {/* Ambiguity Warning */}
-        {isAmbiguous && input.trim() && (
-          <div className="flex items-start gap-2 mt-2 p-2 rounded-lg bg-yellow-50 dark:bg-yellow-900 border border-yellow-200 dark:border-yellow-700">
-            <AlertCircle className="w-4 h-4 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-0.5" />
-            <div className="flex-1">
-              <p className="text-xs font-medium text-yellow-800 dark:text-yellow-100">
-                Input looks unclear
-              </p>
-              <p className="text-xs text-yellow-700 dark:text-yellow-200 mt-0.5">
-                Use clearer language or add more details
-              </p>
-            </div>
-          </div>
-        )}
-
-        {/* Project & Label Suggestions */}
-        {input.trim() && (projectSuggestion || labelSuggestions.length > 0) && (
-          <div className="mt-3 space-y-2">
-            {projectSuggestion && (
-              <div className="flex items-center gap-2 p-2 rounded-lg bg-blue-50 dark:bg-blue-900">
-                <FolderOpen className="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0" />
-                <div className="flex-1 flex items-center justify-between min-w-0">
-                  <span className="text-sm text-blue-900 dark:text-blue-100 truncate">
-                    Project: <span className="font-medium">{projects.find((p) => p.id === projectSuggestion.projectId)?.name}</span>
-                  </span>
-                  <span className="text-xs text-blue-700 dark:text-blue-300 ml-2 flex-shrink-0">
-                    {Math.round(projectSuggestion.confidence * 100)}%
-                  </span>
-                </div>
-              </div>
-            )}
-
-            {labelSuggestions.length > 0 && (
-              <div className="flex flex-wrap gap-2">
-                {labelSuggestions.map((labelSugg) => {
-                  const label = labels.find((l) => l.id === labelSugg.labelId)
-                  return label ? (
-                    <div
-                      key={label.id}
-                      className="flex items-center gap-1 px-2 py-1 rounded-full text-xs font-medium transition-colors"
-                      style={{
-                        backgroundColor: label.color + '20',
-                        color: label.color,
-                        border: `1px solid ${label.color}40`,
-                      }}
-                    >
-                      <Tag className="w-3 h-3" />
-                      {label.name}
-                      <span className="text-xs opacity-70">({Math.round(labelSugg.confidence * 100)}%)</span>
-                    </div>
-                  ) : null
-                })}
-              </div>
-            )}
-          </div>
+    <div className={cn('space-y-2', className)}>
+      <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+        <Sparkles size={12} className="text-brand-500" />
+        <span>Detected from your input:</span>
+        {showConfidence && parsed.confidence > 0 && (
+          <span className="ml-auto text-gray-400">
+            {Math.round(parsed.confidence * 100)}% confidence
+          </span>
         )}
       </div>
 
-      {/* Suggestions Dropdown */}
-      {showSuggestions && suggestions.length > 0 && (
-        <div className="absolute top-full left-0 right-0 mt-2 z-50 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg shadow-lg overflow-hidden">
-          {loading && (
-            <div className="p-3 text-center text-sm text-gray-500 dark:text-gray-400">
-              Analyzing...
+      <div className="flex flex-wrap gap-2">
+        {sortedFields.map((field) => {
+          const config = FIELD_CONFIG[field.field]
+          if (!config) return null
+
+          const Icon = config.icon
+          const colorClass =
+            field.field === 'priority' ? getPriorityColor(field.value) : config.colorClass
+
+          return (
+            <div
+              key={field.field}
+              className={cn(
+                'inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium border',
+                'transition-all duration-200',
+                colorClass
+              )}
+            >
+              <Icon size={12} />
+              <span>{formatFieldValue(field, parsed)}</span>
+              {onFieldRemove && (
+                <button
+                  type="button"
+                  onClick={() => onFieldRemove(field.field)}
+                  className="ml-0.5 p-0.5 rounded-full hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
+                  aria-label={`Remove ${config.label}`}
+                >
+                  <X size={10} />
+                </button>
+              )}
             </div>
-          )}
+          )
+        })}
+      </div>
 
-          {!loading &&
-            suggestions.map((suggestion, index) => (
-              <div
-                key={suggestion.id}
-                className="p-3 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors last:border-b-0"
-              >
-                {/* Task Content */}
-                <div className="mb-2">
-                  <p className="font-medium text-gray-900 dark:text-white text-sm">
-                    {suggestion.suggestedTask.content}
-                  </p>
-                </div>
-
-                {/* Extracted Properties */}
-                <div className="flex flex-wrap gap-2 mb-3">
-                  {suggestion.suggestedTask.priority && (
-                    <span
-                      className={clsx('text-xs font-semibold px-2 py-1 rounded', {
-                        'bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-200':
-                          suggestion.suggestedTask.priority === 'p1',
-                        'bg-orange-100 text-orange-700 dark:bg-orange-900 dark:text-orange-200':
-                          suggestion.suggestedTask.priority === 'p2',
-                        'bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-200':
-                          suggestion.suggestedTask.priority === 'p3',
-                        'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-200':
-                          suggestion.suggestedTask.priority === 'p4',
-                      })}
-                    >
-                      {PRIORITY_LABELS[suggestion.suggestedTask.priority]}
-                    </span>
-                  )}
-
-                  {suggestion.suggestedTask.dueDate && (
-                    <span className="text-xs font-semibold px-2 py-1 rounded bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200">
-                      📅 {suggestion.suggestedTask.dueDate.toLocaleDateString()}
-                    </span>
-                  )}
-
-                  {suggestion.suggestedTask.dueTime && (
-                    <span className="text-xs font-semibold px-2 py-1 rounded bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-200">
-                      🕐 {suggestion.suggestedTask.dueTime}
-                    </span>
-                  )}
-
-                  <span className="text-xs text-gray-500 dark:text-gray-400 px-2 py-1">
-                    Confidence: {Math.round(suggestion.confidence * 100)}%
-                  </span>
-                </div>
-
-                {/* Action Buttons */}
-                <div className="flex gap-2">
-                  <button
-                    onClick={() => handleAcceptSuggestion(index)}
-                    className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-blue-500 hover:bg-blue-600 text-white font-medium text-sm transition-colors"
-                  >
-                    <Check className="w-4 h-4" />
-                    Accept
-                  </button>
-                  <button
-                    onClick={() => {
-                      setInput(suggestion.originalText)
-                      setShowSuggestions(false)
-                    }}
-                    className="flex-1 px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-900 dark:text-white font-medium text-sm transition-colors"
-                  >
-                    Edit
-                  </button>
-                </div>
-              </div>
-            ))}
-
-          {/* Manual Add */}
-          {input.trim() && (
-            <div className="p-3 border-t border-gray-200 dark:border-gray-700">
-              <button
-                onClick={handleManualAdd}
-                className="w-full px-3 py-2 rounded-lg bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-900 dark:text-white font-medium text-sm transition-colors"
-              >
-                Add as written: "{input.slice(0, 40)}
-                {input.length > 40 ? '...' : ''}"
-              </button>
+      {parsed.title && (
+        <div className="flex items-start gap-2 p-2 bg-gray-50 dark:bg-gray-800/50 rounded-md border border-gray-200 dark:border-gray-700">
+          <Check size={14} className="text-green-500 mt-0.5 shrink-0" />
+          <div>
+            <div className="text-xs text-gray-500 dark:text-gray-400 mb-0.5">Task title:</div>
+            <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+              {parsed.title}
             </div>
-          )}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+interface AIParsePreviewProps {
+  input: string
+  parsed: ParsedTaskIntent
+  isValid: boolean
+}
+
+export function AIParsePreview({ input, parsed, isValid }: AIParsePreviewProps) {
+  if (!input.trim()) {
+    return (
+      <div className="text-sm text-gray-500 dark:text-gray-400 italic">
+        Start typing to see AI parsing...
+      </div>
+    )
+  }
+
+  return (
+    <div className="space-y-3">
+      <AITaskParser parsed={parsed} showConfidence />
+
+      {!isValid && parsed.title && (
+        <div className="text-xs text-amber-600 dark:text-amber-400 flex items-center gap-1">
+          <Sparkles size={12} />
+          <span>
+            Tip: Add dates like "tomorrow" or "Friday", priorities like "p1" or "!!!", projects with
+            "#project", labels with "@label"
+          </span>
         </div>
       )}
     </div>

@@ -16,9 +16,11 @@ const isDev = import.meta.env?.DEV ?? false
 
 const noop = (): void => {}
 
+/* eslint-disable no-console */
 export const logger = {
   error: isDev ? console.error.bind(console) : noop,
   warn: isDev ? console.warn.bind(console) : noop,
   info: isDev ? console.log.bind(console) : noop,
   debug: isDev ? console.log.bind(console) : noop,
 }
+/* eslint-enable no-console */

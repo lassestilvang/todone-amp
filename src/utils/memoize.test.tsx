@@ -75,7 +75,7 @@ describe('memoize utilities', () => {
 
     it('should ignore onClick differences', () => {
       const props1 = { id: '1', title: 'Test', onClick: () => {} }
-      const props2 = { id: '1', title: 'Test', onClick: () => console.log('different') }
+      const props2 = { id: '1', title: 'Test', onClick: () => 'different' }
       expect(listItemPropsEqual(props1, props2)).toBe(true)
     })
 
