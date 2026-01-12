@@ -965,7 +965,7 @@ jobs:
 ### Weeks 1-2: Quick Wins (P0)
 - [x] Pomodoro Timer / Focus Mode ✅ (Completed January 11, 2026)
 - [x] Eisenhower Matrix View ✅ (Completed January 12, 2026)
-- [ ] Dark Mode & Themes
+- [x] Dark Mode & Themes ✅ (Completed January 12, 2026)
 - [ ] E2E Testing Setup
 - [ ] Console Log Cleanup
 

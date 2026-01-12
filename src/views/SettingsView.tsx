@@ -6,6 +6,7 @@ import { useSectionStore } from '@/store/sectionStore'
 import { useLabelStore } from '@/store/labelStore'
 import { useFilterStore } from '@/store/filterStore'
 import { useGamificationStore } from '@/store/gamificationStore'
+import { useThemeStore, type ThemeMode, type ThemeName } from '@/store/themeStore'
 import {
   Settings,
   User,
@@ -54,10 +55,18 @@ const LANGUAGES: LanguageOption[] = [
   { code: 'fi', name: 'Finnish', nativeName: 'Suomi' },
 ]
 
-const THEMES = [
+const THEME_MODES: { id: ThemeMode; name: string; icon: string }[] = [
   { id: 'light', name: 'Light', icon: '☀️' },
   { id: 'dark', name: 'Dark', icon: '🌙' },
   { id: 'system', name: 'System', icon: '⚙️' },
+]
+
+const COLOR_THEMES: { id: ThemeName; name: string; description: string }[] = [
+  { id: 'default', name: 'Default', description: 'Standard Todone colors' },
+  { id: 'nord', name: 'Nord', description: 'Arctic, north-bluish colors' },
+  { id: 'dracula', name: 'Dracula', description: 'Dark theme with vibrant accents' },
+  { id: 'solarized-light', name: 'Solarized Light', description: 'Warm, light background' },
+  { id: 'solarized-dark', name: 'Solarized Dark', description: 'Warm, dark background' },
 ]
 
 const ACCENT_COLORS = [
@@ -78,7 +87,8 @@ export const SettingsView: React.FC = () => {
   const { sections } = useSectionStore()
   const { labels } = useLabelStore()
   const { filters } = useFilterStore()
-  useGamificationStore() // Initialize if needed
+  useGamificationStore()
+  const { mode: themeMode, theme: colorTheme, setMode: setThemeMode, setTheme: setColorTheme } = useThemeStore()
   const { enabled: dyslexiaEnabled, toggle: toggleDyslexiaFont } = useDyslexiaFont()
   const [activeTab, setActiveTab] = useState<SettingsTab>('account')
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
@@ -128,14 +138,12 @@ export const SettingsView: React.FC = () => {
     setShowLanguageDropdown(false)
   }
 
-  const handleThemeChange = (theme: string) => {
-    updateUser({
-      ...user,
-      settings: {
-        ...user.settings,
-        theme: theme as 'light' | 'dark' | 'system',
-      },
-    })
+  const handleThemeModeChange = (mode: ThemeMode) => {
+    setThemeMode(mode)
+  }
+
+  const handleColorThemeChange = (theme: ThemeName) => {
+    setColorTheme(theme)
   }
 
   const handlePrivacyToggle = (key: string, value: boolean) => {
@@ -531,24 +539,47 @@ export const SettingsView: React.FC = () => {
           {activeTab === 'theme' && (
             <div>
               <SettingsSection
-                title="Theme"
-                description="Choose your preferred color scheme"
+                title="Appearance Mode"
+                description="Choose light, dark, or follow system preference"
               />
 
               <div className="grid grid-cols-3 gap-3 mb-6">
-                {THEMES.map((theme) => (
+                {THEME_MODES.map((mode) => (
                   <button
-                    key={theme.id}
-                    onClick={() => handleThemeChange(theme.id)}
+                    key={mode.id}
+                    onClick={() => handleThemeModeChange(mode.id)}
                     className={cn(
                       'p-4 rounded-lg border-2 transition-all text-center',
-                      user.settings?.theme === theme.id
+                      themeMode === mode.id
                         ? 'border-blue-500 bg-blue-50 dark:bg-blue-900'
                         : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
                     )}
                   >
-                    <div className="text-2xl mb-2">{theme.icon}</div>
+                    <div className="text-2xl mb-2">{mode.icon}</div>
+                    <p className="text-sm font-medium text-gray-900 dark:text-white">{mode.name}</p>
+                  </button>
+                ))}
+              </div>
+
+              <SettingsSection
+                title="Color Theme"
+                description="Choose a color scheme for the application"
+              />
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                {COLOR_THEMES.map((theme) => (
+                  <button
+                    key={theme.id}
+                    onClick={() => handleColorThemeChange(theme.id)}
+                    className={cn(
+                      'p-4 rounded-lg border-2 transition-all text-left',
+                      colorTheme === theme.id
+                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900'
+                        : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
+                    )}
+                  >
                     <p className="text-sm font-medium text-gray-900 dark:text-white">{theme.name}</p>
+                    <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">{theme.description}</p>
                   </button>
                 ))}
               </div>
@@ -558,26 +589,26 @@ export const SettingsView: React.FC = () => {
                 description="Customize the primary accent color"
               />
 
-              <div className="grid grid-cols-4 sm:grid-cols-8 gap-3">
+              <div className="grid grid-cols-4 sm:grid-cols-8 gap-3 mb-6">
                 {ACCENT_COLORS.map((color) => (
                   <button
                     key={color.value}
                     onClick={() =>
                       updateUser({
-                       ...user,
-                       settings: {
-                         ...user.settings,
-                         accentColor: color.value,
-                       },
-                     })
-                   }
+                        ...user,
+                        settings: {
+                          ...user.settings,
+                          accentColor: color.value,
+                        },
+                      })
+                    }
                     className={cn(
                       'h-12 w-12 rounded-lg border-2 transition-all flex items-center justify-center',
                       user.settings?.accentColor === color.value
                         ? 'border-gray-900 dark:border-white'
-                        : 'border-transparent hover:border-gray-400 dark:hover:border-gray-500',
-                      color.value
+                        : 'border-transparent hover:border-gray-400 dark:hover:border-gray-500'
                     )}
+                    style={{ backgroundColor: color.hex }}
                     title={color.name}
                   >
                     {user.settings?.accentColor === color.value && (
@@ -610,8 +641,8 @@ export const SettingsView: React.FC = () => {
                   </div>
                 </label>
               </div>
-              </div>
-              )}
+            </div>
+          )}
         </div>
       </div>
 

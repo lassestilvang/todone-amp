@@ -8,6 +8,7 @@ import { useFilterStore } from '@/store/filterStore'
 import { useViewStore } from '@/store/viewStore'
 import { initializeQuickAddStore } from '@/store/quickAddStore'
 import { initializeDyslexiaFont } from '@/utils/dyslexiaFont'
+import { useTheme } from '@/hooks/useTheme'
 import { Sidebar } from '@/components/Sidebar'
 import { SkipNav } from '@/components/SkipNav'
 import { ResponsiveLayout } from '@/components/ResponsiveLayout'
@@ -43,8 +44,9 @@ function App() {
   const loadFilters = useFilterStore((state) => state.loadFilters)
   const selectedView = useViewStore((state) => state.selectedView)
   const setSelectedView = useViewStore((state) => state.setSelectedView)
-  
-  // Initialize keyboard shortcuts
+
+  useTheme()
+
   useKeyboardShortcuts(null)
 
   // Initialize on mount - runs once, loadUser is a stable Zustand action

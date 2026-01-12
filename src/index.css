@@ -1,3 +1,5 @@
+@import './styles/themes/index.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,8 +9,20 @@
     scroll-behavior: smooth;
   }
 
+  :root {
+    color-scheme: light;
+  }
+
+  :root.dark {
+    color-scheme: dark;
+  }
+
   body {
     @apply bg-white text-gray-900;
+  }
+
+  .dark body {
+    @apply bg-gray-900 text-gray-100;
   }
 
   * {

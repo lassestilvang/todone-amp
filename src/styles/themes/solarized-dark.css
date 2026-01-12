@@ -1,0 +1,26 @@
+.theme-solarized-dark {
+  --color-bg-primary: #002b36;
+  --color-bg-secondary: #073642;
+  --color-bg-tertiary: #194752;
+  --color-bg-hover: #2a5762;
+
+  --color-text-primary: #839496;
+  --color-text-secondary: #93a1a1;
+  --color-text-tertiary: #586e75;
+
+  --color-border: #194752;
+  --color-border-hover: #2a5762;
+
+  --color-accent: #268bd2;
+  --color-accent-hover: #2aa198;
+
+  --color-success: #859900;
+  --color-warning: #b58900;
+  --color-error: #dc322f;
+  --color-info: #268bd2;
+}
+
+.theme-solarized-dark {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+}
