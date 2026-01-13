@@ -28,6 +28,8 @@ import type {
   FocusSettings,
   DailyReview,
   DailyReviewSettings,
+  Habit,
+  HabitCompletion,
 } from '@/types'
 
 export class TodoneDB extends Dexie {
@@ -59,10 +61,12 @@ export class TodoneDB extends Dexie {
   focusSettings!: Table<FocusSettings>
   dailyReviews!: Table<DailyReview>
   dailyReviewSettings!: Table<DailyReviewSettings>
+  habits!: Table<Habit>
+  habitCompletions!: Table<HabitCompletion>
 
   constructor() {
     super('TodoneDB')
-    this.version(5).stores({
+    this.version(6).stores({
       users: 'id, email',
       projects: 'id, ownerId, teamId, parentProjectId, syncStatus, [ownerId+createdAt], [teamId+createdAt]',
       sections: 'id, projectId, syncStatus, [projectId+order]',
@@ -91,6 +95,8 @@ export class TodoneDB extends Dexie {
       focusSettings: 'userId',
       dailyReviews: 'id, userId, date, type, [userId+date], [userId+type+date]',
       dailyReviewSettings: 'userId',
+      habits: 'id, userId, frequency, archivedAt, [userId+createdAt], [userId+archivedAt]',
+      habitCompletions: 'id, habitId, date, [habitId+date], [habitId+completedAt]',
     })
   }
 }

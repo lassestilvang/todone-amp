@@ -560,3 +560,29 @@ export interface DailyReviewSettings {
   lastMorningReview?: Date
   lastEveningReview?: Date
 }
+
+export type HabitFrequency = 'daily' | 'weekly' | 'custom'
+
+export interface Habit {
+  id: string
+  userId: string
+  name: string
+  description?: string
+  icon: string
+  color: string
+  frequency: HabitFrequency
+  customDays?: number[]
+  targetCount: number
+  reminderTime?: string
+  createdAt: Date
+  archivedAt?: Date
+}
+
+export interface HabitCompletion {
+  id: string
+  habitId: string
+  date: string // YYYY-MM-DD format
+  count: number
+  note?: string
+  completedAt: Date
+}
