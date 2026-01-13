@@ -28,6 +28,7 @@ import { AchievementNotificationCenter } from '@/components/AchievementNotificat
 import { DragDropContextProvider } from '@/components/DragDropContext'
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts'
 import { FocusModeWidget } from '@/components/FocusMode'
+import { DailyReviewModal } from '@/components/DailyReview'
 
 type ViewIdType = string
 
@@ -150,6 +151,7 @@ function App() {
       <UndoNotification />
       <AchievementNotificationCenter />
       {user && <FocusModeWidget userId={user.id} />}
+      {user && <DailyReviewModal userId={user.id} />}
     </DragDropContextProvider>
   )
 }

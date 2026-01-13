@@ -26,6 +26,8 @@ import type {
   UserAchievementRecord,
   FocusSession,
   FocusSettings,
+  DailyReview,
+  DailyReviewSettings,
 } from '@/types'
 
 export class TodoneDB extends Dexie {
@@ -55,10 +57,12 @@ export class TodoneDB extends Dexie {
   userAchievements!: Table<UserAchievementRecord>
   focusSessions!: Table<FocusSession>
   focusSettings!: Table<FocusSettings>
+  dailyReviews!: Table<DailyReview>
+  dailyReviewSettings!: Table<DailyReviewSettings>
 
   constructor() {
     super('TodoneDB')
-    this.version(4).stores({
+    this.version(5).stores({
       users: 'id, email',
       projects: 'id, ownerId, teamId, parentProjectId, syncStatus, [ownerId+createdAt], [teamId+createdAt]',
       sections: 'id, projectId, syncStatus, [projectId+order]',
@@ -85,6 +89,8 @@ export class TodoneDB extends Dexie {
       userAchievements: 'id, userId, achievementId, [userId+achievementId], [userId+unlockedAt]',
       focusSessions: 'id, userId, taskId, startTime, type, completed, [userId+startTime], [taskId+startTime]',
       focusSettings: 'userId',
+      dailyReviews: 'id, userId, date, type, [userId+date], [userId+type+date]',
+      dailyReviewSettings: 'userId',
     })
   }
 }

@@ -157,4 +157,11 @@ export const DEFAULT_SHORTCUTS: KeyboardShortcut[] = [
     description: 'Toggle Focus Mode',
     action: () => {},
   },
+  {
+    key: 'r',
+    ctrlCmd: true,
+    shift: true,
+    description: 'Open Daily Review',
+    action: () => {},
+  },
 ]

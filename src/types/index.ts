@@ -533,3 +533,30 @@ export interface FocusSettings {
   soundEnabled: boolean
   soundType: FocusSoundType
 }
+
+export type DailyReviewType = 'morning' | 'evening'
+
+export interface DailyReview {
+  id: string
+  userId: string
+  date: Date
+  type: DailyReviewType
+  intention?: string
+  reflection?: string
+  overdueTasks: string[]
+  rescheduledTasks: string[]
+  completedTaskCount: number
+  completedAt?: Date
+  createdAt: Date
+}
+
+export interface DailyReviewSettings {
+  userId: string
+  morningReviewEnabled: boolean
+  morningReviewTime: string
+  eveningReviewEnabled: boolean
+  eveningReviewTime: string
+  autoPrompt: boolean
+  lastMorningReview?: Date
+  lastEveningReview?: Date
+}

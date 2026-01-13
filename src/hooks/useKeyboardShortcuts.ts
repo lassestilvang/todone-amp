@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useTaskStore } from '@/store/taskStore'
 import { useBulkActionStore } from '@/store/bulkActionStore'
+import { useDailyReviewStore } from '@/store/dailyReviewStore'
 
 interface ShortcutActions {
   onQuickAdd?: () => void
@@ -45,6 +46,18 @@ export function useKeyboardShortcuts(
       if (isCtrlCmd && e.shiftKey && e.key === 'f') {
         e.preventDefault()
         actions.onFocusMode?.()
+      }
+
+      // Ctrl/Cmd + Shift + R: Open Daily Review
+      if (isCtrlCmd && e.shiftKey && e.key === 'r') {
+        e.preventDefault()
+        const hour = new Date().getHours()
+        const reviewStore = useDailyReviewStore.getState()
+        if (hour < 12) {
+          reviewStore.startMorningReview()
+        } else {
+          reviewStore.startEveningReview()
+        }
       }
 
       // Escape: Close dialogs/deselect
