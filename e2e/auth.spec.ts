@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test'
 
 test.describe('Authentication', () => {
   test.beforeEach(async ({ page }) => {
+    await page.goto('/')
     await page.evaluate(() => {
       localStorage.clear()
       indexedDB.databases().then((dbs) => {
@@ -10,6 +11,7 @@ test.describe('Authentication', () => {
         })
       })
     })
+    await page.reload()
   })
 
   test('shows login page when not authenticated', async ({ page }) => {

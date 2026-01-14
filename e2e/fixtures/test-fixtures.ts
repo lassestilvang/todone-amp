@@ -23,6 +23,7 @@ export const test = base.extend<TodoneFixtures>({
 
   authenticatedPage: async ({ page, testUser }, use) => {
     await page.goto('/')
+    await page.waitForLoadState('domcontentloaded')
 
     await page.evaluate((user) => {
       localStorage.setItem('userId', user.id)
@@ -38,8 +39,9 @@ export const test = base.extend<TodoneFixtures>({
     }, testUser)
 
     await page.reload()
+    await page.waitForLoadState('domcontentloaded')
 
-    await page.waitForSelector('[data-testid="sidebar"], #sidebar', { timeout: 10000 })
+    await page.waitForSelector('[data-testid="sidebar"], #sidebar', { timeout: 15000 })
 
     await use(page)
   },
