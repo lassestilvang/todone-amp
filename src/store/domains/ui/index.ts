@@ -1,0 +1,10 @@
+// UI domain stores
+export { useDragStore } from '@/store/dragStore'
+export { useQuickAddStore } from '@/store/quickAddStore'
+export { useFavoritesStore } from '@/store/favoritesStore'
+export { useSearchHistoryStore } from '@/store/searchHistoryStore'
+export { useBulkActionStore } from '@/store/bulkActionStore'
+export { useAIStore } from '@/store/aiStore'
+export { useTemplateStore } from '@/store/templateStore'
+export { useReminderStore } from '@/store/reminderStore'
+export { useIntegrationStore } from '@/store/integrationStore'
