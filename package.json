@@ -14,7 +14,9 @@
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:headed": "playwright test --headed",
-    "test:e2e:chromium": "playwright test --project=chromium"
+    "test:e2e:chromium": "playwright test --project=chromium",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.3.1",
@@ -54,6 +56,12 @@
     "terser": "^5.44.1",
     "typescript": "^5.9.3",
     "vite": "^5.4.21",
-    "vitest": "^1.6.1"
+    "vitest": "^1.6.1",
+    "storybook": "^10.1.11",
+    "@storybook/react-vite": "^10.1.11",
+    "@storybook/addon-a11y": "^10.1.11",
+    "@storybook/addon-docs": "^10.1.11",
+    "@storybook/addon-onboarding": "^10.1.11",
+    "eslint-plugin-storybook": "^10.1.11"
   }
 }

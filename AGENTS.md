@@ -15,6 +15,8 @@ Always make sure to update the AGENTS.md file with any new agents or changes to 
 - **E2E Chromium**: `npm run test:e2e:chromium` (Playwright, Chromium only)
 - **Lint**: `npm run lint` (ESLint, zero warnings)
 - **Type check**: `npm run type-check` (TypeScript)
+- **Storybook**: `npm run storybook` (Component docs on port 6006)
+- **Build Storybook**: `npm run build-storybook` (Static build)
 
 ## Architecture
 
