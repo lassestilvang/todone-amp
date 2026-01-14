@@ -16,7 +16,7 @@ export const test = base.extend<TodoneFixtures>({
     const user: TestUser = {
       id: `test-user-${Date.now()}`,
       name: 'Test User',
-      email: 'test@example.com',
+      email: `test-${Date.now()}@example.com`,
     }
     await use(user)
   },
@@ -25,21 +25,13 @@ export const test = base.extend<TodoneFixtures>({
     await page.goto('/')
     await page.waitForLoadState('domcontentloaded')
 
-    await page.evaluate((user) => {
-      localStorage.setItem('userId', user.id)
-      localStorage.setItem(
-        'user',
-        JSON.stringify({
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          createdAt: new Date().toISOString(),
-        })
-      )
-    }, testUser)
+    await page.getByRole('button', { name: 'Sign Up' }).click()
 
-    await page.reload()
-    await page.waitForLoadState('domcontentloaded')
+    await page.getByLabel('Full Name').fill(testUser.name)
+    await page.getByLabel('Email').fill(testUser.email)
+    await page.getByLabel('Password').fill('testpassword123')
+
+    await page.getByRole('button', { name: 'Create Account' }).click()
 
     await page.waitForSelector('[data-testid="sidebar"], #sidebar', { timeout: 15000 })
 
