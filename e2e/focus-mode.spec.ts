@@ -13,7 +13,7 @@ test.describe('Focus Mode / Pomodoro Timer', () => {
     if (await startButton.isVisible({ timeout: 5000 }).catch(() => false)) {
       await startButton.click()
 
-      const timerDisplay = page.locator('[data-testid="timer-display"], .timer-display, text=/\\d+:\\d+/')
+      const timerDisplay = page.locator('[data-testid="timer-display"], .timer-display').or(page.getByText(/\d+:\d+/))
       await expect(timerDisplay.first()).toBeVisible({ timeout: 5000 })
     }
   })

@@ -7,7 +7,7 @@ test.describe('Task Management', () => {
     const quickAddInput = page.locator('input[placeholder*="task"], input[type="text"]').first()
     await expect(quickAddInput).toBeVisible({ timeout: 5000 })
 
-    await quickAddInput.fill('Test task from E2E')
+    await quickAddInput.fill('Test task from E2E p3')
     await page.keyboard.press('Enter')
 
     await expect(page.getByText('Test task from E2E')).toBeVisible({ timeout: 5000 })
@@ -17,10 +17,11 @@ test.describe('Task Management', () => {
     await page.keyboard.press('Meta+k')
 
     const quickAddInput = page.locator('input[placeholder*="task"], input[type="text"]').first()
-    await quickAddInput.fill('High priority task p1')
+    await expect(quickAddInput).toBeVisible({ timeout: 5000 })
+    await quickAddInput.fill('HighPriorityTask p1')
     await page.keyboard.press('Enter')
 
-    await expect(page.getByText('High priority task')).toBeVisible({ timeout: 5000 })
+    await expect(page.getByText('HighPriorityTask')).toBeVisible({ timeout: 5000 })
   })
 
   test('can create a task with due date', async ({ authenticatedPage: page }) => {
@@ -36,14 +37,15 @@ test.describe('Task Management', () => {
   test('can complete a task', async ({ authenticatedPage: page }) => {
     await page.keyboard.press('Meta+k')
     const quickAddInput = page.locator('input[placeholder*="task"], input[type="text"]').first()
-    await quickAddInput.fill('Task to complete')
+    await expect(quickAddInput).toBeVisible({ timeout: 5000 })
+    await quickAddInput.fill('TaskToComplete p2')
     await page.keyboard.press('Enter')
 
-    await expect(page.getByText('Task to complete')).toBeVisible({ timeout: 5000 })
+    await expect(page.getByText('TaskToComplete')).toBeVisible({ timeout: 5000 })
 
     const taskCheckbox = page.locator('button[role="checkbox"], input[type="checkbox"]').first()
     await taskCheckbox.click()
 
-    await expect(page.getByText('Task to complete')).toHaveClass(/line-through|completed|opacity/)
+    await expect(page.getByText('TaskToComplete')).not.toBeVisible({ timeout: 5000 })
   })
 })

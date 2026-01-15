@@ -10,7 +10,7 @@ test.describe('Navigation', () => {
     await page.getByRole('button', { name: /upcoming/i }).click()
     await expect(page.getByRole('heading', { name: /upcoming/i })).toBeVisible({ timeout: 5000 })
 
-    await page.getByRole('button', { name: /inbox/i }).click()
+    await page.getByRole('button', { name: /inbox/i }).first().click()
     await expect(page.getByRole('heading', { name: /inbox/i })).toBeVisible({ timeout: 5000 })
   })
 
