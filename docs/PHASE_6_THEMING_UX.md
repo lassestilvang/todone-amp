@@ -39,7 +39,7 @@ This phase focuses on implementing a robust, accessible theming system with dark
 | ID | Task | Priority | Status |
 |----|------|----------|--------|
 | T6.1.1 | Create unified CSS custom property system for all color tokens | High | ✅ |
-| T6.1.2 | Migrate hardcoded Tailwind colors to CSS variables | High | ✅ |
+| T6.1.2 | Migrate hardcoded Tailwind colors to CSS variables | High | 🔄 |
 | T6.1.3 | Define semantic color tokens (e.g., `--color-surface`, `--color-on-surface`) | High | ✅ |
 | T6.1.4 | Create `ThemeProvider` component to wrap app initialization | Medium | ⬜ |
 | T6.1.5 | Add smooth transition animation for theme changes (150-200ms) | Medium | ⬜ |
@@ -295,17 +295,19 @@ interface ThemeSwitcherProps {
 - ✅ **Q-S Components**: QuickAddModal, RichTextEditor, Sidebar, SlackIntegration, StreakDisplay, SubTaskList, SyncStatus, etc. (25 files)
 - 🔄 **T-Z Components**: Partially migrated (TaskItem, TaskDetailPanel, TeamDashboard, TemplateGallery, etc.)
 
-**Remaining Work (~68 files with hardcoded colors):**
-- 49 files in `src/components/`
-- 10 files in `src/components/ui/`
-- 9 files in other `src/` folders (pages, views, etc.)
+**Remaining Work (~47 files with ~264 hardcoded color usages):**
 
-**Test Updates Needed:**
-- 6 tests failing due to class name changes:
-  - `CalendarIntegration.test.tsx` - expects `border-gray-200`, `bg-white`
-  - `FloatingActionButton.test.tsx` - expects `text-red-600`, `bg-gray-800`
-  - `ProjectSharing.test.tsx` - expects `bg-white`
-  - `TaskItem.test.tsx` - expects `line-through text-gray-400`, `hover:bg-gray-50`
+| Category | Files | Count |
+|----------|-------|-------|
+| DailyReview/ | DailyReviewSettings, IncompleteTasksReview, OverdueTasksReview, TodayTasksPreview, TomorrowPreview | 5 |
+| Eisenhower/ | MatrixLegend, MatrixQuadrant, MatrixTaskCard | 3 |
+| FocusMode/ | BreakReminder, FocusModeFullscreen, FocusModeWidget, FocusSessionHistory, FocusSettings, PomodoroTimer | 6 |
+| Habits/ | HabitForm, HabitItem, HabitList, HabitReminder, HabitStats, HabitStreakCalendar | 6 |
+| Other components | AITaskParser, AccessibilityAuditor, AdvancedFilterBuilder, BadgesDisplay, CalendarIntegration, CalendarView, EmailAssist, ExternalCalendarEvents, GroupedTaskList, InstallPrompt, IntegrationManager, KarmaWidget, Leaderboard, LevelProgressBar, MobileBoardView, MobileInboxView, MyContributionsView, NotificationCenter, ShareProjectModal, TeamActivityOnSharedProject, TeamMembersList, VirtualTaskList, WeeklyGoalProgress | 23 |
+| WeeklyReview/ | KarmaWeekly (partial - has bg-white/20 overlays) | 1 |
+| Pages/Views | AuthPage (partial), SettingsView (partial), WeeklyAgendaView (partial) | 3 |
+
+**All tests now passing** - Previous test failures have been fixed.
 
 **Token Mapping Reference:**
 | Old Class | New Semantic Class |
@@ -328,63 +330,70 @@ interface ThemeSwitcherProps {
 
 ### Phase 1: Complete T6.1.2 Migration (Priority: Critical)
 
-#### Task NS-1: Migrate Remaining T-Z Components
-**Description:** Complete the semantic token migration for all components starting with T through Z. These were partially migrated but the subagent was interrupted.
+#### ✅ Task NS-1: Migrate T-Z Components (COMPLETED)
+Migrated: TaskListSkeleton, TimeBlockingView, TeamMemberProfile, TeamDashboard, TaskSuggestions, TemplateCard, TemplatePreview
 
-**Files to migrate (~25):**
-- `TaskItem.tsx`, `TaskList.tsx`, `TaskDetailPanel.tsx`, `TaskSuggestions.tsx`, `TaskAssignmentModal.tsx`, `TaskListSkeleton.tsx`
-- `TeamDashboard.tsx`, `TeamSettings.tsx`, `TeamAnalytics.tsx`, `TeamMembersList.tsx`, `TeamMemberProfile.tsx`, `TeamSelector.tsx`, `TeamActivityOnSharedProject.tsx`
-- `TemplateCard.tsx`, `TemplateForm.tsx`, `TemplateGallery.tsx`, `TemplatePreview.tsx`
-- `TimeBlockingView.tsx`, `TimePickerInput.tsx`
-- `TutorialTooltip.tsx`
-- `UndoNotification.tsx`, `UserProfile.tsx`
-- `ViewSwitcher.tsx`, `VirtualizedTaskList.tsx`, `VirtualTaskList.tsx`
-- `WeeklyGoalProgress.tsx`
+#### ✅ Task NS-2: Migrate UI Component Library (COMPLETED)
+Migrated: Modal, Badge, Skeleton, Avatar stories, Tooltip stories, Dropdown stories, Card stories + related tests
 
-**Approach:** Apply the token mapping reference above. Replace `bg-white dark:bg-gray-800` patterns with single `bg-surface-primary` class. Remove redundant `dark:` variants where semantic tokens handle both modes.
+#### ✅ Task NS-3: Migrate Pages and Views (COMPLETED)
+Migrated: AuthPage, WeeklyReviewView, InboxView, TodayView, HabitsView, SettingsView, EisenhowerView, WeeklyAgendaView, DailyAgendaView, UpcomingView
+
+#### ✅ Task NS-4: Fix Failing Tests (COMPLETED)
+Fixed: CalendarIntegration.test, FloatingActionButton.test, ProjectSharing.test, TaskAssignmentModal.test, TaskItem.test, TaskListSkeleton.test
 
 ---
 
-#### Task NS-2: Migrate UI Component Library
-**Description:** Migrate remaining 10 files in `src/components/ui/` that still use hardcoded colors.
-
-**Files to audit:**
-- `Skeleton/Skeleton.tsx` and stories
-- `Badge/Badge.tsx`
-- `Modal/Modal.tsx`
-- `Toast/Toast.tsx`
-- `Switch/Switch.tsx`
-- `Checkbox/Checkbox.tsx`
-- `Select/Select.tsx`
-- `Tabs/Tabs.tsx`
-- `Progress/Progress.tsx`
-- `Avatar/Avatar.tsx`
-
-**Note:** UI components are highest priority as they're reused throughout the app. Changes here have the widest impact.
+#### Task NS-1b: Migrate DailyReview Components (NEW)
+**Files to migrate (5):**
+- `DailyReview/DailyReviewSettings.tsx`
+- `DailyReview/IncompleteTasksReview.tsx`
+- `DailyReview/OverdueTasksReview.tsx`
+- `DailyReview/TodayTasksPreview.tsx`
+- `DailyReview/TomorrowPreview.tsx`
 
 ---
 
-#### Task NS-3: Migrate Pages and Views
-**Description:** Migrate 9 remaining files in `src/pages/` and `src/views/` folders.
-
-**Files to check:**
-- `src/pages/` - Settings page, Auth pages, etc.
-- `src/views/` - Main view components
-- `src/index.css` - Base layer styles (already partially done)
+#### Task NS-1c: Migrate Eisenhower Components (NEW)
+**Files to migrate (3):**
+- `Eisenhower/MatrixLegend.tsx`
+- `Eisenhower/MatrixQuadrant.tsx`
+- `Eisenhower/MatrixTaskCard.tsx`
 
 ---
 
-#### Task NS-4: Fix Failing Tests
-**Description:** Update 6 test files that expect old hardcoded class names.
+#### Task NS-1d: Migrate FocusMode Components (NEW)
+**Files to migrate (6):**
+- `FocusMode/BreakReminder.tsx`
+- `FocusMode/FocusModeFullscreen.tsx`
+- `FocusMode/FocusModeWidget.tsx`
+- `FocusMode/FocusSessionHistory.tsx`
+- `FocusMode/FocusSettings.tsx`
+- `FocusMode/PomodoroTimer.tsx`
 
-| Test File | Changes Needed |
-|-----------|----------------|
-| `CalendarIntegration.test.tsx` | `border-gray-200` → `border-border`, `bg-white` → `bg-surface-primary` |
-| `FloatingActionButton.test.tsx` | `text-red-600` → `text-semantic-error`, `bg-gray-800` → `bg-surface-tertiary` or specific dark token |
-| `ProjectSharing.test.tsx` | `bg-white` → `bg-surface-primary` |
-| `TaskItem.test.tsx` | `text-gray-400` → `text-content-tertiary`, `hover:bg-gray-50` → `hover:bg-surface-tertiary` |
+---
 
-**Note:** Tests should verify semantic behavior, not specific class names. Consider refactoring tests to check computed styles or data-testid attributes instead.
+#### Task NS-1e: Migrate Habits Components (NEW)
+**Files to migrate (6):**
+- `Habits/HabitForm.tsx`
+- `Habits/HabitItem.tsx`
+- `Habits/HabitList.tsx`
+- `Habits/HabitReminder.tsx`
+- `Habits/HabitStats.tsx`
+- `Habits/HabitStreakCalendar.tsx`
+
+---
+
+#### Task NS-1f: Migrate Remaining Misc Components (NEW)
+**Files to migrate (23):**
+- `AITaskParser.tsx`, `AccessibilityAuditor.tsx`, `AdvancedFilterBuilder.tsx`
+- `BadgesDisplay.tsx`, `CalendarIntegration.tsx`, `CalendarView.tsx`
+- `EmailAssist.tsx`, `ExternalCalendarEvents.tsx`, `GroupedTaskList.tsx`
+- `InstallPrompt.tsx`, `IntegrationManager.tsx`, `KarmaWidget.tsx`
+- `Leaderboard.tsx`, `LevelProgressBar.tsx`, `MobileBoardView.tsx`
+- `MobileInboxView.tsx`, `MyContributionsView.tsx`, `NotificationCenter.tsx`
+- `ShareProjectModal.tsx`, `TeamActivityOnSharedProject.tsx`, `TeamMembersList.tsx`
+- `VirtualTaskList.tsx`, `WeeklyGoalProgress.tsx`
 
 ---
 
@@ -539,7 +548,7 @@ npm run storybook
 
 | Date | Change | Author |
 |------|--------|--------|
-| 2026-01-16 | T6.1.2: Completed migration - all components, UI library, pages, and views now use semantic tokens; all tests updated and passing | Amp |
+| 2026-01-16 | T6.1.2: Partial completion - migrated T-Z components, UI library, pages/views, fixed tests; 47 files remaining (DailyReview, Eisenhower, FocusMode, Habits, misc) | Amp |
 | 2026-01-16 | T6.1.2: Migrated ~93 component files to semantic tokens; ~68 files remaining; 6 tests need updates | Amp |
 | 2026-01-15 | T6.1.2 in progress: Migrated core UI components (Card, Button, Input, Dropdown, Tooltip) to semantic tokens, updated related tests | Amp |
 | 2026-01-15 | Completed T6.1.1 & T6.1.3: Created `src/styles/tokens.css` with full semantic token system, updated Tailwind config to use CSS variables | Amp |
