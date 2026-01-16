@@ -66,19 +66,19 @@ export const HabitStats: React.FC<HabitStatsProps> = ({ habit }) => {
   ]
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
-      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Statistics</h3>
+    <div className="bg-surface-primary rounded-lg p-4 border border-border">
+      <h3 className="text-lg font-semibold text-content-primary mb-4">Statistics</h3>
 
       <div className="grid grid-cols-2 gap-3 mb-6">
         {stats.map(({ icon: Icon, label, value, unit, color, bgColor }) => (
           <div key={label} className={`${bgColor} rounded-lg p-3`}>
             <div className="flex items-center gap-2 mb-1">
               <Icon className={`w-4 h-4 ${color}`} />
-              <span className="text-xs text-gray-600 dark:text-gray-400">{label}</span>
+              <span className="text-xs text-content-tertiary">{label}</span>
             </div>
-            <div className="text-2xl font-bold text-gray-900 dark:text-white">
+            <div className="text-2xl font-bold text-content-primary">
               {value}
-              {unit && <span className="text-sm font-normal text-gray-500 ml-1">{unit}</span>}
+              {unit && <span className="text-sm font-normal text-content-tertiary ml-1">{unit}</span>}
             </div>
           </div>
         ))}
@@ -87,7 +87,7 @@ export const HabitStats: React.FC<HabitStatsProps> = ({ habit }) => {
       <div>
         <div className="flex items-center gap-2 mb-3">
           <TrendingUp className="w-4 h-4 text-brand-600" />
-          <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+          <span className="text-sm font-medium text-content-secondary">
             Completion Rate
           </span>
         </div>
@@ -118,10 +118,10 @@ const CompletionRateBar: React.FC<CompletionRateBarProps> = ({ label, rate }) =>
   return (
     <div>
       <div className="flex justify-between text-sm mb-1">
-        <span className="text-gray-600 dark:text-gray-400">{label}</span>
-        <span className="font-medium text-gray-900 dark:text-white">{rate}%</span>
+        <span className="text-content-tertiary">{label}</span>
+        <span className="font-medium text-content-primary">{rate}%</span>
       </div>
-      <div className="h-2 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+      <div className="h-2 bg-surface-secondary rounded-full overflow-hidden">
         <div
           className={`h-full rounded-full transition-all duration-500 ${getColor(rate)}`}
           style={{ width: `${rate}%` }}

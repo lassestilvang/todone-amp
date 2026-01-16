@@ -71,7 +71,7 @@ export function IncompleteTasksReview({ onNext }: IncompleteTasksReviewProps) {
         description="You completed everything scheduled for today."
       >
         <div className="flex flex-col items-center justify-center py-12 text-center">
-          <div className="w-16 h-16 mb-4 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
+          <div className="w-16 h-16 mb-4 rounded-full bg-semantic-success-subtle flex items-center justify-center">
             <Check className="w-8 h-8 text-green-500" />
           </div>
           <p className="text-content-tertiary">

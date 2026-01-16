@@ -106,22 +106,22 @@ export const HabitForm: React.FC<HabitFormProps> = ({ habit, onSubmit, onClose, 
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
-        <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+      <div className="bg-surface-primary rounded-xl shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+        <div className="flex items-center justify-between p-4 border-b border-border">
+          <h2 className="text-lg font-semibold text-content-primary">
             {habit ? 'Edit Habit' : 'New Habit'}
           </h2>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+            className="p-2 hover:bg-surface-tertiary rounded-lg transition-colors"
           >
-            <X className="w-5 h-5 text-gray-500" />
+            <X className="w-5 h-5 text-content-tertiary" />
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className="p-4 space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-content-secondary mb-1">
               Name
             </label>
             <input
@@ -129,13 +129,13 @@ export const HabitForm: React.FC<HabitFormProps> = ({ habit, onSubmit, onClose, 
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g., Morning meditation"
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+              className="w-full px-3 py-2 border border-border rounded-lg bg-surface-primary text-content-primary focus:ring-2 focus:ring-focus focus:border-transparent"
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-content-secondary mb-1">
               Description (optional)
             </label>
             <textarea
@@ -143,25 +143,25 @@ export const HabitForm: React.FC<HabitFormProps> = ({ habit, onSubmit, onClose, 
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Add more details..."
               rows={2}
-              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-500 focus:border-transparent resize-none"
+              className="w-full px-3 py-2 border border-border rounded-lg bg-surface-primary text-content-primary focus:ring-2 focus:ring-focus focus:border-transparent resize-none"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-content-secondary mb-1">
                 Icon
               </label>
               <div className="relative">
                 <button
                   type="button"
                   onClick={() => setShowEmojiPicker(!showEmojiPicker)}
-                  className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-2xl text-left"
+                  className="w-full px-3 py-2 border border-border rounded-lg bg-surface-primary text-2xl text-left"
                 >
                   {icon}
                 </button>
                 {showEmojiPicker && (
-                  <div className="absolute top-full left-0 mt-1 p-2 bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg shadow-lg z-10 grid grid-cols-5 gap-1">
+                  <div className="absolute top-full left-0 mt-1 p-2 bg-surface-primary border border-border rounded-lg shadow-lg z-10 grid grid-cols-5 gap-1">
                     {EMOJI_OPTIONS.map((emoji) => (
                       <button
                         key={emoji}
@@ -171,7 +171,7 @@ export const HabitForm: React.FC<HabitFormProps> = ({ habit, onSubmit, onClose, 
                           setShowEmojiPicker(false)
                         }}
                         className={clsx(
-                          'w-10 h-10 text-xl rounded-lg hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors',
+                          'w-10 h-10 text-xl rounded-lg hover:bg-surface-tertiary transition-colors',
                           icon === emoji && 'bg-brand-100 dark:bg-brand-900'
                         )}
                       >
@@ -184,10 +184,10 @@ export const HabitForm: React.FC<HabitFormProps> = ({ habit, onSubmit, onClose, 
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-content-secondary mb-1">
                 Color
               </label>
-              <div className="flex flex-wrap gap-1 p-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700">
+              <div className="flex flex-wrap gap-1 p-2 border border-border rounded-lg bg-surface-primary">
                 {COLOR_OPTIONS.map((c) => (
                   <button
                     key={c}
@@ -205,7 +205,7 @@ export const HabitForm: React.FC<HabitFormProps> = ({ habit, onSubmit, onClose, 
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-content-secondary mb-1">
               Frequency
             </label>
             <div className="flex gap-2">
@@ -218,7 +218,7 @@ export const HabitForm: React.FC<HabitFormProps> = ({ habit, onSubmit, onClose, 
                     'px-4 py-2 rounded-lg text-sm font-medium transition-colors capitalize',
                     frequency === freq
                       ? 'bg-brand-600 text-white'
-                      : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                      : 'bg-surface-secondary text-content-secondary hover:bg-surface-tertiary'
                   )}
                 >
                   {freq}
@@ -229,7 +229,7 @@ export const HabitForm: React.FC<HabitFormProps> = ({ habit, onSubmit, onClose, 
 
           {frequency === 'custom' && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium text-content-secondary mb-1">
                 Days of the week
               </label>
               <div className="flex gap-1">
@@ -242,7 +242,7 @@ export const HabitForm: React.FC<HabitFormProps> = ({ habit, onSubmit, onClose, 
                       'flex-1 py-2 text-sm font-medium rounded-lg transition-colors',
                       customDays.includes(index)
                         ? 'bg-brand-600 text-white'
-                        : 'bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-600'
+                        : 'bg-surface-secondary text-content-secondary hover:bg-surface-tertiary'
                     )}
                   >
                     {day}
@@ -253,7 +253,7 @@ export const HabitForm: React.FC<HabitFormProps> = ({ habit, onSubmit, onClose, 
           )}
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-content-secondary mb-1">
               Target count per day
             </label>
             <input
@@ -262,30 +262,30 @@ export const HabitForm: React.FC<HabitFormProps> = ({ habit, onSubmit, onClose, 
               max="99"
               value={targetCount}
               onChange={(e) => setTargetCount(Math.max(1, parseInt(e.target.value) || 1))}
-              className="w-24 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+              className="w-24 px-3 py-2 border border-border rounded-lg bg-surface-primary text-content-primary focus:ring-2 focus:ring-focus focus:border-transparent"
             />
-            <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+            <p className="mt-1 text-xs text-content-tertiary">
               How many times do you want to complete this habit each day?
             </p>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+            <label className="block text-sm font-medium text-content-secondary mb-1">
               Reminder time (optional)
             </label>
             <input
               type="time"
               value={reminderTime}
               onChange={(e) => setReminderTime(e.target.value)}
-              className="w-32 px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+              className="w-32 px-3 py-2 border border-border rounded-lg bg-surface-primary text-content-primary focus:ring-2 focus:ring-focus focus:border-transparent"
             />
           </div>
 
-          <div className="flex justify-end gap-3 pt-4 border-t border-gray-200 dark:border-gray-700">
+          <div className="flex justify-end gap-3 pt-4 border-t border-border">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+              className="px-4 py-2 text-content-secondary hover:bg-surface-tertiary rounded-lg transition-colors"
             >
               Cancel
             </button>

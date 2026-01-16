@@ -135,7 +135,7 @@ export const CalendarIntegration: React.FC<CalendarIntegrationProps> = ({
                 // Toggle sync enabled logic
                 logger.info('Toggle sync enabled')
               }}
-              className="h-4 w-4 rounded border-gray-300 text-brand-500"
+              className="h-4 w-4 rounded border-border text-brand-500"
             />
             <span className="text-sm text-content-secondary">Enable sync</span>
           </label>
@@ -148,7 +148,7 @@ export const CalendarIntegration: React.FC<CalendarIntegrationProps> = ({
                 // Toggle show external events logic
                 logger.info('Toggle show external events')
               }}
-              className="h-4 w-4 rounded border-gray-300 text-brand-500"
+              className="h-4 w-4 rounded border-border text-brand-500"
             />
             <span className="text-sm text-content-secondary">Show external events</span>
           </label>
@@ -161,7 +161,7 @@ export const CalendarIntegration: React.FC<CalendarIntegrationProps> = ({
                 // Toggle show all-day events logic
                 logger.info('Toggle show all-day events')
               }}
-              className="h-4 w-4 rounded border-gray-300 text-brand-500"
+              className="h-4 w-4 rounded border-border text-brand-500"
             />
             <span className="text-sm text-content-secondary">Show all-day events</span>
           </label>

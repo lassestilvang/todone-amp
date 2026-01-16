@@ -103,42 +103,37 @@ export function ShareProjectModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="w-full max-w-md rounded-lg bg-white p-6 dark:bg-gray-800">
+      <div className="w-full max-w-md rounded-lg bg-surface-primary p-6">
         {/* Header */}
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
-            Share "{projectName}"
-          </h2>
-          <button
-            onClick={onClose}
-            className="rounded p-1 hover:bg-gray-200 dark:hover:bg-gray-700"
-          >
+          <h2 className="text-lg font-semibold text-content-primary">Share "{projectName}"</h2>
+          <button onClick={onClose} className="rounded p-1 hover:bg-surface-tertiary">
             ✕
           </button>
         </div>
 
         {/* Current shares */}
         {shares.length > 0 && (
-          <div className="mb-4 max-h-48 space-y-2 overflow-y-auto rounded bg-gray-50 p-3 dark:bg-gray-700">
-            <h3 className="text-xs font-medium text-gray-600 dark:text-gray-300">Shared With</h3>
+          <div className="mb-4 max-h-48 space-y-2 overflow-y-auto rounded bg-surface-secondary p-3">
+            <h3 className="text-xs font-medium text-content-secondary">Shared With</h3>
             {shares.map((share) => {
               const member = teamMembers.find((m) => m.userId === share.userId)
               return (
                 <div
                   key={share.id}
-                  className="flex items-center justify-between rounded bg-white p-2 dark:bg-gray-600"
+                  className="flex items-center justify-between rounded bg-surface-primary p-2"
                 >
                   <div>
-                    <p className="text-sm font-medium text-gray-900 dark:text-white">
+                    <p className="text-sm font-medium text-content-primary">
                       {member?.name || 'Unknown'}
                     </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">{member?.email}</p>
+                    <p className="text-xs text-content-tertiary">{member?.email}</p>
                   </div>
                   <div className="flex items-center gap-2">
                     <select
                       value={share.role}
                       onChange={(e) => handleRoleChange(share.id, e.target.value as UserRole)}
-                      className="rounded border border-gray-300 px-2 py-1 text-xs dark:border-gray-500 dark:bg-gray-800 dark:text-white"
+                      className="rounded border border-border bg-surface-primary px-2 py-1 text-xs text-content-primary"
                     >
                       <option value="member">Member</option>
                       <option value="admin">Admin</option>
@@ -146,7 +141,7 @@ export function ShareProjectModal({
                     </select>
                     <button
                       onClick={() => handleUnshare(share.id)}
-                      className="rounded px-2 py-1 text-xs text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900"
+                      className="rounded px-2 py-1 text-xs text-semantic-error hover:bg-red-50 dark:hover:bg-red-900/30"
                     >
                       Remove
                     </button>
@@ -159,17 +154,15 @@ export function ShareProjectModal({
 
         {/* Add new share */}
         {availableUsers.length > 0 && (
-          <div className="space-y-3 border-t border-gray-200 pt-4 dark:border-gray-700">
-            <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">
-              Add Team Members
-            </h3>
+          <div className="space-y-3 border-t border-border pt-4">
+            <h3 className="text-sm font-medium text-content-secondary">Add Team Members</h3>
 
             {/* User selection */}
-            <div className="max-h-40 space-y-1 overflow-y-auto rounded border border-gray-200 dark:border-gray-600">
+            <div className="max-h-40 space-y-1 overflow-y-auto rounded border border-border">
               {availableUsers.map((member) => (
                 <label
                   key={member.userId}
-                  className="flex cursor-pointer items-center gap-2 border-b border-gray-100 p-2 last:border-b-0 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-700"
+                  className="flex cursor-pointer items-center gap-2 border-b border-border p-2 last:border-b-0 hover:bg-surface-tertiary"
                 >
                   <input
                     type="checkbox"
@@ -184,10 +177,8 @@ export function ShareProjectModal({
                     className="rounded"
                   />
                   <div className="flex-1">
-                    <p className="text-sm font-medium text-gray-900 dark:text-white">
-                      {member.name}
-                    </p>
-                    <p className="text-xs text-gray-500 dark:text-gray-400">{member.email}</p>
+                    <p className="text-sm font-medium text-content-primary">{member.name}</p>
+                    <p className="text-xs text-content-tertiary">{member.email}</p>
                   </div>
                 </label>
               ))}
@@ -195,13 +186,13 @@ export function ShareProjectModal({
 
             {/* Role selector */}
             <div>
-              <label className="block text-xs font-medium text-gray-700 dark:text-gray-300">
+              <label className="block text-xs font-medium text-content-secondary">
                 Permission Level
               </label>
               <select
                 value={selectedRole}
                 onChange={(e) => setSelectedRole(e.target.value as UserRole)}
-                className="mt-1 w-full rounded border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+                className="mt-1 w-full rounded border border-border bg-surface-primary px-3 py-2 text-sm text-content-primary"
               >
                 <option value="owner">Owner (full control)</option>
                 <option value="admin">Admin (manage access)</option>
@@ -212,20 +203,20 @@ export function ShareProjectModal({
             {/* Actions */}
             <div className="flex gap-2">
               <button
-                onClick={handleShare}
-                disabled={isSharing || selectedUserIds.length === 0}
-                className={cn(
-                  'flex-1 rounded px-3 py-2 text-sm font-medium transition',
-                  isSharing || selectedUserIds.length === 0
-                    ? 'bg-gray-200 text-gray-500 dark:bg-gray-700'
-                    : 'bg-blue-500 text-white hover:bg-blue-600'
-                )}
+              onClick={handleShare}
+              disabled={isSharing || selectedUserIds.length === 0}
+              className={cn(
+                'flex-1 rounded px-3 py-2 text-sm font-medium transition',
+                isSharing || selectedUserIds.length === 0
+                  ? 'bg-interactive-secondary text-content-tertiary'
+                  : 'bg-blue-500 text-white hover:bg-blue-600'
+              )}
               >
-                {isSharing ? 'Sharing...' : 'Share'}
+              {isSharing ? 'Sharing...' : 'Share'}
               </button>
               <button
-                onClick={onClose}
-                className="rounded border border-gray-300 px-3 py-2 text-sm dark:border-gray-600"
+              onClick={onClose}
+              className="rounded border border-border px-3 py-2 text-sm text-content-primary"
               >
                 Done
               </button>
@@ -235,13 +226,9 @@ export function ShareProjectModal({
 
         {/* Team sharing option */}
         {teamId && (
-          <div className="space-y-2 border-t border-gray-200 pt-4 dark:border-gray-700">
-            <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">
-              Share with Entire Team
-            </h3>
-            <p className="text-xs text-gray-500 dark:text-gray-400">
-              Share with all members of this team
-            </p>
+          <div className="space-y-2 border-t border-border pt-4">
+            <h3 className="text-sm font-medium text-content-secondary">Share with Entire Team</h3>
+            <p className="text-xs text-content-tertiary">Share with all members of this team</p>
             <button
               onClick={handleShareWithTeam}
               disabled={isSharing}
@@ -257,10 +244,8 @@ export function ShareProjectModal({
         )}
 
         {/* Link sharing section */}
-        <div className="space-y-2 border-t border-gray-200 pt-4 dark:border-gray-700">
-          <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">
-            Public Link
-          </h3>
+        <div className="space-y-2 border-t border-border pt-4">
+          <h3 className="text-sm font-medium text-content-secondary">Public Link</h3>
           <button
             onClick={handleGenerateLink}
             className="w-full rounded px-3 py-2 text-sm font-medium transition"
@@ -273,16 +258,14 @@ export function ShareProjectModal({
           </button>
 
           {showShareLink && (
-            <div className="rounded border border-gray-200 bg-gray-50 p-3 dark:border-gray-600 dark:bg-gray-700">
-              <p className="mb-2 text-xs font-medium text-gray-600 dark:text-gray-400">
-                Share link (read-only)
-              </p>
+            <div className="rounded border border-border bg-surface-secondary p-3">
+              <p className="mb-2 text-xs font-medium text-content-secondary">Share link (read-only)</p>
               <div className="flex gap-2">
                 <input
                   type="text"
                   value={shareLink}
                   readOnly
-                  className="flex-1 rounded border border-gray-300 px-2 py-1 text-xs dark:border-gray-600 dark:bg-gray-800 dark:text-white"
+                  className="flex-1 rounded border border-border bg-surface-primary px-2 py-1 text-xs text-content-primary"
                 />
                 <button
                   onClick={handleCopyLink}
@@ -302,7 +285,7 @@ export function ShareProjectModal({
 
         {/* No available users message */}
         {availableUsers.length === 0 && shares.length === 0 && !showShareLink && (
-          <div className="rounded bg-gray-50 p-3 text-center text-sm text-gray-600 dark:bg-gray-700 dark:text-gray-400">
+          <div className="rounded bg-surface-secondary p-3 text-center text-sm text-content-secondary">
             No team members available to share with
           </div>
         )}

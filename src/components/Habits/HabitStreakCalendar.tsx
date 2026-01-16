@@ -103,19 +103,19 @@ export const HabitStreakCalendar: React.FC<HabitStreakCalendarProps> = ({ habit 
   }, [calendarData])
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+    <div className="bg-surface-primary rounded-lg p-4 border border-border">
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Activity</h3>
+        <h3 className="text-lg font-semibold text-content-primary">Activity</h3>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-1.5 text-orange-500">
             <Flame className="w-5 h-5" />
             <span className="font-semibold">{currentStreak}</span>
-            <span className="text-sm text-gray-500 dark:text-gray-400">current</span>
+            <span className="text-sm text-content-tertiary">current</span>
           </div>
           <div className="flex items-center gap-1.5 text-yellow-500">
             <Trophy className="w-5 h-5" />
             <span className="font-semibold">{bestStreak}</span>
-            <span className="text-sm text-gray-500 dark:text-gray-400">best</span>
+            <span className="text-sm text-content-tertiary">best</span>
           </div>
         </div>
       </div>
@@ -125,7 +125,7 @@ export const HabitStreakCalendar: React.FC<HabitStreakCalendarProps> = ({ habit 
           {monthLabels.map(({ month, weekIndex }) => (
             <div
               key={`${month}-${weekIndex}`}
-              className="text-xs text-gray-500 dark:text-gray-400"
+              className="text-xs text-content-tertiary"
               style={{
                 position: 'absolute',
                 left: `calc(32px + ${weekIndex * 14}px)`,
@@ -137,7 +137,7 @@ export const HabitStreakCalendar: React.FC<HabitStreakCalendarProps> = ({ habit 
         </div>
 
         <div className="flex gap-0.5 mt-5">
-          <div className="flex flex-col gap-0.5 text-xs text-gray-500 dark:text-gray-400 pr-2">
+          <div className="flex flex-col gap-0.5 text-xs text-content-tertiary pr-2">
             <span className="h-3">Mon</span>
             <span className="h-3"></span>
             <span className="h-3">Wed</span>
@@ -159,7 +159,7 @@ export const HabitStreakCalendar: React.FC<HabitStreakCalendarProps> = ({ habit 
                       key={dateStr}
                       className={clsx(
                         'w-3 h-3 rounded-sm cursor-pointer transition-transform hover:scale-125',
-                        intensity === 0 && 'bg-gray-100 dark:bg-gray-700'
+                        intensity === 0 && 'bg-surface-secondary'
                       )}
                       style={{
                         backgroundColor: intensity > 0 ? getIntensityColor(intensity) : undefined,
@@ -173,10 +173,10 @@ export const HabitStreakCalendar: React.FC<HabitStreakCalendarProps> = ({ habit 
           </div>
         </div>
 
-        <div className="flex items-center justify-end gap-1 mt-3 text-xs text-gray-500 dark:text-gray-400">
+        <div className="flex items-center justify-end gap-1 mt-3 text-xs text-content-tertiary">
           <span>Less</span>
           <div className="flex gap-0.5">
-            <div className="w-3 h-3 rounded-sm bg-gray-100 dark:bg-gray-700" />
+            <div className="w-3 h-3 rounded-sm bg-surface-secondary" />
             <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: `${habit.color}55` }} />
             <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: `${habit.color}99` }} />
             <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: `${habit.color}cc` }} />

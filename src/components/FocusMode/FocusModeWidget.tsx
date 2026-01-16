@@ -89,25 +89,25 @@ export function FocusModeWidget({ userId, linkedTaskId }: FocusModeWidgetProps) 
       <div
         className={clsx(
           'fixed bottom-4 right-4 z-40',
-          'bg-white dark:bg-gray-800',
-          'rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700',
+          'bg-surface-primary',
+          'rounded-2xl shadow-xl border border-border',
           'transition-all duration-300'
         )}
       >
         {isExpanded ? (
           <div className="relative w-80">
-            <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+            <div className="flex items-center justify-between p-4 border-b border-border">
               <div className="flex items-center gap-2">
                 <Timer className="w-5 h-5 text-blue-500" />
-                <span className="font-medium text-gray-900 dark:text-white">Focus Mode</span>
+                <span className="font-medium text-content-primary">Focus Mode</span>
               </div>
               <div className="flex items-center gap-1">
                 <button
                   onClick={() => setIsSettingsOpen(true)}
                   className={clsx(
                     'p-2 rounded-lg transition-colors',
-                    'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200',
-                    'hover:bg-gray-100 dark:hover:bg-gray-700'
+                    'text-content-tertiary hover:text-content-secondary',
+                    'hover:bg-surface-tertiary'
                   )}
                   aria-label="Settings"
                 >
@@ -117,8 +117,8 @@ export function FocusModeWidget({ userId, linkedTaskId }: FocusModeWidgetProps) 
                   onClick={() => setIsExpanded(false)}
                   className={clsx(
                     'p-2 rounded-lg transition-colors',
-                    'text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200',
-                    'hover:bg-gray-100 dark:hover:bg-gray-700'
+                    'text-content-tertiary hover:text-content-secondary',
+                    'hover:bg-surface-tertiary'
                   )}
                   aria-label="Collapse"
                 >
@@ -145,14 +145,14 @@ export function FocusModeWidget({ userId, linkedTaskId }: FocusModeWidgetProps) 
             onClick={() => setIsExpanded(true)}
             className={clsx(
               'flex items-center gap-3 px-4 py-3',
-              'text-gray-900 dark:text-white',
-              'hover:bg-gray-50 dark:hover:bg-gray-750',
+              'text-content-primary',
+              'hover:bg-surface-tertiary',
               'transition-colors rounded-2xl'
             )}
             aria-label="Expand focus timer"
           >
             <Timer
-              className={clsx('w-5 h-5', isActive ? 'text-blue-500' : 'text-gray-500')}
+              className={clsx('w-5 h-5', isActive ? 'text-blue-500' : 'text-content-tertiary')}
             />
             <span
               className={clsx(
@@ -162,7 +162,7 @@ export function FocusModeWidget({ userId, linkedTaskId }: FocusModeWidgetProps) 
             >
               {formattedTime}
             </span>
-            <ChevronUp className="w-4 h-4 text-gray-400" />
+            <ChevronUp className="w-4 h-4 text-content-tertiary" />
           </button>
         )}
       </div>

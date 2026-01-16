@@ -35,8 +35,8 @@ const quadrants: QuadrantInfo[] = [
     id: 'eliminate',
     title: 'Eliminate',
     subtitle: 'Not Urgent & Not Important',
-    color: 'text-gray-600',
-    bgColor: 'bg-gray-100',
+    color: 'text-content-secondary',
+    bgColor: 'bg-surface-tertiary',
   },
 ]
 
@@ -52,7 +52,7 @@ export const MatrixLegend: React.FC<MatrixLegendProps> = ({ className }) => {
           <div className={cn('w-3 h-3 rounded', q.bgColor)} />
           <div>
             <span className={cn('text-sm font-medium', q.color)}>{q.title}</span>
-            <span className="text-xs text-gray-500 ml-1">({q.subtitle})</span>
+            <span className="text-xs text-content-tertiary ml-1">({q.subtitle})</span>
           </div>
         </div>
       ))}

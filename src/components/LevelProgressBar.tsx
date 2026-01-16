@@ -45,7 +45,7 @@ export const LevelProgressBar: React.FC<LevelProgressBarProps> = ({ className, c
   const progressPercentage = (karmaInCurrentLevel / karmaNeededForNextLevel) * 100
 
   const levelColors: Record<string, string> = {
-    beginner: 'bg-gray-400',
+    beginner: 'bg-surface-tertiary',
     novice: 'bg-blue-400',
     intermediate: 'bg-cyan-400',
     advanced: 'bg-green-400',

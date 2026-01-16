@@ -127,7 +127,7 @@ export function GroupedTaskList({
           {/* Group Header */}
           <button
             onClick={() => toggleGroupCollapsed(group.key)}
-            className="w-full px-6 py-3 flex items-center gap-2 bg-surface-tertiary hover:bg-gray-150 transition-colors sticky top-0 z-5"
+            className="w-full px-6 py-3 flex items-center gap-2 bg-surface-tertiary hover:bg-surface-secondary transition-colors sticky top-0 z-5"
           >
             {collapsedGroups.has(group.key) ? (
               <ChevronRight size={16} className="text-content-secondary" />

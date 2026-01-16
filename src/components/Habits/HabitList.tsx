@@ -48,7 +48,7 @@ export const HabitList: React.FC<HabitListProps> = ({ habits, onSelectHabit }) =
               'px-3 py-1.5 text-sm font-medium rounded-lg transition-colors',
               filter === key
                 ? 'bg-brand-100 dark:bg-brand-900 text-brand-700 dark:text-brand-300'
-                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+                : 'text-content-secondary hover:bg-surface-tertiary'
             )}
           >
             {label}
@@ -58,7 +58,7 @@ export const HabitList: React.FC<HabitListProps> = ({ habits, onSelectHabit }) =
 
       <div className="space-y-2">
         {sortedHabits.length === 0 ? (
-          <div className="text-center py-8 text-gray-500 dark:text-gray-400">
+          <div className="text-center py-8 text-content-tertiary">
             {filter === 'archived'
               ? 'No archived habits'
               : filter === 'active'

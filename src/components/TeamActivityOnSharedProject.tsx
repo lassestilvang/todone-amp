@@ -103,14 +103,12 @@ export function TeamActivityOnSharedProject({
 
                   {/* Show role for permission changes */}
                   {activity.action === 'permissionChanged' && activity.newValue && typeof activity.newValue === 'string' ? (
-                    <div className="mt-2 flex items-center gap-2">
-                      <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
-                        Role:
-                      </span>
-                      <span className="rounded bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-900 dark:text-blue-300">
-                        {activity.newValue.toUpperCase()}
-                      </span>
-                    </div>
+                  <div className="mt-2 flex items-center gap-2">
+                  <span className="text-xs font-medium text-content-secondary">Role:</span>
+                  <span className="rounded bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-900 dark:text-blue-300">
+                    {activity.newValue.toUpperCase()}
+                  </span>
+                  </div>
                   ) : null}
                 </div>
               </div>

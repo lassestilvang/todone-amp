@@ -227,7 +227,7 @@ function MonthView({ currentDate, tasksByDate, onTaskClick }: MonthViewProps) {
                             'bg-red-100 text-red-800': task.priority === 'p1',
                             'bg-orange-100 text-orange-800': task.priority === 'p2',
                             'bg-blue-100 text-blue-800': task.priority === 'p3',
-                            'bg-gray-100 text-gray-800': !task.priority || task.priority === 'p4',
+                            'bg-surface-tertiary text-content-primary': !task.priority || task.priority === 'p4',
                           }
                         )}
                         title={task.content}
@@ -355,7 +355,7 @@ function WeekView({ currentDate, tasksByDate, onTaskClick }: WeekViewProps) {
                                 'bg-red-100 text-red-800': task.priority === 'p1',
                                 'bg-orange-100 text-orange-800': task.priority === 'p2',
                                 'bg-blue-100 text-blue-800': task.priority === 'p3',
-                                'bg-gray-100 text-gray-800': !task.priority || task.priority === 'p4',
+                                'bg-surface-tertiary text-content-primary': !task.priority || task.priority === 'p4',
                               }
                             )}
                             title={task.content}

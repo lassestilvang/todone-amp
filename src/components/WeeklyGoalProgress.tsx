@@ -143,7 +143,7 @@ export const WeeklyGoalProgress: React.FC<WeeklyGoalProgressProps> = ({ classNam
                   'h-10 w-full rounded-md flex items-center justify-center text-xs font-semibold transition-all',
                   dayProgress.completed > 0
                     ? 'bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-200'
-                    : 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400'
+                    : 'bg-surface-tertiary text-content-tertiary'
                 )}
               >
                 {dayProgress.completed}

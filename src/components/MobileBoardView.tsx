@@ -36,13 +36,13 @@ export const MobileBoardView: React.FC<MobileBoardViewProps> = ({
           return !t.completed
         })
         .sort((a, b) => (a.order || 0) - (b.order || 0)),
-      color: 'bg-gray-50 dark:bg-gray-800',
+      color: 'bg-surface-secondary',
     },
     {
       id: 'in-progress',
       name: 'In Progress',
       tasks: [], // Can be populated if you add status field to tasks
-      color: 'bg-blue-50 dark:bg-blue-900',
+      color: 'bg-blue-50 dark:bg-blue-900/30',
     },
     {
       id: 'done',
@@ -55,7 +55,7 @@ export const MobileBoardView: React.FC<MobileBoardViewProps> = ({
         })
         .sort((a, b) => (b.completedAt?.getTime() || 0) - (a.completedAt?.getTime() || 0))
         .slice(0, 10), // Show only recent completed tasks
-      color: 'bg-green-50 dark:bg-green-900',
+      color: 'bg-green-50 dark:bg-green-900/30',
     },
   ], [tasks, projectId, sectionId])
 
@@ -96,20 +96,20 @@ export const MobileBoardView: React.FC<MobileBoardViewProps> = ({
       {canScrollLeft && (
         <button
           onClick={() => scroll('left')}
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-gradient-to-r from-white dark:from-gray-900 to-transparent"
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-gradient-to-r from-surface-primary to-transparent"
           aria-label="Scroll left"
         >
-          <ChevronLeft className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+          <ChevronLeft className="w-5 h-5 text-content-secondary" />
         </button>
       )}
 
       {canScrollRight && (
         <button
           onClick={() => scroll('right')}
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-gradient-to-l from-white dark:from-gray-900 to-transparent"
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-gradient-to-l from-surface-primary to-transparent"
           aria-label="Scroll right"
         >
-          <ChevronRight className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+          <ChevronRight className="w-5 h-5 text-content-secondary" />
         </button>
       )}
 

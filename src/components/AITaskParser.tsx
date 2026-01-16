@@ -82,7 +82,7 @@ function getPriorityColor(priority: string): string {
     case 'p3':
       return 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-800'
     case 'p4':
-      return 'bg-gray-100 text-gray-800 border-gray-200 dark:bg-gray-800/50 dark:text-gray-300 dark:border-gray-700'
+      return 'bg-surface-tertiary text-content-primary border-border'
     default:
       return FIELD_CONFIG.priority.colorClass
   }
@@ -192,7 +192,7 @@ export function AITaskParser({
                 <button
                   type="button"
                   onClick={() => onFieldRemove(field.field)}
-                  className="ml-0.5 p-0.5 rounded-full hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
+                  className="ml-0.5 p-0.5 rounded-full hover:bg-surface-tertiary transition-colors"
                   aria-label={`Remove ${config.label}`}
                 >
                   <X size={10} />

@@ -109,7 +109,7 @@ export const BadgesDisplay: React.FC<BadgesDisplayProps> = ({
             {badge.name}
           </div>
           {showTooltip && (
-            <div className="absolute left-0 right-0 top-full mt-1 bg-gray-900 text-white text-xs rounded p-2 hidden group-hover:block z-10 whitespace-normal pointer-events-none">
+            <div className="absolute left-0 right-0 top-full mt-1 bg-surface-inverse text-content-inverse text-xs rounded p-2 hidden group-hover:block z-10 whitespace-normal pointer-events-none">
               {badge.description}
             </div>
           )}

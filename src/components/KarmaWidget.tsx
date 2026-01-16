@@ -5,7 +5,7 @@ import clsx from 'clsx'
 import type { KarmaLevel } from '@/types'
 
 const LEVEL_COLORS = {
-  beginner: 'text-gray-500',
+  beginner: 'text-content-tertiary',
   novice: 'text-blue-500',
   intermediate: 'text-green-500',
   advanced: 'text-purple-500',

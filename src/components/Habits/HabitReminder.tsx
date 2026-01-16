@@ -19,24 +19,24 @@ export const HabitReminder: React.FC<HabitReminderProps> = ({ reminderTime, onCh
   }
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+    <div className="bg-surface-primary rounded-lg p-4 border border-border">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
           <div
             className={clsx(
               'p-2 rounded-lg',
-              isEnabled ? 'bg-brand-100 dark:bg-brand-900' : 'bg-gray-100 dark:bg-gray-700'
+              isEnabled ? 'bg-brand-100 dark:bg-brand-900' : 'bg-surface-secondary'
             )}
           >
             {isEnabled ? (
               <Bell className="w-5 h-5 text-brand-600 dark:text-brand-400" />
             ) : (
-              <BellOff className="w-5 h-5 text-gray-400" />
+              <BellOff className="w-5 h-5 text-content-tertiary" />
             )}
           </div>
           <div>
-            <h4 className="font-medium text-gray-900 dark:text-white">Daily Reminder</h4>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
+            <h4 className="font-medium text-content-primary">Daily Reminder</h4>
+            <p className="text-sm text-content-tertiary">
               {isEnabled ? `Reminder set for ${formatTime(reminderTime)}` : 'No reminder set'}
             </p>
           </div>
@@ -46,7 +46,7 @@ export const HabitReminder: React.FC<HabitReminderProps> = ({ reminderTime, onCh
           onClick={handleToggle}
           className={clsx(
             'relative inline-flex h-6 w-11 items-center rounded-full transition-colors',
-            isEnabled ? 'bg-brand-600' : 'bg-gray-200 dark:bg-gray-600'
+            isEnabled ? 'bg-brand-600' : 'bg-surface-tertiary'
           )}
         >
           <span
@@ -59,15 +59,15 @@ export const HabitReminder: React.FC<HabitReminderProps> = ({ reminderTime, onCh
       </div>
 
       {isEnabled && (
-        <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+        <div className="mt-4 pt-4 border-t border-border">
+          <label className="block text-sm font-medium text-content-secondary mb-2">
             Reminder Time
           </label>
           <input
             type="time"
             value={reminderTime}
             onChange={(e) => onChange(e.target.value)}
-            className="px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+            className="px-3 py-2 border border-border rounded-lg bg-surface-primary text-content-primary focus:ring-2 focus:ring-focus focus:border-transparent"
           />
         </div>
       )}

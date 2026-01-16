@@ -81,7 +81,7 @@ export const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
             fill="transparent"
             stroke="currentColor"
             strokeWidth={strokeWidth}
-            className="text-gray-200 dark:text-gray-700"
+            className="text-interactive-secondary"
           />
           <circle
             cx={radius}
@@ -97,7 +97,7 @@ export const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
         </svg>
 
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <span className="text-4xl font-bold text-gray-900 dark:text-white">{formattedTime}</span>
+          <span className="text-4xl font-bold text-content-primary">{formattedTime}</span>
           <span className={clsx('text-sm font-medium mt-1', colors.text)}>{label}</span>
         </div>
       </div>
@@ -121,9 +121,8 @@ export const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
             onClick={stopFocus}
             className={clsx(
               'p-4 rounded-full transition-colors',
-              'bg-gray-200 hover:bg-gray-300 text-gray-700',
-              'dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-200',
-              'focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2',
+              'bg-interactive-secondary hover:bg-surface-tertiary text-content-secondary',
+              'focus:outline-none focus:ring-2 focus:ring-focus focus:ring-offset-2',
               'dark:focus:ring-offset-gray-900'
             )}
             aria-label="Stop"
@@ -133,7 +132,7 @@ export const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
         )}
       </div>
 
-      <div className="text-sm text-gray-600 dark:text-gray-400">
+      <div className="text-sm text-content-secondary">
         <span className="font-medium">{sessionCount}</span>
         <span>/4 sessions</span>
       </div>

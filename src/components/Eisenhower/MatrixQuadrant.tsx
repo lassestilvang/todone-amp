@@ -43,9 +43,9 @@ const quadrantConfigs: Record<QuadrantType, QuadrantConfig> = {
   eliminate: {
     title: 'Eliminate',
     subtitle: 'Not Urgent & Not Important',
-    headerBg: 'bg-gray-100',
-    headerText: 'text-gray-600',
-    borderColor: 'border-gray-200',
+    headerBg: 'bg-surface-tertiary',
+    headerText: 'text-content-secondary',
+    borderColor: 'border-border',
     emptyMessage: 'No low-priority tasks',
   },
 }
@@ -83,13 +83,13 @@ export const MatrixQuadrant: React.FC<MatrixQuadrantProps> = ({
     >
       <div className={cn('px-4 py-3 border-b', config.headerBg, config.borderColor)}>
         <h3 className={cn('font-semibold', config.headerText)}>{config.title}</h3>
-        <p className="text-xs text-gray-500">{config.subtitle}</p>
-        <span className="text-xs font-medium text-gray-600 mt-1 block">
+        <p className="text-xs text-content-tertiary">{config.subtitle}</p>
+        <span className="text-xs font-medium text-content-secondary mt-1 block">
           {tasks.length} task{tasks.length !== 1 ? 's' : ''}
         </span>
       </div>
 
-      <div className="flex-1 p-3 space-y-2 overflow-y-auto bg-gray-50/50">
+      <div className="flex-1 p-3 space-y-2 overflow-y-auto bg-surface-secondary/50">
         <SortableContext items={tasks.map((t) => t.id)} strategy={verticalListSortingStrategy}>
           {tasks.length > 0 ? (
             tasks.map((task) => (
@@ -102,7 +102,7 @@ export const MatrixQuadrant: React.FC<MatrixQuadrantProps> = ({
               />
             ))
           ) : (
-            <p className="text-sm text-gray-400 text-center py-8">{config.emptyMessage}</p>
+            <p className="text-sm text-content-tertiary text-center py-8">{config.emptyMessage}</p>
           )}
         </SortableContext>
       </div>

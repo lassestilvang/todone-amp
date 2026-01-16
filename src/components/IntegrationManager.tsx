@@ -138,7 +138,7 @@ export const IntegrationManager: React.FC = () => {
                       <input
                         type="checkbox"
                         defaultChecked
-                        className="h-4 w-4 rounded border-gray-300 text-brand-500"
+                        className="h-4 w-4 rounded border-border text-brand-500"
                       />
                       <span className="text-sm text-content-secondary">Auto-create tasks from emails</span>
                     </label>
@@ -146,7 +146,7 @@ export const IntegrationManager: React.FC = () => {
                       <input
                         type="checkbox"
                         defaultChecked
-                        className="h-4 w-4 rounded border-gray-300 text-brand-500"
+                        className="h-4 w-4 rounded border-border text-brand-500"
                       />
                       <span className="text-sm text-content-secondary">Extract due dates</span>
                     </label>
@@ -154,7 +154,7 @@ export const IntegrationManager: React.FC = () => {
                       <input
                         type="checkbox"
                         defaultChecked
-                        className="h-4 w-4 rounded border-gray-300 text-brand-500"
+                        className="h-4 w-4 rounded border-border text-brand-500"
                       />
                       <span className="text-sm text-content-secondary">Extract attachments</span>
                     </label>

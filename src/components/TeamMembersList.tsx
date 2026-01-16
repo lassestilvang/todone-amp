@@ -104,8 +104,8 @@ export function TeamMembersList({
                           handleRoleChange(member.id, e.target.value as TeamRole)
                         }
                         className={cn(
-                          'px-2 py-1 text-sm border border-gray-300 rounded',
-                          'focus:outline-none focus:ring-2 focus:ring-brand-500'
+                          'px-2 py-1 text-sm border border-border rounded bg-surface-primary text-content-primary',
+                          'focus:outline-none focus:ring-2 focus:ring-focus'
                         )}
                       >
                         {roleOptions.map((role) => (
@@ -129,7 +129,7 @@ export function TeamMembersList({
 
                     <button
                       onClick={() => handleRemove(member.id)}
-                      className="p-1 text-red-600 hover:bg-red-50 rounded transition-colors"
+                      className="p-1 text-semantic-error hover:bg-red-50 dark:hover:bg-red-900/30 rounded transition-colors"
                       title="Remove member"
                     >
                       <Trash2 size={16} />

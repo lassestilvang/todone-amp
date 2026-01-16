@@ -72,49 +72,49 @@ export const FocusSessionHistory: React.FC<FocusSessionHistoryProps> = ({ userId
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-        <div className="rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
-          <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+        <div className="rounded-lg bg-surface-secondary p-4">
+          <div className="flex items-center gap-2 text-content-secondary">
             <Target className="h-4 w-4" />
             <span className="text-sm">Total Sessions</span>
           </div>
-          <p className="mt-1 text-2xl font-bold text-gray-900 dark:text-white">
+          <p className="mt-1 text-2xl font-bold text-content-primary">
             {stats.totalSessions}
           </p>
         </div>
 
-        <div className="rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
-          <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+        <div className="rounded-lg bg-surface-secondary p-4">
+          <div className="flex items-center gap-2 text-content-secondary">
             <Clock className="h-4 w-4" />
             <span className="text-sm">Focus Time</span>
           </div>
-          <p className="mt-1 text-2xl font-bold text-gray-900 dark:text-white">
+          <p className="mt-1 text-2xl font-bold text-content-primary">
             {formatDuration(stats.totalFocusTime)}
           </p>
         </div>
 
-        <div className="rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
-          <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+        <div className="rounded-lg bg-surface-secondary p-4">
+          <div className="flex items-center gap-2 text-content-secondary">
             <AlertCircle className="h-4 w-4" />
             <span className="text-sm">Interruptions</span>
           </div>
-          <p className="mt-1 text-2xl font-bold text-gray-900 dark:text-white">
+          <p className="mt-1 text-2xl font-bold text-content-primary">
             {stats.totalInterruptions}
           </p>
         </div>
 
-        <div className="rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
-          <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+        <div className="rounded-lg bg-surface-secondary p-4">
+          <div className="flex items-center gap-2 text-content-secondary">
             <Calendar className="h-4 w-4" />
             <span className="text-sm">Current Streak</span>
           </div>
-          <p className="mt-1 text-2xl font-bold text-gray-900 dark:text-white">
+          <p className="mt-1 text-2xl font-bold text-content-primary">
             {stats.currentStreak} {stats.currentStreak === 1 ? 'day' : 'days'}
           </p>
         </div>
       </div>
 
-      <div className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
-        <h3 className="mb-4 text-sm font-medium text-gray-900 dark:text-white">Last 7 Days</h3>
+      <div className="rounded-lg border border-border bg-surface-primary p-4">
+        <h3 className="mb-4 text-sm font-medium text-content-primary">Last 7 Days</h3>
         <div className="flex items-end gap-2 h-32">
           {dailyStats.map((day) => {
             const height = (day.focusMinutes / maxFocusMinutes) * 100
@@ -127,27 +127,27 @@ export const FocusSessionHistory: React.FC<FocusSessionHistoryProps> = ({ userId
                       'w-full max-w-8 rounded-t transition-all',
                       day.focusMinutes > 0
                         ? 'bg-blue-500 dark:bg-blue-400'
-                        : 'bg-gray-200 dark:bg-gray-700'
+                        : 'bg-interactive-secondary'
                     )}
                     style={{ height: `${Math.max(height, 4)}%` }}
                     title={`${day.focusMinutes}m focus`}
                   />
                 </div>
-                <span className="text-xs text-gray-500 dark:text-gray-400">{dayLabel}</span>
+                <span className="text-xs text-content-tertiary">{dayLabel}</span>
               </div>
             )
           })}
         </div>
       </div>
 
-      <div className="rounded-lg border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
-        <h3 className="border-b border-gray-200 px-4 py-3 text-sm font-medium text-gray-900 dark:border-gray-700 dark:text-white">
+      <div className="rounded-lg border border-border bg-surface-primary">
+        <h3 className="border-b border-border px-4 py-3 text-sm font-medium text-content-primary">
           Recent Sessions
         </h3>
         {sessions.length === 0 ? (
-          <p className="p-4 text-sm text-gray-500 dark:text-gray-400">No sessions yet</p>
+          <p className="p-4 text-sm text-content-tertiary">No sessions yet</p>
         ) : (
-          <ul className="divide-y divide-gray-200 dark:divide-gray-700">
+          <ul className="divide-y divide-border">
             {sessions.slice(0, 10).map((session) => {
               const badge = SESSION_TYPE_BADGES[session.type] ?? SESSION_TYPE_BADGES.focus
               const taskName = getTaskName(session.taskId)
@@ -165,17 +165,17 @@ export const FocusSessionHistory: React.FC<FocusSessionHistoryProps> = ({ userId
                       >
                         {badge.label}
                       </span>
-                      <span className="text-sm text-gray-600 dark:text-gray-400">
+                      <span className="text-sm text-content-secondary">
                         {formatDate(session.startTime)} at {formatTime(session.startTime)}
                       </span>
                     </div>
                     {taskName && (
-                      <span className="truncate text-sm text-gray-900 dark:text-white">
+                      <span className="truncate text-sm text-content-primary">
                         {taskName}
                       </span>
                     )}
                   </div>
-                  <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+                  <div className="flex items-center gap-4 text-sm text-content-secondary">
                     <span className="whitespace-nowrap">{formatDuration(duration)}</span>
                     {session.type === 'focus' && session.interruptions > 0 && (
                       <span className="flex items-center gap-1 text-amber-600 dark:text-amber-400">

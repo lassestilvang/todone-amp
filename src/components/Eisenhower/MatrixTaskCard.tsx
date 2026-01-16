@@ -17,7 +17,7 @@ const priorityColors: Record<string, string> = {
   p1: 'border-l-red-500',
   p2: 'border-l-orange-500',
   p3: 'border-l-blue-500',
-  p4: 'border-l-gray-300',
+  p4: 'border-l-border',
 }
 
 export const MatrixTaskCard: React.FC<MatrixTaskCardProps> = ({
@@ -47,7 +47,7 @@ export const MatrixTaskCard: React.FC<MatrixTaskCardProps> = ({
       ref={setNodeRef}
       style={style}
       className={cn(
-        'group flex items-center gap-2 p-2 bg-white rounded border-l-4 shadow-sm',
+        'group flex items-center gap-2 p-2 bg-surface-primary rounded border-l-4 shadow-sm',
         'hover:shadow-md transition-shadow cursor-pointer',
         priorityColors[task.priority ?? 'p4'],
         isSelected && 'ring-2 ring-brand-500',
@@ -58,10 +58,10 @@ export const MatrixTaskCard: React.FC<MatrixTaskCardProps> = ({
       <button
         {...attributes}
         {...listeners}
-        className="opacity-0 group-hover:opacity-100 cursor-grab active:cursor-grabbing p-1 hover:bg-gray-100 rounded transition-opacity"
+        className="opacity-0 group-hover:opacity-100 cursor-grab active:cursor-grabbing p-1 hover:bg-surface-tertiary rounded transition-opacity"
         onClick={(e) => e.stopPropagation()}
       >
-        <GripVertical className="w-3 h-3 text-gray-400" />
+        <GripVertical className="w-3 h-3 text-content-tertiary" />
       </button>
 
       <input
@@ -73,8 +73,8 @@ export const MatrixTaskCard: React.FC<MatrixTaskCardProps> = ({
         }}
         className={cn(
           'w-4 h-4 rounded border-2 cursor-pointer transition-all flex-shrink-0',
-          'focus:outline-none focus:ring-2 focus:ring-brand-500',
-          task.completed ? 'bg-brand-600 border-brand-600' : 'border-gray-300'
+          'focus:outline-none focus:ring-2 focus:ring-focus',
+          task.completed ? 'bg-brand-600 border-brand-600' : 'border-border'
         )}
       />
 
@@ -82,7 +82,7 @@ export const MatrixTaskCard: React.FC<MatrixTaskCardProps> = ({
         <p
           className={cn(
             'text-sm font-medium truncate',
-            task.completed && 'line-through text-gray-400'
+            task.completed && 'line-through text-content-tertiary'
           )}
         >
           {task.content}
@@ -93,7 +93,7 @@ export const MatrixTaskCard: React.FC<MatrixTaskCardProps> = ({
         <span
           className={cn(
             'text-xs font-medium whitespace-nowrap',
-            dueDateOverdue ? 'text-red-600' : 'text-gray-500'
+            dueDateOverdue ? 'text-semantic-error' : 'text-content-tertiary'
           )}
         >
           {formatDueDate(task.dueDate)}

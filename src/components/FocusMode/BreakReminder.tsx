@@ -39,7 +39,7 @@ export const BreakReminder: React.FC<BreakReminderProps> = ({
       <div
         className={clsx(
           'relative max-w-md w-full mx-4 p-6 rounded-2xl shadow-2xl',
-          'bg-white dark:bg-gray-800',
+          'bg-surface-primary',
           'animate-in zoom-in-95 duration-200'
         )}
       >
@@ -47,8 +47,8 @@ export const BreakReminder: React.FC<BreakReminderProps> = ({
           onClick={onDismiss}
           className={clsx(
             'absolute top-4 right-4 p-1 rounded-full',
-            'text-gray-400 hover:text-gray-600 dark:hover:text-gray-300',
-            'hover:bg-gray-100 dark:hover:bg-gray-700',
+            'text-content-tertiary hover:text-content-secondary',
+            'hover:bg-surface-tertiary',
             'transition-colors'
           )}
           aria-label="Close"
@@ -69,16 +69,16 @@ export const BreakReminder: React.FC<BreakReminderProps> = ({
 
           <h2
             id="break-reminder-title"
-            className="text-2xl font-bold text-gray-900 dark:text-white mb-2"
+            className="text-2xl font-bold text-content-primary mb-2"
           >
             Time for a break!
           </h2>
 
-          <p className="text-gray-600 dark:text-gray-300 mb-2">
+          <p className="text-content-secondary mb-2">
             Great work! You've completed your focus session. 🎉
           </p>
 
-          <p className="text-sm text-gray-500 dark:text-gray-400 mb-6">
+          <p className="text-sm text-content-tertiary mb-6">
             Take a {breakDuration}-minute {breakType === 'short-break' ? 'short' : 'long'} break to
             recharge.
           </p>
@@ -103,9 +103,9 @@ export const BreakReminder: React.FC<BreakReminderProps> = ({
               onClick={onSkip}
               className={clsx(
                 'w-full py-2 px-4 rounded-lg',
-                'text-gray-600 dark:text-gray-400',
-                'hover:text-gray-800 dark:hover:text-gray-200',
-                'hover:bg-gray-100 dark:hover:bg-gray-700',
+                'text-content-secondary',
+                'hover:text-content-primary',
+                'hover:bg-surface-tertiary',
                 'font-medium',
                 'transition-colors'
               )}

@@ -16,9 +16,9 @@ interface AccessibilityAuditorProps {
 const IssueIcon: React.FC<{ level: 'error' | 'warning' | 'info' }> = ({ level }) => {
   switch (level) {
     case 'error':
-      return <XCircle className="w-5 h-5 text-red-600" />;
+      return <XCircle className="w-5 h-5 text-semantic-error" />;
     case 'warning':
-      return <AlertCircle className="w-5 h-5 text-yellow-600" />;
+      return <AlertCircle className="w-5 h-5 text-semantic-warning" />;
     case 'info':
       return <Info className="w-5 h-5 text-blue-600" />;
   }
@@ -49,7 +49,7 @@ const IssueCard: React.FC<{
                   <strong>WCAG:</strong> {issue.wcagCriteria}
                 </p>
               )}
-              <p className="text-xs bg-white/50 p-2 rounded border-l-2 border-gray-300">
+              <p className="text-xs bg-white/50 p-2 rounded border-l-2 border-border">
                 <strong>Fix:</strong> {issue.suggestion}
               </p>
             </>

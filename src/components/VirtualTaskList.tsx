@@ -122,7 +122,7 @@ export const VirtualTaskList: React.FC<VirtualTaskListProps> = ({
       {/* Performance indicator (debug) */}
       {process.env.NODE_ENV === 'development' && (
         <div
-          className="fixed bottom-4 right-4 bg-gray-800 text-white text-xs px-3 py-2 rounded opacity-50 pointer-events-none"
+          className="fixed bottom-4 right-4 bg-surface-tertiary text-content-secondary text-xs px-3 py-2 rounded opacity-50 pointer-events-none"
           aria-hidden="true"
         >
           Rendering {visibleTasks.length} of {tasks.length}

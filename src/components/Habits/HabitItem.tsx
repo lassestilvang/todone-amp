@@ -41,7 +41,7 @@ export const HabitItem: React.FC<HabitItemProps> = ({ habit, onClick }) => {
       onClick={onClick}
       className={clsx(
         'flex items-center gap-3 p-4 rounded-lg border cursor-pointer transition-all hover:shadow-md',
-        'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700',
+        'bg-surface-primary border-border',
         !isDueToday && 'opacity-60'
       )}
     >
@@ -54,7 +54,7 @@ export const HabitItem: React.FC<HabitItemProps> = ({ habit, onClick }) => {
 
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
-          <h3 className="font-medium text-gray-900 dark:text-white truncate">{habit.name}</h3>
+          <h3 className="font-medium text-content-primary truncate">{habit.name}</h3>
           {streak > 0 && (
             <span className="flex items-center gap-1 text-sm text-orange-500">
               <Flame className="w-4 h-4" />
@@ -63,17 +63,17 @@ export const HabitItem: React.FC<HabitItemProps> = ({ habit, onClick }) => {
           )}
         </div>
         {habit.description && (
-          <p className="text-sm text-gray-500 dark:text-gray-400 truncate">{habit.description}</p>
+          <p className="text-sm text-content-tertiary truncate">{habit.description}</p>
         )}
         {!isDueToday && (
-          <p className="text-xs text-gray-400 dark:text-gray-500">Not scheduled for today</p>
+          <p className="text-xs text-content-tertiary">Not scheduled for today</p>
         )}
       </div>
 
       <div className="flex items-center gap-2">
         {habit.targetCount > 1 ? (
           <div className="flex items-center gap-2">
-            <span className="text-sm text-gray-600 dark:text-gray-300">
+            <span className="text-sm text-content-secondary">
               {completionCount}/{habit.targetCount}
             </span>
             <button
@@ -84,8 +84,8 @@ export const HabitItem: React.FC<HabitItemProps> = ({ habit, onClick }) => {
                 isCompleted
                   ? 'bg-green-500 text-white'
                   : isDueToday
-                    ? 'bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-300'
-                    : 'bg-gray-50 dark:bg-gray-800 text-gray-400 cursor-not-allowed'
+                    ? 'bg-surface-secondary hover:bg-surface-tertiary text-content-secondary'
+                    : 'bg-surface-secondary text-content-tertiary cursor-not-allowed'
               )}
             >
               {isCompleted ? <Check className="w-4 h-4" /> : '+'}
@@ -100,15 +100,15 @@ export const HabitItem: React.FC<HabitItemProps> = ({ habit, onClick }) => {
               isCompleted
                 ? 'bg-green-500 border-green-500 text-white'
                 : isDueToday
-                  ? 'border-gray-300 dark:border-gray-600 hover:border-brand-500 dark:hover:border-brand-400'
-                  : 'border-gray-200 dark:border-gray-700 cursor-not-allowed'
+                  ? 'border-border hover:border-brand-500'
+                  : 'border-border cursor-not-allowed'
             )}
           >
             {isCompleted && <Check className="w-4 h-4" />}
           </button>
         )}
 
-        <ChevronRight className="w-5 h-5 text-gray-400" />
+        <ChevronRight className="w-5 h-5 text-content-tertiary" />
       </div>
     </div>
   )

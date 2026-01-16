@@ -55,7 +55,7 @@ export const MobileInboxView: React.FC<MobileInboxViewProps> = ({
       case 'p3':
         return 'border-l-4 border-yellow-500 bg-yellow-50 dark:bg-yellow-900/20'
       default:
-        return 'border-l-4 border-gray-300 dark:border-gray-600'
+        return 'border-l-4 border-border'
     }
   }
 
@@ -75,7 +75,7 @@ export const MobileInboxView: React.FC<MobileInboxViewProps> = ({
       <div className="px-4 py-3 border-b border-border flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <span className="text-lg font-bold text-content-primary">Inbox</span>
-          <span className="text-xs bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-200 px-2 py-1 rounded-full font-medium">
+          <span className="text-xs bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200 px-2 py-1 rounded-full font-medium">
             {activeTasks.length}
           </span>
         </div>

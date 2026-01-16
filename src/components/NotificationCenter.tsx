@@ -132,9 +132,7 @@ export function NotificationCenter({ isOpen, onClose, className }: NotificationC
                 key={notification.id}
                 className={cn(
                   'flex items-start gap-3 border-b border-border p-4 transition-colors',
-                  !notification.read
-                    ? 'bg-blue-50 dark:bg-gray-800/50'
-                    : 'hover:bg-surface-tertiary'
+                  !notification.read ? 'bg-blue-50 dark:bg-blue-900/20' : 'hover:bg-surface-tertiary'
                 )}
               >
                 {/* Icon */}

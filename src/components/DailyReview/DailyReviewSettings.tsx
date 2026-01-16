@@ -158,7 +158,7 @@ export function DailyReviewSettings({ isOpen, onClose, userId }: DailyReviewSett
               )}
             </div>
 
-            <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
+            <div className="border-t border-border pt-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-surface-tertiary flex items-center justify-center">

@@ -14,10 +14,10 @@ const PRIORITY_COLORS: Record<string, string> = {
 }
 
 const PRIORITY_BG: Record<string, string> = {
-  p1: 'bg-red-50 dark:bg-red-900/20 border-red-200 dark:border-red-800',
-  p2: 'bg-orange-50 dark:bg-orange-900/20 border-orange-200 dark:border-orange-800',
-  p3: 'bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800',
-  p4: 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700',
+  p1: 'bg-priority-p1-subtle border-priority-p1-border',
+  p2: 'bg-priority-p2-subtle border-priority-p2-border',
+  p3: 'bg-priority-p3-subtle border-priority-p3-border',
+  p4: 'bg-surface-secondary border-border',
 }
 
 interface TodayTasksPreviewProps {
@@ -67,7 +67,7 @@ export function TodayTasksPreview({ onNext }: TodayTasksPreviewProps) {
     >
       {todayTasks.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-12 text-center">
-          <div className="w-16 h-16 mb-4 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+          <div className="w-16 h-16 mb-4 rounded-full bg-priority-p3-subtle flex items-center justify-center">
             <CheckCircle2 className="w-8 h-8 text-blue-500" />
           </div>
           <p className="text-content-tertiary">
