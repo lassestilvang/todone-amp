@@ -61,7 +61,7 @@ export const MobileQuickAddModal: React.FC<MobileQuickAddModalProps> = ({
       <div className="space-y-4 pb-4">
         {/* Task Content Input */}
         <div>
-          <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-semibold text-content-secondary mb-2">
             What do you want to do?
           </label>
           <textarea
@@ -71,16 +71,16 @@ export const MobileQuickAddModal: React.FC<MobileQuickAddModalProps> = ({
             className={cn(
               'w-full px-4 py-3 rounded-lg border-2 resize-none',
               'text-base focus:outline-none',
-              'bg-white dark:bg-gray-700',
-              'border-gray-300 dark:border-gray-600',
+              'bg-surface-primary',
+              'border-border',
               'focus:border-blue-500 dark:focus:border-blue-400',
-              'text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400',
+              'text-content-primary placeholder-content-tertiary',
               'h-24'
             )}
             autoFocus
           />
           {error && (
-            <div className="mt-2 flex items-start gap-2 text-sm text-red-600 dark:text-red-400">
+            <div className="mt-2 flex items-start gap-2 text-sm text-semantic-error">
               <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
               <span>{error}</span>
             </div>
@@ -89,7 +89,7 @@ export const MobileQuickAddModal: React.FC<MobileQuickAddModalProps> = ({
 
         {/* Priority Selection */}
         <div>
-          <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+          <label className="block text-sm font-semibold text-content-secondary mb-2">
             Priority
           </label>
           <div className="grid grid-cols-2 gap-2">
@@ -125,7 +125,7 @@ export const MobileQuickAddModal: React.FC<MobileQuickAddModalProps> = ({
 
         {/* Due Date Input */}
         <div>
-          <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2 flex items-center gap-2">
+          <label className="block text-sm font-semibold text-content-secondary mb-2 flex items-center gap-2">
             <Calendar className="w-4 h-4" />
             Due Date (Optional)
           </label>
@@ -136,10 +136,10 @@ export const MobileQuickAddModal: React.FC<MobileQuickAddModalProps> = ({
             className={cn(
               'w-full px-4 py-3 rounded-lg border-2',
               'text-base focus:outline-none',
-              'bg-white dark:bg-gray-700',
-              'border-gray-300 dark:border-gray-600',
+              'bg-surface-primary',
+              'border-border',
               'focus:border-blue-500 dark:focus:border-blue-400',
-              'text-gray-900 dark:text-white'
+              'text-content-primary'
             )}
           />
         </div>
@@ -151,8 +151,8 @@ export const MobileQuickAddModal: React.FC<MobileQuickAddModalProps> = ({
             disabled={isLoading}
             className={cn(
               'flex-1 py-3 rounded-lg font-medium transition-colors',
-              'bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white',
-              'hover:bg-gray-300 dark:hover:bg-gray-600',
+              'bg-interactive-secondary text-content-primary',
+              'hover:bg-surface-tertiary',
               'disabled:opacity-50 disabled:cursor-not-allowed'
             )}
           >

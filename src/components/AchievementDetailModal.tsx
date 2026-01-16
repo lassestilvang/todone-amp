@@ -35,12 +35,12 @@ export const AchievementDetailModal: React.FC<AchievementDetailModalProps> = ({
 
       {/* Modal */}
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-2xl max-w-md w-full">
+        <div className="bg-surface-primary rounded-lg shadow-2xl max-w-md w-full">
           {/* Header */}
-          <div className="relative px-6 py-8 text-center border-b border-gray-200 dark:border-gray-700">
+          <div className="relative px-6 py-8 text-center border-b border-border">
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+              className="absolute top-4 right-4 text-content-tertiary hover:text-content-secondary"
             >
               ✕
             </button>
@@ -60,14 +60,14 @@ export const AchievementDetailModal: React.FC<AchievementDetailModalProps> = ({
               {isUnlocked ? (
                 <Trophy className="w-5 h-5 text-amber-500" />
               ) : (
-                <Lock className="w-5 h-5 text-gray-400" />
+                <Lock className="w-5 h-5 text-content-tertiary" />
               )}
               <span
                 className={cn(
                   'text-sm font-semibold',
                   isUnlocked
                     ? 'text-amber-600 dark:text-amber-400'
-                    : 'text-gray-500 dark:text-gray-400'
+                    : 'text-content-tertiary'
                 )}
               >
                 {isUnlocked ? 'Unlocked' : 'Locked'}
@@ -79,14 +79,14 @@ export const AchievementDetailModal: React.FC<AchievementDetailModalProps> = ({
           <div className="px-6 py-6 space-y-4">
             {/* Title */}
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+              <h2 className="text-2xl font-bold text-content-primary">
                 {achievement.name}
               </h2>
             </div>
 
             {/* Description */}
             <div>
-              <p className="text-gray-600 dark:text-gray-300">{achievement.description}</p>
+              <p className="text-content-secondary">{achievement.description}</p>
             </div>
 
             {/* Reward */}
@@ -110,16 +110,16 @@ export const AchievementDetailModal: React.FC<AchievementDetailModalProps> = ({
             )}
 
             {/* Additional Details */}
-            <div className="pt-4 space-y-2 text-sm text-gray-600 dark:text-gray-400">
+            <div className="pt-4 space-y-2 text-sm text-content-secondary">
               <div className="flex justify-between">
                 <span>Difficulty:</span>
-                <span className="font-medium text-gray-900 dark:text-white">
+                <span className="font-medium text-content-primary">
                   {achievement.points > 300 ? 'Hard' : achievement.points > 100 ? 'Medium' : 'Easy'}
                 </span>
               </div>
               <div className="flex justify-between">
                 <span>Category:</span>
-                <span className="font-medium text-gray-900 dark:text-white">
+                <span className="font-medium text-content-primary">
                   {achievementId.includes('streak')
                     ? 'Streaks'
                     : achievementId.includes('task')
@@ -133,10 +133,10 @@ export const AchievementDetailModal: React.FC<AchievementDetailModalProps> = ({
           </div>
 
           {/* Footer */}
-          <div className="px-6 py-4 bg-gray-50 dark:bg-gray-700/50 rounded-b-lg flex gap-2">
+          <div className="px-6 py-4 bg-surface-secondary rounded-b-lg flex gap-2">
             <button
               onClick={onClose}
-              className="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-600 text-gray-900 dark:text-white rounded-lg font-medium hover:bg-gray-300 dark:hover:bg-gray-500 transition-colors"
+              className="flex-1 px-4 py-2 bg-interactive-secondary text-content-primary rounded-lg font-medium hover:bg-surface-tertiary transition-colors"
             >
               Close
             </button>

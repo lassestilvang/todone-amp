@@ -26,16 +26,16 @@ export function SharedProjectsList({ className }: SharedProjectsListProps) {
   if (sharedWithMe.length === 0) {
     return (
       <div
-        className={cn('rounded border border-dashed border-gray-300 p-4 text-center', className)}
+        className={cn('rounded border border-dashed border-border p-4 text-center', className)}
       >
-        <p className="text-sm text-gray-500">No projects shared with you yet</p>
+        <p className="text-sm text-content-tertiary">No projects shared with you yet</p>
       </div>
     )
   }
 
   return (
     <div className={cn('space-y-2', className)}>
-      <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">Shared With Me</h3>
+      <h3 className="text-sm font-medium text-content-secondary">Shared With Me</h3>
       <div className="space-y-2">
         {sharedWithMe.map((project) => {
           if (!project) return null
@@ -45,20 +45,20 @@ export function SharedProjectsList({ className }: SharedProjectsListProps) {
           return (
             <div
               key={project.id}
-              className="flex items-center justify-between rounded border border-gray-200 p-3 dark:border-gray-700"
+              className="flex items-center justify-between rounded border border-border p-3"
             >
               <div className="flex items-center gap-3">
                 <div className="h-3 w-3 rounded-full" style={{ backgroundColor: project.color }} />
                 <div>
-                  <p className="font-medium text-gray-900 dark:text-white">{project.name}</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                  <p className="font-medium text-content-primary">{project.name}</p>
+                  <p className="text-xs text-content-tertiary">
                     {share?.role === 'owner' && 'Owner'}
                     {share?.role === 'admin' && 'Admin'}
                     {share?.role === 'member' && 'Member'}
                   </p>
                 </div>
               </div>
-              <div className="text-xs text-gray-400">
+              <div className="text-xs text-content-tertiary">
                 Shared at {new Date(project.createdAt).toLocaleDateString()}
               </div>
             </div>

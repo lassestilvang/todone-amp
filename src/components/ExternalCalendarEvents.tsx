@@ -28,14 +28,14 @@ interface ExternalCalendarEventsProps {
 const calendarColors = {
   google: 'bg-blue-50 border-blue-200 text-blue-900',
   outlook: 'bg-cyan-50 border-cyan-200 text-cyan-900',
-  apple: 'bg-gray-50 border-gray-200 text-gray-900',
+  apple: 'bg-surface-secondary border-border text-content-primary',
   other: 'bg-purple-50 border-purple-200 text-purple-900',
 };
 
 const calendarBadgeColors = {
   google: 'bg-blue-100 text-blue-800',
   outlook: 'bg-cyan-100 text-cyan-800',
-  apple: 'bg-gray-100 text-gray-800',
+  apple: 'bg-surface-tertiary text-content-primary',
   other: 'bg-purple-100 text-purple-800',
 };
 
@@ -111,19 +111,19 @@ const ExternalEventItem: React.FC<{
             </span>
           </div>
 
-          <div className="flex items-center gap-1 text-xs text-gray-600 mb-1">
+          <div className="flex items-center gap-1 text-xs text-content-secondary mb-1">
             <Clock className="w-3 h-3" />
             {timeString}
           </div>
 
           {event.location && (
-            <p className="text-xs text-gray-600 mb-1 truncate">
+            <p className="text-xs text-content-secondary mb-1 truncate">
               📍 {event.location}
             </p>
           )}
 
           {showDescription && event.description && (
-            <p className="text-xs text-gray-600 line-clamp-2">{event.description}</p>
+            <p className="text-xs text-content-secondary line-clamp-2">{event.description}</p>
           )}
         </div>
 
@@ -170,8 +170,8 @@ export const ExternalCalendarEvents: React.FC<ExternalCalendarEventsProps> = ({
   return (
     <div className={cn('space-y-2', className)}>
       <div className="flex items-center gap-2 px-1 mb-2">
-        <Calendar className="w-4 h-4 text-gray-600" />
-        <h3 className="text-sm font-semibold text-gray-700">
+        <Calendar className="w-4 h-4 text-content-secondary" />
+        <h3 className="text-sm font-semibold text-content-secondary">
           Calendar Events
           {filteredEvents.length > maxItems && ` (${maxItems}/${filteredEvents.length})`}
         </h3>

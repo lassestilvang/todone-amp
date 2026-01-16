@@ -86,8 +86,8 @@ export function TeamSettings({ teamId, className, onSave }: TeamSettingsProps) {
 
   return (
     <div className={cn('space-y-6', className)}>
-      <div className="bg-white rounded-lg border border-gray-200 p-6">
-        <h2 className="text-xl font-bold text-gray-900 mb-6">Team Settings</h2>
+      <div className="bg-surface-primary rounded-lg border border-border p-6">
+        <h2 className="text-xl font-bold text-content-primary mb-6">Team Settings</h2>
 
         <div className="space-y-6">
           {/* Team Avatar */}
@@ -123,7 +123,7 @@ export function TeamSettings({ teamId, className, onSave }: TeamSettingsProps) {
 
           {/* Team Name */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Team Name</label>
+            <label className="block text-sm font-medium text-content-secondary mb-2">Team Name</label>
             {isEditing ? (
               <Input
                 type="text"
@@ -133,13 +133,13 @@ export function TeamSettings({ teamId, className, onSave }: TeamSettingsProps) {
                 placeholder="Team name"
               />
             ) : (
-              <p className="text-gray-900 font-medium">{formData.name}</p>
+              <p className="text-content-primary font-medium">{formData.name}</p>
             )}
           </div>
 
           {/* Description */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+            <label className="block text-sm font-medium text-content-secondary mb-2">Description</label>
             {isEditing ? (
               <textarea
                 name="description"
@@ -148,27 +148,27 @@ export function TeamSettings({ teamId, className, onSave }: TeamSettingsProps) {
                 placeholder="Team description"
                 rows={3}
                 className={cn(
-                  'w-full px-3 py-2 border border-gray-300 rounded-lg',
+                  'w-full px-3 py-2 border border-border rounded-lg',
                   'focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent',
                   'resize-none'
                 )}
               />
             ) : (
-              <p className="text-gray-600">{formData.description || 'No description'}</p>
+              <p className="text-content-secondary">{formData.description || 'No description'}</p>
             )}
           </div>
 
           {/* Team Info */}
           <div className="grid grid-cols-2 gap-4 pt-4">
             <div>
-              <p className="text-xs font-medium text-gray-500 uppercase">Owner</p>
-              <p className="text-gray-900 font-medium">
+              <p className="text-xs font-medium text-content-tertiary uppercase">Owner</p>
+              <p className="text-content-primary font-medium">
                 {team.ownerId === user?.id ? 'You' : 'Team Owner'}
               </p>
             </div>
             <div>
-              <p className="text-xs font-medium text-gray-500 uppercase">Created</p>
-              <p className="text-gray-900 font-medium">
+              <p className="text-xs font-medium text-content-tertiary uppercase">Created</p>
+              <p className="text-content-primary font-medium">
                 {new Date(team.createdAt).toLocaleDateString()}
               </p>
             </div>
@@ -176,7 +176,7 @@ export function TeamSettings({ teamId, className, onSave }: TeamSettingsProps) {
 
           {/* Buttons */}
           {isOwner && (
-            <div className="flex gap-2 pt-4 border-t border-gray-200">
+            <div className="flex gap-2 pt-4 border-t border-border">
               {isEditing ? (
                 <>
                   <Button
@@ -215,9 +215,9 @@ export function TeamSettings({ teamId, className, onSave }: TeamSettingsProps) {
       {/* Delete Confirmation */}
       {showDeleteConfirm && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-          <div className="bg-white rounded-lg p-6 max-w-sm">
-            <h3 className="text-lg font-bold text-gray-900 mb-2">Delete Team?</h3>
-            <p className="text-gray-600 mb-6">
+          <div className="bg-surface-primary rounded-lg p-6 max-w-sm">
+            <h3 className="text-lg font-bold text-content-primary mb-2">Delete Team?</h3>
+            <p className="text-content-secondary mb-6">
               This action cannot be undone. All team data will be permanently deleted.
             </p>
             <div className="flex gap-2">

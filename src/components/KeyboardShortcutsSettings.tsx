@@ -263,19 +263,19 @@ export function KeyboardShortcutsSettings({ onClose }: KeyboardShortcutsSettings
   }
 
   return (
-    <div className="flex flex-col h-full bg-white rounded-lg shadow-lg">
+    <div className="flex flex-col h-full bg-surface-primary rounded-lg shadow-lg">
       {/* Header */}
-      <div className="flex items-center justify-between p-6 border-b border-gray-200">
+      <div className="flex items-center justify-between p-6 border-b border-border">
         <div className="flex items-center gap-3">
           <Keyboard className="w-6 h-6 text-brand-600" />
-          <h2 className="text-xl font-bold text-gray-900">Keyboard Shortcuts</h2>
+          <h2 className="text-xl font-bold text-content-primary">Keyboard Shortcuts</h2>
         </div>
         {onClose && (
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-2 hover:bg-surface-tertiary rounded-lg transition-colors"
           >
-            <X className="w-5 h-5 text-gray-600" />
+            <X className="w-5 h-5 text-content-secondary" />
           </button>
         )}
       </div>
@@ -297,11 +297,11 @@ export function KeyboardShortcutsSettings({ onClose }: KeyboardShortcutsSettings
               return (
                 <div
                   key={shortcut.id}
-                  className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200 hover:border-gray-300 transition-colors"
+                  className="flex items-center justify-between p-4 bg-surface-secondary rounded-lg border border-border hover:border-content-tertiary transition-colors"
                 >
                   <div className="flex-1">
-                    <p className="text-sm font-medium text-gray-900">{shortcut.description}</p>
-                    <p className="text-xs text-gray-500 mt-1">ID: {shortcut.id}</p>
+                    <p className="text-sm font-medium text-content-primary">{shortcut.description}</p>
+                    <p className="text-xs text-content-tertiary mt-1">ID: {shortcut.id}</p>
                   </div>
 
                   <button
@@ -311,7 +311,7 @@ export function KeyboardShortcutsSettings({ onClose }: KeyboardShortcutsSettings
                       'px-4 py-2 rounded-lg font-mono text-sm font-medium transition-all',
                       isRecording
                         ? 'bg-brand-600 text-white animate-pulse'
-                        : 'bg-white border border-gray-300 text-gray-900 hover:border-brand-300'
+                        : 'bg-surface-primary border border-border text-content-primary hover:border-brand-300'
                     )}
                   >
                     {isRecording ? 'Press key...' : formatShortcut(config)}
@@ -324,7 +324,7 @@ export function KeyboardShortcutsSettings({ onClose }: KeyboardShortcutsSettings
       </div>
 
       {/* Footer */}
-      <div className="border-t border-gray-200 p-6 flex items-center justify-between gap-3">
+      <div className="border-t border-border p-6 flex items-center justify-between gap-3">
         <Button variant="secondary" onClick={handleResetDefaults} icon={RotateCcw}>
           Reset to Defaults
         </Button>

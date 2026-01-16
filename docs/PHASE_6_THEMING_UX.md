@@ -38,9 +38,9 @@ This phase focuses on implementing a robust, accessible theming system with dark
 
 | ID | Task | Priority | Status |
 |----|------|----------|--------|
-| T6.1.1 | Create unified CSS custom property system for all color tokens | High | ⬜ |
-| T6.1.2 | Migrate hardcoded Tailwind colors to CSS variables | High | ⬜ |
-| T6.1.3 | Define semantic color tokens (e.g., `--color-surface`, `--color-on-surface`) | High | ⬜ |
+| T6.1.1 | Create unified CSS custom property system for all color tokens | High | ✅ |
+| T6.1.2 | Migrate hardcoded Tailwind colors to CSS variables | High | 🔄 |
+| T6.1.3 | Define semantic color tokens (e.g., `--color-surface`, `--color-on-surface`) | High | ✅ |
 | T6.1.4 | Create `ThemeProvider` component to wrap app initialization | Medium | ⬜ |
 | T6.1.5 | Add smooth transition animation for theme changes (150-200ms) | Medium | ⬜ |
 | T6.1.6 | Prevent flash of wrong theme on initial load (SSR/hydration) | High | ⬜ |
@@ -277,8 +277,269 @@ interface ThemeSwitcherProps {
 
 ---
 
+## Migration Progress Report
+
+### T6.1.2 - Semantic Token Migration Status
+
+**Infrastructure Created:**
+- ✅ `src/styles/tokens.css` - Complete semantic token system with light/dark mode support
+- ✅ `tailwind.config.js` - Extended with semantic color utilities (surface, content, border, interactive, semantic, sidebar, input, tooltip)
+
+**Components Migrated (~93 files):**
+- ✅ **UI Components**: Card, Button, Input, Dropdown, Tooltip (core reusable components)
+- ✅ **A-B Components**: AccessibilityAuditor, AchievementDetailModal, ActivityFeed, AIAssistance, AnalyticsDashboard, BoardView, BottomSheet, BulkActionsToolbar, etc. (23 files)
+- ✅ **C-D Components**: CalendarIntegration, CommentForm, ConflictResolver, DailyReview/*, DashboardLayout, DatePickerInput, etc. (~20 files)
+- ✅ **E-H Components**: EmailIntegration, EnhancedSearchBar, FilterPanel, FloatingActionButton, GroupedTaskList, etc. (12 files)
+- ✅ **I-L Components**: IntegrationManager, KarmaWidget, KeyboardShortcutsHelp, LabelManagement, Leaderboard, ListViewOptions, etc. (14 files)
+- ✅ **M-P Components**: MobileNav, NotificationCenter, PermissionManager, PersonalDashboard, ProductivityChart, ProjectSharing, etc. (20 files)
+- ✅ **Q-S Components**: QuickAddModal, RichTextEditor, Sidebar, SlackIntegration, StreakDisplay, SubTaskList, SyncStatus, etc. (25 files)
+- 🔄 **T-Z Components**: Partially migrated (TaskItem, TaskDetailPanel, TeamDashboard, TemplateGallery, etc.)
+
+**Remaining Work (~68 files with hardcoded colors):**
+- 49 files in `src/components/`
+- 10 files in `src/components/ui/`
+- 9 files in other `src/` folders (pages, views, etc.)
+
+**Test Updates Needed:**
+- 6 tests failing due to class name changes:
+  - `CalendarIntegration.test.tsx` - expects `border-gray-200`, `bg-white`
+  - `FloatingActionButton.test.tsx` - expects `text-red-600`, `bg-gray-800`
+  - `ProjectSharing.test.tsx` - expects `bg-white`
+  - `TaskItem.test.tsx` - expects `line-through text-gray-400`, `hover:bg-gray-50`
+
+**Token Mapping Reference:**
+| Old Class | New Semantic Class |
+|-----------|-------------------|
+| `bg-white` / `dark:bg-gray-800` | `bg-surface-primary` |
+| `bg-gray-50` / `dark:bg-gray-700` | `bg-surface-secondary` |
+| `bg-gray-100` | `bg-surface-tertiary` |
+| `text-gray-900` / `dark:text-white` | `text-content-primary` |
+| `text-gray-600/700` | `text-content-secondary` |
+| `text-gray-400/500` | `text-content-tertiary` |
+| `border-gray-200/300` / `dark:border-gray-700` | `border-border` |
+| `hover:bg-gray-100` | `hover:bg-surface-tertiary` |
+| `text-red-600` | `text-semantic-error` |
+| `text-green-600` | `text-semantic-success` |
+| `focus:ring-brand-500` | `focus:ring-focus` |
+
+---
+
+## Next Steps
+
+### Phase 1: Complete T6.1.2 Migration (Priority: Critical)
+
+#### Task NS-1: Migrate Remaining T-Z Components
+**Description:** Complete the semantic token migration for all components starting with T through Z. These were partially migrated but the subagent was interrupted.
+
+**Files to migrate (~25):**
+- `TaskItem.tsx`, `TaskList.tsx`, `TaskDetailPanel.tsx`, `TaskSuggestions.tsx`, `TaskAssignmentModal.tsx`, `TaskListSkeleton.tsx`
+- `TeamDashboard.tsx`, `TeamSettings.tsx`, `TeamAnalytics.tsx`, `TeamMembersList.tsx`, `TeamMemberProfile.tsx`, `TeamSelector.tsx`, `TeamActivityOnSharedProject.tsx`
+- `TemplateCard.tsx`, `TemplateForm.tsx`, `TemplateGallery.tsx`, `TemplatePreview.tsx`
+- `TimeBlockingView.tsx`, `TimePickerInput.tsx`
+- `TutorialTooltip.tsx`
+- `UndoNotification.tsx`, `UserProfile.tsx`
+- `ViewSwitcher.tsx`, `VirtualizedTaskList.tsx`, `VirtualTaskList.tsx`
+- `WeeklyGoalProgress.tsx`
+
+**Approach:** Apply the token mapping reference above. Replace `bg-white dark:bg-gray-800` patterns with single `bg-surface-primary` class. Remove redundant `dark:` variants where semantic tokens handle both modes.
+
+---
+
+#### Task NS-2: Migrate UI Component Library
+**Description:** Migrate remaining 10 files in `src/components/ui/` that still use hardcoded colors.
+
+**Files to audit:**
+- `Skeleton/Skeleton.tsx` and stories
+- `Badge/Badge.tsx`
+- `Modal/Modal.tsx`
+- `Toast/Toast.tsx`
+- `Switch/Switch.tsx`
+- `Checkbox/Checkbox.tsx`
+- `Select/Select.tsx`
+- `Tabs/Tabs.tsx`
+- `Progress/Progress.tsx`
+- `Avatar/Avatar.tsx`
+
+**Note:** UI components are highest priority as they're reused throughout the app. Changes here have the widest impact.
+
+---
+
+#### Task NS-3: Migrate Pages and Views
+**Description:** Migrate 9 remaining files in `src/pages/` and `src/views/` folders.
+
+**Files to check:**
+- `src/pages/` - Settings page, Auth pages, etc.
+- `src/views/` - Main view components
+- `src/index.css` - Base layer styles (already partially done)
+
+---
+
+#### Task NS-4: Fix Failing Tests
+**Description:** Update 6 test files that expect old hardcoded class names.
+
+| Test File | Changes Needed |
+|-----------|----------------|
+| `CalendarIntegration.test.tsx` | `border-gray-200` → `border-border`, `bg-white` → `bg-surface-primary` |
+| `FloatingActionButton.test.tsx` | `text-red-600` → `text-semantic-error`, `bg-gray-800` → `bg-surface-tertiary` or specific dark token |
+| `ProjectSharing.test.tsx` | `bg-white` → `bg-surface-primary` |
+| `TaskItem.test.tsx` | `text-gray-400` → `text-content-tertiary`, `hover:bg-gray-50` → `hover:bg-surface-tertiary` |
+
+**Note:** Tests should verify semantic behavior, not specific class names. Consider refactoring tests to check computed styles or data-testid attributes instead.
+
+---
+
+### Phase 2: Theme Infrastructure (Priority: High)
+
+#### Task NS-5: Create ThemeProvider Component (T6.1.4)
+**Description:** Create a React context provider that initializes theme on app mount, syncs with system preferences, and provides theme utilities to components.
+
+**Requirements:**
+- Wrap app in `main.tsx` or `App.tsx`
+- Call `useThemeStore().initialize()` on mount
+- Apply theme class to document root
+- Listen for system preference changes
+- Provide `useTheme()` hook for components
+
+**File:** `src/components/ThemeProvider.tsx`
+
+---
+
+#### Task NS-6: Prevent Theme Flash on Load (T6.1.6)
+**Description:** Add inline script in `index.html` to set theme class before React hydrates, preventing flash of wrong theme.
+
+**Implementation:**
+```html
+<script>
+  (function() {
+    const stored = localStorage.getItem('todone-theme');
+    const theme = stored ? JSON.parse(stored) : null;
+    const mode = theme?.state?.mode || 'system';
+    const isDark = mode === 'dark' || 
+      (mode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    document.documentElement.classList.toggle('dark', isDark);
+  })();
+</script>
+```
+
+---
+
+#### Task NS-7: Add Theme Transition Animation (T6.1.5)
+**Description:** Currently `src/index.css` has `* { @apply transition-colors duration-150; }` but this may cause performance issues. Optimize to only transition specific properties on theme-related elements.
+
+**Considerations:**
+- Use CSS custom property for transition duration
+- Consider `prefers-reduced-motion` for accessibility
+- Only apply to color/background properties, not all properties
+
+---
+
+### Phase 3: Theme Switcher UI (Priority: High)
+
+#### Task NS-8: Create ThemeSwitcher Component (T6.3.1)
+**Description:** Build a reusable theme toggle component with three modes: System, Light, Dark.
+
+**Variants:**
+- `icon` - Simple icon button that cycles through modes
+- `dropdown` - Dropdown menu with all options
+- `segmented` - Segmented control showing all three options
+
+**File:** `src/components/ThemeSwitcher.tsx`
+
+**Props:**
+```tsx
+interface ThemeSwitcherProps {
+  variant?: 'icon' | 'dropdown' | 'segmented'
+  size?: 'sm' | 'md' | 'lg'
+  showLabel?: boolean
+  className?: string
+}
+```
+
+---
+
+#### Task NS-9: Integrate Theme Switcher in Header (T6.3.2)
+**Description:** Add ThemeSwitcher to the main app header/navbar, positioned near user profile or settings.
+
+**Files to modify:**
+- `src/components/Sidebar.tsx` or equivalent header component
+- Position: Near top-right, before user avatar
+
+---
+
+#### Task NS-10: Add Theme Switcher to Mobile Nav (T6.3.3)
+**Description:** Add theme toggle to mobile navigation drawer/bottom sheet.
+
+**Files to modify:**
+- `src/components/MobileNav.tsx`
+- `src/components/MobileNavigation.tsx`
+- `src/components/BottomSheet.tsx` (if used for settings)
+
+---
+
+### Phase 4: Validation & Testing (Priority: Medium)
+
+#### Task NS-11: Run Full Test Suite
+**Description:** After completing migration, run all tests and fix any remaining failures.
+
+**Commands:**
+```bash
+npm run type-check
+npm run lint
+npm run test
+npm run build
+```
+
+**Acceptance criteria:** All tests pass, no lint errors, build succeeds.
+
+---
+
+#### Task NS-12: Visual Audit in Storybook
+**Description:** Review all components in Storybook in both light and dark modes.
+
+**Commands:**
+```bash
+npm run storybook
+```
+
+**Checklist:**
+- [ ] All text is readable in both modes
+- [ ] Borders are visible in both modes
+- [ ] Interactive states (hover, focus, active) work correctly
+- [ ] No color clashing or poor contrast
+
+---
+
+#### Task NS-13: Add E2E Theme Tests (T6.8.3)
+**Description:** Create Playwright tests for theme switching functionality.
+
+**Test cases:**
+- Theme persists after page reload
+- System preference is respected
+- Manual toggle overrides system preference
+- Theme applies to all components correctly
+
+**File:** `e2e/theme.spec.ts`
+
+---
+
+### Phase 5: Documentation (Priority: Low)
+
+#### Task NS-14: Document Theming Architecture (T6.9.1)
+**Description:** Add theming section to DOCS.md explaining the token system, how to use semantic classes, and how to add new themes.
+
+**Topics to cover:**
+- Token naming conventions
+- How CSS variables work with Tailwind
+- Adding new color themes
+- Testing theme changes
+
+---
+
 ## Changelog
 
 | Date | Change | Author |
 |------|--------|--------|
+| 2026-01-16 | T6.1.2: Migrated ~93 component files to semantic tokens; ~68 files remaining; 6 tests need updates | Amp |
+| 2026-01-15 | T6.1.2 in progress: Migrated core UI components (Card, Button, Input, Dropdown, Tooltip) to semantic tokens, updated related tests | Amp |
+| 2026-01-15 | Completed T6.1.1 & T6.1.3: Created `src/styles/tokens.css` with full semantic token system, updated Tailwind config to use CSS variables | Amp |
 | 2026-01-15 | Initial document creation | Amp |

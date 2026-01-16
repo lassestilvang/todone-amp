@@ -91,7 +91,7 @@ export const MobileBoardView: React.FC<MobileBoardViewProps> = ({
   }
 
   return (
-    <div className="relative w-full h-full overflow-hidden bg-white dark:bg-gray-900">
+    <div className="relative w-full h-full overflow-hidden bg-surface-primary">
       {/* Scroll Buttons */}
       {canScrollLeft && (
         <button
@@ -122,14 +122,14 @@ export const MobileBoardView: React.FC<MobileBoardViewProps> = ({
         {columns.map((column) => (
           <div
             key={column.id}
-            className={`flex-shrink-0 w-80 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden flex flex-col ${column.color}`}
+            className={`flex-shrink-0 w-80 rounded-lg border border-border overflow-hidden flex flex-col ${column.color}`}
           >
             {/* Column Header */}
-            <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
-              <h3 className="font-semibold text-gray-900 dark:text-white">
+            <div className="px-4 py-3 border-b border-border bg-surface-primary">
+              <h3 className="font-semibold text-content-primary">
                 {column.name}
               </h3>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+              <p className="text-xs text-content-tertiary mt-1">
                 {column.tasks.length} item{column.tasks.length !== 1 ? 's' : ''}
               </p>
             </div>
@@ -138,7 +138,7 @@ export const MobileBoardView: React.FC<MobileBoardViewProps> = ({
             <div className="flex-1 overflow-y-auto p-3 space-y-2 max-h-96">
               {column.tasks.length === 0 ? (
                 <div className="flex items-center justify-center h-32 text-center">
-                  <p className="text-sm text-gray-400 dark:text-gray-600">
+                  <p className="text-sm text-content-tertiary">
                     No tasks
                   </p>
                 </div>
@@ -146,9 +146,9 @@ export const MobileBoardView: React.FC<MobileBoardViewProps> = ({
                 column.tasks.map((task) => (
                   <div
                     key={task.id}
-                    className="p-3 bg-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600 shadow-sm hover:shadow-md transition-shadow"
+                    className="p-3 bg-surface-primary rounded-lg border border-border shadow-sm hover:shadow-md transition-shadow"
                   >
-                    <p className="text-sm font-medium text-gray-900 dark:text-white line-clamp-2">
+                    <p className="text-sm font-medium text-content-primary line-clamp-2">
                       {task.content}
                     </p>
                     {task.priority && (
@@ -159,7 +159,7 @@ export const MobileBoardView: React.FC<MobileBoardViewProps> = ({
                       </div>
                     )}
                     {task.dueDate && (
-                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                      <p className="text-xs text-content-tertiary mt-2">
                         Due: {new Date(task.dueDate).toLocaleDateString()}
                       </p>
                     )}

@@ -43,7 +43,7 @@ export function CollaborationIndicators({
       {/* Viewing indicator */}
       {viewingUsers.length > 0 && (
         <div className="mb-2">
-          <p className="text-xs font-medium text-gray-600 dark:text-gray-400">Currently viewing:</p>
+          <p className="text-xs font-medium text-content-secondary">Currently viewing:</p>
           <div className="mt-1 flex flex-wrap gap-2">
             {viewingUsers.map((userId) => {
               const member = getMemberDetails(userId)
@@ -64,7 +64,7 @@ export function CollaborationIndicators({
       {/* Editing indicator */}
       {editingUsers.length > 0 && (
         <div>
-          <p className="text-xs font-medium text-gray-600 dark:text-gray-400">Currently editing:</p>
+          <p className="text-xs font-medium text-content-secondary">Currently editing:</p>
           <div className="mt-1 flex flex-wrap gap-2">
             {editingUsers.map((userId) => {
               const member = getMemberDetails(userId)
@@ -84,8 +84,8 @@ export function CollaborationIndicators({
 
       {/* Permission indicators */}
       {projectShares.filter((s) => s.projectId === projectId).length > 0 && (
-        <div className="mt-3 rounded bg-gray-50 p-2 dark:bg-gray-800">
-          <p className="mb-1 text-xs font-medium text-gray-600 dark:text-gray-400">
+        <div className="mt-3 rounded bg-surface-secondary p-2">
+          <p className="mb-1 text-xs font-medium text-content-secondary">
             Collaborators ({projectShares.filter((s) => s.projectId === projectId).length})
           </p>
           <div className="space-y-1">
@@ -95,7 +95,7 @@ export function CollaborationIndicators({
                 const member = getMemberDetails(share.userId)
                 return (
                   <div key={share.id} className="flex items-center justify-between text-xs">
-                    <span className="text-gray-700 dark:text-gray-300">{member?.name || 'Unknown'}</span>
+                    <span className="text-content-secondary">{member?.name || 'Unknown'}</span>
                     <span
                       className={`inline-block rounded px-2 py-0.5 font-medium ${
                         share.role === 'owner'

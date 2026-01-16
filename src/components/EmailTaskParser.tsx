@@ -96,16 +96,16 @@ export const EmailTaskParser: React.FC<EmailTaskParserProps> = ({ className = ''
   }
 
   return (
-    <div className={clsx('rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4', className)}>
+    <div className={clsx('rounded-lg border border-border bg-surface-primary p-4', className)}>
       <div className="flex items-center gap-2 mb-4">
-        <Mail className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Parse Email to Task</h3>
+        <Mail className="w-5 h-5 text-semantic-info" />
+        <h3 className="text-lg font-semibold text-content-primary">Parse Email to Task</h3>
       </div>
 
       <div className="space-y-3">
         {/* Email Subject */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label className="block text-sm font-medium text-content-secondary mb-1">
             Email Subject
           </label>
           <input
@@ -113,14 +113,14 @@ export const EmailTaskParser: React.FC<EmailTaskParserProps> = ({ className = ''
             value={email.subject}
             onChange={(e) => setEmail({ ...email, subject: e.target.value })}
             placeholder="e.g., Fix critical bug - P1"
-            className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 rounded-lg border border-border bg-surface-primary text-content-primary placeholder-content-tertiary focus:outline-none focus:ring-2 focus:ring-blue-500"
             disabled={loading}
           />
         </div>
 
         {/* Email Body */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+          <label className="block text-sm font-medium text-content-secondary mb-1">
             Email Body (Description)
           </label>
           <textarea
@@ -128,7 +128,7 @@ export const EmailTaskParser: React.FC<EmailTaskParserProps> = ({ className = ''
             onChange={(e) => setEmail({ ...email, body: e.target.value })}
             placeholder="Paste email content here. AI will extract due dates, priorities, and labels..."
             rows={5}
-            className="w-full px-3 py-2 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+            className="w-full px-3 py-2 rounded-lg border border-border bg-surface-primary text-content-primary placeholder-content-tertiary focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
             disabled={loading}
           />
         </div>
@@ -136,7 +136,7 @@ export const EmailTaskParser: React.FC<EmailTaskParserProps> = ({ className = ''
         {/* Error Message */}
         {parseError && (
           <div className="flex items-start gap-2 p-3 rounded-lg bg-red-50 dark:bg-red-900 border border-red-200 dark:border-red-700">
-            <AlertCircle className="w-4 h-4 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
+            <AlertCircle className="w-4 h-4 text-semantic-error flex-shrink-0 mt-0.5" />
             <p className="text-sm text-red-700 dark:text-red-200">{parseError}</p>
           </div>
         )}
@@ -144,7 +144,7 @@ export const EmailTaskParser: React.FC<EmailTaskParserProps> = ({ className = ''
         {/* Success Message */}
         {success && (
           <div className="flex items-start gap-2 p-3 rounded-lg bg-green-50 dark:bg-green-900 border border-green-200 dark:border-green-700">
-            <CheckCircle2 className="w-4 h-4 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
+            <CheckCircle2 className="w-4 h-4 text-semantic-success flex-shrink-0 mt-0.5" />
             <p className="text-sm text-green-700 dark:text-green-200">Task created successfully!</p>
           </div>
         )}
@@ -156,7 +156,7 @@ export const EmailTaskParser: React.FC<EmailTaskParserProps> = ({ className = ''
           className={clsx(
             'w-full px-4 py-2 rounded-lg font-medium transition-colors flex items-center justify-center gap-2',
             loading || !email.subject.trim()
-              ? 'bg-gray-100 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed'
+              ? 'bg-surface-tertiary text-content-tertiary cursor-not-allowed'
               : 'bg-blue-600 hover:bg-blue-700 text-white'
           )}
         >

@@ -18,7 +18,7 @@ export function ViewSwitcher({ variant = 'buttons' }: ViewSwitcherProps) {
 
   if (variant === 'inline') {
     return (
-      <div className="flex items-center gap-1 p-1 bg-gray-100 rounded-lg">
+      <div className="flex items-center gap-1 p-1 bg-surface-tertiary rounded-lg">
         {views.map((view) => (
           <button
             key={view.type}
@@ -26,8 +26,8 @@ export function ViewSwitcher({ variant = 'buttons' }: ViewSwitcherProps) {
             className={cn(
               'flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-all',
               selectedView === view.type
-                ? 'bg-white text-brand-600 shadow-sm'
-                : 'text-gray-700 hover:text-gray-900'
+                ? 'bg-surface-primary text-brand-600 shadow-sm'
+                : 'text-content-secondary hover:text-content-primary'
             )}
             title={view.label}
           >
@@ -50,7 +50,7 @@ export function ViewSwitcher({ variant = 'buttons' }: ViewSwitcherProps) {
             'flex items-center gap-2 px-4 py-2 rounded-md font-medium transition-all',
             selectedView === view.type
               ? 'bg-brand-600 text-white shadow-md'
-              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              : 'bg-interactive-secondary text-content-secondary hover:bg-surface-tertiary'
           )}
           title={view.label}
         >

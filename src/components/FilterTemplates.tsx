@@ -82,23 +82,23 @@ export function FilterTemplates({ onSelect }: FilterTemplatesProps) {
 
   return (
     <div className="space-y-2">
-      <h3 className="text-sm font-semibold text-gray-700 px-1">Filter Templates</h3>
+      <h3 className="text-sm font-semibold text-content-secondary px-1">Filter Templates</h3>
       <div className="grid grid-cols-1 gap-2">
         {FILTER_TEMPLATES.map((template) => (
           <button
             key={template.id}
             onClick={() => handleSelect(template.query)}
             className={cn(
-              'text-left p-3 rounded-lg border border-gray-200 transition-all',
+              'text-left p-3 rounded-lg border border-border transition-all',
               'hover:border-brand-500 hover:bg-brand-50'
             )}
           >
             <div className="flex items-start gap-3">
               <span className="text-xl flex-shrink-0 mt-0.5">{template.icon}</span>
               <div className="flex-1 min-w-0">
-                <div className="font-medium text-gray-900">{template.name}</div>
-                <div className="text-xs text-gray-600">{template.description}</div>
-                <div className="text-xs text-gray-500 font-mono mt-1">{template.query}</div>
+                <div className="font-medium text-content-primary">{template.name}</div>
+                <div className="text-xs text-content-secondary">{template.description}</div>
+                <div className="text-xs text-content-tertiary font-mono mt-1">{template.query}</div>
               </div>
             </div>
           </button>

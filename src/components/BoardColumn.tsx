@@ -49,29 +49,29 @@ export function BoardColumn({
 
   return (
     <div
-      className={cn('flex flex-col h-full bg-white rounded-lg border border-gray-200 overflow-hidden')}
+      className={cn('flex flex-col h-full bg-surface-primary rounded-lg border border-border overflow-hidden')}
       onDragOver={onDragOver}
       onDrop={(e) => onDrop?.(e, columnId)}
     >
       {/* Column Header */}
-      <div className={cn('px-4 py-3 border-t-4 font-semibold text-gray-900 flex items-center justify-between', columnColor)}>
+      <div className={cn('px-4 py-3 border-t-4 font-semibold text-content-primary flex items-center justify-between', columnColor)}>
         <div className="flex items-center gap-2">
           <span className="text-sm">{title}</span>
-          {count !== undefined && <span className="text-xs px-2 py-0.5 bg-gray-200 text-gray-700 rounded-full">{count}</span>}
+          {count !== undefined && <span className="text-xs px-2 py-0.5 bg-interactive-secondary text-content-secondary rounded-full">{count}</span>}
         </div>
         <button
           onClick={() => onAddTask?.(columnId)}
-          className="p-1 hover:bg-gray-200 rounded transition-colors"
+          className="p-1 hover:bg-interactive-secondary rounded transition-colors"
           title="Add task"
         >
-          <Plus size={18} className="text-gray-600" />
+          <Plus size={18} className="text-content-secondary" />
         </button>
       </div>
 
       {/* Tasks Container */}
       <div className="flex-1 overflow-y-auto p-3 space-y-2">
         {tasks.length === 0 ? (
-          <div className="flex items-center justify-center h-32 text-gray-400 text-sm">Empty column</div>
+          <div className="flex items-center justify-center h-32 text-content-tertiary text-sm">Empty column</div>
         ) : (
           tasks.map((task) => {
             const subtasksCount = getSubtasks(task.id).length

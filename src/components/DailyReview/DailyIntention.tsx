@@ -28,19 +28,19 @@ export function DailyIntention({ onNext }: DailyIntentionProps) {
           placeholder="e.g., Complete the project proposal, Focus on deep work, Clear my inbox..."
           className={cn(
             'w-full h-32 px-4 py-3 rounded-lg border resize-none',
-            'bg-white dark:bg-gray-800',
-            'border-gray-200 dark:border-gray-700',
-            'text-gray-900 dark:text-white',
-            'placeholder-gray-400 dark:placeholder-gray-500',
+            'bg-surface-primary',
+            'border-border',
+            'text-content-primary',
+            'placeholder-content-tertiary',
             'focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent'
           )}
           autoFocus
         />
-        <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+        <p className="text-xs text-content-tertiary text-center">
           Setting a clear intention helps you stay focused throughout the day
         </p>
       </div>
-      <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+      <div className="mt-6 pt-4 border-t border-border">
         <Button onClick={onNext} variant="primary" className="w-full">
           {intention.trim() ? 'Set Intention & Continue' : 'Skip for Now'}
         </Button>

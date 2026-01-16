@@ -83,15 +83,15 @@ export function LabelManagement({ isOpen, onClose, userId }: LabelManagementProp
       {/* Modal */}
       <div className="flex items-center justify-center min-h-screen p-4">
         <div
-          className="relative bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+          className="relative bg-surface-primary rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-gray-900">Manage Labels</h2>
+          <div className="sticky top-0 bg-surface-primary border-b border-border px-6 py-4 flex items-center justify-between">
+            <h2 className="text-lg font-semibold text-content-primary">Manage Labels</h2>
             <button
               onClick={onClose}
-              className="p-1 text-gray-400 hover:text-gray-600 rounded-md hover:bg-gray-100"
+              className="p-1 text-content-tertiary hover:text-content-secondary rounded-md hover:bg-surface-tertiary"
             >
               <X size={20} />
             </button>
@@ -101,7 +101,7 @@ export function LabelManagement({ isOpen, onClose, userId }: LabelManagementProp
           <div className="p-6 space-y-6">
             {/* Create New Label */}
             <div className="border-b pb-6 space-y-4">
-              <h3 className="text-sm font-semibold text-gray-900">Create New Label</h3>
+              <h3 className="text-sm font-semibold text-content-primary">Create New Label</h3>
 
               <Input
                 value={newLabelName}
@@ -121,22 +121,22 @@ export function LabelManagement({ isOpen, onClose, userId }: LabelManagementProp
 
             {/* Existing Labels */}
             <div>
-              <h3 className="text-sm font-semibold text-gray-900 mb-4">
+              <h3 className="text-sm font-semibold text-content-primary mb-4">
                 Your Labels ({labels.length})
               </h3>
 
               {labels.length === 0 ? (
-                <p className="text-sm text-gray-500">No labels created yet</p>
+                <p className="text-sm text-content-tertiary">No labels created yet</p>
               ) : (
                 <div className="space-y-2">
                   {labels.map((label) =>
                     editingId === label.id ? (
                       <div
                         key={label.id}
-                        className="flex items-end gap-3 p-4 bg-gray-50 rounded-lg border border-gray-200"
+                        className="flex items-end gap-3 p-4 bg-surface-secondary rounded-lg border border-border"
                       >
                         <div className="flex-1 space-y-2">
-                          <label className="block text-xs font-medium text-gray-700">Name</label>
+                          <label className="block text-xs font-medium text-content-secondary">Name</label>
                           <Input
                             value={editName}
                             onChange={(e) => setEditName(e.target.value)}
@@ -168,21 +168,21 @@ export function LabelManagement({ isOpen, onClose, userId }: LabelManagementProp
                     ) : (
                       <div
                         key={label.id}
-                        className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200 hover:bg-gray-100 transition-colors"
+                        className="flex items-center justify-between p-3 bg-surface-secondary rounded-lg border border-border hover:bg-surface-tertiary transition-colors"
                       >
                         <LabelBadge label={label} size="md" />
 
                         <div className="flex gap-2">
                           <button
                             onClick={() => startEdit(label)}
-                            className="p-1 text-gray-400 hover:text-gray-600 rounded-md hover:bg-white transition-colors"
+                            className="p-1 text-content-tertiary hover:text-content-secondary rounded-md hover:bg-surface-primary transition-colors"
                             title="Edit label"
                           >
                             <Edit2 size={16} />
                           </button>
                           <button
                             onClick={() => handleDelete(label.id)}
-                            className="p-1 text-red-400 hover:text-red-600 rounded-md hover:bg-white transition-colors"
+                            className="p-1 text-red-400 hover:text-red-600 rounded-md hover:bg-surface-primary transition-colors"
                             title="Delete label"
                           >
                             <Trash2 size={16} />

@@ -88,7 +88,7 @@ const FeatureNudgeCard: React.FC<FeatureNudgeCardProps> = ({ nudge, onDismiss })
   return (
     <div
       className={cn(
-        'bg-white border border-gray-200 rounded-lg shadow-lg p-4 pointer-events-auto',
+        'bg-surface-primary border border-border rounded-lg shadow-lg p-4 pointer-events-auto',
         'transition-all duration-300 ease-in-out',
         isAnimatingOut && 'opacity-0 translate-x-4 scale-95'
       )}
@@ -96,20 +96,20 @@ const FeatureNudgeCard: React.FC<FeatureNudgeCardProps> = ({ nudge, onDismiss })
       <div className="flex gap-3">
         <div className="flex-shrink-0 flex items-start pt-0.5">
           {nudge.icon ? (
-            <div className="text-blue-600">{nudge.icon}</div>
+            <div className="text-semantic-info">{nudge.icon}</div>
           ) : (
             <Lightbulb size={20} className="text-amber-500 flex-shrink-0" />
           )}
         </div>
 
         <div className="flex-1 min-w-0">
-          <h3 className="text-sm font-semibold text-gray-900">{nudge.title}</h3>
-          <p className="text-sm text-gray-600 mt-1">{nudge.description}</p>
+          <h3 className="text-sm font-semibold text-content-primary">{nudge.title}</h3>
+          <p className="text-sm text-content-secondary mt-1">{nudge.description}</p>
 
           {nudge.action && (
             <button
               onClick={nudge.action.onClick}
-              className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-blue-600 hover:text-blue-700 group"
+              className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-semantic-info hover:text-blue-700 group"
             >
               {nudge.action.label}
               <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
@@ -120,7 +120,7 @@ const FeatureNudgeCard: React.FC<FeatureNudgeCardProps> = ({ nudge, onDismiss })
         {nudge.dismissible !== false && (
           <button
             onClick={handleDismiss}
-            className="flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors"
+            className="flex-shrink-0 text-content-tertiary hover:text-content-secondary transition-colors"
             aria-label={`Dismiss ${nudge.title}`}
           >
             <X size={18} />

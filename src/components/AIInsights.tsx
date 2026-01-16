@@ -126,14 +126,14 @@ export const AIInsights: React.FC<AIInsightsProps> = ({ className = '' }) => {
 
   if (loading) {
     return (
-      <div className={`p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 ${className}`}>
+      <div className={`p-4 bg-surface-primary rounded-lg border border-border ${className}`}>
         <div className="flex items-center gap-2 mb-4">
           <Brain className="w-5 h-5 text-blue-500" />
-          <h3 className="font-semibold text-gray-900 dark:text-white">AI Insights</h3>
+          <h3 className="font-semibold text-content-primary">AI Insights</h3>
         </div>
         <div className="space-y-2">
           {[...Array(3)].map((_, i) => (
-            <div key={i} className="h-12 bg-gray-100 dark:bg-gray-700 rounded animate-pulse" />
+            <div key={i} className="h-12 bg-surface-tertiary rounded animate-pulse" />
           ))}
         </div>
       </div>
@@ -142,21 +142,21 @@ export const AIInsights: React.FC<AIInsightsProps> = ({ className = '' }) => {
 
   if (insights.length === 0) {
     return (
-      <div className={`p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 ${className}`}>
+      <div className={`p-4 bg-surface-primary rounded-lg border border-border ${className}`}>
         <div className="flex items-center gap-2 mb-4">
           <Brain className="w-5 h-5 text-blue-500" />
-          <h3 className="font-semibold text-gray-900 dark:text-white">AI Insights</h3>
+          <h3 className="font-semibold text-content-primary">AI Insights</h3>
         </div>
-        <p className="text-sm text-gray-600 dark:text-gray-400">No insights at the moment. Keep working!</p>
+        <p className="text-sm text-content-secondary">No insights at the moment. Keep working!</p>
       </div>
     )
   }
 
   return (
-    <div className={`p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 ${className}`}>
+    <div className={`p-4 bg-surface-primary rounded-lg border border-border ${className}`}>
       <div className="flex items-center gap-2 mb-4">
         <Brain className="w-5 h-5 text-blue-500" />
-        <h3 className="font-semibold text-gray-900 dark:text-white">AI Insights</h3>
+        <h3 className="font-semibold text-content-primary">AI Insights</h3>
       </div>
 
       <div className="space-y-3">

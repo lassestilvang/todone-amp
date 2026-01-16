@@ -60,19 +60,19 @@ export const ComparisonAnalytics: React.FC<ComparisonAnalyticsProps> = ({ classN
     return (
       <div
         className={cn(
-          'flex items-center justify-center rounded-lg border border-gray-200 p-12',
+          'flex items-center justify-center rounded-lg border border-border p-12',
           className
         )}
       >
-        <Loader2 className="h-6 w-6 animate-spin text-gray-400" />
+        <Loader2 className="h-6 w-6 animate-spin text-content-tertiary" />
       </div>
     )
   }
 
   if (!comparisonStats) {
     return (
-      <div className={cn('rounded-lg border border-gray-200 p-8 text-center', className)}>
-        <p className="text-sm text-gray-600">No comparison data available</p>
+      <div className={cn('rounded-lg border border-border p-8 text-center', className)}>
+        <p className="text-sm text-content-secondary">No comparison data available</p>
       </div>
     )
   }
@@ -101,7 +101,7 @@ export const ComparisonAnalytics: React.FC<ComparisonAnalyticsProps> = ({ classN
             'rounded-lg px-4 py-2 text-sm font-medium transition',
             periodType === 'week'
               ? 'bg-blue-600 text-white'
-              : 'border border-gray-300 text-gray-700 hover:bg-gray-50'
+              : 'border border-border text-content-secondary hover:bg-surface-tertiary'
           )}
         >
           This Week vs Last Week
@@ -112,7 +112,7 @@ export const ComparisonAnalytics: React.FC<ComparisonAnalyticsProps> = ({ classN
             'rounded-lg px-4 py-2 text-sm font-medium transition',
             periodType === 'month'
               ? 'bg-blue-600 text-white'
-              : 'border border-gray-300 text-gray-700 hover:bg-gray-50'
+              : 'border border-border text-content-secondary hover:bg-surface-tertiary'
           )}
         >
           This Month vs Last Month
@@ -122,23 +122,23 @@ export const ComparisonAnalytics: React.FC<ComparisonAnalyticsProps> = ({ classN
       {/* Comparison Cards */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {/* Period 1 */}
-        <div className="rounded-lg border border-gray-200 p-4">
-          <p className="text-xs font-medium text-gray-600">Current Period</p>
-          <p className="mt-2 text-2xl font-bold text-gray-900">
+        <div className="rounded-lg border border-border p-4">
+          <p className="text-xs font-medium text-content-secondary">Current Period</p>
+          <p className="mt-2 text-2xl font-bold text-content-primary">
             {comparisonStats.period1.tasksCompleted}
           </p>
-          <p className="mt-1 text-xs text-gray-600">
+          <p className="mt-1 text-xs text-content-secondary">
             {comparisonStats.period1.completionRate.toFixed(1)}% completion rate
           </p>
         </div>
 
         {/* Period 2 */}
-        <div className="rounded-lg border border-gray-200 p-4">
-          <p className="text-xs font-medium text-gray-600">Previous Period</p>
-          <p className="mt-2 text-2xl font-bold text-gray-900">
+        <div className="rounded-lg border border-border p-4">
+          <p className="text-xs font-medium text-content-secondary">Previous Period</p>
+          <p className="mt-2 text-2xl font-bold text-content-primary">
             {comparisonStats.period2.tasksCompleted}
           </p>
-          <p className="mt-1 text-xs text-gray-600">
+          <p className="mt-1 text-xs text-content-secondary">
             {comparisonStats.period2.completionRate.toFixed(1)}% completion rate
           </p>
         </div>
@@ -153,9 +153,9 @@ export const ComparisonAnalytics: React.FC<ComparisonAnalyticsProps> = ({ classN
       >
         <div className="flex items-center gap-3">
           {isImprovement ? (
-            <TrendingUp className="h-6 w-6 text-green-600" />
+            <TrendingUp className="h-6 w-6 text-semantic-success" />
           ) : (
-            <TrendingDown className="h-6 w-6 text-red-600" />
+            <TrendingDown className="h-6 w-6 text-semantic-error" />
           )}
           <div>
             <p
@@ -177,8 +177,8 @@ export const ComparisonAnalytics: React.FC<ComparisonAnalyticsProps> = ({ classN
       </div>
 
       {/* Comparison Chart */}
-      <div className="rounded-lg border border-gray-200 p-4">
-        <h3 className="mb-4 text-sm font-medium text-gray-900">Completion Rate Comparison</h3>
+      <div className="rounded-lg border border-border p-4">
+        <h3 className="mb-4 text-sm font-medium text-content-primary">Completion Rate Comparison</h3>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" />

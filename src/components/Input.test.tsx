@@ -24,7 +24,7 @@ describe('Input Component', () => {
       render(<Input error="This field is required" />)
       const error = screen.getByText('This field is required')
       expect(error).toBeInTheDocument()
-      expect(error).toHaveClass('text-red-600')
+      expect(error).toHaveClass('text-semantic-error')
     })
 
     it('should render with icon', () => {
@@ -37,7 +37,7 @@ describe('Input Component', () => {
     it('should apply error styling when error is present', () => {
       render(<Input error="Invalid" placeholder="Input" />)
       const input = screen.getByPlaceholderText('Input')
-      expect(input).toHaveClass('border-red-500')
+      expect(input).toHaveClass('border-semantic-error')
     })
   })
 
@@ -122,7 +122,7 @@ describe('Input Component', () => {
     it('should show disabled styling', () => {
       render(<Input disabled placeholder="Disabled" />)
       const input = screen.getByPlaceholderText('Disabled')
-      expect(input).toHaveClass('disabled:bg-gray-100', 'disabled:cursor-not-allowed')
+      expect(input).toHaveClass('disabled:bg-input-disabled-bg', 'disabled:cursor-not-allowed')
     })
   })
 
@@ -130,7 +130,7 @@ describe('Input Component', () => {
     it('should have focus ring styling', () => {
       render(<Input placeholder="Focus ring" />)
       const input = screen.getByPlaceholderText('Focus ring')
-      expect(input).toHaveClass('focus:ring-2', 'focus:ring-brand-500')
+      expect(input).toHaveClass('focus:ring-2', 'focus:ring-focus')
     })
 
     it('should associate label with input', () => {

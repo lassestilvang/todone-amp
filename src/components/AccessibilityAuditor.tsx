@@ -40,12 +40,12 @@ const IssueCard: React.FC<{
         <IssueIcon level={issue.level} />
         <div className="flex-1 min-w-0">
           <h4 className="font-semibold text-sm mb-1">{issue.title}</h4>
-          <p className="text-sm text-gray-700 mb-2">{issue.description}</p>
+          <p className="text-sm text-content-secondary mb-2">{issue.description}</p>
 
           {showDetails && (
             <>
               {issue.wcagCriteria && (
-                <p className="text-xs text-gray-600 mb-2">
+                <p className="text-xs text-content-secondary mb-2">
                   <strong>WCAG:</strong> {issue.wcagCriteria}
                 </p>
               )}
@@ -99,7 +99,7 @@ export const AccessibilityAuditor: React.FC<AccessibilityAuditorProps> = ({
 
   return (
     <div className={cn('space-y-4', className)}>
-      <div className="bg-white rounded-lg border border-gray-200 p-4">
+      <div className="bg-surface-primary rounded-lg border border-border p-4">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-bold">Accessibility Audit</h2>
           <button
@@ -128,7 +128,7 @@ export const AccessibilityAuditor: React.FC<AccessibilityAuditorProps> = ({
         </div>
 
         {issues.length === 0 && (
-          <div className="flex items-center justify-center py-8 text-gray-600">
+          <div className="flex items-center justify-center py-8 text-content-secondary">
             <CheckCircle className="w-6 h-6 mr-2 text-green-600" />
             <span className="font-medium">No accessibility issues found!</span>
           </div>

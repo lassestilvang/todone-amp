@@ -87,9 +87,9 @@ export function DatePickerInput({
         onClick={() => setIsOpen(!isOpen)}
         disabled={disabled}
         className={cn(
-          'flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-md',
-          'text-sm font-medium text-gray-700 bg-white',
-          'hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-500',
+          'flex items-center gap-2 px-3 py-2 border border-border rounded-md',
+          'text-sm font-medium text-content-secondary bg-surface-primary',
+          'hover:bg-surface-tertiary focus:outline-none focus:ring-2 focus:ring-brand-500',
           'disabled:opacity-50 disabled:cursor-not-allowed w-full justify-between'
         )}
       >
@@ -97,11 +97,11 @@ export function DatePickerInput({
           <Calendar size={16} />
           {displayDate}
         </span>
-        {value && <X size={16} className="text-gray-400 hover:text-gray-600" onClick={handleClear} />}
+        {value && <X size={16} className="text-content-tertiary hover:text-content-secondary" onClick={handleClear} />}
       </button>
 
       {isOpen && (
-        <div className="absolute top-full left-0 mt-1 z-50 bg-white border border-gray-300 rounded-lg shadow-lg p-4 w-80">
+        <div className="absolute top-full left-0 mt-1 z-50 bg-surface-primary border border-border rounded-lg shadow-lg p-4 w-80">
           <div className="mb-4">
             <input
               type="text"
@@ -109,12 +109,12 @@ export function DatePickerInput({
               onChange={handleInputChange}
               placeholder="Today, tomorrow, in 3 days..."
               className={cn(
-                'w-full px-3 py-2 border border-gray-300 rounded-md text-sm',
-                'placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-500'
+                'w-full px-3 py-2 border border-border rounded-md text-sm',
+                'placeholder-content-tertiary focus:outline-none focus:ring-2 focus:ring-brand-500'
               )}
               autoFocus
             />
-            <p className="text-xs text-gray-500 mt-2">
+            <p className="text-xs text-content-tertiary mt-2">
               Try: today, tomorrow, monday, in 3 days, Jan 15, next week
             </p>
           </div>
@@ -128,7 +128,7 @@ export function DatePickerInput({
 
             <div className="grid grid-cols-7 gap-1 mb-2">
               {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-                <div key={day} className="text-center text-xs font-semibold text-gray-600 h-6 flex items-center justify-center">
+                <div key={day} className="text-center text-xs font-semibold text-content-secondary h-6 flex items-center justify-center">
                   {day}
                 </div>
               ))}
@@ -166,7 +166,7 @@ export function DatePickerInput({
             <button
               type="button"
               onClick={() => handleDateSelect(new Date())}
-              className="text-xs px-2 py-1 rounded hover:bg-gray-100"
+              className="text-xs px-2 py-1 rounded hover:bg-surface-tertiary"
             >
               Today
             </button>
@@ -177,7 +177,7 @@ export function DatePickerInput({
                 tomorrow.setDate(tomorrow.getDate() + 1)
                 handleDateSelect(tomorrow)
               }}
-              className="text-xs px-2 py-1 rounded hover:bg-gray-100"
+              className="text-xs px-2 py-1 rounded hover:bg-surface-tertiary"
             >
               Tomorrow
             </button>
@@ -188,7 +188,7 @@ export function DatePickerInput({
                 nextWeek.setDate(nextWeek.getDate() + 7)
                 handleDateSelect(nextWeek)
               }}
-              className="text-xs px-2 py-1 rounded hover:bg-gray-100"
+              className="text-xs px-2 py-1 rounded hover:bg-surface-tertiary"
             >
               Next week
             </button>

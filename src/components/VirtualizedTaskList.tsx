@@ -47,7 +47,7 @@ export const VirtualizedTaskList: React.FC<VirtualizedTaskListProps> = ({
   if (tasks.length === 0) {
     return (
       <div className={cn('flex items-center justify-center', className)} style={{ height: containerHeight }}>
-        <p className="text-gray-500 dark:text-gray-400">No tasks to display</p>
+        <p className="text-content-tertiary">No tasks to display</p>
       </div>
     )
   }

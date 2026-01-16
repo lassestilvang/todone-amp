@@ -143,21 +143,21 @@ export function BoardView({ projectId }: BoardViewProps) {
   }
 
   return (
-    <div className="h-full flex flex-col bg-gray-50">
+    <div className="h-full flex flex-col bg-surface-secondary">
       {/* Header */}
-      <div className="px-6 py-4 bg-white border-b border-gray-200">
+      <div className="px-6 py-4 bg-surface-primary border-b border-border">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <LayoutGrid size={20} className="text-gray-900" />
-            <h1 className="text-xl font-bold text-gray-900">Board View</h1>
+            <LayoutGrid size={20} className="text-content-primary" />
+            <h1 className="text-xl font-bold text-content-primary">Board View</h1>
           </div>
 
           <div className="flex items-center gap-2">
-            <label className="text-sm font-medium text-gray-700">Group by:</label>
+            <label className="text-sm font-medium text-content-secondary">Group by:</label>
             <select
               value={boardColumnType}
               onChange={(e) => setBoardColumnType(e.target.value as BoardColumnType)}
-              className="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="px-3 py-2 border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
             >
               <option value="section">Section</option>
               <option value="priority">Priority</option>
@@ -165,7 +165,7 @@ export function BoardView({ projectId }: BoardViewProps) {
             </select>
 
             <button
-              className="p-2 text-gray-600 hover:bg-gray-100 rounded-md transition-colors"
+              className="p-2 text-content-secondary hover:bg-surface-tertiary rounded-md transition-colors"
               title="Board settings"
             >
               <Settings size={18} />
@@ -178,7 +178,7 @@ export function BoardView({ projectId }: BoardViewProps) {
       <div className="flex-1 overflow-x-auto p-6">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-6 min-h-full">
           {columns.length === 0 ? (
-            <div className="col-span-full flex items-center justify-center h-96 text-gray-400">
+            <div className="col-span-full flex items-center justify-center h-96 text-content-tertiary">
               <p>No columns available. Create a project or sections first.</p>
             </div>
           ) : (

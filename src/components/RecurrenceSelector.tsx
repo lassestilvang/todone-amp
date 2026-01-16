@@ -127,23 +127,23 @@ export function RecurrenceSelector({ value, onChange }: RecurrenceSelectorProps)
 
   return (
     <div className="space-y-2">
-      <label className="block text-sm font-medium text-gray-700">Recurrence</label>
+      <label className="block text-sm font-medium text-content-secondary">Recurrence</label>
 
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-3 py-2 text-left text-sm border border-gray-300 rounded-lg hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-500 flex items-center justify-between"
+        className="w-full px-3 py-2 text-left text-sm border border-border rounded-lg hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-500 flex items-center justify-between"
       >
-        <span className="text-gray-900">
+        <span className="text-content-primary">
           {value ? formatRecurrencePattern(value) : 'No recurrence'}
         </span>
-        <ChevronDown size={16} className="text-gray-400" />
+        <ChevronDown size={16} className="text-content-tertiary" />
       </button>
 
       {isOpen && (
-        <div className="absolute z-50 mt-1 w-80 bg-white border border-gray-200 rounded-lg shadow-lg p-4 space-y-4">
+        <div className="absolute z-50 mt-1 w-80 bg-surface-primary border border-border rounded-lg shadow-lg p-4 space-y-4">
            {/* Quick Presets */}
            <div>
-             <label className="block text-xs font-semibold text-gray-600 uppercase mb-2 tracking-wide">
+             <label className="block text-xs font-semibold text-content-secondary uppercase mb-2 tracking-wide">
                Quick Presets
              </label>
              <div className="grid grid-cols-2 gap-2">
@@ -153,8 +153,8 @@ export function RecurrenceSelector({ value, onChange }: RecurrenceSelectorProps)
                    onClick={() => handlePreset(preset.pattern)}
                    className={cn(
                      'px-2 py-1.5 text-xs font-medium rounded transition-colors',
-                     'border border-gray-200 hover:border-brand-400',
-                     'text-gray-700 hover:bg-brand-50'
+                     'border border-border hover:border-brand-400',
+                     'text-content-secondary hover:bg-brand-50'
                    )}
                  >
                    {preset.label}
@@ -164,17 +164,17 @@ export function RecurrenceSelector({ value, onChange }: RecurrenceSelectorProps)
            </div>
 
            {/* Divider */}
-           <div className="border-t border-gray-200" />
+           <div className="border-t border-border" />
 
            {/* Frequency Selection */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-content-secondary mb-2">
               Frequency
             </label>
             <select
               value={selectedFreq}
               onChange={(e) => setSelectedFreq(e.target.value as RecurrenceFrequency)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
             >
               {frequencies.map((freq) => (
                 <option key={freq.value} value={freq.value}>
@@ -186,7 +186,7 @@ export function RecurrenceSelector({ value, onChange }: RecurrenceSelectorProps)
 
           {/* Interval */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-content-secondary mb-2">
               Every
             </label>
             <input
@@ -195,9 +195,9 @@ export function RecurrenceSelector({ value, onChange }: RecurrenceSelectorProps)
               max="365"
               value={interval}
               onChange={(e) => setInterval(Math.max(1, parseInt(e.target.value) || 1))}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
             />
-            <p className="text-xs text-gray-500 mt-1">
+            <p className="text-xs text-content-tertiary mt-1">
               {selectedFreq === 'daily' && `every ${interval} day${interval > 1 ? 's' : ''}`}
               {selectedFreq === 'weekly' && `every ${interval} week${interval > 1 ? 's' : ''}`}
               {selectedFreq === 'monthly' && `every ${interval} month${interval > 1 ? 's' : ''}`}
@@ -208,7 +208,7 @@ export function RecurrenceSelector({ value, onChange }: RecurrenceSelectorProps)
           {/* Days of Week (for weekly) */}
           {selectedFreq === 'weekly' && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-content-secondary mb-2">
                 Days of Week
               </label>
               <div className="grid grid-cols-7 gap-1">
@@ -220,7 +220,7 @@ export function RecurrenceSelector({ value, onChange }: RecurrenceSelectorProps)
                       'py-1 text-xs font-medium rounded transition-colors',
                       selectedDays.has(index)
                         ? 'bg-brand-600 text-white'
-                        : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                        : 'bg-surface-tertiary text-content-secondary hover:bg-interactive-secondary'
                     )}
                   >
                     {day}
@@ -233,7 +233,7 @@ export function RecurrenceSelector({ value, onChange }: RecurrenceSelectorProps)
           {/* Day of Month (for monthly) */}
           {selectedFreq === 'monthly' && (
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
+              <label className="block text-sm font-medium text-content-secondary mb-2">
                 Day of Month
               </label>
               <input
@@ -242,13 +242,13 @@ export function RecurrenceSelector({ value, onChange }: RecurrenceSelectorProps)
                 max="31"
                 value={dayOfMonth}
                 onChange={(e) => setDayOfMonth(Math.max(1, Math.min(31, parseInt(e.target.value) || 1)))}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+                className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
               />
             </div>
           )}
 
           {/* Action Buttons */}
-          <div className="flex gap-2 pt-2 border-t border-gray-200">
+          <div className="flex gap-2 pt-2 border-t border-border">
             <button
               onClick={handleSave}
               className="flex-1 px-3 py-2 bg-brand-600 text-white font-medium rounded hover:bg-brand-700 transition-colors"
@@ -257,14 +257,14 @@ export function RecurrenceSelector({ value, onChange }: RecurrenceSelectorProps)
             </button>
             <button
               onClick={handleClear}
-              className="flex-1 px-3 py-2 text-gray-700 border border-gray-300 font-medium rounded hover:bg-gray-50 transition-colors flex items-center justify-center gap-2"
+              className="flex-1 px-3 py-2 text-content-secondary border border-border font-medium rounded hover:bg-surface-tertiary transition-colors flex items-center justify-center gap-2"
             >
               <X size={14} />
               Clear
             </button>
             <button
               onClick={() => setIsOpen(false)}
-              className="flex-1 px-3 py-2 text-gray-700 border border-gray-300 font-medium rounded hover:bg-gray-50 transition-colors"
+              className="flex-1 px-3 py-2 text-content-secondary border border-border font-medium rounded hover:bg-surface-tertiary transition-colors"
             >
               Cancel
             </button>

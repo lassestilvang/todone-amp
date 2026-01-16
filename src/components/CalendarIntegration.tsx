@@ -70,14 +70,14 @@ export const CalendarIntegration: React.FC<CalendarIntegrationProps> = ({
 
   if (!integration) {
     return (
-      <div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-white p-4">
+      <div className="flex flex-col gap-3 rounded-lg border border-border bg-surface-primary p-4">
         <div className="flex items-center gap-2">
           <Calendar className="h-5 w-5 text-brand-500" />
-          <h3 className="font-medium text-gray-900">
+          <h3 className="font-medium text-content-primary">
             {platform === 'google' ? 'Google Calendar' : 'Outlook Calendar'}
           </h3>
         </div>
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-content-secondary">
           {platform === 'google'
             ? 'Connect your Google Calendar to sync events with Todone.'
             : 'Connect your Outlook Calendar to sync events with Todone.'}
@@ -95,7 +95,7 @@ export const CalendarIntegration: React.FC<CalendarIntegrationProps> = ({
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Calendar className="h-5 w-5 text-brand-500" />
-          <h3 className="font-medium text-gray-900">
+          <h3 className="font-medium text-content-primary">
             {platform === 'google' ? 'Google Calendar' : 'Outlook Calendar'}
           </h3>
           <span className="ml-2 inline-flex items-center rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-800">
@@ -137,7 +137,7 @@ export const CalendarIntegration: React.FC<CalendarIntegrationProps> = ({
               }}
               className="h-4 w-4 rounded border-gray-300 text-brand-500"
             />
-            <span className="text-sm text-gray-700">Enable sync</span>
+            <span className="text-sm text-content-secondary">Enable sync</span>
           </label>
 
           <label className="flex items-center gap-2">
@@ -150,7 +150,7 @@ export const CalendarIntegration: React.FC<CalendarIntegrationProps> = ({
               }}
               className="h-4 w-4 rounded border-gray-300 text-brand-500"
             />
-            <span className="text-sm text-gray-700">Show external events</span>
+            <span className="text-sm text-content-secondary">Show external events</span>
           </label>
 
           <label className="flex items-center gap-2">
@@ -163,12 +163,12 @@ export const CalendarIntegration: React.FC<CalendarIntegrationProps> = ({
               }}
               className="h-4 w-4 rounded border-gray-300 text-brand-500"
             />
-            <span className="text-sm text-gray-700">Show all-day events</span>
+            <span className="text-sm text-content-secondary">Show all-day events</span>
           </label>
 
           <div className="flex flex-col gap-2">
-            <label className="text-xs font-medium text-gray-700">Sync Interval</label>
-            <select className="rounded border border-gray-300 px-2 py-1 text-sm text-gray-700">
+            <label className="text-xs font-medium text-content-secondary">Sync Interval</label>
+            <select className="rounded border border-border px-2 py-1 text-sm text-content-secondary">
               <option value="hourly">Hourly</option>
               <option value="daily">Daily</option>
               <option value="weekly">Weekly</option>
@@ -180,7 +180,7 @@ export const CalendarIntegration: React.FC<CalendarIntegrationProps> = ({
 
       {/* Sync status */}
       <div className="flex items-center justify-between border-t border-brand-200 pt-3">
-        <span className="text-xs text-gray-600">
+        <span className="text-xs text-content-secondary">
           Last synced: {integration.lastSyncAt ? new Date(integration.lastSyncAt).toLocaleString() : 'Never'}
         </span>
         <Button

@@ -36,19 +36,19 @@ export function DailyReviewSettings({ isOpen, onClose, userId }: DailyReviewSett
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
       <div
         className={cn(
-          'bg-white dark:bg-gray-900 rounded-xl shadow-2xl',
+          'bg-surface-primary rounded-xl shadow-2xl',
           'w-full max-w-md mx-4 max-h-[90vh] overflow-hidden'
         )}
       >
-        <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+        <div className="flex items-center justify-between p-4 border-b border-border">
+          <h2 className="text-lg font-semibold text-content-primary">
             Daily Review Settings
           </h2>
           <button
             onClick={onClose}
-            className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            className="p-2 rounded-lg hover:bg-surface-tertiary transition-colors"
           >
-            <X className="w-5 h-5 text-gray-500" />
+            <X className="w-5 h-5 text-content-tertiary" />
           </button>
         </div>
 
@@ -61,8 +61,8 @@ export function DailyReviewSettings({ isOpen, onClose, userId }: DailyReviewSett
                     <Sun className="w-5 h-5 text-yellow-500" />
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900 dark:text-white">Morning Review</p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                    <p className="font-medium text-content-primary">Morning Review</p>
+                    <p className="text-sm text-content-tertiary">
                       Plan your day ahead
                     </p>
                   </div>
@@ -73,7 +73,7 @@ export function DailyReviewSettings({ isOpen, onClose, userId }: DailyReviewSett
                     'relative w-11 h-6 rounded-full transition-colors',
                     settings.morningReviewEnabled
                       ? 'bg-blue-500'
-                      : 'bg-gray-300 dark:bg-gray-600'
+                      : 'bg-interactive-secondary'
                   )}
                 >
                   <span
@@ -87,7 +87,7 @@ export function DailyReviewSettings({ isOpen, onClose, userId }: DailyReviewSett
 
               {settings.morningReviewEnabled && (
                 <div className="ml-13 pl-13">
-                  <label className="block text-sm text-gray-500 dark:text-gray-400 mb-1">
+                  <label className="block text-sm text-content-tertiary mb-1">
                     Review time
                   </label>
                   <input
@@ -96,9 +96,9 @@ export function DailyReviewSettings({ isOpen, onClose, userId }: DailyReviewSett
                     onChange={(e) => handleTimeChange('morningReviewTime', e.target.value)}
                     className={cn(
                       'px-3 py-2 rounded-lg border',
-                      'bg-white dark:bg-gray-800',
-                      'border-gray-200 dark:border-gray-700',
-                      'text-gray-900 dark:text-white',
+                      'bg-surface-primary',
+                      'border-border',
+                      'text-content-primary',
                       'focus:outline-none focus:ring-2 focus:ring-blue-500'
                     )}
                   />
@@ -106,15 +106,15 @@ export function DailyReviewSettings({ isOpen, onClose, userId }: DailyReviewSett
               )}
             </div>
 
-            <div className="border-t border-gray-200 dark:border-gray-700 pt-4 space-y-4">
+            <div className="border-t border-border pt-4 space-y-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center">
                     <Moon className="w-5 h-5 text-indigo-500" />
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900 dark:text-white">Evening Review</p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                    <p className="font-medium text-content-primary">Evening Review</p>
+                    <p className="text-sm text-content-tertiary">
                       Reflect on your day
                     </p>
                   </div>
@@ -125,7 +125,7 @@ export function DailyReviewSettings({ isOpen, onClose, userId }: DailyReviewSett
                     'relative w-11 h-6 rounded-full transition-colors',
                     settings.eveningReviewEnabled
                       ? 'bg-blue-500'
-                      : 'bg-gray-300 dark:bg-gray-600'
+                      : 'bg-interactive-secondary'
                   )}
                 >
                   <span
@@ -139,7 +139,7 @@ export function DailyReviewSettings({ isOpen, onClose, userId }: DailyReviewSett
 
               {settings.eveningReviewEnabled && (
                 <div className="ml-13 pl-13">
-                  <label className="block text-sm text-gray-500 dark:text-gray-400 mb-1">
+                  <label className="block text-sm text-content-tertiary mb-1">
                     Review time
                   </label>
                   <input
@@ -148,9 +148,9 @@ export function DailyReviewSettings({ isOpen, onClose, userId }: DailyReviewSett
                     onChange={(e) => handleTimeChange('eveningReviewTime', e.target.value)}
                     className={cn(
                       'px-3 py-2 rounded-lg border',
-                      'bg-white dark:bg-gray-800',
-                      'border-gray-200 dark:border-gray-700',
-                      'text-gray-900 dark:text-white',
+                      'bg-surface-primary',
+                      'border-border',
+                      'text-content-primary',
                       'focus:outline-none focus:ring-2 focus:ring-blue-500'
                     )}
                   />
@@ -161,12 +161,12 @@ export function DailyReviewSettings({ isOpen, onClose, userId }: DailyReviewSett
             <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-gray-100 dark:bg-gray-800 flex items-center justify-center">
-                    <Bell className="w-5 h-5 text-gray-500" />
+                  <div className="w-10 h-10 rounded-lg bg-surface-tertiary flex items-center justify-center">
+                    <Bell className="w-5 h-5 text-content-tertiary" />
                   </div>
                   <div>
-                    <p className="font-medium text-gray-900 dark:text-white">Auto Prompt</p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                    <p className="font-medium text-content-primary">Auto Prompt</p>
+                    <p className="text-sm text-content-tertiary">
                       Show review prompt at scheduled times
                     </p>
                   </div>
@@ -175,7 +175,7 @@ export function DailyReviewSettings({ isOpen, onClose, userId }: DailyReviewSett
                   onClick={() => handleToggle('autoPrompt')}
                   className={cn(
                     'relative w-11 h-6 rounded-full transition-colors',
-                    settings.autoPrompt ? 'bg-blue-500' : 'bg-gray-300 dark:bg-gray-600'
+                    settings.autoPrompt ? 'bg-blue-500' : 'bg-interactive-secondary'
                   )}
                 >
                   <span
@@ -190,7 +190,7 @@ export function DailyReviewSettings({ isOpen, onClose, userId }: DailyReviewSett
           </div>
         )}
 
-        <div className="p-4 border-t border-gray-200 dark:border-gray-700">
+        <div className="p-4 border-t border-border">
           <Button onClick={onClose} variant="primary" className="w-full">
             Done
           </Button>

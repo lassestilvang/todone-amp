@@ -109,7 +109,7 @@ export const EnhancedSearchBar: React.FC<EnhancedSearchBarProps> = ({
   return (
     <div ref={containerRef} className={cn('relative w-full', className)}>
       <div className="relative">
-        <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+        <Search className="absolute left-3 top-3 h-4 w-4 text-content-tertiary" />
         <input
            id="search-bar"
            ref={inputRef}
@@ -119,13 +119,13 @@ export const EnhancedSearchBar: React.FC<EnhancedSearchBarProps> = ({
            onKeyDown={handleKeyDown}
            onFocus={() => setIsOpen(true)}
            placeholder={placeholder}
-           className="w-full rounded-lg border border-gray-200 bg-white py-2 pl-10 pr-20 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+           className="w-full rounded-lg border border-border bg-surface-primary py-2 pl-10 pr-20 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
          />
         <div className="absolute right-2 top-1/2 flex -translate-y-1/2 gap-1">
           {value && (
             <button
               onClick={() => onChange('')}
-              className="p-1 text-gray-400 hover:text-gray-600"
+              className="p-1 text-content-tertiary hover:text-content-secondary"
               title="Clear"
             >
               <X className="h-4 w-4" />
@@ -134,7 +134,7 @@ export const EnhancedSearchBar: React.FC<EnhancedSearchBarProps> = ({
           {value && (
             <button
               onClick={() => setShowSaveDialog(true)}
-              className="p-1 text-gray-400 hover:text-gray-600"
+              className="p-1 text-content-tertiary hover:text-content-secondary"
               title="Save query"
             >
               <Save className="h-4 w-4" />
@@ -145,16 +145,16 @@ export const EnhancedSearchBar: React.FC<EnhancedSearchBarProps> = ({
 
       {/* Autocomplete dropdown */}
       {isOpen && suggestions.length > 0 && (
-        <div className="absolute top-full z-10 mt-1 w-full rounded-lg border border-gray-200 bg-white shadow-lg">
+        <div className="absolute top-full z-10 mt-1 w-full rounded-lg border border-border bg-surface-primary shadow-lg">
           {suggestions.map((suggestion, index) => (
             <button
               key={index}
               onClick={() => handleSuggestionClick(suggestion)}
               className={cn(
-                'w-full border-b border-gray-100 px-4 py-2 text-left text-sm last:border-b-0 transition',
+                'w-full border-b border-border px-4 py-2 text-left text-sm last:border-b-0 transition',
                 index === selectedIndex
                   ? 'bg-blue-50 text-blue-900'
-                  : 'text-gray-700 hover:bg-gray-50'
+                  : 'text-content-secondary hover:bg-surface-tertiary'
               )}
             >
               <code className="text-xs font-mono">{suggestion}</code>
@@ -165,13 +165,13 @@ export const EnhancedSearchBar: React.FC<EnhancedSearchBarProps> = ({
 
       {/* Save query dialog */}
       {showSaveDialog && (
-        <div className="absolute top-full z-20 mt-1 w-full rounded-lg border border-gray-200 bg-white p-3 shadow-lg">
+        <div className="absolute top-full z-20 mt-1 w-full rounded-lg border border-border bg-surface-primary p-3 shadow-lg">
           <input
             type="text"
             value={saveLabel}
             onChange={(e) => setSaveLabel(e.target.value)}
             placeholder="Label for this query"
-            className="mb-2 w-full rounded border border-gray-200 px-2 py-1 text-sm focus:border-blue-500 focus:outline-none"
+            className="mb-2 w-full rounded border border-border px-2 py-1 text-sm focus:border-blue-500 focus:outline-none"
             autoFocus
           />
           <div className="flex gap-2">
@@ -186,7 +186,7 @@ export const EnhancedSearchBar: React.FC<EnhancedSearchBarProps> = ({
                 setShowSaveDialog(false)
                 setSaveLabel('')
               }}
-              className="flex-1 rounded border border-gray-200 px-2 py-1 text-sm hover:bg-gray-50"
+              className="flex-1 rounded border border-border px-2 py-1 text-sm hover:bg-surface-tertiary"
             >
               Cancel
             </button>

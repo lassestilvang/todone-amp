@@ -1,0 +1,198 @@
+/* ==========================================================================
+   Design Tokens - CSS Custom Properties
+   
+   This file defines all semantic color tokens used throughout the application.
+   These tokens provide consistent theming support for light/dark modes.
+   ========================================================================== */
+
+:root {
+  /* ========================================================================
+     Surface Colors - Backgrounds and containers
+     ======================================================================== */
+  --color-surface-primary: #ffffff;
+  --color-surface-secondary: #f9fafb;
+  --color-surface-tertiary: #f3f4f6;
+  --color-surface-elevated: #ffffff;
+  --color-surface-overlay: rgba(0, 0, 0, 0.5);
+
+  /* ========================================================================
+     Text Colors - Typography
+     ======================================================================== */
+  --color-text-primary: #111827;
+  --color-text-secondary: #4b5563;
+  --color-text-tertiary: #9ca3af;
+  --color-text-inverse: #ffffff;
+  --color-text-disabled: #d1d5db;
+
+  /* ========================================================================
+     Border Colors
+     ======================================================================== */
+  --color-border-default: #e5e7eb;
+  --color-border-hover: #d1d5db;
+  --color-border-focus: #22c55e;
+  --color-border-subtle: #f3f4f6;
+
+  /* ========================================================================
+     Interactive Colors - Buttons, links, etc.
+     ======================================================================== */
+  --color-interactive-primary: #22c55e;
+  --color-interactive-primary-hover: #16a34a;
+  --color-interactive-primary-active: #15803d;
+  --color-interactive-secondary: #e5e7eb;
+  --color-interactive-secondary-hover: #d1d5db;
+  --color-interactive-secondary-active: #9ca3af;
+
+  /* ========================================================================
+     Semantic Colors - Status and feedback
+     ======================================================================== */
+  --color-success: #22c55e;
+  --color-success-light: #dcfce7;
+  --color-success-dark: #15803d;
+  --color-warning: #f59e0b;
+  --color-warning-light: #fef3c7;
+  --color-warning-dark: #b45309;
+  --color-error: #ef4444;
+  --color-error-light: #fee2e2;
+  --color-error-dark: #b91c1c;
+  --color-info: #3b82f6;
+  --color-info-light: #dbeafe;
+  --color-info-dark: #1d4ed8;
+
+  /* ========================================================================
+     Priority Colors - Task priorities
+     ======================================================================== */
+  --color-priority-p1: #ef4444;
+  --color-priority-p1-bg: #fef2f2;
+  --color-priority-p2: #f97316;
+  --color-priority-p2-bg: #fff7ed;
+  --color-priority-p3: #3b82f6;
+  --color-priority-p3-bg: #eff6ff;
+  --color-priority-p4: #6b7280;
+  --color-priority-p4-bg: #f9fafb;
+
+  /* ========================================================================
+     Focus Ring
+     ======================================================================== */
+  --color-focus-ring: rgba(34, 197, 94, 0.5);
+  --focus-ring-width: 2px;
+  --focus-ring-offset: 2px;
+
+  /* ========================================================================
+     Shadows
+     ======================================================================== */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+
+  /* ========================================================================
+     Sidebar Specific
+     ======================================================================== */
+  --color-sidebar-bg: #f9fafb;
+  --color-sidebar-hover: #f3f4f6;
+  --color-sidebar-active: #e5e7eb;
+  --color-sidebar-text: #374151;
+  --color-sidebar-text-muted: #6b7280;
+
+  /* ========================================================================
+     Input/Form Colors
+     ======================================================================== */
+  --color-input-bg: #ffffff;
+  --color-input-border: #d1d5db;
+  --color-input-border-hover: #9ca3af;
+  --color-input-border-focus: #22c55e;
+  --color-input-placeholder: #9ca3af;
+  --color-input-disabled-bg: #f9fafb;
+
+  /* ========================================================================
+     Tooltip Colors
+     ======================================================================== */
+  --color-tooltip-bg: #1f2937;
+  --color-tooltip-text: #ffffff;
+}
+
+/* ==========================================================================
+   Dark Mode Tokens
+   ========================================================================== */
+
+.dark {
+  /* Surface Colors */
+  --color-surface-primary: #111827;
+  --color-surface-secondary: #1f2937;
+  --color-surface-tertiary: #374151;
+  --color-surface-elevated: #1f2937;
+  --color-surface-overlay: rgba(0, 0, 0, 0.7);
+
+  /* Text Colors */
+  --color-text-primary: #f9fafb;
+  --color-text-secondary: #d1d5db;
+  --color-text-tertiary: #9ca3af;
+  --color-text-inverse: #111827;
+  --color-text-disabled: #4b5563;
+
+  /* Border Colors */
+  --color-border-default: #374151;
+  --color-border-hover: #4b5563;
+  --color-border-focus: #4ade80;
+  --color-border-subtle: #1f2937;
+
+  /* Interactive Colors */
+  --color-interactive-primary: #4ade80;
+  --color-interactive-primary-hover: #22c55e;
+  --color-interactive-primary-active: #16a34a;
+  --color-interactive-secondary: #374151;
+  --color-interactive-secondary-hover: #4b5563;
+  --color-interactive-secondary-active: #6b7280;
+
+  /* Semantic Colors - Slightly adjusted for dark mode visibility */
+  --color-success: #4ade80;
+  --color-success-light: #166534;
+  --color-success-dark: #86efac;
+  --color-warning: #fbbf24;
+  --color-warning-light: #78350f;
+  --color-warning-dark: #fcd34d;
+  --color-error: #f87171;
+  --color-error-light: #7f1d1d;
+  --color-error-dark: #fca5a5;
+  --color-info: #60a5fa;
+  --color-info-light: #1e3a5f;
+  --color-info-dark: #93c5fd;
+
+  /* Priority Colors - Dark mode */
+  --color-priority-p1: #f87171;
+  --color-priority-p1-bg: rgba(239, 68, 68, 0.15);
+  --color-priority-p2: #fb923c;
+  --color-priority-p2-bg: rgba(249, 115, 22, 0.15);
+  --color-priority-p3: #60a5fa;
+  --color-priority-p3-bg: rgba(59, 130, 246, 0.15);
+  --color-priority-p4: #9ca3af;
+  --color-priority-p4-bg: rgba(107, 114, 128, 0.15);
+
+  /* Focus Ring */
+  --color-focus-ring: rgba(74, 222, 128, 0.5);
+
+  /* Shadows - More subtle in dark mode */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+
+  /* Sidebar Specific */
+  --color-sidebar-bg: #1f2937;
+  --color-sidebar-hover: #374151;
+  --color-sidebar-active: #4b5563;
+  --color-sidebar-text: #e5e7eb;
+  --color-sidebar-text-muted: #9ca3af;
+
+  /* Input/Form Colors */
+  --color-input-bg: #1f2937;
+  --color-input-border: #4b5563;
+  --color-input-border-hover: #6b7280;
+  --color-input-border-focus: #4ade80;
+  --color-input-placeholder: #6b7280;
+  --color-input-disabled-bg: #374151;
+
+  /* Tooltip Colors */
+  --color-tooltip-bg: #374151;
+  --color-tooltip-text: #f9fafb;
+}

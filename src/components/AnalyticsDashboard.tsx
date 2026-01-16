@@ -29,12 +29,12 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ teamId, 
     <div className={cn('space-y-6', className)}>
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Analytics & Reporting</h1>
-        <p className="mt-1 text-sm text-gray-600">Track your productivity and team performance</p>
+        <h1 className="text-3xl font-bold text-content-primary">Analytics & Reporting</h1>
+        <p className="mt-1 text-sm text-content-secondary">Track your productivity and team performance</p>
       </div>
 
       {/* Tab Navigation */}
-      <div className="flex gap-2 overflow-x-auto border-b border-gray-200">
+      <div className="flex gap-2 overflow-x-auto border-b border-border">
         {tabs.map((tab) => (
           <button
             key={tab.id}
@@ -43,7 +43,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ teamId, 
               'flex items-center gap-2 border-b-2 px-4 py-3 text-sm font-medium transition',
               activeTab === tab.id
                 ? 'border-blue-600 text-blue-600'
-                : 'border-transparent text-gray-600 hover:text-gray-900'
+                : 'border-transparent text-content-secondary hover:text-content-primary'
             )}
           >
             {tab.icon}

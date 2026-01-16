@@ -66,26 +66,26 @@ export const EmailAssist: React.FC = () => {
       {/* Header */}
       <div className="flex items-center gap-2">
         <Mail className="h-6 w-6 text-brand-500" />
-        <h2 className="text-xl font-semibold text-gray-900">Email Assist</h2>
+        <h2 className="text-xl font-semibold text-content-primary">Email Assist</h2>
         <span className="rounded-full bg-brand-100 px-2 py-1 text-xs font-medium text-brand-700">
           Pro
         </span>
       </div>
 
       {/* Description */}
-      <p className="text-sm text-gray-600">
+      <p className="text-sm text-content-secondary">
         Forward emails or paste email content. AI will extract tasks, due dates, links, and action
         items automatically.
       </p>
 
       {/* Input Section */}
-      <div className="flex flex-col gap-3 rounded-lg border border-gray-200 bg-white p-4">
-        <label className="text-sm font-medium text-gray-900">Email Content</label>
+      <div className="flex flex-col gap-3 rounded-lg border border-border bg-surface-primary p-4">
+        <label className="text-sm font-medium text-content-primary">Email Content</label>
         <textarea
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Paste email content here... or forward to add@todone.app"
-          className="min-h-40 rounded border border-gray-300 px-3 py-2 text-sm text-gray-900 placeholder-gray-500"
+          className="min-h-40 rounded border border-border px-3 py-2 text-sm text-content-primary placeholder-content-tertiary"
         />
 
         <Button
@@ -101,7 +101,7 @@ export const EmailAssist: React.FC = () => {
       {extractedTasks.length > 0 && (
         <div className="flex flex-col gap-4">
           <div className="flex items-center justify-between">
-            <h3 className="font-semibold text-gray-900">Extracted Tasks</h3>
+            <h3 className="font-semibold text-content-primary">Extracted Tasks</h3>
             <Button
               variant="ghost"
               size="sm"
@@ -118,17 +118,17 @@ export const EmailAssist: React.FC = () => {
 
           <div className="flex flex-col gap-3">
             {extractedTasks.map((task, idx) => (
-              <div key={idx} className="flex flex-col gap-2 rounded-lg border border-gray-200 bg-white p-4">
+              <div key={idx} className="flex flex-col gap-2 rounded-lg border border-border bg-surface-primary p-4">
                 {/* Title */}
-                <h4 className="font-medium text-gray-900">{task.title}</h4>
+                <h4 className="font-medium text-content-primary">{task.title}</h4>
 
                 {/* Description */}
                 {task.description && (
-                  <p className="text-sm text-gray-600">{task.description}</p>
+                  <p className="text-sm text-content-secondary">{task.description}</p>
                 )}
 
                 {/* Metadata */}
-                <div className="flex flex-wrap gap-2 border-t border-gray-200 pt-2">
+                <div className="flex flex-wrap gap-2 border-t border-border pt-2">
                   {task.dueDate && (
                     <span className="inline-flex items-center rounded-full bg-blue-100 px-2 py-1 text-xs font-medium text-blue-800">
                       📅 {task.dueDate}
@@ -151,8 +151,8 @@ export const EmailAssist: React.FC = () => {
 
                 {/* Links */}
                 {task.links.length > 0 && (
-                  <div className="flex flex-col gap-1 border-t border-gray-200 pt-2">
-                    <p className="text-xs font-medium text-gray-600">Attached Links</p>
+                  <div className="flex flex-col gap-1 border-t border-border pt-2">
+                    <p className="text-xs font-medium text-content-secondary">Attached Links</p>
                     {task.links.map((link, linkIdx) => (
                       <a
                         key={linkIdx}
@@ -168,7 +168,7 @@ export const EmailAssist: React.FC = () => {
                 )}
 
                 {/* Action Button */}
-                <div className="flex gap-2 border-t border-gray-200 pt-2">
+                <div className="flex gap-2 border-t border-border pt-2">
                   <Button variant="primary" size="sm" className="flex-1">
                     <Zap className="h-4 w-4" />
                     Use This

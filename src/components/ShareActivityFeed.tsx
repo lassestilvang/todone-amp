@@ -39,7 +39,7 @@ export function ShareActivityFeed({
 
   if (shareActivities.length === 0) {
     return (
-      <div className={`rounded bg-gray-50 p-3 text-center text-sm text-gray-500 dark:bg-gray-800 dark:text-gray-400 ${className}`}>
+      <div className={`rounded bg-surface-secondary p-3 text-center text-sm text-content-tertiary ${className}`}>
         No sharing activity yet
       </div>
     )
@@ -47,8 +47,8 @@ export function ShareActivityFeed({
 
   return (
     <div className={`space-y-2 ${className}`}>
-      <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">Share Activity</h3>
-      <div className="space-y-2 rounded border border-gray-200 dark:border-gray-700">
+      <h3 className="text-sm font-medium text-content-secondary">Share Activity</h3>
+      <div className="space-y-2 rounded border border-border">
         {shareActivities.map((activity) => {
           const member = members.find((m) => m.userId === activity.userId)
           const icon = shareActionIcons[activity.action] || '📝'
@@ -56,18 +56,18 @@ export function ShareActivityFeed({
           return (
             <div
               key={activity.id}
-              className="flex items-start gap-3 border-b border-gray-100 p-3 last:border-b-0 dark:border-gray-800"
+              className="flex items-start gap-3 border-b border-border p-3 last:border-b-0"
             >
               <span className="text-lg">{icon}</span>
               <div className="flex-1">
-                <p className="text-sm font-medium text-gray-900 dark:text-white">
+                <p className="text-sm font-medium text-content-primary">
                   {member?.name || 'Unknown'} {getActionLabel(activity.action)}
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-xs text-content-tertiary">
                   {formatRelativeTime(activity.timestamp)}
                 </p>
                 {activity.newValue && typeof activity.newValue === 'string' ? (
-                  <p className="mt-1 text-xs text-gray-600 dark:text-gray-300">
+                  <p className="mt-1 text-xs text-content-secondary">
                     Role: <span className="font-medium">{activity.newValue}</span>
                   </p>
                 ) : null}

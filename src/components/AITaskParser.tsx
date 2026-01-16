@@ -158,11 +158,11 @@ export function AITaskParser({
 
   return (
     <div className={cn('space-y-2', className)}>
-      <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+      <div className="flex items-center gap-2 text-xs text-content-tertiary">
         <Sparkles size={12} className="text-brand-500" />
         <span>Detected from your input:</span>
         {showConfidence && parsed.confidence > 0 && (
-          <span className="ml-auto text-gray-400">
+          <span className="ml-auto text-content-tertiary">
             {Math.round(parsed.confidence * 100)}% confidence
           </span>
         )}
@@ -204,11 +204,11 @@ export function AITaskParser({
       </div>
 
       {parsed.title && (
-        <div className="flex items-start gap-2 p-2 bg-gray-50 dark:bg-gray-800/50 rounded-md border border-gray-200 dark:border-gray-700">
+        <div className="flex items-start gap-2 p-2 bg-surface-secondary rounded-md border border-border">
           <Check size={14} className="text-green-500 mt-0.5 shrink-0" />
           <div>
-            <div className="text-xs text-gray-500 dark:text-gray-400 mb-0.5">Task title:</div>
-            <div className="text-sm font-medium text-gray-900 dark:text-gray-100">
+            <div className="text-xs text-content-tertiary mb-0.5">Task title:</div>
+            <div className="text-sm font-medium text-content-primary">
               {parsed.title}
             </div>
           </div>
@@ -227,7 +227,7 @@ interface AIParsePreviewProps {
 export function AIParsePreview({ input, parsed, isValid }: AIParsePreviewProps) {
   if (!input.trim()) {
     return (
-      <div className="text-sm text-gray-500 dark:text-gray-400 italic">
+      <div className="text-sm text-content-tertiary italic">
         Start typing to see AI parsing...
       </div>
     )

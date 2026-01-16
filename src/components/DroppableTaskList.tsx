@@ -41,7 +41,7 @@ export function DroppableTaskList({
         )}
       >
         {tasks.length === 0 ? (
-          <div className="py-8 text-center text-gray-500">
+          <div className="py-8 text-center text-content-tertiary">
             <p className="text-sm">{emptyMessage}</p>
           </div>
         ) : (

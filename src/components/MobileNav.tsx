@@ -24,7 +24,7 @@ export function MobileNav({ currentView, onViewChange }: MobileNavProps) {
   return (
     <>
       {/* Mobile Bottom Navigation */}
-      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-40">
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-surface-primary border-t border-border z-40">
         <div className="flex items-center justify-around h-16">
           {navItems.map((item) => {
             const Icon = item.icon
@@ -36,7 +36,7 @@ export function MobileNav({ currentView, onViewChange }: MobileNavProps) {
                   'flex flex-col items-center justify-center flex-1 h-full gap-1 transition-colors',
                   currentView === item.id
                     ? 'text-brand-600 bg-brand-50'
-                    : 'text-gray-600 hover:bg-gray-50'
+                    : 'text-content-secondary hover:bg-surface-tertiary'
                 )}
               >
                 <Icon className="w-5 h-5" />
@@ -49,10 +49,10 @@ export function MobileNav({ currentView, onViewChange }: MobileNavProps) {
 
       {/* Mobile Hamburger Menu */}
       <div className="md:hidden fixed top-4 left-4 right-4 flex justify-between items-center z-50">
-        <h1 className="text-xl font-bold text-gray-900">Todone</h1>
+        <h1 className="text-xl font-bold text-content-primary">Todone</h1>
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+          className="p-2 hover:bg-surface-tertiary rounded-lg transition-colors"
         >
           {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
         </button>

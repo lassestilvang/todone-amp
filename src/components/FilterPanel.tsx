@@ -91,34 +91,34 @@ export function FilterPanel({ isOpen, onClose, onAdvancedQueryChange }: FilterPa
       <div className="flex-1" onClick={onClose} />
 
       {/* Panel */}
-      <div className="w-96 bg-white shadow-lg overflow-y-auto">
+      <div className="w-96 bg-surface-primary shadow-lg overflow-y-auto">
         {/* Header */}
-        <div className="px-6 py-4 border-b border-gray-200 flex items-center justify-between sticky top-0 bg-white">
-          <h2 className="text-lg font-bold text-gray-900">Filters</h2>
+        <div className="px-6 py-4 border-b border-border flex items-center justify-between sticky top-0 bg-surface-primary">
+          <h2 className="text-lg font-bold text-content-primary">Filters</h2>
           <button
             onClick={onClose}
-            className="p-1 hover:bg-gray-100 rounded transition-colors"
+            className="p-1 hover:bg-surface-tertiary rounded transition-colors"
             title="Close"
           >
-            <X size={20} className="text-gray-500" />
+            <X size={20} className="text-content-tertiary" />
           </button>
         </div>
 
         {/* Content */}
-        <div className="divide-y divide-gray-200">
+        <div className="divide-y divide-border">
           {/* Create New Filter */}
           {!isCreating && !showAdvancedBuilder && (
-            <div className="space-y-2 px-6 py-4 border-b border-gray-200">
+            <div className="space-y-2 px-6 py-4 border-b border-border">
               <button
                 onClick={() => setIsCreating(true)}
-                className="w-full px-4 py-2 flex items-center gap-2 text-gray-700 hover:bg-gray-50 rounded transition-colors font-medium text-sm"
+                className="w-full px-4 py-2 flex items-center gap-2 text-content-secondary hover:bg-surface-tertiary rounded transition-colors font-medium text-sm"
               >
                 <Plus size={16} className="text-brand-600" />
                 Create Simple Filter
               </button>
               <button
                 onClick={() => setShowAdvancedBuilder(true)}
-                className="w-full px-4 py-2 flex items-center gap-2 text-gray-700 hover:bg-gray-50 rounded transition-colors font-medium text-sm"
+                className="w-full px-4 py-2 flex items-center gap-2 text-content-secondary hover:bg-surface-tertiary rounded transition-colors font-medium text-sm"
               >
                 <Zap size={16} className="text-amber-500" />
                 Advanced Syntax
@@ -128,10 +128,10 @@ export function FilterPanel({ isOpen, onClose, onAdvancedQueryChange }: FilterPa
 
           {/* Filter Creation Form */}
           {isCreating && (
-            <div className="px-6 py-4 space-y-4 bg-gray-50">
+            <div className="px-6 py-4 space-y-4 bg-surface-secondary">
               {/* Filter Name */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium text-content-secondary mb-1">
                   Filter Name
                 </label>
                 <input
@@ -139,18 +139,18 @@ export function FilterPanel({ isOpen, onClose, onAdvancedQueryChange }: FilterPa
                   value={filterName}
                   onChange={(e) => setFilterName(e.target.value)}
                   placeholder="e.g., Urgent Tasks"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+                  className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
                 />
               </div>
 
               {/* Rules */}
               <div className="space-y-3">
-                <label className="block text-sm font-medium text-gray-700">Rules</label>
+                <label className="block text-sm font-medium text-content-secondary">Rules</label>
                 {filterRules.length === 0 ? (
-                  <p className="text-sm text-gray-500">No rules added yet</p>
+                  <p className="text-sm text-content-tertiary">No rules added yet</p>
                 ) : (
                   filterRules.map((rule) => (
-                    <div key={rule.id} className="bg-white p-3 rounded border border-gray-200 space-y-2">
+                    <div key={rule.id} className="bg-surface-primary p-3 rounded border border-border space-y-2">
                       <div className="flex gap-2">
                         <select
                           value={rule.condition}
@@ -163,7 +163,7 @@ export function FilterPanel({ isOpen, onClose, onAdvancedQueryChange }: FilterPa
                               )
                             )
                           }}
-                          className="flex-1 text-sm px-2 py-1 border border-gray-300 rounded"
+                          className="flex-1 text-sm px-2 py-1 border border-border rounded"
                         >
                           <option value="label">Label</option>
                           <option value="priority">Priority</option>
@@ -175,7 +175,7 @@ export function FilterPanel({ isOpen, onClose, onAdvancedQueryChange }: FilterPa
 
                         <button
                           onClick={() => handleRemoveRule(rule.id)}
-                          className="p-1 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded"
+                          className="p-1 text-content-tertiary hover:text-red-600 hover:bg-red-50 rounded"
                         >
                           <X size={16} />
                         </button>
@@ -194,7 +194,7 @@ export function FilterPanel({ isOpen, onClose, onAdvancedQueryChange }: FilterPa
                               )
                             )
                           }}
-                          className="w-24 text-sm px-2 py-1 border border-gray-300 rounded"
+                          className="w-24 text-sm px-2 py-1 border border-border rounded"
                         >
                           <option value="is">is</option>
                           <option value="is_not">is not</option>
@@ -214,7 +214,7 @@ export function FilterPanel({ isOpen, onClose, onAdvancedQueryChange }: FilterPa
                                 )
                               )
                             }}
-                            className="flex-1 text-sm px-2 py-1 border border-gray-300 rounded"
+                            className="flex-1 text-sm px-2 py-1 border border-border rounded"
                           >
                             <option value="">Select label</option>
                             {labels.map((label) => (
@@ -235,7 +235,7 @@ export function FilterPanel({ isOpen, onClose, onAdvancedQueryChange }: FilterPa
                                 )
                               )
                             }}
-                            className="flex-1 text-sm px-2 py-1 border border-gray-300 rounded"
+                            className="flex-1 text-sm px-2 py-1 border border-border rounded"
                           >
                             <option value="">Select priority</option>
                             <option value="p1">P1 - Urgent</option>
@@ -255,7 +255,7 @@ export function FilterPanel({ isOpen, onClose, onAdvancedQueryChange }: FilterPa
                                 )
                               )
                             }}
-                            className="flex-1 text-sm px-2 py-1 border border-gray-300 rounded"
+                            className="flex-1 text-sm px-2 py-1 border border-border rounded"
                           >
                             <option value="">Select project</option>
                             {projects.map((project) => (
@@ -278,7 +278,7 @@ export function FilterPanel({ isOpen, onClose, onAdvancedQueryChange }: FilterPa
                               )
                             }}
                             placeholder="Search text"
-                            className="flex-1 text-sm px-2 py-1 border border-gray-300 rounded"
+                            className="flex-1 text-sm px-2 py-1 border border-border rounded"
                           />
                         )}
 
@@ -293,7 +293,7 @@ export function FilterPanel({ isOpen, onClose, onAdvancedQueryChange }: FilterPa
                                 )
                               )
                             }}
-                            className="flex-1 text-sm px-2 py-1 border border-gray-300 rounded"
+                            className="flex-1 text-sm px-2 py-1 border border-border rounded"
                           />
                         )}
                       </div>
@@ -324,7 +324,7 @@ export function FilterPanel({ isOpen, onClose, onAdvancedQueryChange }: FilterPa
                     setFilterName('')
                     setFilterRules([])
                   }}
-                  className="flex-1 px-3 py-2 text-gray-700 border border-gray-300 font-medium rounded hover:bg-gray-50 transition-colors"
+                  className="flex-1 px-3 py-2 text-content-secondary border border-border font-medium rounded hover:bg-surface-tertiary transition-colors"
                 >
                   Cancel
                 </button>
@@ -334,8 +334,8 @@ export function FilterPanel({ isOpen, onClose, onAdvancedQueryChange }: FilterPa
 
           {/* Saved Filters */}
           {filters.length > 0 && (
-            <div className="divide-y divide-gray-200">
-              <div className="px-6 py-3 bg-gray-50 text-xs font-semibold text-gray-700 uppercase tracking-wider">
+            <div className="divide-y divide-border">
+              <div className="px-6 py-3 bg-surface-secondary text-xs font-semibold text-content-secondary uppercase tracking-wider">
                 Saved Filters ({filters.length})
               </div>
 
@@ -343,14 +343,14 @@ export function FilterPanel({ isOpen, onClose, onAdvancedQueryChange }: FilterPa
                 <div
                   key={filter.id}
                   className={cn(
-                    'px-6 py-3 flex items-center justify-between hover:bg-gray-50 transition-colors cursor-pointer',
+                    'px-6 py-3 flex items-center justify-between hover:bg-surface-tertiary transition-colors cursor-pointer',
                     activeFilterId === filter.id && 'bg-brand-50 border-l-4 border-brand-600'
                   )}
                   onClick={() => handleApplyFilter(filter.id)}
                 >
                   <div>
-                    <div className="font-medium text-gray-900">{filter.name}</div>
-                    <div className="text-xs text-gray-500 mt-1">
+                    <div className="font-medium text-content-primary">{filter.name}</div>
+                    <div className="text-xs text-content-tertiary mt-1">
                       {JSON.parse(filter.query).length} rule(s)
                     </div>
                   </div>
@@ -364,7 +364,7 @@ export function FilterPanel({ isOpen, onClose, onAdvancedQueryChange }: FilterPa
                       'p-1 rounded transition-colors',
                       filter.isFavorite
                         ? 'text-amber-500 hover:bg-amber-50'
-                        : 'text-gray-300 hover:text-amber-500 hover:bg-gray-100'
+                        : 'text-content-tertiary hover:text-amber-500 hover:bg-surface-tertiary'
                     )}
                   >
                     <Star size={16} fill={filter.isFavorite ? 'currentColor' : 'none'} />
@@ -375,7 +375,7 @@ export function FilterPanel({ isOpen, onClose, onAdvancedQueryChange }: FilterPa
                       e.stopPropagation()
                       deleteFilter(filter.id)
                     }}
-                    className="p-1 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded transition-colors"
+                    className="p-1 text-content-tertiary hover:text-red-600 hover:bg-red-50 rounded transition-colors"
                   >
                     <X size={16} />
                   </button>
@@ -386,15 +386,15 @@ export function FilterPanel({ isOpen, onClose, onAdvancedQueryChange }: FilterPa
 
           {/* Advanced Filter Builder */}
           {showAdvancedBuilder && (
-            <div className="px-6 py-4 space-y-4 bg-gray-50">
+            <div className="px-6 py-4 space-y-4 bg-surface-secondary">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="font-semibold text-gray-900">Advanced Filter Query</h3>
+                <h3 className="font-semibold text-content-primary">Advanced Filter Query</h3>
                 <button
                   onClick={() => {
                     setShowAdvancedBuilder(false)
                     setAdvancedQuery('')
                   }}
-                  className="p-1 text-gray-500 hover:text-gray-700 rounded transition-colors"
+                  className="p-1 text-content-tertiary hover:text-content-secondary rounded transition-colors"
                 >
                   <X size={18} />
                 </button>
@@ -436,8 +436,8 @@ export function FilterPanel({ isOpen, onClose, onAdvancedQueryChange }: FilterPa
 
           {/* Favorites Section */}
           {filters.some((f) => f.isFavorite) && (
-            <div className="divide-y divide-gray-200">
-              <div className="px-6 py-3 bg-gray-50 text-xs font-semibold text-gray-700 uppercase tracking-wider">
+            <div className="divide-y divide-border">
+              <div className="px-6 py-3 bg-surface-secondary text-xs font-semibold text-content-secondary uppercase tracking-wider">
                 Favorite Filters
               </div>
 
@@ -448,12 +448,12 @@ export function FilterPanel({ isOpen, onClose, onAdvancedQueryChange }: FilterPa
                     key={`fav-${filter.id}`}
                     onClick={() => handleApplyFilter(filter.id)}
                     className={cn(
-                      'px-6 py-3 flex items-center gap-2 hover:bg-gray-50 transition-colors cursor-pointer',
+                      'px-6 py-3 flex items-center gap-2 hover:bg-surface-tertiary transition-colors cursor-pointer',
                       activeFilterId === filter.id && 'bg-brand-50'
                     )}
                   >
                     <Star size={14} className="text-amber-500" fill="currentColor" />
-                    <span className="font-medium text-gray-900">{filter.name}</span>
+                    <span className="font-medium text-content-primary">{filter.name}</span>
                   </div>
                 ))}
             </div>

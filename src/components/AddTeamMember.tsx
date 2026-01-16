@@ -55,12 +55,12 @@ export function AddTeamMember({
 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg shadow-xl w-full max-w-md p-6">
+      <div className="bg-surface-primary rounded-lg shadow-xl w-full max-w-md p-6">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-bold text-gray-900">Invite Team Member</h2>
+          <h2 className="text-xl font-bold text-content-primary">Invite Team Member</h2>
           <button
             onClick={onClose}
-            className="p-1 hover:bg-gray-100 rounded transition-colors"
+            className="p-1 hover:bg-surface-tertiary rounded transition-colors"
           >
             <X size={20} />
           </button>
@@ -69,7 +69,7 @@ export function AddTeamMember({
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Email */}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="email" className="block text-sm font-medium text-content-secondary mb-2">
               Email Address *
             </label>
             <Input
@@ -84,7 +84,7 @@ export function AddTeamMember({
 
           {/* Name */}
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="name" className="block text-sm font-medium text-content-secondary mb-2">
               Name (Optional)
             </label>
             <Input

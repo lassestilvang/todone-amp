@@ -163,7 +163,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
           {/* Context Menu */}
           <div
             ref={menuRef}
-            className="fixed bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 z-50 py-1 min-w-48"
+            className="fixed bg-surface-primary rounded-lg shadow-xl border border-border z-50 py-1 min-w-48"
             style={{
               left: `${adjustedX}px`,
               top: `${adjustedY}px`,
@@ -179,10 +179,10 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
                   'flex items-center gap-3',
                   'first:rounded-t-lg last:rounded-b-lg',
                   item.disabled
-                    ? 'text-gray-400 dark:text-gray-600 cursor-not-allowed'
+                    ? 'text-content-tertiary cursor-not-allowed'
                     : item.isDangerous
-                      ? 'text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20'
-                      : 'text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700'
+                      ? 'text-semantic-error hover:bg-red-50'
+                      : 'text-content-primary hover:bg-surface-tertiary'
                 )}
               >
                 {item.icon && <span className="w-4 h-4 flex-shrink-0">{item.icon}</span>}

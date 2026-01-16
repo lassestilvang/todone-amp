@@ -44,7 +44,7 @@ export function SubTaskItem({
       <div
         className={cn(
           'flex items-center gap-2 px-3 py-2 rounded-lg transition-colors',
-          'hover:bg-gray-100 group',
+          'hover:bg-surface-tertiary group',
           task.completed && 'opacity-60',
           depth > 0 && 'ml-4'
         )}
@@ -56,7 +56,7 @@ export function SubTaskItem({
               e.stopPropagation()
               onToggleExpanded(task.id)
             }}
-            className="p-1 hover:bg-gray-200 rounded transition-colors"
+            className="p-1 hover:bg-interactive-secondary rounded transition-colors"
             title={isExpanded ? 'Collapse subtasks' : 'Expand subtasks'}
           >
             {isExpanded ? <ChevronDown size={16} /> : <ChevronRight size={16} />}
@@ -77,11 +77,11 @@ export function SubTaskItem({
           onClick={() => onSelectTask(task.id)}
           className="flex-1 cursor-pointer"
         >
-          <div className={cn('text-sm font-medium', task.completed && 'line-through text-gray-500')}>
+          <div className={cn('text-sm font-medium', task.completed && 'line-through text-content-tertiary')}>
             {task.content}
           </div>
           {task.description && (
-            <div className="text-xs text-gray-600 mt-0.5 line-clamp-1">{task.description}</div>
+            <div className="text-xs text-content-secondary mt-0.5 line-clamp-1">{task.description}</div>
           )}
         </div>
 
@@ -92,7 +92,7 @@ export function SubTaskItem({
               'bg-red-100 text-red-700': task.priority === 'p1',
               'bg-orange-100 text-orange-700': task.priority === 'p2',
               'bg-blue-100 text-blue-700': task.priority === 'p3',
-              'bg-gray-100 text-gray-700': task.priority === 'p4',
+              'bg-surface-tertiary text-content-secondary': task.priority === 'p4',
             })}
           >
             {task.priority.toUpperCase()}

@@ -59,7 +59,7 @@ export const TeamMemberProfile: React.FC<TeamMemberProfileProps> = ({
     return (
       <div
         className={cn(
-          'flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-3 dark:border-gray-700 dark:bg-gray-800',
+          'flex items-center gap-3 rounded-lg border border-border bg-surface-primary p-3',
           className
         )}
       >
@@ -77,15 +77,15 @@ export const TeamMemberProfile: React.FC<TeamMemberProfileProps> = ({
           )}
           <div
             className={cn(
-              'absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-white dark:border-gray-800',
-              metrics?.status === 'active' ? 'bg-green-500' : 'bg-gray-400'
+              'absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-surface-primary',
+              metrics?.status === 'active' ? 'bg-green-500' : 'bg-content-tertiary'
             )}
           />
         </div>
 
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">{member.name || 'Unnamed'}</p>
-          <p className="text-xs text-gray-500 dark:text-gray-400 truncate">{member.email || 'No email'}</p>
+          <p className="text-sm font-semibold text-content-primary truncate">{member.name || 'Unnamed'}</p>
+          <p className="text-xs text-content-tertiary truncate">{member.email || 'No email'}</p>
         </div>
 
         <div className="flex items-center gap-1">
@@ -98,7 +98,7 @@ export const TeamMemberProfile: React.FC<TeamMemberProfileProps> = ({
   }
 
   return (
-    <div className={cn('space-y-4 rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800', className)}>
+    <div className={cn('space-y-4 rounded-lg border border-border bg-surface-primary p-4', className)}>
       {/* Header */}
       <div className="flex items-start justify-between">
         <div className="flex items-start gap-4">
@@ -116,15 +116,15 @@ export const TeamMemberProfile: React.FC<TeamMemberProfileProps> = ({
 
           <div className="flex-1">
             <div className="flex items-center gap-2">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{member.name || 'Unnamed'}</h3>
+              <h3 className="text-lg font-semibold text-content-primary">{member.name || 'Unnamed'}</h3>
               <span
                 className={cn(
                   'h-2 w-2 rounded-full',
-                  metrics?.status === 'active' ? 'bg-green-500' : 'bg-gray-400'
+                  metrics?.status === 'active' ? 'bg-green-500' : 'bg-content-tertiary'
                 )}
               />
             </div>
-            <p className="text-sm text-gray-600 dark:text-gray-400">{member.email}</p>
+            <p className="text-sm text-content-secondary">{member.email}</p>
           </div>
         </div>
 
@@ -134,16 +134,16 @@ export const TeamMemberProfile: React.FC<TeamMemberProfileProps> = ({
       </div>
 
       {/* Contact Info */}
-      <div className="space-y-2 border-t border-gray-200 pt-4 dark:border-gray-700">
+      <div className="space-y-2 border-t border-border pt-4">
         <div className="flex items-center gap-2">
-          <Mail className="h-4 w-4 text-gray-400" />
+          <Mail className="h-4 w-4 text-content-tertiary" />
           <a href={`mailto:${member.email}`} className="text-sm text-blue-600 hover:underline dark:text-blue-400">
             {member.email}
           </a>
         </div>
         <div className="flex items-center gap-2">
-          <Calendar className="h-4 w-4 text-gray-400" />
-          <span className="text-sm text-gray-600 dark:text-gray-400">
+          <Calendar className="h-4 w-4 text-content-tertiary" />
+          <span className="text-sm text-content-secondary">
             Joined {new Date(member.joinedAt).toLocaleDateString()}
           </span>
         </div>
@@ -151,29 +151,29 @@ export const TeamMemberProfile: React.FC<TeamMemberProfileProps> = ({
 
       {/* Metrics */}
       {metrics && (
-        <div className="space-y-2 border-t border-gray-200 pt-4 dark:border-gray-700">
+        <div className="space-y-2 border-t border-border pt-4">
           <div className="grid grid-cols-3 gap-2">
             <div className="rounded-md bg-blue-50 p-2 dark:bg-blue-900">
-              <p className="text-xs text-gray-600 dark:text-gray-400">Assigned</p>
+              <p className="text-xs text-content-secondary">Assigned</p>
               <p className="mt-1 text-lg font-bold text-blue-600 dark:text-blue-400">{metrics.tasksAssigned}</p>
             </div>
             <div className="rounded-md bg-green-50 p-2 dark:bg-green-900">
-              <p className="text-xs text-gray-600 dark:text-gray-400">Completed</p>
+              <p className="text-xs text-content-secondary">Completed</p>
               <p className="mt-1 text-lg font-bold text-green-600 dark:text-green-400">{metrics.tasksCompleted}</p>
             </div>
             <div className="rounded-md bg-orange-50 p-2 dark:bg-orange-900">
-              <p className="text-xs text-gray-600 dark:text-gray-400">Overdue</p>
+              <p className="text-xs text-content-secondary">Overdue</p>
               <p className="mt-1 text-lg font-bold text-orange-600 dark:text-orange-400">{metrics.tasksOverdue}</p>
             </div>
           </div>
 
-          <div className="rounded-md bg-gray-50 p-2 dark:bg-gray-700">
+          <div className="rounded-md bg-surface-secondary p-2">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Activity className="h-4 w-4 text-gray-400" />
-                <span className="text-xs text-gray-600 dark:text-gray-400">Completion Rate</span>
+                <Activity className="h-4 w-4 text-content-tertiary" />
+                <span className="text-xs text-content-secondary">Completion Rate</span>
               </div>
-              <span className="text-sm font-bold text-gray-900 dark:text-white">{Math.round(metrics.completionRate)}%</span>
+              <span className="text-sm font-bold text-content-primary">{Math.round(metrics.completionRate)}%</span>
             </div>
           </div>
 

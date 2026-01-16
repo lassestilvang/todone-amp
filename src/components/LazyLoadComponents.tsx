@@ -37,8 +37,8 @@ export function lazyWithSuspense<P extends object = object>(
 export const LoadingFallback: FC = () => (
   <div className="flex items-center justify-center p-4">
     <div className="space-y-2 text-center">
-      <div className="h-8 w-8 animate-spin rounded-full border-4 border-gray-200 border-t-brand-500 mx-auto" />
-      <p className="text-sm text-gray-600">Loading...</p>
+      <div className="h-8 w-8 animate-spin rounded-full border-4 border-interactive-secondary border-t-brand-500 mx-auto" />
+      <p className="text-sm text-content-secondary">Loading...</p>
     </div>
   </div>
 )

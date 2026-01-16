@@ -86,38 +86,38 @@ export function UserProfile({ className, onSave }: UserProfileProps) {
     <div className={cn('space-y-6', className)}>
       {/* Gamification Section */}
       <div className="space-y-4">
-        <h2 className="text-xl font-bold text-gray-900">Your Achievements</h2>
+        <h2 className="text-xl font-bold text-content-primary">Your Achievements</h2>
         <KarmaWidget />
         <AchievementStats />
       </div>
 
       {/* Karma History */}
       <div className="space-y-4">
-        <h3 className="text-lg font-semibold text-gray-900">Karma Progress</h3>
+        <h3 className="text-lg font-semibold text-content-primary">Karma Progress</h3>
         <KarmaHistoryChart days={30} />
       </div>
 
       {/* Badges */}
       <div className="space-y-4">
-        <h3 className="text-lg font-semibold text-gray-900">Earned Badges</h3>
+        <h3 className="text-lg font-semibold text-content-primary">Earned Badges</h3>
         <BadgesDisplay layout="grid" maxBadges={8} />
       </div>
 
       {/* Achievements Showcase */}
       <div className="space-y-4">
-        <h3 className="text-lg font-semibold text-gray-900">All Achievements</h3>
+        <h3 className="text-lg font-semibold text-content-primary">All Achievements</h3>
         <AchievementsShowcase columns={4} showLocked={true} size="medium" />
       </div>
 
       {/* Leaderboard */}
       <div className="space-y-4">
-        <h3 className="text-lg font-semibold text-gray-900">Top Contributors</h3>
+        <h3 className="text-lg font-semibold text-content-primary">Top Contributors</h3>
         <Leaderboard limit={10} />
       </div>
 
       {/* Profile Settings */}
-      <div className="bg-white rounded-lg border border-gray-200 p-6">
-        <h2 className="text-xl font-bold text-gray-900 mb-6">Profile Settings</h2>
+      <div className="bg-surface-primary rounded-lg border border-border p-6">
+        <h2 className="text-xl font-bold text-content-primary mb-6">Profile Settings</h2>
 
         <div className="space-y-6">
           {/* Avatar Section */}
@@ -161,7 +161,7 @@ export function UserProfile({ className, onSave }: UserProfileProps) {
 
           {/* Name */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Name</label>
+            <label className="block text-sm font-medium text-content-secondary mb-2">Name</label>
             {isEditing ? (
               <Input
                 type="text"
@@ -171,15 +171,15 @@ export function UserProfile({ className, onSave }: UserProfileProps) {
                 placeholder="Your name"
               />
             ) : (
-              <p className="text-gray-900">{formData.name}</p>
+              <p className="text-content-primary">{formData.name}</p>
             )}
           </div>
 
           {/* Email */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
-            <p className="text-gray-600">{formData.email}</p>
-            <p className="text-xs text-gray-500 mt-1">Email cannot be changed</p>
+            <label className="block text-sm font-medium text-content-secondary mb-2">Email</label>
+            <p className="text-content-secondary">{formData.email}</p>
+            <p className="text-xs text-content-tertiary mt-1">Email cannot be changed</p>
           </div>
 
           {/* Buttons */}

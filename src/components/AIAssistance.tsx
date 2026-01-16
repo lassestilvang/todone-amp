@@ -77,7 +77,7 @@ export function AIAssistance({
   return (
     <div className={cn('space-y-4', className)}>
       {/* Tabs */}
-      <div className="flex gap-1 border-b border-gray-200">
+      <div className="flex gap-1 border-b border-border">
         <button
           onClick={() => {
             setActiveTab('suggest')
@@ -87,7 +87,7 @@ export function AIAssistance({
             'px-3 py-2 text-sm font-medium transition-colors border-b-2 -mb-px',
             activeTab === 'suggest'
               ? 'border-brand-600 text-brand-600'
-              : 'border-transparent text-gray-600 hover:text-gray-900'
+              : 'border-transparent text-content-secondary hover:text-content-primary'
           )}
         >
           <Sparkles className="w-4 h-4 mr-1 inline" />
@@ -102,7 +102,7 @@ export function AIAssistance({
             'px-3 py-2 text-sm font-medium transition-colors border-b-2 -mb-px',
             activeTab === 'breakdown'
               ? 'border-brand-600 text-brand-600'
-              : 'border-transparent text-gray-600 hover:text-gray-900'
+              : 'border-transparent text-content-secondary hover:text-content-primary'
           )}
         >
           Break Down
@@ -116,7 +116,7 @@ export function AIAssistance({
             'px-3 py-2 text-sm font-medium transition-colors border-b-2 -mb-px',
             activeTab === 'tips'
               ? 'border-brand-600 text-brand-600'
-              : 'border-transparent text-gray-600 hover:text-gray-900'
+              : 'border-transparent text-content-secondary hover:text-content-primary'
           )}
         >
           Tips
@@ -128,7 +128,7 @@ export function AIAssistance({
         {isLoading && (
           <div className="flex items-center justify-center py-8">
             <Loader className="w-5 h-5 animate-spin text-brand-600 mr-2" />
-            <p className="text-gray-600">Generating suggestions...</p>
+            <p className="text-content-secondary">Generating suggestions...</p>
           </div>
         )}
 
@@ -146,7 +146,7 @@ export function AIAssistance({
               </div>
 
               {/* Suggestion content */}
-              <p className="text-sm text-gray-900 mb-3 whitespace-pre-wrap">
+              <p className="text-sm text-content-primary mb-3 whitespace-pre-wrap">
                 {suggestion.content}
               </p>
 
@@ -189,7 +189,7 @@ export function AIAssistance({
                       'p-1 rounded transition-colors',
                       feedback[suggestion.id] === 'helpful'
                         ? 'text-green-600 bg-green-50'
-                        : 'text-gray-400 hover:bg-gray-100'
+                        : 'text-content-tertiary hover:bg-surface-tertiary'
                     )}
                   >
                     <ThumbsUp className="w-4 h-4" />
@@ -200,7 +200,7 @@ export function AIAssistance({
                       'p-1 rounded transition-colors',
                       feedback[suggestion.id] === 'not-helpful'
                         ? 'text-red-600 bg-red-50'
-                        : 'text-gray-400 hover:bg-gray-100'
+                        : 'text-content-tertiary hover:bg-surface-tertiary'
                     )}
                   >
                     <ThumbsDown className="w-4 h-4" />
@@ -211,7 +211,7 @@ export function AIAssistance({
           ))}
 
         {!isLoading && suggestions.length === 0 && (
-          <p className="text-sm text-gray-500 text-center py-6">
+          <p className="text-sm text-content-tertiary text-center py-6">
             Click on a tab above to get AI suggestions for this task
           </p>
         )}

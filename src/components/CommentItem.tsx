@@ -77,8 +77,8 @@ export function CommentItem({ comment, className }: CommentItemProps) {
             className="w-8 h-8 rounded-full"
           />
         ) : (
-          <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center">
-            <span className="text-xs font-bold text-gray-600">
+          <div className="w-8 h-8 rounded-full bg-interactive-secondary flex items-center justify-center">
+            <span className="text-xs font-bold text-content-secondary">
               {author?.name?.charAt(0).toUpperCase() || '?'}
             </span>
           </div>
@@ -88,10 +88,10 @@ export function CommentItem({ comment, className }: CommentItemProps) {
       {/* Content */}
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2 mb-1">
-          <p className="font-medium text-gray-900">{author?.name || 'Unknown'}</p>
-          <p className="text-xs text-gray-500">{formatRelativeTime(comment.createdAt)}</p>
+          <p className="font-medium text-content-primary">{author?.name || 'Unknown'}</p>
+          <p className="text-xs text-content-tertiary">{formatRelativeTime(comment.createdAt)}</p>
           {comment.updatedAt > comment.createdAt && (
-            <p className="text-xs text-gray-400">(edited)</p>
+            <p className="text-xs text-content-tertiary">(edited)</p>
           )}
         </div>
 
@@ -102,8 +102,8 @@ export function CommentItem({ comment, className }: CommentItemProps) {
               onChange={(e) => setEditContent(e.target.value)}
               rows={3}
               className={cn(
-                'w-full px-3 py-2 border border-gray-300 rounded-lg',
-                'text-sm placeholder-gray-500 resize-none',
+                'w-full px-3 py-2 border border-border rounded-lg',
+                'text-sm placeholder-content-tertiary resize-none',
                 'focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent',
               )}
             />
@@ -134,7 +134,7 @@ export function CommentItem({ comment, className }: CommentItemProps) {
           </div>
         ) : (
           <>
-            <p className="text-sm text-gray-700 whitespace-pre-wrap break-words">
+            <p className="text-sm text-content-secondary whitespace-pre-wrap break-words">
               {comment.content}
             </p>
 
@@ -145,7 +145,7 @@ export function CommentItem({ comment, className }: CommentItemProps) {
                   onClick={() => setIsEditing(true)}
                   className={cn(
                     'flex items-center gap-1 text-xs px-2 py-1',
-                    'text-gray-600 hover:bg-gray-100 rounded transition-colors',
+                    'text-content-secondary hover:bg-surface-tertiary rounded transition-colors',
                   )}
                 >
                   <Edit2 size={12} />
@@ -156,7 +156,7 @@ export function CommentItem({ comment, className }: CommentItemProps) {
                   disabled={isLoading}
                   className={cn(
                     'flex items-center gap-1 text-xs px-2 py-1',
-                    'text-red-600 hover:bg-red-50 rounded transition-colors',
+                    'text-semantic-error hover:bg-red-50 rounded transition-colors',
                   )}
                 >
                   <Trash2 size={12} />

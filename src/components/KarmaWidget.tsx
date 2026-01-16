@@ -77,8 +77,8 @@ export const KarmaWidget: React.FC = () => {
 
   if (loading || !userStats) {
     return (
-      <div className="p-4 rounded-lg bg-gray-100 dark:bg-gray-800 animate-pulse">
-        <div className="h-8 bg-gray-300 dark:bg-gray-700 rounded w-24" />
+      <div className="p-4 rounded-lg bg-surface-tertiary animate-pulse">
+        <div className="h-8 bg-interactive-secondary rounded w-24" />
       </div>
     )
   }
@@ -93,25 +93,25 @@ export const KarmaWidget: React.FC = () => {
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <Zap className="w-5 h-5 text-yellow-500" />
-          <h3 className="font-semibold text-gray-900 dark:text-white">Karma Points</h3>
+          <h3 className="font-semibold text-content-primary">Karma Points</h3>
         </div>
         <span className={clsx('text-sm font-bold capitalize', levelColor)}>{userStats.karmaLevel}</span>
       </div>
 
       {/* Karma Display */}
       <div className="mb-4">
-        <div className="text-3xl font-bold text-gray-900 dark:text-white">{userStats.karma}</div>
-        <p className="text-sm text-gray-600 dark:text-gray-300">Total points earned</p>
+        <div className="text-3xl font-bold text-content-primary">{userStats.karma}</div>
+        <p className="text-sm text-content-secondary">Total points earned</p>
       </div>
 
       {/* Level Progress Bar */}
-      <div className="mb-4 p-3 bg-white dark:bg-gray-800 rounded-lg">
+      <div className="mb-4 p-3 bg-surface-primary rounded-lg">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">
+          <span className="text-xs font-semibold text-content-secondary">
             Level {LEVEL_ORDER.indexOf(userStats.karmaLevel) + 1} of {LEVEL_ORDER.length}
           </span>
           {!isMaxLevel && levelProgress.pointsNeeded !== null && (
-            <span className="text-xs text-gray-600 dark:text-gray-400">
+            <span className="text-xs text-content-secondary">
               {levelProgress.pointsNeeded} points to level up
             </span>
           )}
@@ -119,7 +119,7 @@ export const KarmaWidget: React.FC = () => {
         </div>
 
         {/* Progress Bar */}
-        <div className="w-full h-3 bg-gray-300 dark:bg-gray-700 rounded-full overflow-hidden mb-2">
+        <div className="w-full h-3 bg-interactive-secondary rounded-full overflow-hidden mb-2">
           <div
             className={clsx(
               'h-full transition-all duration-500 rounded-full',
@@ -132,7 +132,7 @@ export const KarmaWidget: React.FC = () => {
         </div>
 
         {/* Level Range Info */}
-        <div className="flex justify-between text-xs text-gray-600 dark:text-gray-400">
+        <div className="flex justify-between text-xs text-content-secondary">
           <span>{levelProgress.currentLevelThreshold.toLocaleString()}</span>
           <span>{(levelProgress.nextLevelThreshold || levelProgress.currentLevelThreshold).toLocaleString()}</span>
         </div>
@@ -140,50 +140,50 @@ export const KarmaWidget: React.FC = () => {
 
       {/* Simple Progress Bar for Backward Compatibility */}
       <div className="mb-4">
-        <div className="w-full h-2 bg-gray-300 dark:bg-gray-700 rounded-full overflow-hidden">
+        <div className="w-full h-2 bg-interactive-secondary rounded-full overflow-hidden">
           <div
             className="h-full bg-gradient-to-r from-blue-500 to-indigo-500 transition-all duration-300"
             style={{ width: `${Math.min((userStats.karma % 500) / 5, 100)}%` }}
           />
         </div>
-        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Overall progression</p>
+        <p className="text-xs text-content-tertiary mt-1">Overall progression</p>
       </div>
 
       {/* Stats Grid */}
       <div className="grid grid-cols-2 gap-2">
         {/* Streak */}
-        <div className="p-2 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
-          <div className="text-xs text-gray-500 dark:text-gray-400">Streak</div>
-          <div className="text-lg font-bold text-gray-900 dark:text-white">
+        <div className="p-2 bg-surface-primary rounded border border-border">
+          <div className="text-xs text-content-tertiary">Streak</div>
+          <div className="text-lg font-bold text-content-primary">
             {userStats.currentStreak}
-            <span className="text-sm text-gray-600 dark:text-gray-300 ml-1">days</span>
+            <span className="text-sm text-content-secondary ml-1">days</span>
           </div>
         </div>
 
         {/* Longest Streak */}
-        <div className="p-2 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
-          <div className="text-xs text-gray-500 dark:text-gray-400">Best</div>
-          <div className="text-lg font-bold text-gray-900 dark:text-white">
+        <div className="p-2 bg-surface-primary rounded border border-border">
+          <div className="text-xs text-content-tertiary">Best</div>
+          <div className="text-lg font-bold text-content-primary">
             {userStats.longestStreak}
-            <span className="text-sm text-gray-600 dark:text-gray-300 ml-1">days</span>
+            <span className="text-sm text-content-secondary ml-1">days</span>
           </div>
         </div>
 
         {/* Total Completed */}
-        <div className="p-2 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
-          <div className="text-xs text-gray-500 dark:text-gray-400">Completed</div>
-          <div className="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-1">
+        <div className="p-2 bg-surface-primary rounded border border-border">
+          <div className="text-xs text-content-tertiary">Completed</div>
+          <div className="text-lg font-bold text-content-primary flex items-center gap-1">
             {userStats.totalCompleted}
             <TrendingUp className="w-4 h-4 text-green-500" />
           </div>
         </div>
 
         {/* Achievements */}
-        <div className="p-2 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700">
-          <div className="text-xs text-gray-500 dark:text-gray-400">Badges</div>
-          <div className="text-lg font-bold text-gray-900 dark:text-white">
+        <div className="p-2 bg-surface-primary rounded border border-border">
+          <div className="text-xs text-content-tertiary">Badges</div>
+          <div className="text-lg font-bold text-content-primary">
             {userStats.achievements.length}
-            <span className="text-sm text-gray-600 dark:text-gray-300 ml-1">earned</span>
+            <span className="text-sm text-content-secondary ml-1">earned</span>
           </div>
         </div>
       </div>

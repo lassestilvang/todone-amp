@@ -50,7 +50,7 @@ export const TaskSuggestions: React.FC<TaskSuggestionsProps> = ({
   if (!isOpen || !text.trim()) return null
 
   return (
-    <div className="absolute top-full left-0 right-0 mt-2 z-50 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg shadow-xl overflow-hidden">
+    <div className="absolute top-full left-0 right-0 mt-2 z-50 bg-surface-primary border border-border rounded-lg shadow-xl overflow-hidden">
       {/* Ambiguity Warning */}
       {showAmbiguityWarning && (
         <div className="p-3 bg-yellow-50 dark:bg-yellow-900 border-b border-yellow-200 dark:border-yellow-700 flex items-start gap-2">
@@ -68,27 +68,27 @@ export const TaskSuggestions: React.FC<TaskSuggestionsProps> = ({
       {loading && (
         <div className="p-4 text-center">
           <div className="inline-block animate-spin">
-            <Sparkles className="w-5 h-5 text-blue-500" />
+            <Sparkles className="w-5 h-5 text-semantic-info" />
           </div>
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">Analyzing task...</p>
+          <p className="mt-2 text-sm text-content-secondary">Analyzing task...</p>
         </div>
       )}
 
       {!loading && suggestions.length > 0 && (
         <>
-          <div className="p-3 border-b border-gray-200 dark:border-gray-700">
-            <p className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase">
+          <div className="p-3 border-b border-border">
+            <p className="text-xs font-semibold text-content-secondary uppercase">
               Suggestions
             </p>
           </div>
           {suggestions.map((suggestion) => (
             <div
               key={suggestion.id}
-              className="p-3 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors last:border-b-0"
+              className="p-3 border-b border-border hover:bg-surface-tertiary transition-colors last:border-b-0"
             >
               {/* Task Content */}
               <div className="mb-2">
-                <p className="font-medium text-gray-900 dark:text-white text-sm">
+                <p className="font-medium text-content-primary text-sm">
                   {suggestion.suggestedTask.content}
                 </p>
               </div>
@@ -124,7 +124,7 @@ export const TaskSuggestions: React.FC<TaskSuggestionsProps> = ({
                   </span>
                 )}
 
-                <span className="text-xs text-gray-500 dark:text-gray-400 px-2 py-1">
+                <span className="text-xs text-content-tertiary px-2 py-1">
                   {Math.round(suggestion.confidence * 100)}% confidence
                 </span>
               </div>
@@ -177,10 +177,10 @@ export const TaskSuggestions: React.FC<TaskSuggestionsProps> = ({
 
       {/* Close Button */}
       {onClose && (
-        <div className="p-2 border-t border-gray-200 dark:border-gray-700">
+        <div className="p-2 border-t border-border">
           <button
             onClick={onClose}
-            className="w-full flex items-center justify-center gap-2 px-3 py-1 rounded text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm transition-colors"
+            className="w-full flex items-center justify-center gap-2 px-3 py-1 rounded text-content-secondary hover:bg-surface-tertiary text-sm transition-colors"
           >
             <X className="w-4 h-4" />
             Close

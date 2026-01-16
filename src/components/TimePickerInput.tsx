@@ -67,9 +67,9 @@ export function TimePickerInput({
         onClick={() => setIsOpen(!isOpen)}
         disabled={disabled}
         className={cn(
-          'flex items-center gap-2 px-3 py-2 border border-gray-300 rounded-md',
-          'text-sm font-medium text-gray-700 bg-white',
-          'hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-500',
+          'flex items-center gap-2 px-3 py-2 border border-border rounded-md',
+          'text-sm font-medium text-content-secondary bg-surface-primary',
+          'hover:bg-surface-tertiary focus:outline-none focus:ring-2 focus:ring-brand-500',
           'disabled:opacity-50 disabled:cursor-not-allowed w-full justify-between'
         )}
       >
@@ -77,11 +77,11 @@ export function TimePickerInput({
           <Clock size={16} />
           {displayTime}
         </span>
-        {value && <X size={16} className="text-gray-400 hover:text-gray-600" onClick={handleClear} />}
+        {value && <X size={16} className="text-content-tertiary hover:text-content-secondary" onClick={handleClear} />}
       </button>
 
       {isOpen && (
-        <div className="absolute top-full left-0 mt-1 z-50 bg-white border border-gray-300 rounded-lg shadow-lg p-4 w-80">
+        <div className="absolute top-full left-0 mt-1 z-50 bg-surface-primary border border-border rounded-lg shadow-lg p-4 w-80">
           <div className="mb-4">
             <input
               type="text"
@@ -89,12 +89,12 @@ export function TimePickerInput({
               onChange={handleInputChange}
               placeholder="at 3pm, at 14:00..."
               className={cn(
-                'w-full px-3 py-2 border border-gray-300 rounded-md text-sm',
-                'placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-brand-500'
+                'w-full px-3 py-2 border border-border rounded-md text-sm',
+                'placeholder-content-tertiary focus:outline-none focus:ring-2 focus:ring-brand-500'
               )}
               autoFocus
             />
-            <p className="text-xs text-gray-500 mt-2">Try: at 3pm, at 14:00, at 9:30am</p>
+            <p className="text-xs text-content-tertiary mt-2">Try: at 3pm, at 14:00, at 9:30am</p>
           </div>
 
           <div className="max-h-64 overflow-y-auto">
@@ -106,7 +106,7 @@ export function TimePickerInput({
                   onClick={() => handleTimeSelect(time)}
                   className={cn(
                     'px-2 py-2 text-xs font-medium rounded',
-                    'hover:bg-brand-100 border border-gray-200',
+                    'hover:bg-brand-100 border border-border',
                     value === time && 'bg-brand-500 text-white border-brand-500'
                   )}
                 >

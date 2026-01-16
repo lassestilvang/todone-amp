@@ -98,11 +98,11 @@ export const MobileTaskDetail: React.FC<MobileTaskDetailProps> = ({
             className={cn(
               'p-4 rounded-lg border-l-4',
               task.completed
-                ? 'bg-green-50 dark:bg-green-900/20 border-green-500 line-through text-gray-500'
+                ? 'bg-green-50 dark:bg-green-900/20 border-green-500 line-through text-content-tertiary'
                 : 'bg-blue-50 dark:bg-blue-900/20 border-blue-500'
             )}
           >
-            <h2 className="text-lg font-bold text-gray-900 dark:text-white break-words">
+            <h2 className="text-lg font-bold text-content-primary break-words">
               {task.content}
             </h2>
           </div>
@@ -110,7 +110,7 @@ export const MobileTaskDetail: React.FC<MobileTaskDetailProps> = ({
           {/* Priority */}
           {task.priority && (
             <div>
-              <label className="block text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase mb-1">
+              <label className="block text-xs font-semibold text-content-secondary uppercase mb-1">
                 Priority
               </label>
               <span className={cn('inline-block px-3 py-1 rounded-full text-sm font-medium', getPriorityColor(task.priority))}>
@@ -122,10 +122,10 @@ export const MobileTaskDetail: React.FC<MobileTaskDetailProps> = ({
           {/* Due Date */}
           {task.dueDate && (
             <div>
-              <label className="block text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase mb-1">
+              <label className="block text-xs font-semibold text-content-secondary uppercase mb-1">
                 Due Date
               </label>
-              <p className="text-gray-900 dark:text-white">
+              <p className="text-content-primary">
                 {new Date(task.dueDate).toLocaleDateString('en-US', {
                   weekday: 'short',
                   month: 'short',
@@ -139,17 +139,17 @@ export const MobileTaskDetail: React.FC<MobileTaskDetailProps> = ({
           {/* Description */}
           {task.description && (
             <div>
-              <label className="block text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase mb-2">
+              <label className="block text-xs font-semibold text-content-secondary uppercase mb-2">
                 Description
               </label>
-              <p className="text-gray-700 dark:text-gray-300 leading-relaxed">{task.description}</p>
+              <p className="text-content-secondary leading-relaxed">{task.description}</p>
             </div>
           )}
 
           {/* Labels */}
           {task.labels && task.labels.length > 0 && (
             <div>
-              <label className="block text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase mb-2">
+              <label className="block text-xs font-semibold text-content-secondary uppercase mb-2">
                 Labels
               </label>
               <div className="flex flex-wrap gap-2">
@@ -167,7 +167,7 @@ export const MobileTaskDetail: React.FC<MobileTaskDetailProps> = ({
 
           {/* Status */}
           <div>
-            <label className="block text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase mb-1">
+            <label className="block text-xs font-semibold text-content-secondary uppercase mb-1">
               Status
             </label>
             <span
@@ -183,7 +183,7 @@ export const MobileTaskDetail: React.FC<MobileTaskDetailProps> = ({
           </div>
 
           {/* Created/Updated Date */}
-          <div className="pt-2 border-t border-gray-200 dark:border-gray-700 text-xs text-gray-500 dark:text-gray-400">
+          <div className="pt-2 border-t border-border text-xs text-content-tertiary">
             <p>Created: {new Date(task.createdAt).toLocaleDateString()}</p>
             <p>Updated: {new Date(task.updatedAt).toLocaleDateString()}</p>
           </div>
@@ -198,7 +198,7 @@ export const MobileTaskDetail: React.FC<MobileTaskDetailProps> = ({
             </button>
             <button
               onClick={onClose}
-              className="flex-1 px-4 py-3 bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg font-medium hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+              className="flex-1 px-4 py-3 bg-interactive-secondary text-content-primary rounded-lg font-medium hover:bg-surface-tertiary transition-colors"
             >
               Close
             </button>

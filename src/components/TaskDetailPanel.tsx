@@ -151,15 +151,15 @@ export function TaskDetailPanel() {
       {/* Modal */}
       <div className="flex items-center justify-center min-h-screen p-4">
         <div
-          className="relative bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
+          className="relative bg-surface-primary rounded-lg shadow-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
-            <h2 className="text-lg font-semibold text-gray-900">Edit Task</h2>
+          <div className="sticky top-0 bg-surface-primary border-b border-border px-6 py-4 flex items-center justify-between">
+            <h2 className="text-lg font-semibold text-content-primary">Edit Task</h2>
             <button
               onClick={handleClose}
-              className="p-1 text-gray-400 hover:text-gray-600 rounded-md hover:bg-gray-100"
+              className="p-1 text-content-tertiary hover:text-content-secondary rounded-md hover:bg-surface-tertiary"
               aria-label="Close"
             >
               <X size={20} />
@@ -170,7 +170,7 @@ export function TaskDetailPanel() {
           <div className="p-6 space-y-6">
             {/* Title */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Title</label>
+              <label className="block text-sm font-medium text-content-secondary mb-2">Title</label>
               <Input
                 value={selectedTask.content}
                 onChange={(e) => {
@@ -183,7 +183,7 @@ export function TaskDetailPanel() {
 
             {/* Description */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+              <label className="block text-sm font-medium text-content-secondary mb-2">Description</label>
               <RichTextEditor
                 value={selectedTask.description || ''}
                 onChange={(html) => {
@@ -195,7 +195,7 @@ export function TaskDetailPanel() {
 
             {/* Priority */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Priority</label>
+              <label className="block text-sm font-medium text-content-secondary mb-2">Priority</label>
               <PrioritySelector
                 value={selectedTask.priority}
                 onChange={(priority) => {
@@ -206,7 +206,7 @@ export function TaskDetailPanel() {
 
             {/* Due Date */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Due Date</label>
+              <label className="block text-sm font-medium text-content-secondary mb-2">Due Date</label>
               <DatePickerInput
                 value={selectedTask.dueDate}
                 onChange={(date) => {
@@ -217,7 +217,7 @@ export function TaskDetailPanel() {
 
             {/* Due Time */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Due Time</label>
+              <label className="block text-sm font-medium text-content-secondary mb-2">Due Time</label>
               <TimePickerInput
                 value={selectedTask.dueTime}
                 onChange={(time) => {
@@ -239,7 +239,7 @@ export function TaskDetailPanel() {
             {/* Recurrence Exceptions (if recurring) */}
             {selectedTask.recurrence && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-content-secondary mb-2">
                   Recurrence Exceptions
                 </label>
                 <RecurrenceExceptionManager task={selectedTask} />
@@ -249,7 +249,7 @@ export function TaskDetailPanel() {
             {/* Recurrence Calendar (if recurring) */}
             {selectedTask.recurrence && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Occurrences</label>
+                <label className="block text-sm font-medium text-content-secondary mb-2">Occurrences</label>
                 <div className="grid grid-cols-2 gap-4">
                   <RecurrenceCalendarView task={selectedTask} />
                   <RecurrenceInstancesList task={selectedTask} />
@@ -259,7 +259,7 @@ export function TaskDetailPanel() {
 
             {/* Project */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Project</label>
+              <label className="block text-sm font-medium text-content-secondary mb-2">Project</label>
               <ProjectSelector
                 value={selectedTask.projectId}
                 onChange={(projectId) => {
@@ -270,7 +270,7 @@ export function TaskDetailPanel() {
 
             {/* Section */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Section</label>
+              <label className="block text-sm font-medium text-content-secondary mb-2">Section</label>
               <SectionSelector
                 projectId={selectedTask.projectId}
                 value={selectedTask.sectionId}
@@ -296,7 +296,7 @@ export function TaskDetailPanel() {
 
             {/* Assignees */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Assign To</label>
+              <label className="block text-sm font-medium text-content-secondary mb-2">Assign To</label>
               <AssigneeSelector
                 assigneeIds={selectedTask.assigneeIds}
                 onChange={(assigneeIds) => {
@@ -308,7 +308,7 @@ export function TaskDetailPanel() {
             {/* Subtasks */}
             <div>
               <div className="flex items-center justify-between mb-3">
-                <h3 className="text-sm font-semibold text-gray-700">Subtasks</h3>
+                <h3 className="text-sm font-semibold text-content-secondary">Subtasks</h3>
                 <button
                   onClick={() => {
                     const event = new CustomEvent('openQuickAddForSubtask', {
@@ -336,7 +336,7 @@ export function TaskDetailPanel() {
             </div>
 
             {/* Divider */}
-            <div className="border-t border-gray-200 pt-6" />
+            <div className="border-t border-border pt-6" />
 
             {/* Comments */}
             <div>
@@ -357,20 +357,20 @@ export function TaskDetailPanel() {
           </div>
 
           {/* Footer */}
-          <div className="sticky bottom-0 bg-gray-50 border-t border-gray-200 px-6 py-4 flex items-center justify-between gap-4">
+          <div className="sticky bottom-0 bg-surface-secondary border-t border-border px-6 py-4 flex items-center justify-between gap-4">
             <div className="flex items-center gap-2">
               <button
                 onClick={handleCopyLink}
-                className="p-2 text-gray-600 hover:bg-gray-200 rounded-md transition-colors"
+                className="p-2 text-content-secondary hover:bg-interactive-secondary rounded-md transition-colors"
                 title="Copy task link"
               >
                 <Copy size={18} />
               </button>
-              {copied && <span className="text-xs text-gray-600">Copied!</span>}
+              {copied && <span className="text-xs text-content-secondary">Copied!</span>}
 
               <button
                 onClick={handleDuplicate}
-                className="p-2 text-gray-600 hover:bg-gray-200 rounded-md transition-colors"
+                className="p-2 text-content-secondary hover:bg-interactive-secondary rounded-md transition-colors"
                 title="Duplicate task"
               >
                 <Plus size={18} />
@@ -378,7 +378,7 @@ export function TaskDetailPanel() {
 
               <button
                 onClick={handleConvertToProject}
-                className="p-2 text-gray-600 hover:bg-gray-200 rounded-md transition-colors"
+                className="p-2 text-content-secondary hover:bg-interactive-secondary rounded-md transition-colors"
                 title="Convert task to project"
               >
                 <FolderPlus size={18} />
@@ -398,7 +398,7 @@ export function TaskDetailPanel() {
 
             {showDeleteConfirm && (
               <div className="flex items-center gap-2">
-                <p className="text-sm text-gray-700">Delete task?</p>
+                <p className="text-sm text-content-secondary">Delete task?</p>
                 <Button onClick={handleDelete} variant="danger" size="sm">
                   Delete
                 </Button>

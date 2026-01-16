@@ -57,26 +57,26 @@ export function CalendarView() {
   }
 
   return (
-    <div className="flex flex-col h-full bg-white">
+    <div className="flex flex-col h-full bg-surface-primary">
       {/* Header */}
-      <div className="px-6 py-4 border-b border-gray-200">
+      <div className="px-6 py-4 border-b border-border">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <CalendarIcon size={24} className="text-gray-900" />
-            <h1 className="text-2xl font-bold text-gray-900">Calendar</h1>
+            <CalendarIcon size={24} className="text-content-primary" />
+            <h1 className="text-2xl font-bold text-content-primary">Calendar</h1>
           </div>
 
           {/* Controls */}
           <div className="flex items-center gap-4">
             {/* View Type Switcher */}
-            <div className="flex items-center gap-1 p-1 bg-gray-100 rounded-lg">
+            <div className="flex items-center gap-1 p-1 bg-surface-tertiary rounded-lg">
               <button
                 onClick={() => setViewType('month')}
                 className={cn(
                   'px-3 py-2 rounded-md text-sm font-medium transition-all',
                   viewType === 'month'
-                    ? 'bg-white text-brand-600 shadow-sm'
-                    : 'text-gray-700 hover:text-gray-900'
+                    ? 'bg-surface-primary text-brand-600 shadow-sm'
+                    : 'text-content-secondary hover:text-content-primary'
                 )}
               >
                 Month
@@ -86,8 +86,8 @@ export function CalendarView() {
                 className={cn(
                   'px-3 py-2 rounded-md text-sm font-medium transition-all',
                   viewType === 'week'
-                    ? 'bg-white text-brand-600 shadow-sm'
-                    : 'text-gray-700 hover:text-gray-900'
+                    ? 'bg-surface-primary text-brand-600 shadow-sm'
+                    : 'text-content-secondary hover:text-content-primary'
                 )}
               >
                 Week
@@ -97,8 +97,8 @@ export function CalendarView() {
                 className={cn(
                   'px-3 py-2 rounded-md text-sm font-medium transition-all flex items-center gap-1',
                   viewType === 'timeblock'
-                    ? 'bg-white text-brand-600 shadow-sm'
-                    : 'text-gray-700 hover:text-gray-900'
+                    ? 'bg-surface-primary text-brand-600 shadow-sm'
+                    : 'text-content-secondary hover:text-content-primary'
                 )}
                 title="Time blocking view"
               >
@@ -111,32 +111,32 @@ export function CalendarView() {
             <div className="flex items-center gap-2">
               <button
                 onClick={handlePrevMonth}
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                className="p-2 hover:bg-surface-tertiary rounded-lg transition-colors"
                 title="Previous"
               >
-                <ChevronLeft size={20} className="text-gray-600" />
+                <ChevronLeft size={20} className="text-content-secondary" />
               </button>
 
               <button
                 onClick={handleToday}
-                className="px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                className="px-3 py-2 text-sm font-medium text-content-secondary hover:bg-surface-tertiary rounded-lg transition-colors"
               >
                 Today
               </button>
 
               <button
                 onClick={handleNextMonth}
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                className="p-2 hover:bg-surface-tertiary rounded-lg transition-colors"
                 title="Next"
               >
-                <ChevronRight size={20} className="text-gray-600" />
+                <ChevronRight size={20} className="text-content-secondary" />
               </button>
             </div>
           </div>
         </div>
 
         {/* Month/Year Display */}
-        <p className="text-sm text-gray-500 mt-3">{format(currentDate, 'MMMM yyyy')}</p>
+        <p className="text-sm text-content-tertiary mt-3">{format(currentDate, 'MMMM yyyy')}</p>
       </div>
 
       {/* Calendar Content */}
@@ -176,9 +176,9 @@ function MonthView({ currentDate, tasksByDate, onTaskClick }: MonthViewProps) {
   return (
     <div className="flex flex-col h-full">
       {/* Weekday Headers */}
-      <div className="grid grid-cols-7 gap-px bg-gray-200 border-b border-gray-200">
+      <div className="grid grid-cols-7 gap-px bg-interactive-secondary border-b border-border">
         {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
-          <div key={day} className="bg-gray-50 py-3 text-center text-sm font-semibold text-gray-700">
+          <div key={day} className="bg-surface-secondary py-3 text-center text-sm font-semibold text-content-secondary">
             {day}
           </div>
         ))}
@@ -187,7 +187,7 @@ function MonthView({ currentDate, tasksByDate, onTaskClick }: MonthViewProps) {
       {/* Calendar Grid */}
       <div className="flex-1 flex flex-col">
         {weeks.map((week, weekIndex) => (
-          <div key={weekIndex} className="flex-1 grid grid-cols-7 gap-px bg-gray-200">
+          <div key={weekIndex} className="flex-1 grid grid-cols-7 gap-px bg-interactive-secondary">
             {week.map((day) => {
               const dateKey = format(day, 'yyyy-MM-dd')
               const dayTasks = tasksByDate[dateKey] || []
@@ -198,8 +198,8 @@ function MonthView({ currentDate, tasksByDate, onTaskClick }: MonthViewProps) {
                 <div
                   key={dateKey}
                   className={cn(
-                    'bg-white p-2 min-h-24 flex flex-col',
-                    !isCurrentMonth && 'bg-gray-50',
+                    'bg-surface-primary p-2 min-h-24 flex flex-col',
+                    !isCurrentMonth && 'bg-surface-secondary',
                     isTodayDate && 'bg-blue-50'
                   )}
                 >
@@ -208,8 +208,8 @@ function MonthView({ currentDate, tasksByDate, onTaskClick }: MonthViewProps) {
                     className={cn(
                       'text-sm font-semibold mb-1',
                       isTodayDate && 'text-blue-600',
-                      !isCurrentMonth && 'text-gray-400',
-                      isCurrentMonth && 'text-gray-900'
+                      !isCurrentMonth && 'text-content-tertiary',
+                      isCurrentMonth && 'text-content-primary'
                     )}
                   >
                     {format(day, 'd')}
@@ -238,7 +238,7 @@ function MonthView({ currentDate, tasksByDate, onTaskClick }: MonthViewProps) {
 
                     {/* More Tasks Indicator */}
                     {dayTasks.length > 3 && (
-                      <div className="text-xs text-gray-500 px-1">+{dayTasks.length - 3} more</div>
+                      <div className="text-xs text-content-tertiary px-1">+{dayTasks.length - 3} more</div>
                     )}
                   </div>
                 </div>
@@ -285,21 +285,21 @@ function WeekView({ currentDate, tasksByDate, onTaskClick }: WeekViewProps) {
   return (
     <div className="flex flex-col h-full">
       {/* Day Headers */}
-      <div className="grid grid-cols-8 gap-px bg-gray-200 border-b border-gray-200 sticky top-0 bg-white z-10">
-        <div className="bg-gray-50 py-2 px-2 text-center text-xs font-semibold text-gray-600">Time</div>
+      <div className="grid grid-cols-8 gap-px bg-interactive-secondary border-b border-border sticky top-0 bg-surface-primary z-10">
+        <div className="bg-surface-secondary py-2 px-2 text-center text-xs font-semibold text-content-secondary">Time</div>
         {days.map((day) => (
           <div 
             key={format(day, 'yyyy-MM-dd')} 
             className={cn(
-              'bg-gray-50 py-2 px-2 text-center',
+              'bg-surface-secondary py-2 px-2 text-center',
               isToday(day) && 'bg-blue-50 border-b-2 border-blue-300'
             )}
           >
-            <div className="text-xs font-semibold text-gray-700">{format(day, 'EEE')}</div>
+            <div className="text-xs font-semibold text-content-secondary">{format(day, 'EEE')}</div>
             <div className={cn('text-lg font-bold', isToday(day) && 'text-blue-600')}>
               {format(day, 'd')}
             </div>
-            <div className="text-xs text-gray-500">{format(day, 'MMM')}</div>
+            <div className="text-xs text-content-tertiary">{format(day, 'MMM')}</div>
           </div>
         ))}
       </div>
@@ -316,11 +316,11 @@ function WeekView({ currentDate, tasksByDate, onTaskClick }: WeekViewProps) {
           </div>
         )}
 
-        <div className="grid grid-cols-8 gap-px bg-gray-200 auto-rows-min">
+        <div className="grid grid-cols-8 gap-px bg-interactive-secondary auto-rows-min">
           {/* Time Column */}
-          <div className="bg-white border-r border-gray-200 sticky left-0 z-10">
+          <div className="bg-surface-primary border-r border-border sticky left-0 z-10">
             {hours.map((hour) => (
-              <div key={hour} className="h-16 py-1 px-2 text-xs text-gray-500 border-b border-gray-100">
+              <div key={hour} className="h-16 py-1 px-2 text-xs text-content-tertiary border-b border-border">
                 {String(hour).padStart(2, '0')}:00
               </div>
             ))}
@@ -334,10 +334,10 @@ function WeekView({ currentDate, tasksByDate, onTaskClick }: WeekViewProps) {
             return (
               <div
                 key={dateKey}
-                className={cn('bg-white border-r border-gray-200', isToday(day) && 'bg-blue-50')}
+                className={cn('bg-surface-primary border-r border-border', isToday(day) && 'bg-blue-50')}
               >
                 {hours.map((hour) => (
-                  <div key={`${dateKey}-${hour}`} className="h-16 border-b border-gray-100 p-1 relative">
+                  <div key={`${dateKey}-${hour}`} className="h-16 border-b border-border p-1 relative">
                     {/* Show tasks for this hour slot */}
                     {dayTasks.map((task) => {
                       const dueTime = task.dueTime

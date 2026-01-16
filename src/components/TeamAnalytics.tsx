@@ -46,20 +46,20 @@ export const TeamAnalytics: React.FC<TeamAnalyticsProps> = ({ teamId, className 
     return (
       <div
         className={cn(
-          'flex items-center justify-center rounded-lg border border-gray-200 p-12',
+          'flex items-center justify-center rounded-lg border border-border p-12',
           className
         )}
       >
-        <Loader2 className="h-6 w-6 animate-spin text-gray-400" />
+        <Loader2 className="h-6 w-6 animate-spin text-content-tertiary" />
       </div>
     )
   }
 
   if (!memberStats || memberStats.length === 0) {
     return (
-      <div className={cn('rounded-lg border border-gray-200 p-8 text-center', className)}>
-        <Users className="mx-auto h-8 w-8 text-gray-400" />
-        <p className="mt-3 text-sm text-gray-600">No team data available</p>
+      <div className={cn('rounded-lg border border-border p-8 text-center', className)}>
+        <Users className="mx-auto h-8 w-8 text-content-tertiary" />
+        <p className="mt-3 text-sm text-content-secondary">No team data available</p>
       </div>
     )
   }
@@ -79,22 +79,22 @@ export const TeamAnalytics: React.FC<TeamAnalyticsProps> = ({ teamId, className 
       {/* Summary Stats */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
         {/* Total Members */}
-        <div className="rounded-lg border border-gray-200 p-4">
+        <div className="rounded-lg border border-border p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs font-medium text-gray-600">Team Members</p>
-              <p className="mt-2 text-2xl font-bold text-gray-900">{memberStats.length}</p>
+              <p className="text-xs font-medium text-content-secondary">Team Members</p>
+              <p className="mt-2 text-2xl font-bold text-content-primary">{memberStats.length}</p>
             </div>
             <Users className="h-8 w-8 text-blue-100" />
           </div>
         </div>
 
         {/* Total Completed */}
-        <div className="rounded-lg border border-gray-200 p-4">
+        <div className="rounded-lg border border-border p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs font-medium text-gray-600">Total Completed</p>
-              <p className="mt-2 text-2xl font-bold text-green-600">
+              <p className="text-xs font-medium text-content-secondary">Total Completed</p>
+              <p className="mt-2 text-2xl font-bold text-semantic-success">
                 {memberStats.reduce((sum, stat) => sum + stat.tasksCompleted, 0)}
               </p>
             </div>
@@ -103,11 +103,11 @@ export const TeamAnalytics: React.FC<TeamAnalyticsProps> = ({ teamId, className 
         </div>
 
         {/* Avg Completion Rate */}
-        <div className="rounded-lg border border-gray-200 p-4">
+        <div className="rounded-lg border border-border p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs font-medium text-gray-600">Avg Completion Rate</p>
-              <p className="mt-2 text-2xl font-bold text-gray-900">
+              <p className="text-xs font-medium text-content-secondary">Avg Completion Rate</p>
+              <p className="mt-2 text-2xl font-bold text-content-primary">
                 {(
                   memberStats.reduce((sum, stat) => sum + stat.completionRate, 0) /
                   memberStats.length
@@ -121,8 +121,8 @@ export const TeamAnalytics: React.FC<TeamAnalyticsProps> = ({ teamId, className 
       </div>
 
       {/* Member Comparison Chart */}
-      <div className="rounded-lg border border-gray-200 p-4">
-        <h3 className="mb-4 text-sm font-medium text-gray-900">Member Comparison</h3>
+      <div className="rounded-lg border border-border p-4">
+        <h3 className="mb-4 text-sm font-medium text-content-primary">Member Comparison</h3>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -137,27 +137,27 @@ export const TeamAnalytics: React.FC<TeamAnalyticsProps> = ({ teamId, className 
       </div>
 
       {/* Member Details Table */}
-      <div className="rounded-lg border border-gray-200 overflow-hidden">
+      <div className="rounded-lg border border-border overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-gray-200 bg-gray-50">
-                <th className="px-4 py-3 text-left font-medium text-gray-700">Member</th>
-                <th className="px-4 py-3 text-left font-medium text-gray-700">Completed</th>
-                <th className="px-4 py-3 text-left font-medium text-gray-700">Created</th>
-                <th className="px-4 py-3 text-left font-medium text-gray-700">Completion Rate</th>
-                <th className="px-4 py-3 text-left font-medium text-gray-700">Avg Time (hrs)</th>
+              <tr className="border-b border-border bg-surface-secondary">
+                <th className="px-4 py-3 text-left font-medium text-content-secondary">Member</th>
+                <th className="px-4 py-3 text-left font-medium text-content-secondary">Completed</th>
+                <th className="px-4 py-3 text-left font-medium text-content-secondary">Created</th>
+                <th className="px-4 py-3 text-left font-medium text-content-secondary">Completion Rate</th>
+                <th className="px-4 py-3 text-left font-medium text-content-secondary">Avg Time (hrs)</th>
               </tr>
             </thead>
             <tbody>
               {memberStats.map((stat) => (
-                <tr key={stat.userId} className="border-b border-gray-100 hover:bg-gray-50">
+                <tr key={stat.userId} className="border-b border-surface-tertiary hover:bg-surface-tertiary">
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
                       {stat.avatar && (
                         <img src={stat.avatar} alt={stat.name} className="h-6 w-6 rounded-full" />
                       )}
-                      <span className="font-medium text-gray-900">{stat.name}</span>
+                      <span className="font-medium text-content-primary">{stat.name}</span>
                       {stat.userId === topPerformer.userId && (
                         <span className="ml-2 rounded-full bg-yellow-100 px-2 py-1 text-xs font-medium text-yellow-700">
                           🏆 Top
@@ -165,11 +165,11 @@ export const TeamAnalytics: React.FC<TeamAnalyticsProps> = ({ teamId, className 
                       )}
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-gray-600">{stat.tasksCompleted}</td>
-                  <td className="px-4 py-3 text-gray-600">{stat.tasksCreated}</td>
+                  <td className="px-4 py-3 text-content-secondary">{stat.tasksCompleted}</td>
+                  <td className="px-4 py-3 text-content-secondary">{stat.tasksCreated}</td>
                   <td className="px-4 py-3">
                     <div className="flex items-center gap-2">
-                      <div className="w-24 rounded-full bg-gray-200 h-2">
+                      <div className="w-24 rounded-full bg-interactive-secondary h-2">
                         <div
                           className="bg-green-500 h-2 rounded-full"
                           style={{
@@ -177,12 +177,12 @@ export const TeamAnalytics: React.FC<TeamAnalyticsProps> = ({ teamId, className 
                           }}
                         />
                       </div>
-                      <span className="text-gray-900 font-medium">
+                      <span className="text-content-primary font-medium">
                         {stat.completionRate.toFixed(1)}%
                       </span>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-gray-600">{stat.averageCompletionTime}</td>
+                  <td className="px-4 py-3 text-content-secondary">{stat.averageCompletionTime}</td>
                 </tr>
               ))}
             </tbody>
@@ -191,7 +191,7 @@ export const TeamAnalytics: React.FC<TeamAnalyticsProps> = ({ teamId, className 
       </div>
 
       {dateRange && (
-        <p className="text-xs text-gray-600">
+        <p className="text-xs text-content-secondary">
           Data from {dateRange.start.toLocaleDateString()} to {dateRange.end.toLocaleDateString()}
         </p>
       )}

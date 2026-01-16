@@ -48,14 +48,14 @@ export const BulkActionsToolbar: React.FC<BulkActionsToolbarProps> = ({
   return (
     <div
       className={cn(
-        'fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg',
+        'fixed bottom-0 left-0 right-0 bg-surface-primary border-t border-border shadow-lg',
         'animate-slideUp z-40'
       )}
     >
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between gap-4">
         {/* Left: Selection info */}
         <div className="flex items-center gap-2">
-          <span className="text-sm font-medium text-gray-700">{selectedCount} selected</span>
+          <span className="text-sm font-medium text-content-secondary">{selectedCount} selected</span>
         </div>
 
         {/* Center: Actions */}
@@ -116,7 +116,7 @@ export const BulkActionsToolbar: React.FC<BulkActionsToolbarProps> = ({
             <span className="hidden sm:inline">Labels</span>
           </Button>
 
-          <div className="w-px h-6 bg-gray-300" />
+          <div className="w-px h-6 bg-border" />
 
           <Button
             variant="ghost"

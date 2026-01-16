@@ -46,13 +46,13 @@ export function PermissionManager({
 
   return (
     <div
-      className={cn('space-y-3 rounded border border-gray-200 p-4 dark:border-gray-700', className)}
+      className={cn('space-y-3 rounded border border-border p-4', className)}
     >
       {/* Header */}
       <div className="flex items-start justify-between">
         <div>
-          <p className="font-medium text-gray-900 dark:text-white">{memberName}</p>
-          {memberEmail && <p className="text-xs text-gray-500 dark:text-gray-400">{memberEmail}</p>}
+          <p className="font-medium text-content-primary">{memberName}</p>
+          {memberEmail && <p className="text-xs text-content-tertiary">{memberEmail}</p>}
         </div>
         <button
           onClick={() => onRemove(share.id)}
@@ -65,7 +65,7 @@ export function PermissionManager({
 
       {/* Permission selector */}
       <div className="space-y-2">
-        <p className="text-xs font-medium text-gray-600 dark:text-gray-400">Permission Level</p>
+        <p className="text-xs font-medium text-content-secondary">Permission Level</p>
         <div className="grid gap-2">
           {permissions.map((perm) => (
             <button
@@ -76,7 +76,7 @@ export function PermissionManager({
                 'flex items-start gap-3 rounded border p-2 transition disabled:opacity-50',
                 share.role === perm.value
                   ? 'border-blue-500 bg-blue-50 dark:border-blue-400 dark:bg-blue-900'
-                  : 'border-gray-200 hover:border-gray-300 dark:border-gray-600 dark:hover:border-gray-500'
+                  : 'border-border hover:border-border'
               )}
             >
               <span className="text-lg">{perm.icon}</span>
@@ -86,12 +86,12 @@ export function PermissionManager({
                     'font-medium',
                     share.role === perm.value
                       ? 'text-blue-600 dark:text-blue-300'
-                      : 'text-gray-900 dark:text-white'
+                      : 'text-content-primary'
                   )}
                 >
                   {perm.label}
                 </p>
-                <p className="text-xs text-gray-600 dark:text-gray-400">{perm.description}</p>
+                <p className="text-xs text-content-secondary">{perm.description}</p>
               </div>
               {share.role === perm.value && (
                 <div className="mt-1 text-blue-600 dark:text-blue-300">✓</div>
@@ -102,7 +102,7 @@ export function PermissionManager({
       </div>
 
       {/* Permission details */}
-      <div className="rounded bg-gray-50 p-2 text-xs text-gray-600 dark:bg-gray-800 dark:text-gray-400">
+      <div className="rounded bg-surface-secondary p-2 text-xs text-content-secondary">
         {currentPermission && (
           <>
             <p className="font-medium">{currentPermission.label} access includes:</p>

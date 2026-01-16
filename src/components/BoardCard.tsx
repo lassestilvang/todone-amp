@@ -31,7 +31,7 @@ export function BoardCard({ task, isDragging, hasSubtasks = 0, isExpanded = fals
   return (
     <div
       className={cn(
-        'group bg-white border border-gray-200 rounded-lg p-3 shadow-sm hover:shadow-md',
+        'group bg-surface-primary border border-border rounded-lg p-3 shadow-sm hover:shadow-md',
         'transition-all duration-200 cursor-grab active:cursor-grabbing',
         isDragging && 'opacity-50 shadow-lg ring-2 ring-brand-500',
         task.completed && 'opacity-60'
@@ -41,7 +41,7 @@ export function BoardCard({ task, isDragging, hasSubtasks = 0, isExpanded = fals
       <div className="flex items-start gap-2 mb-2">
         <GripHorizontal
           size={16}
-          className={cn('text-gray-300 flex-shrink-0 mt-1', 'group-hover:text-gray-500 transition-colors')}
+          className={cn('text-content-tertiary flex-shrink-0 mt-1', 'group-hover:text-content-secondary transition-colors')}
         />
 
         <div className="flex-1 min-w-0">
@@ -50,12 +50,12 @@ export function BoardCard({ task, isDragging, hasSubtasks = 0, isExpanded = fals
             {hasSubtasks > 0 && (
               <button
                 onClick={handleToggleExpanded}
-                className="p-0.5 hover:bg-gray-100 rounded transition-colors mt-0.5"
+                className="p-0.5 hover:bg-surface-tertiary rounded transition-colors mt-0.5"
                 title={isExpanded ? 'Collapse' : 'Expand'}
               >
                 <ChevronDown
                   size={14}
-                  className={cn('text-gray-500 transition-transform', !isExpanded && '-rotate-90')}
+                  className={cn('text-content-tertiary transition-transform', !isExpanded && '-rotate-90')}
                 />
               </button>
             )}
@@ -64,8 +64,8 @@ export function BoardCard({ task, isDragging, hasSubtasks = 0, isExpanded = fals
             <h3
               onClick={handleCardClick}
               className={cn(
-                'text-sm font-medium text-gray-900 line-clamp-2 hover:text-brand-600 transition-colors',
-                task.completed && 'line-through text-gray-500'
+                'text-sm font-medium text-content-primary line-clamp-2 hover:text-brand-600 transition-colors',
+                task.completed && 'line-through text-content-tertiary'
               )}
             >
               {task.content}
@@ -74,7 +74,7 @@ export function BoardCard({ task, isDragging, hasSubtasks = 0, isExpanded = fals
 
           {/* Description */}
           {task.description && (
-            <p className="text-xs text-gray-500 line-clamp-1 mt-1">{task.description}</p>
+            <p className="text-xs text-content-tertiary line-clamp-1 mt-1">{task.description}</p>
           )}
         </div>
       </div>
@@ -97,14 +97,14 @@ export function BoardCard({ task, isDragging, hasSubtasks = 0, isExpanded = fals
 
         {/* Due Date */}
         {task.dueDate && (
-          <div className="text-xs text-gray-600 flex-shrink-0">
+          <div className="text-xs text-content-secondary flex-shrink-0">
             {new Date(task.dueDate).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
           </div>
         )}
 
         {/* Subtask Count */}
         {hasSubtasks > 0 && (
-          <div className="text-xs text-gray-500 flex-shrink-0">
+          <div className="text-xs text-content-tertiary flex-shrink-0">
             {subtasks.filter((st) => st.completed).length}/{hasSubtasks}
           </div>
         )}
@@ -116,14 +116,14 @@ export function BoardCard({ task, isDragging, hasSubtasks = 0, isExpanded = fals
           {task.labels.slice(0, 3).map((labelId) => (
             <div
               key={labelId}
-              className="text-xs px-1.5 py-0.5 bg-gray-100 text-gray-700 rounded"
+              className="text-xs px-1.5 py-0.5 bg-surface-tertiary text-content-secondary rounded"
               title={labelId}
             >
               {labelId.substring(0, 1)}
             </div>
           ))}
           {task.labels.length > 3 && (
-            <div className="text-xs px-1.5 py-0.5 text-gray-500">+{task.labels.length - 3}</div>
+            <div className="text-xs px-1.5 py-0.5 text-content-tertiary">+{task.labels.length - 3}</div>
           )}
         </div>
       )}

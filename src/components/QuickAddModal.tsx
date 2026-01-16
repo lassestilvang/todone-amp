@@ -297,13 +297,13 @@ export function QuickAddModal() {
       {/* Modal */}
       <div className="fixed top-0 left-0 right-0 pt-20 z-50 flex justify-center px-4">
         <div
-          className="w-full max-w-2xl bg-white dark:bg-gray-900 rounded-lg shadow-2xl overflow-hidden"
+          className="w-full max-w-2xl bg-surface-primary rounded-lg shadow-2xl overflow-hidden"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
-          <div className="border-b border-gray-200 px-6 py-4 flex items-center justify-between bg-gradient-to-r from-brand-50 to-blue-50 dark:from-gray-800 dark:to-gray-800 dark:border-gray-700">
+          <div className="border-b border-border px-6 py-4 flex items-center justify-between bg-gradient-to-r from-brand-50 to-blue-50 dark:from-gray-800 dark:to-gray-800">
             <div>
-              <h2 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+              <h2 className="text-lg font-semibold text-content-primary">
                 {mode === 'search' ? (
                   <span className="flex items-center gap-2">
                     <Search size={18} />
@@ -316,7 +316,7 @@ export function QuickAddModal() {
                   </span>
                 )}
               </h2>
-              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+              <p className="text-xs text-content-tertiary mt-1">
                 {mode === 'search'
                   ? 'Search tasks, projects, or labels'
                   : parentTaskId
@@ -336,7 +336,7 @@ export function QuickAddModal() {
                     'flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium transition-all',
                     useAIParsing
                       ? 'bg-brand-100 text-brand-700 dark:bg-brand-900/30 dark:text-brand-300'
-                      : 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-400'
+                      : 'bg-surface-tertiary text-content-secondary'
                   )}
                   title={useAIParsing ? 'AI parsing enabled' : 'AI parsing disabled'}
                 >
@@ -346,7 +346,7 @@ export function QuickAddModal() {
               )}
               <button
                 onClick={closeQuickAdd}
-                className="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700"
+                className="p-1 text-content-tertiary hover:text-content-secondary rounded-md hover:bg-surface-tertiary"
               >
                 <X size={20} />
               </button>
@@ -369,15 +369,15 @@ export function QuickAddModal() {
               className={cn(
                 'w-full px-4 py-3 border-2 rounded-lg text-base',
                 'placeholder-gray-400 focus:outline-none',
-                'bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100',
-                'border-gray-300 dark:border-gray-600 focus:border-brand-500 focus:ring-2 focus:ring-brand-200 dark:focus:ring-brand-800'
+                'bg-surface-primary text-content-primary',
+                'border-border focus:border-brand-500 focus:ring-2 focus:ring-brand-200 dark:focus:ring-brand-800'
               )}
               autoFocus
             />
 
             {/* Search Results */}
             {mode === 'search' && searchResults.length > 0 && (
-              <div className="space-y-1 max-h-80 overflow-y-auto border border-gray-200 rounded-lg bg-white">
+              <div className="space-y-1 max-h-80 overflow-y-auto border border-border rounded-lg bg-surface-primary">
                 {searchResults.map((result, index) => (
                   <button
                     key={`${result.type}-${result.id}`}
@@ -386,17 +386,17 @@ export function QuickAddModal() {
                       'w-full text-left px-4 py-3 transition-colors',
                       index === selectedResultIndex
                         ? 'bg-brand-100 border-l-2 border-brand-600'
-                        : 'hover:bg-gray-50'
+                        : 'hover:bg-surface-tertiary'
                     )}
                   >
                     <div className="flex items-start gap-3">
                       <span className="text-lg mt-0.5">{result.icon}</span>
                       <div className="flex-1 min-w-0">
-                        <div className="font-medium text-gray-900 truncate">{result.title}</div>
+                        <div className="font-medium text-content-primary truncate">{result.title}</div>
                         {result.subtitle && (
-                          <div className="text-xs text-gray-500 truncate">{result.subtitle}</div>
+                          <div className="text-xs text-content-tertiary truncate">{result.subtitle}</div>
                         )}
-                        <div className="text-xs text-gray-400 mt-1">
+                        <div className="text-xs text-content-tertiary mt-1">
                           {result.type.charAt(0).toUpperCase() + result.type.slice(1)}
                         </div>
                       </div>
@@ -408,7 +408,7 @@ export function QuickAddModal() {
 
             {/* AI Parsed Properties */}
             {mode === 'create' && useAIParsing && nlpParsed && nlpParsed.parsedFields.length > 0 && (
-              <div className="p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+              <div className="p-3 bg-surface-secondary rounded-lg border border-border">
                 <AITaskParser parsed={nlpParsed} showConfidence />
               </div>
             )}
@@ -422,7 +422,7 @@ export function QuickAddModal() {
                   'w-full px-4 py-2 rounded-lg font-medium transition-all',
                   parsed.content.trim()
                     ? 'bg-brand-600 text-white hover:bg-brand-700'
-                    : 'bg-gray-200 text-gray-500 cursor-not-allowed'
+                    : 'bg-interactive-secondary text-content-tertiary cursor-not-allowed'
                 )}
               >
                 <span className="flex items-center justify-center gap-2">
@@ -435,13 +435,13 @@ export function QuickAddModal() {
 
           {/* Recent Items */}
           {recentItems.length > 0 && (
-            <div className="border-t border-gray-200 px-6 py-4 bg-gray-50">
+            <div className="border-t border-border px-6 py-4 bg-surface-secondary">
               <div className="flex items-center justify-between mb-3">
-                <h3 className="text-sm font-semibold text-gray-900">Recent</h3>
+                <h3 className="text-sm font-semibold text-content-primary">Recent</h3>
                 <button
                   type="button"
                   onClick={clearRecent}
-                  className="text-xs text-gray-500 hover:text-gray-700"
+                  className="text-xs text-content-tertiary hover:text-content-secondary"
                 >
                   Clear
                 </button>
@@ -454,14 +454,14 @@ export function QuickAddModal() {
                     type="button"
                     onClick={() => handleRecentItemClick(item.content)}
                     className={cn(
-                      'w-full text-left px-3 py-2 rounded-md text-sm text-gray-700',
-                      'hover:bg-white border border-transparent hover:border-gray-300',
+                      'w-full text-left px-3 py-2 rounded-md text-sm text-content-secondary',
+                      'hover:bg-surface-primary border border-transparent hover:border-border',
                       'transition-all'
                     )}
                   >
                     <div className="flex items-center justify-between">
                       <span>{item.content}</span>
-                      <span className="text-xs text-gray-400">
+                      <span className="text-xs text-content-tertiary">
                         {item.timestamp.toLocaleTimeString('en-US', {
                           hour: 'numeric',
                           minute: '2-digit',
@@ -475,7 +475,7 @@ export function QuickAddModal() {
           )}
 
           {/* Help Text */}
-          <div className="border-t border-gray-200 px-6 py-3 bg-blue-50 text-xs text-gray-600 space-y-1">
+          <div className="border-t border-border px-6 py-3 bg-blue-50 text-xs text-content-secondary space-y-1">
             {mode === 'create' ? (
               <>
                 <p>

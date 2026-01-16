@@ -21,10 +21,10 @@ export const CalendarEventsList: React.FC<CalendarEventsListProps> = ({
 }) => {
   if (loading) {
     return (
-      <div className={cn('rounded-lg border border-gray-200 p-4', className)}>
+      <div className={cn('rounded-lg border border-border p-4', className)}>
         <div className="flex items-center gap-2">
-          <div className="h-4 w-4 animate-spin rounded-full border-2 border-gray-300 border-t-blue-600" />
-          <p className="text-sm text-gray-600">Loading calendar events...</p>
+          <div className="h-4 w-4 animate-spin rounded-full border-2 border-border border-t-blue-600" />
+          <p className="text-sm text-content-secondary">Loading calendar events...</p>
         </div>
       </div>
     )
@@ -33,7 +33,7 @@ export const CalendarEventsList: React.FC<CalendarEventsListProps> = ({
   if (error) {
     return (
       <div className={cn('flex gap-3 rounded-lg border border-red-200 bg-red-50 p-4', className)}>
-        <AlertCircle className="h-5 w-5 flex-shrink-0 text-red-600" />
+        <AlertCircle className="h-5 w-5 flex-shrink-0 text-semantic-error" />
         <div>
           <p className="text-sm font-medium text-red-900">Failed to load events</p>
           <p className="text-xs text-red-700">{error}</p>
@@ -44,9 +44,9 @@ export const CalendarEventsList: React.FC<CalendarEventsListProps> = ({
 
   if (events.length === 0) {
     return (
-      <div className={cn('rounded-lg border border-dashed border-gray-300 p-6 text-center', className)}>
-        <Calendar className="mx-auto h-8 w-8 text-gray-400" />
-        <p className="mt-2 text-sm text-gray-600">No calendar events to display</p>
+      <div className={cn('rounded-lg border border-dashed border-border p-6 text-center', className)}>
+        <Calendar className="mx-auto h-8 w-8 text-content-tertiary" />
+        <p className="mt-2 text-sm text-content-secondary">No calendar events to display</p>
       </div>
     )
   }

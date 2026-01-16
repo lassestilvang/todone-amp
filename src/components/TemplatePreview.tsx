@@ -19,7 +19,7 @@ export function TemplatePreview({ templateId, onClose, onApply, className }: Tem
   const template = templates.find((t) => t.id === templateId)
   if (!template) {
     return (
-      <div className={cn('rounded border border-gray-200 p-4', className)}>
+      <div className={cn('rounded border border-border p-4', className)}>
         Template not found
       </div>
     )
@@ -49,21 +49,21 @@ export function TemplatePreview({ templateId, onClose, onApply, className }: Tem
   }
 
   return (
-    <div className={cn('space-y-4 rounded border border-gray-200 p-4 dark:border-gray-700', className)}>
+    <div className={cn('space-y-4 rounded border border-border p-4', className)}>
       {/* Header */}
       <div className="flex items-start justify-between gap-2">
         <div>
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+          <h2 className="text-lg font-semibold text-content-primary">
             {template.name}
           </h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
+          <p className="text-sm text-content-tertiary">
             {template.category.charAt(0).toUpperCase() + template.category.slice(1)}
             {template.isPrebuilt && ' • Built-in'}
           </p>
         </div>
         <button
           onClick={onClose}
-          className="rounded p-1 hover:bg-gray-200 dark:hover:bg-gray-700"
+          className="rounded p-1 hover:bg-surface-tertiary"
         >
           ✕
         </button>
@@ -71,11 +71,11 @@ export function TemplatePreview({ templateId, onClose, onApply, className }: Tem
 
       {/* Description */}
       {template.description && (
-        <p className="text-sm text-gray-600 dark:text-gray-400">{template.description}</p>
+        <p className="text-sm text-content-secondary">{template.description}</p>
       )}
 
       {/* Stats */}
-      <div className="flex gap-4 text-sm text-gray-500 dark:text-gray-400">
+      <div className="flex gap-4 text-sm text-content-tertiary">
         <span>{template.data.sections.length} sections</span>
         <span>
           {template.data.sections.reduce((sum, s) => sum + s.tasks.length, 0)} tasks
@@ -84,17 +84,17 @@ export function TemplatePreview({ templateId, onClose, onApply, className }: Tem
       </div>
 
       {/* Preview content */}
-      <div className="max-h-64 space-y-2 overflow-y-auto rounded bg-gray-50 p-3 dark:bg-gray-800">
+      <div className="max-h-64 space-y-2 overflow-y-auto rounded bg-surface-secondary p-3">
         {template.data.sections.map((section) => (
           <div key={section.name}>
-            <h4 className="font-medium text-gray-700 dark:text-gray-300">{section.name}</h4>
-            <ul className="ml-4 space-y-1 text-sm text-gray-600 dark:text-gray-400">
+            <h4 className="font-medium text-content-secondary">{section.name}</h4>
+            <ul className="ml-4 space-y-1 text-sm text-content-secondary">
               {section.tasks.map((task) => (
                 <li key={task.content} className="flex gap-2">
-                  <span className="text-gray-400">•</span>
+                  <span className="text-content-tertiary">•</span>
                   <span>{task.content}</span>
                   {task.priority && (
-                    <span className="rounded bg-gray-200 px-1 text-xs dark:bg-gray-700">
+                    <span className="rounded bg-interactive-secondary px-1 text-xs">
                       {task.priority}
                     </span>
                   )}
@@ -107,7 +107,7 @@ export function TemplatePreview({ templateId, onClose, onApply, className }: Tem
 
       {/* Project name input */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+        <label className="block text-sm font-medium text-content-secondary">
           New Project Name
         </label>
         <input
@@ -115,7 +115,7 @@ export function TemplatePreview({ templateId, onClose, onApply, className }: Tem
           value={projectName}
           onChange={(e) => setProjectName(e.target.value)}
           placeholder={`e.g., ${template.name} - ${new Date().getFullYear()}`}
-          className="mt-1 w-full rounded border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-800"
+          className="mt-1 w-full rounded border border-border px-3 py-2 text-sm"
         />
       </div>
 
@@ -143,7 +143,7 @@ export function TemplatePreview({ templateId, onClose, onApply, className }: Tem
         )}
         <button
           onClick={onClose}
-          className="rounded border border-gray-300 px-4 py-2 text-sm dark:border-gray-600"
+          className="rounded border border-border px-4 py-2 text-sm"
         >
           Close
         </button>

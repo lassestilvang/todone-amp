@@ -52,19 +52,19 @@ export const FloatingActionButton: React.FC<FloatingActionButtonProps> = ({
 
   const bgClasses = {
     light: 'bg-brand-500 hover:bg-brand-600 text-white shadow-lg',
-    dark: 'bg-gray-800 hover:bg-gray-900 text-white shadow-lg',
+    dark: 'bg-surface-primary hover:bg-surface-tertiary text-white shadow-lg',
   };
 
   const secondaryBgClasses = {
-    light: 'bg-white text-gray-700 shadow-md hover:bg-gray-50',
+    light: 'bg-surface-primary text-content-secondary shadow-md hover:bg-surface-tertiary',
     dark: 'bg-gray-700 text-white shadow-md hover:bg-gray-600',
   };
 
   const colorClasses = {
     primary: 'text-brand-500 bg-brand-50',
-    secondary: 'text-gray-600 bg-gray-50',
-    success: 'text-green-600 bg-green-50',
-    danger: 'text-red-600 bg-red-50',
+    secondary: 'text-content-secondary bg-surface-secondary',
+    success: 'text-semantic-success bg-green-50',
+    danger: 'text-semantic-error bg-red-50',
   };
 
   const handleMainAction = () => {

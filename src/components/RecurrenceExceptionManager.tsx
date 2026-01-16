@@ -30,7 +30,7 @@ export function RecurrenceExceptionManager({
 
   if (!task.recurrence) {
     return (
-      <div className={cn('p-4 text-center text-gray-500', className)}>
+      <div className={cn('p-4 text-center text-content-tertiary', className)}>
         <p>No recurrence pattern set for this task</p>
       </div>
     )
@@ -73,11 +73,11 @@ export function RecurrenceExceptionManager({
     <div className={cn('space-y-4', className)}>
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
-        <h3 className="font-semibold text-gray-900">Recurrence Exceptions</h3>
+        <h3 className="font-semibold text-content-primary">Recurrence Exceptions</h3>
         {onClose && (
           <button
             onClick={onClose}
-            className="p-1 text-gray-400 hover:text-gray-600 rounded-md hover:bg-gray-100"
+            className="p-1 text-content-tertiary hover:text-content-secondary rounded-md hover:bg-surface-tertiary"
             aria-label="Close"
           >
             <X size={18} />
@@ -86,7 +86,7 @@ export function RecurrenceExceptionManager({
       </div>
 
       {/* Action Selector */}
-      <div className="space-y-3 p-4 bg-gray-50 rounded-lg">
+      <div className="space-y-3 p-4 bg-surface-secondary rounded-lg">
         <div className="flex gap-2">
           <label className="flex items-center gap-2 cursor-pointer">
             <input
@@ -97,7 +97,7 @@ export function RecurrenceExceptionManager({
               onChange={(e) => setAction(e.target.value as 'skip' | 'reschedule')}
               className="w-4 h-4"
             />
-            <span className="text-sm text-gray-700">Skip this occurrence</span>
+            <span className="text-sm text-content-secondary">Skip this occurrence</span>
           </label>
           <label className="flex items-center gap-2 cursor-pointer">
             <input
@@ -108,13 +108,13 @@ export function RecurrenceExceptionManager({
               onChange={(e) => setAction(e.target.value as 'skip' | 'reschedule')}
               className="w-4 h-4"
             />
-            <span className="text-sm text-gray-700">Reschedule to new date</span>
+            <span className="text-sm text-content-secondary">Reschedule to new date</span>
           </label>
         </div>
 
         {/* Date Selector */}
         <div className="space-y-2">
-          <label className="block text-sm font-medium text-gray-700">
+          <label className="block text-sm font-medium text-content-secondary">
             {action === 'skip' ? 'Date to skip' : 'Date to modify'}
           </label>
           <DatePickerInput
@@ -127,7 +127,7 @@ export function RecurrenceExceptionManager({
         {/* Reschedule Target */}
         {action === 'reschedule' && (
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className="block text-sm font-medium text-content-secondary">
               Reschedule to:
             </label>
             <DatePickerInput
@@ -157,24 +157,24 @@ export function RecurrenceExceptionManager({
       {/* Existing Exceptions */}
       {existingExceptions.length > 0 && (
         <div className="space-y-2">
-          <h4 className="text-sm font-medium text-gray-700">
+          <h4 className="text-sm font-medium text-content-secondary">
             Exceptions ({existingExceptions.length})
           </h4>
           <div className="space-y-2 max-h-60 overflow-y-auto">
             {existingExceptions.map((exc, idx) => (
               <div
                 key={idx}
-                className="flex items-center justify-between p-3 bg-gray-50 rounded-lg text-sm"
+                className="flex items-center justify-between p-3 bg-surface-secondary rounded-lg text-sm"
               >
                 <div>
-                  <p className="text-gray-900">
+                  <p className="text-content-primary">
                     {exc.date.toLocaleDateString('en-US', {
                       month: 'short',
                       day: 'numeric',
                       year: 'numeric',
                     })}
                   </p>
-                  <p className="text-xs text-gray-500 capitalize">{exc.reason}</p>
+                  <p className="text-xs text-content-tertiary capitalize">{exc.reason}</p>
                 </div>
                 <button
                   onClick={() => {
@@ -192,7 +192,7 @@ export function RecurrenceExceptionManager({
       )}
 
       {/* Info Message */}
-      <p className="text-xs text-gray-500">
+      <p className="text-xs text-content-tertiary">
         Skip a date to remove it from the recurrence pattern. Reschedule to move an occurrence to
         a different date.
       </p>

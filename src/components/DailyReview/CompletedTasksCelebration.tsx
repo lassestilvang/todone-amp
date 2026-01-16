@@ -86,26 +86,26 @@ export function CompletedTasksCelebration({ onNext }: CompletedTasksCelebrationP
           )}
         </div>
 
-        <h4 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+        <h4 className="text-2xl font-bold text-content-primary mb-2">
           {messages[celebrationLevel].title}
         </h4>
-        <p className="text-gray-500 dark:text-gray-400 text-center mb-8">
+        <p className="text-content-tertiary text-center mb-8">
           {messages[celebrationLevel].subtitle}
         </p>
 
         <div className="grid grid-cols-2 gap-4 w-full max-w-xs">
-          <div className="text-center p-4 rounded-lg bg-gray-100 dark:bg-gray-800">
-            <p className="text-3xl font-bold text-gray-900 dark:text-white">{completedToday}</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Tasks Completed</p>
+          <div className="text-center p-4 rounded-lg bg-surface-tertiary">
+            <p className="text-3xl font-bold text-content-primary">{completedToday}</p>
+            <p className="text-xs text-content-tertiary mt-1">Tasks Completed</p>
           </div>
           <div className="text-center p-4 rounded-lg bg-purple-100 dark:bg-purple-900/30">
             <p className="text-3xl font-bold text-purple-600 dark:text-purple-400">+{karmaEarned}</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Karma Earned</p>
+            <p className="text-xs text-content-tertiary mt-1">Karma Earned</p>
           </div>
         </div>
       </div>
 
-      <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+      <div className="mt-6 pt-4 border-t border-border">
         <Button onClick={onNext} variant="primary" className="w-full">
           Continue
         </Button>

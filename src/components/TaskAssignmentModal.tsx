@@ -70,26 +70,26 @@ export function TaskAssignmentModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-      <div className="w-full max-w-sm rounded-lg bg-white p-6 shadow-lg dark:bg-gray-900">
+      <div className="w-full max-w-sm rounded-lg bg-surface-primary p-6 shadow-lg">
         {/* Header */}
         <div className="mb-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <User className="h-5 w-5 text-brand-600" />
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+            <h2 className="text-lg font-semibold text-content-primary">
               Assign Task
             </h2>
           </div>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+            className="text-content-tertiary hover:text-content-secondary"
           >
             <X className="h-5 w-5" />
           </button>
         </div>
 
         {/* Task Info */}
-        <div className="mb-4 rounded-lg bg-gray-50 p-3 dark:bg-gray-800">
-          <p className="text-sm font-medium text-gray-900 dark:text-white">
+        <div className="mb-4 rounded-lg bg-surface-secondary p-3">
+          <p className="text-sm font-medium text-content-primary">
             {task.content}
           </p>
         </div>
@@ -105,7 +105,7 @@ export function TaskAssignmentModal({
         {/* Assignee Options */}
         <div className="mb-4 max-h-64 space-y-2 overflow-y-auto">
           {assigneeOptions.length === 0 ? (
-            <p className="py-4 text-center text-sm text-gray-500 dark:text-gray-400">
+            <p className="py-4 text-center text-sm text-content-tertiary">
               No team members to assign
             </p>
           ) : (
@@ -116,16 +116,16 @@ export function TaskAssignmentModal({
                 disabled={isSaving}
                 className={`w-full rounded-lg p-3 text-left transition-colors ${
                   selectedAssignee === assignee.id
-                    ? 'bg-brand-100 dark:bg-brand-900/30'
-                    : 'bg-gray-50 hover:bg-gray-100 dark:bg-gray-800 dark:hover:bg-gray-700'
+                    ? 'bg-brand-100'
+                    : 'bg-surface-secondary hover:bg-surface-tertiary'
                 } disabled:opacity-50`}
               >
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="font-medium text-gray-900 dark:text-white">
+                    <p className="font-medium text-content-primary">
                       {assignee.name}
                     </p>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                    <p className="text-sm text-content-tertiary">
                       {assignee.email}
                     </p>
                   </div>
@@ -143,7 +143,7 @@ export function TaskAssignmentModal({
           <button
             onClick={handleRemoveAssignee}
             disabled={isSaving}
-            className="mb-4 w-full rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-50 disabled:opacity-50 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-800"
+            className="mb-4 w-full rounded-lg border border-border px-4 py-2 text-sm font-medium text-content-secondary transition-colors hover:bg-surface-tertiary disabled:opacity-50"
           >
             Remove Assignment
           </button>

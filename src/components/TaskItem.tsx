@@ -18,8 +18,8 @@ const priorityConfig: Record<string, { color: string; icon: string }> = {
   p1: { color: 'text-red-600', icon: '!!!' },
   p2: { color: 'text-orange-600', icon: '!!' },
   p3: { color: 'text-blue-600', icon: '!' },
-  p4: { color: 'text-gray-400', icon: '-' },
-  null: { color: 'text-gray-300', icon: '-' },
+  p4: { color: 'text-content-tertiary', icon: '-' },
+  null: { color: 'text-content-tertiary', icon: '-' },
 }
 
 export const TaskItem: React.FC<TaskItemProps> = ({ task, onToggle, onSelect, isSelected }) => {
@@ -40,7 +40,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, onToggle, onSelect, is
       onClick={() => onSelect?.(task.id)}
       className={cn(
         'flex items-center gap-3 px-4 py-2 border-l-4 cursor-pointer transition-all duration-150',
-        isSelected ? 'bg-blue-50 border-blue-500' : 'border-transparent hover:bg-gray-50'
+        isSelected ? 'bg-blue-50 border-blue-500' : 'border-transparent hover:bg-surface-tertiary'
       )}
     >
       {/* Checkbox */}
@@ -54,7 +54,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, onToggle, onSelect, is
         className={cn(
           'w-5 h-5 rounded border-2 cursor-pointer transition-all',
           'focus:outline-none focus:ring-2 focus:ring-brand-500',
-          task.completed ? 'bg-brand-600 border-brand-600' : 'border-gray-300'
+          task.completed ? 'bg-brand-600 border-brand-600' : 'border-border'
         )}
       />
 
@@ -68,7 +68,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, onToggle, onSelect, is
         <p
           className={cn(
             'text-sm font-medium truncate',
-            task.completed && 'line-through text-gray-400'
+            task.completed && 'line-through text-content-tertiary'
           )}
         >
           {task.content}
@@ -80,7 +80,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, onToggle, onSelect, is
 
       {/* Subtask Counter */}
       {subtasks.length > 0 && (
-        <div className="flex items-center gap-1 px-2 py-1 bg-gray-100 rounded text-xs font-medium text-gray-600">
+        <div className="flex items-center gap-1 px-2 py-1 bg-surface-tertiary rounded text-xs font-medium text-content-secondary">
           <CheckCircle2 className="w-3 h-3" />
           <span>
             {completedSubtasks}/{subtasks.length}
@@ -93,7 +93,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, onToggle, onSelect, is
         <span
           className={cn(
             'text-xs font-medium whitespace-nowrap',
-            dueDateOverdue ? 'text-red-600' : 'text-gray-600'
+            dueDateOverdue ? 'text-semantic-error' : 'text-content-secondary'
           )}
         >
           {formatDueDate(task.dueDate)}
@@ -101,7 +101,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, onToggle, onSelect, is
       )}
 
       {/* Expand Icon */}
-      <ChevronRight className="w-4 h-4 text-gray-400" />
+      <ChevronRight className="w-4 h-4 text-content-tertiary" />
     </div>
   )
 }

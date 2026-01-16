@@ -52,9 +52,9 @@ export const DropdownTrigger: React.FC<DropdownTriggerProps> = ({
       onClick={() => setIsOpen(!isOpen)}
       className={cn(
         'inline-flex items-center gap-2 px-3 py-2 text-sm font-medium',
-        'bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md',
-        'hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors',
-        'focus:outline-none focus:ring-2 focus:ring-brand-500',
+        'bg-surface-primary border border-border rounded-md',
+        'hover:bg-surface-secondary transition-colors',
+        'focus:outline-none focus:ring-2 focus:ring-focus',
         className
       )}
       aria-expanded={isOpen}
@@ -117,7 +117,7 @@ export const DropdownMenu: React.FC<DropdownMenuProps> = ({
       role="menu"
       className={cn(
         'absolute z-50 mt-1 min-w-[160px] py-1',
-        'bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700',
+        'bg-surface-primary border border-border',
         'rounded-md shadow-lg animate-fadeIn',
         align === 'left' ? 'left-0' : 'right-0',
         className
@@ -161,10 +161,10 @@ export const DropdownItem: React.FC<DropdownItemProps> = ({
       disabled={disabled}
       className={cn(
         'w-full flex items-center gap-2 px-3 py-2 text-sm text-left',
-        'hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors',
+        'hover:bg-surface-tertiary transition-colors',
         disabled && 'opacity-50 cursor-not-allowed',
-        danger && 'text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20',
-        !danger && 'text-gray-700 dark:text-gray-300',
+        danger && 'text-semantic-error hover:bg-semantic-error-light',
+        !danger && 'text-content-secondary',
         className
       )}
     >
@@ -175,7 +175,7 @@ export const DropdownItem: React.FC<DropdownItemProps> = ({
 }
 
 export const DropdownDivider: React.FC = () => (
-  <div className="my-1 h-px bg-gray-200 dark:bg-gray-700" role="separator" />
+  <div className="my-1 h-px bg-border" role="separator" />
 )
 
 Dropdown.displayName = 'Dropdown'

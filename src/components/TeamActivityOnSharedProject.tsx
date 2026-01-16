@@ -55,18 +55,18 @@ export function TeamActivityOnSharedProject({
   if (projectTasks.length === 0) {
     return (
       <div
-        className={cn('rounded border border-dashed border-gray-300 p-4 text-center', className)}
+        className={cn('rounded border border-dashed border-border p-4 text-center', className)}
       >
-        <p className="text-sm text-gray-500">No team activity yet in this project</p>
+        <p className="text-sm text-content-tertiary">No team activity yet in this project</p>
       </div>
     )
   }
 
   return (
     <div className={cn('space-y-4', className)}>
-      <div className="rounded border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-900">
-        <div className="border-b border-gray-200 p-4 dark:border-gray-700">
-          <h3 className="font-medium text-gray-900 dark:text-white">Team Activity</h3>
+      <div className="rounded border border-border bg-surface-primary">
+        <div className="border-b border-border p-4">
+          <h3 className="font-medium text-content-primary">Team Activity</h3>
         </div>
 
         <div className="max-h-96 overflow-y-auto">
@@ -77,25 +77,25 @@ export function TeamActivityOnSharedProject({
             return (
               <div
                 key={`${activity.id}-${index}`}
-                className="flex items-start gap-3 border-b border-gray-100 p-4 last:border-b-0 dark:border-gray-800"
+                className="flex items-start gap-3 border-b border-surface-tertiary p-4 last:border-b-0"
               >
                 <span className="mt-0.5 text-lg">{icon}</span>
 
                 <div className="flex-1">
-                  <p className="text-sm font-medium text-gray-900 dark:text-white">
+                  <p className="text-sm font-medium text-content-primary">
                     {member?.name || 'Unknown'}{' '}
-                    <span className="font-normal text-gray-600 dark:text-gray-400">
+                    <span className="font-normal text-content-secondary">
                       {getActivityLabel(activity.action)}
                     </span>
                   </p>
 
-                  <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                  <p className="mt-1 text-xs text-content-tertiary">
                     {formatRelativeTime(activity.timestamp)}
                   </p>
 
                   {/* Show value changes */}
                   {activity.newValue && typeof activity.newValue === 'string' ? (
-                    <p className="mt-1 rounded bg-gray-50 p-2 text-xs text-gray-600 dark:bg-gray-800 dark:text-gray-300">
+                    <p className="mt-1 rounded bg-surface-secondary p-2 text-xs text-content-secondary">
                       <span className="font-medium">New: </span>
                       {activity.newValue}
                     </p>

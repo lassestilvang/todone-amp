@@ -79,12 +79,12 @@ export function TimeBlockingView({ selectedDate }: TimeBlockingViewProps) {
   }
 
   return (
-    <div className="flex flex-col h-full bg-white rounded-lg">
+    <div className="flex flex-col h-full bg-surface-primary rounded-lg">
       {/* Header */}
-      <div className="flex items-center justify-between p-4 border-b border-gray-200">
+      <div className="flex items-center justify-between p-4 border-b border-border">
         <div className="flex items-center gap-2">
           <Clock className="w-5 h-5 text-brand-600" />
-          <h3 className="font-semibold text-gray-900">
+          <h3 className="font-semibold text-content-primary">
             {format(selectedDate, 'EEEE, MMMM d, yyyy')}
           </h3>
         </div>
@@ -100,8 +100,8 @@ export function TimeBlockingView({ selectedDate }: TimeBlockingViewProps) {
 
       {/* All-day tasks section */}
       {timeBlocks.allDayTasks.length > 0 && (
-        <div className="p-4 bg-gray-50 border-b border-gray-200">
-          <p className="text-xs font-semibold text-gray-600 mb-3">ALL-DAY TASKS</p>
+        <div className="p-4 bg-surface-secondary border-b border-border">
+          <p className="text-xs font-semibold text-content-secondary mb-3">ALL-DAY TASKS</p>
           <div className="space-y-2">
             {timeBlocks.allDayTasks.map((task) => (
               <button
@@ -131,21 +131,21 @@ export function TimeBlockingView({ selectedDate }: TimeBlockingViewProps) {
           <CurrentTimeIndicator />
         )}
 
-        <div className="grid grid-cols-[80px_1fr] gap-px bg-gray-200">
+        <div className="grid grid-cols-[80px_1fr] gap-px bg-interactive-secondary">
           {/* Time column */}
-          <div className="bg-white sticky left-0 z-10 border-r border-gray-200">
+          <div className="bg-surface-primary sticky left-0 z-10 border-r border-border">
             {timeBlocks.blocks.map((block) => (
               <TimeSlot key={`time-${block.hour}`} hour={block.hour} />
             ))}
           </div>
 
           {/* Tasks column */}
-          <div className="bg-white">
+          <div className="bg-surface-primary">
             {timeBlocks.blocks.map((block) => (
               <div
                 key={`block-${block.hour}`}
                 className={cn(
-                  'h-16 px-2 py-1 border-b border-gray-100 relative',
+                  'h-16 px-2 py-1 border-b border-surface-tertiary relative',
                   block.isCurrentHour && 'bg-blue-50 border-b-2 border-blue-200'
                 )}
               >
@@ -173,7 +173,7 @@ export function TimeBlockingView({ selectedDate }: TimeBlockingViewProps) {
                   </div>
                 ) : (
                   <div className="h-full flex items-center">
-                    <div className="text-xs text-gray-300">-</div>
+                    <div className="text-xs text-content-tertiary">-</div>
                   </div>
                 )}
               </div>
@@ -195,7 +195,7 @@ function TimeSlot({ hour }: TimeSlotProps) {
   }
 
   return (
-    <div className="h-16 px-2 py-1 text-xs font-medium text-gray-600 text-right border-b border-gray-100 flex items-start justify-end pr-1">
+    <div className="h-16 px-2 py-1 text-xs font-medium text-content-secondary text-right border-b border-surface-tertiary flex items-start justify-end pr-1">
       {formatTime(hour)}
     </div>
   )
@@ -222,7 +222,7 @@ function CurrentTimeIndicator() {
       style={{ top: `${position}px` }}
     >
       <div className="absolute -left-2 -top-1.5 w-4 h-4 bg-red-500 rounded-full border-2 border-white shadow-md" />
-      <div className="absolute left-20 -top-2 text-xs font-bold text-red-500 bg-white px-2 rounded">
+      <div className="absolute left-20 -top-2 text-xs font-bold text-red-500 bg-surface-primary px-2 rounded">
         Now
       </div>
     </div>

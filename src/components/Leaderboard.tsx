@@ -26,7 +26,7 @@ export const Leaderboard: React.FC<LeaderboardProps> = ({ limit = 10 }) => {
     return (
       <div className="space-y-2">
         {Array.from({ length: 5 }).map((_, i) => (
-          <div key={i} className="h-12 bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse" />
+          <div key={i} className="h-12 bg-interactive-secondary rounded-lg animate-pulse" />
         ))}
       </div>
     )
@@ -35,8 +35,8 @@ export const Leaderboard: React.FC<LeaderboardProps> = ({ limit = 10 }) => {
   if (!leaderboard || leaderboard.length === 0) {
     return (
       <div className="text-center py-8">
-        <Zap className="w-8 h-8 text-gray-400 mx-auto mb-2" />
-        <p className="text-gray-500 dark:text-gray-400">No karma points yet. Complete tasks to earn karma!</p>
+        <Zap className="w-8 h-8 text-content-tertiary mx-auto mb-2" />
+        <p className="text-content-tertiary">No karma points yet. Complete tasks to earn karma!</p>
       </div>
     )
   }
@@ -55,37 +55,37 @@ export const Leaderboard: React.FC<LeaderboardProps> = ({ limit = 10 }) => {
               'flex items-center gap-3 p-3 rounded-lg transition-all',
               isTop3
                 ? 'bg-gradient-to-r from-yellow-50 to-amber-50 dark:from-yellow-900 dark:to-amber-900 border border-yellow-200 dark:border-yellow-700'
-                : 'bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700'
+                : 'bg-surface-secondary border border-border hover:bg-surface-tertiary'
             )}
           >
             {/* Rank */}
-            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white dark:bg-gray-700 flex-shrink-0">
+            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-surface-primary flex-shrink-0">
               {isTop3 ? (
                 <MedalIcon className={clsx('w-5 h-5', medalColor)} />
               ) : (
-                <span className="font-bold text-gray-700 dark:text-gray-300">{index + 1}</span>
+                <span className="font-bold text-content-secondary">{index + 1}</span>
               )}
             </div>
 
             {/* User Info */}
             <div className="flex-1 min-w-0">
-              <h4 className="font-semibold text-gray-900 dark:text-white truncate">
+              <h4 className="font-semibold text-content-primary truncate">
                 {entry.name}
               </h4>
-              <p className="text-xs text-gray-500 dark:text-gray-400">User #{entry.userId}</p>
+              <p className="text-xs text-content-tertiary">User #{entry.userId}</p>
             </div>
 
             {/* Karma Points */}
             <div className="flex items-center gap-1 flex-shrink-0">
               <Zap className="w-4 h-4 text-yellow-500" />
-              <span className="font-bold text-gray-900 dark:text-white">{entry.karma}</span>
+              <span className="font-bold text-content-primary">{entry.karma}</span>
             </div>
           </div>
         )
       })}
 
       {leaderboard.length < 10 && (
-        <div className="text-center py-4 text-sm text-gray-500 dark:text-gray-400">
+        <div className="text-center py-4 text-sm text-content-tertiary">
           {leaderboard.length} of {Math.max(leaderboard.length, 10)} users
         </div>
       )}

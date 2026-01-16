@@ -92,7 +92,7 @@ describe('Dropdown', () => {
     fireEvent.click(screen.getByText('Menu'))
     const item = screen.getByText('Item 1')
 
-    expect(item).toHaveClass('text-red-600')
+    expect(item).toHaveClass('text-semantic-error')
   })
 
   it('renders divider', () => {

@@ -112,12 +112,12 @@ export const SyncStatus: React.FC<SyncStatusProps> = ({ className = '', showDeta
   return (
     <div
       className={clsx(
-        'flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-50 dark:bg-gray-800 border border-gray-200 dark:border-gray-700',
+        'flex items-center gap-2 px-3 py-2 rounded-lg bg-surface-secondary border border-border',
         className
       )}
     >
-      <CheckCircle2 className="w-4 h-4 text-gray-400 dark:text-gray-600 flex-shrink-0" />
-      <p className="text-sm text-gray-600 dark:text-gray-400">Ready</p>
+      <CheckCircle2 className="w-4 h-4 text-content-tertiary flex-shrink-0" />
+      <p className="text-sm text-content-secondary">Ready</p>
     </div>
   )
 }

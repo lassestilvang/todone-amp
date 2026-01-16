@@ -40,7 +40,7 @@ function getActivityIcon(action: string) {
     case 'priorityChanged':
       return <AlertCircle size={16} className="text-red-600" />
     default:
-      return <AlertCircle size={16} className="text-gray-600" />
+      return <AlertCircle size={16} className="text-content-secondary" />
   }
 }
 
@@ -83,7 +83,7 @@ export function ActivityItem({ activity, className }: ActivityItemProps) {
   const authorName = author?.name || 'Unknown'
 
   return (
-    <div className={cn('flex gap-3 py-2 px-3 hover:bg-gray-50 rounded transition-colors', className)}>
+    <div className={cn('flex gap-3 py-2 px-3 hover:bg-surface-tertiary rounded transition-colors', className)}>
       {/* Icon */}
       <div className="flex-shrink-0 mt-0.5">
         {getActivityIcon(activity.action)}
@@ -92,19 +92,19 @@ export function ActivityItem({ activity, className }: ActivityItemProps) {
       {/* Content */}
       <div className="flex-1 min-w-0">
         <div className="flex items-baseline gap-2">
-          <p className="text-sm text-gray-700">
+          <p className="text-sm text-content-secondary">
             {formatActivityMessage(activity, authorName)}
           </p>
-          <p className="text-xs text-gray-500 whitespace-nowrap">
+          <p className="text-xs text-content-tertiary whitespace-nowrap">
             {formatRelativeTime(activity.timestamp)}
           </p>
         </div>
 
         {/* Additional details */}
         {activity.changes && Object.keys(activity.changes).length > 0 && (
-          <div className="text-xs text-gray-600 mt-1 pl-0">
+          <div className="text-xs text-content-secondary mt-1 pl-0">
             {Object.entries(activity.changes).map(([key, value]) => (
-              <div key={key} className="text-gray-500">
+              <div key={key} className="text-content-tertiary">
                 {key}: {String(value)}
               </div>
             ))}

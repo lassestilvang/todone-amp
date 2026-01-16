@@ -29,25 +29,25 @@ export const AtRiskTasks: React.FC<AtRiskTasksProps> = ({ className }) => {
     return (
       <div
         className={cn(
-          'flex items-center justify-center rounded-lg border border-gray-200 p-6',
+          'flex items-center justify-center rounded-lg border border-border p-6',
           className
         )}
       >
-        <Loader2 className="h-6 w-6 animate-spin text-gray-400" />
+        <Loader2 className="h-6 w-6 animate-spin text-content-tertiary" />
       </div>
     )
   }
 
   if (!atRiskTasks || atRiskTasks.length === 0) {
     return (
-      <div className={cn('rounded-lg border border-gray-200 p-6 text-center', className)}>
+      <div className={cn('rounded-lg border border-border p-6 text-center', className)}>
         <div className="flex justify-center">
           <div className="rounded-lg bg-green-50 p-3">
             <Clock className="h-6 w-6 text-green-600" />
           </div>
         </div>
-        <p className="mt-3 font-medium text-gray-900">All tasks on track</p>
-        <p className="mt-1 text-sm text-gray-600">No overdue or at-risk tasks</p>
+        <p className="mt-3 font-medium text-content-primary">All tasks on track</p>
+        <p className="mt-1 text-sm text-content-secondary">No overdue or at-risk tasks</p>
       </div>
     )
   }
@@ -56,7 +56,7 @@ export const AtRiskTasks: React.FC<AtRiskTasksProps> = ({ className }) => {
     <div className={cn('space-y-4', className)}>
       <div className="flex items-center gap-2">
         <AlertTriangle className="h-5 w-5 text-red-600" />
-        <h3 className="font-medium text-gray-900">At-Risk Tasks ({atRiskTasks.length})</h3>
+        <h3 className="font-medium text-content-primary">At-Risk Tasks ({atRiskTasks.length})</h3>
       </div>
 
       <div className="space-y-2">
@@ -70,7 +70,7 @@ export const AtRiskTasks: React.FC<AtRiskTasksProps> = ({ className }) => {
           >
             <div className="flex items-start justify-between gap-3">
               <div className="flex-1">
-                <p className="text-sm font-medium text-gray-900">{task.content}</p>
+                <p className="text-sm font-medium text-content-primary">{task.content}</p>
                 <div className="mt-2 flex items-center gap-2">
                   <span
                     className={cn(

@@ -148,7 +148,7 @@ export function TutorialTooltip({
 
       {/* Tooltip */}
       <div
-        className={`fixed z-50 w-80 rounded-lg bg-white p-6 shadow-2xl dark:bg-gray-900 ${className}`}
+        className={`fixed z-50 w-80 rounded-lg bg-surface-primary p-6 shadow-2xl ${className}`}
         style={{
           top: `${position.top}px`,
           left: `${position.left}px`,
@@ -156,7 +156,7 @@ export function TutorialTooltip({
       >
         {/* Arrow */}
         <div
-          className={`absolute h-2 w-2 bg-white dark:bg-gray-900 ${
+          className={`absolute h-2 w-2 bg-surface-primary ${
             position.arrowPosition === 'top' ? 'top-0 -translate-y-1' : ''
           } ${position.arrowPosition === 'bottom' ? 'bottom-0 translate-y-1' : ''} ${
             position.arrowPosition === 'left' ? 'left-0 -translate-x-1' : ''
@@ -176,17 +176,17 @@ export function TutorialTooltip({
         {/* Close Button */}
         <button
           onClick={handleSkip}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300"
+          className="absolute top-4 right-4 text-content-tertiary hover:text-content-secondary"
         >
           <X className="h-5 w-5" />
         </button>
 
         {/* Content */}
         <div className="mb-4">
-          <h3 className="mb-2 text-lg font-semibold text-gray-900 dark:text-white">
+          <h3 className="mb-2 text-lg font-semibold text-content-primary">
             {currentStepData.title}
           </h3>
-          <p className="text-sm text-gray-600 dark:text-gray-400">
+          <p className="text-sm text-content-secondary">
             {currentStepData.description}
           </p>
         </div>
@@ -209,7 +209,7 @@ export function TutorialTooltip({
               className={`h-1 flex-1 rounded-full ${
                 index <= step
                   ? 'bg-brand-600'
-                  : 'bg-gray-300 dark:bg-gray-600'
+                  : 'bg-interactive-secondary'
               }`}
             />
           ))}
@@ -220,13 +220,13 @@ export function TutorialTooltip({
           <button
             onClick={handlePrevious}
             disabled={step === 0}
-            className="flex items-center gap-1 text-sm font-medium text-gray-600 transition-colors hover:text-gray-900 disabled:opacity-50 dark:text-gray-400 dark:hover:text-gray-200"
+            className="flex items-center gap-1 text-sm font-medium text-content-secondary transition-colors hover:text-content-primary disabled:opacity-50"
           >
             <ChevronLeft className="h-4 w-4" />
             Back
           </button>
 
-          <span className="text-xs text-gray-500 dark:text-gray-400">
+          <span className="text-xs text-content-tertiary">
             {step + 1} of {steps.length}
           </span>
 

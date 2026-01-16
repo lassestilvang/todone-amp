@@ -41,17 +41,17 @@ export function ListViewOptions({ compact = false }: ListViewOptionsProps) {
   if (compact) {
     return (
       <div className="flex items-center gap-2 text-sm">
-        <span className="text-gray-600 font-medium">Group: {currentGroupLabel}</span>
-        <span className="text-gray-400">•</span>
-        <span className="text-gray-600 font-medium">Sort: {currentSortLabel}</span>
+        <span className="text-content-secondary font-medium">Group: {currentGroupLabel}</span>
+        <span className="text-content-tertiary">•</span>
+        <span className="text-content-secondary font-medium">Sort: {currentSortLabel}</span>
       </div>
     )
   }
 
   return (
-    <div className="px-6 py-3 border-b border-gray-200 bg-gray-50">
+    <div className="px-6 py-3 border-b border-border bg-surface-secondary">
       <div className="flex items-center gap-4">
-        <Settings size={16} className="text-gray-500" />
+        <Settings size={16} className="text-content-tertiary" />
         <ColumnCustomizer />
 
         {/* Group By */}
@@ -61,14 +61,14 @@ export function ListViewOptions({ compact = false }: ListViewOptionsProps) {
               setShowGroupBy(!showGroupBy)
               setShowSortBy(false)
             }}
-            className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-white rounded border border-gray-300 transition-colors"
+            className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-content-secondary hover:bg-surface-primary rounded border border-border transition-colors"
           >
             <span>Group: {currentGroupLabel}</span>
             <ChevronDown size={16} />
           </button>
 
           {showGroupBy && (
-            <div className="absolute top-full left-0 mt-1 w-40 bg-white border border-gray-200 rounded shadow-lg z-10">
+            <div className="absolute top-full left-0 mt-1 w-40 bg-surface-primary border border-border rounded shadow-lg z-10">
               {groupOptions.map((option) => (
                 <button
                   key={option.value}
@@ -79,7 +79,7 @@ export function ListViewOptions({ compact = false }: ListViewOptionsProps) {
                     setShowGroupBy(false)
                   }}
                   className={cn(
-                    'w-full px-4 py-2 text-sm text-left hover:bg-gray-100 transition-colors',
+                    'w-full px-4 py-2 text-sm text-left hover:bg-surface-tertiary transition-colors',
                     listGroupBy === option.value && 'bg-brand-50 text-brand-600 font-medium'
                   )}
                 >
@@ -97,14 +97,14 @@ export function ListViewOptions({ compact = false }: ListViewOptionsProps) {
               setShowSortBy(!showSortBy)
               setShowGroupBy(false)
             }}
-            className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-white rounded border border-gray-300 transition-colors"
+            className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-content-secondary hover:bg-surface-primary rounded border border-border transition-colors"
           >
             <span>Sort: {currentSortLabel}</span>
             <ChevronDown size={16} />
           </button>
 
           {showSortBy && (
-            <div className="absolute top-full left-0 mt-1 w-40 bg-white border border-gray-200 rounded shadow-lg z-10">
+            <div className="absolute top-full left-0 mt-1 w-40 bg-surface-primary border border-border rounded shadow-lg z-10">
               {sortOptions.map((option) => (
                 <button
                   key={option.value}
@@ -120,7 +120,7 @@ export function ListViewOptions({ compact = false }: ListViewOptionsProps) {
                     setShowSortBy(false)
                   }}
                   className={cn(
-                    'w-full px-4 py-2 text-sm text-left hover:bg-gray-100 transition-colors',
+                    'w-full px-4 py-2 text-sm text-left hover:bg-surface-tertiary transition-colors',
                     listSortBy === option.value && 'bg-brand-50 text-brand-600 font-medium'
                   )}
                 >

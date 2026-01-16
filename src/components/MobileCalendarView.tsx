@@ -96,21 +96,21 @@ export const MobileCalendarView: React.FC<MobileCalendarViewProps> = ({
   }
 
   return (
-    <div className="w-full h-full bg-white dark:bg-gray-900 flex flex-col">
+    <div className="w-full h-full bg-surface-primary flex flex-col">
       {/* Header */}
-      <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
+      <div className="px-4 py-3 border-b border-border bg-surface-secondary">
         <div className="flex items-center justify-between mb-3">
           <button
             onClick={() => navigate('prev')}
-            className="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors"
+            className="p-2 hover:bg-interactive-secondary rounded-lg transition-colors"
             aria-label="Previous"
           >
-            <ChevronLeft className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+            <ChevronLeft className="w-5 h-5 text-content-secondary" />
           </button>
 
           <div className="flex items-center gap-2">
-            <Calendar className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+            <Calendar className="w-5 h-5 text-semantic-info" />
+            <h2 className="text-lg font-semibold text-content-primary">
               {selectedDate.toLocaleDateString('en-US', {
                 month: 'long',
                 day: 'numeric',
@@ -120,10 +120,10 @@ export const MobileCalendarView: React.FC<MobileCalendarViewProps> = ({
 
           <button
             onClick={() => navigate('next')}
-            className="p-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-lg transition-colors"
+            className="p-2 hover:bg-interactive-secondary rounded-lg transition-colors"
             aria-label="Next"
           >
-            <ChevronRight className="w-5 h-5 text-gray-700 dark:text-gray-300" />
+            <ChevronRight className="w-5 h-5 text-content-secondary" />
           </button>
         </div>
 
@@ -136,7 +136,7 @@ export const MobileCalendarView: React.FC<MobileCalendarViewProps> = ({
               className={`flex-1 py-2 px-3 rounded-lg font-medium text-sm transition-colors ${
                 viewMode === mode
                   ? 'bg-blue-600 text-white dark:bg-blue-500'
-                  : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300'
+                  : 'bg-interactive-secondary text-content-secondary'
               }`}
             >
               {mode.charAt(0).toUpperCase() + mode.slice(1)}
@@ -152,7 +152,7 @@ export const MobileCalendarView: React.FC<MobileCalendarViewProps> = ({
           <div className="p-4 space-y-2">
             {tasksForDate.length === 0 ? (
               <div className="flex items-center justify-center h-40">
-                <p className="text-center text-gray-500 dark:text-gray-400">
+                <p className="text-center text-content-tertiary">
                   No tasks for this day
                 </p>
               </div>
@@ -160,13 +160,13 @@ export const MobileCalendarView: React.FC<MobileCalendarViewProps> = ({
               tasksForDate.map((task) => (
                 <div
                   key={task.id}
-                  className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700"
+                  className="p-3 bg-surface-secondary rounded-lg border border-border"
                 >
-                  <p className="font-medium text-gray-900 dark:text-white text-sm">
+                  <p className="font-medium text-content-primary text-sm">
                     {task.content}
                   </p>
                   {task.dueTime && (
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                    <p className="text-xs text-content-tertiary mt-1">
                       🕐 {task.dueTime}
                     </p>
                   )}
@@ -202,7 +202,7 @@ export const MobileCalendarView: React.FC<MobileCalendarViewProps> = ({
                         ? 'bg-blue-600 text-white dark:bg-blue-500'
                         : isToday(date)
                           ? 'bg-yellow-100 dark:bg-yellow-900 text-yellow-900 dark:text-yellow-100'
-                          : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300'
+                          : 'bg-surface-tertiary text-content-secondary'
                     }`}
                   >
                     {date.toLocaleDateString('en-US', {
@@ -217,13 +217,13 @@ export const MobileCalendarView: React.FC<MobileCalendarViewProps> = ({
                   {dateTasksCount > 0 && (
                     <div className="space-y-1 mb-2 pl-2">
                       {dayTasks.slice(0, 3).map((task) => (
-                        <div key={task.id} className="text-xs text-gray-600 dark:text-gray-400">
+                        <div key={task.id} className="text-xs text-content-secondary">
                           • {task.content.substring(0, 50)}
                           {task.content.length > 50 ? '...' : ''}
                         </div>
                       ))}
                       {dateTasksCount > 3 && (
-                        <div className="text-xs text-gray-500 dark:text-gray-500 font-medium">
+                        <div className="text-xs text-content-tertiary font-medium">
                           +{dateTasksCount - 3} more
                         </div>
                       )}

@@ -33,8 +33,8 @@ export function SubTaskList({ parentTaskId, onSelectTask, onTaskDeleted }: SubTa
   }
 
   return (
-    <div className="space-y-1 mt-3 border-t border-gray-200 pt-3">
-      <div className="text-xs font-semibold text-gray-600 px-3 mb-2">SUBTASKS</div>
+    <div className="space-y-1 mt-3 border-t border-border pt-3">
+      <div className="text-xs font-semibold text-content-secondary px-3 mb-2">SUBTASKS</div>
       <div className="space-y-1">
         {subtasks.map((subtask) => {
           const subtaskChildren = getSubtasks(subtask.id)

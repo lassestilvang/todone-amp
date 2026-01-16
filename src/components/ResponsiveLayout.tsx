@@ -20,7 +20,7 @@ export const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({
   className,
 }) => {
   return (
-    <div className={cn('flex h-screen bg-white', className)}>
+    <div className={cn('flex h-screen bg-surface-primary', className)}>
       {/* Desktop Sidebar */}
       {sidebar && <div className="hidden md:block">{sidebar}</div>}
 

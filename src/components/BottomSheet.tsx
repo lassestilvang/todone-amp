@@ -64,7 +64,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
       {/* Bottom Sheet */}
       <div
         className={cn(
-          'fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-2xl',
+          'fixed bottom-0 left-0 right-0 z-50 bg-surface-primary rounded-t-2xl',
           'md:hidden',
           'transition-transform duration-300',
           'max-h-[90vh] flex flex-col',
@@ -77,16 +77,16 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
       >
         {/* Handle Bar */}
         <div className="flex justify-center pt-2 pb-2">
-          <div className="w-12 h-1 bg-gray-300 rounded-full" />
+          <div className="w-12 h-1 bg-border rounded-full" />
         </div>
 
         {/* Header */}
         {title && (
-          <div className="flex items-center justify-between px-4 py-3 border-b border-gray-200">
-            <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
+          <div className="flex items-center justify-between px-4 py-3 border-b border-border">
+            <h2 className="text-lg font-semibold text-content-primary">{title}</h2>
             <button
               onClick={onClose}
-              className="p-1 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100"
+              className="p-1 text-content-tertiary hover:text-content-secondary rounded-lg hover:bg-surface-tertiary"
               aria-label="Close"
             >
               <X size={24} />
@@ -109,13 +109,13 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
           className="hidden md:block absolute inset-0 bg-black bg-opacity-40"
           onClick={onClose}
         />
-        <div className="hidden md:block relative bg-white rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="hidden md:block relative bg-surface-primary rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
           {title && (
-            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
-              <h2 className="text-lg font-semibold text-gray-900">{title}</h2>
+            <div className="flex items-center justify-between px-6 py-4 border-b border-border">
+              <h2 className="text-lg font-semibold text-content-primary">{title}</h2>
               <button
                 onClick={onClose}
-                className="p-1 text-gray-400 hover:text-gray-600"
+                className="p-1 text-content-tertiary hover:text-content-secondary"
               >
                 <X size={24} />
               </button>

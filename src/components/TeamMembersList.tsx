@@ -45,7 +45,7 @@ export function TeamMembersList({
   return (
     <div className={cn('space-y-4', className)}>
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-lg font-semibold text-gray-900">Team Members</h3>
+        <h3 className="text-lg font-semibold text-content-primary">Team Members</h3>
         {isOwner && (
           <Button
             variant="secondary"
@@ -61,7 +61,7 @@ export function TeamMembersList({
 
       <div className="space-y-2">
         {teamMembers.length === 0 ? (
-          <div className="px-4 py-6 text-center text-gray-500">
+          <div className="px-4 py-6 text-center text-content-tertiary">
             <p>No team members yet</p>
           </div>
         ) : (
@@ -70,8 +70,8 @@ export function TeamMembersList({
               key={member.id}
               className={cn(
                 'flex items-center justify-between p-3 rounded-lg border',
-                'hover:bg-gray-50 transition-colors',
-                selectedMember === member.id ? 'bg-brand-50 border-brand-200' : 'border-gray-200'
+                'hover:bg-surface-tertiary transition-colors',
+                selectedMember === member.id ? 'bg-brand-50 border-brand-200' : 'border-border'
               )}
               onClick={() => setSelectedMember(member.id)}
             >
@@ -83,14 +83,14 @@ export function TeamMembersList({
                     className="w-8 h-8 rounded-full"
                   />
                 ) : (
-                  <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center">
-                    <User size={16} className="text-gray-600" />
+                  <div className="w-8 h-8 rounded-full bg-interactive-secondary flex items-center justify-center">
+                    <User size={16} className="text-content-secondary" />
                   </div>
                 )}
 
                 <div className="flex-1">
-                  <p className="font-medium text-gray-900">{member.name || 'Unknown'}</p>
-                  <p className="text-sm text-gray-500">{member.email}</p>
+                  <p className="font-medium text-content-primary">{member.name || 'Unknown'}</p>
+                  <p className="text-sm text-content-tertiary">{member.email}</p>
                 </div>
               </div>
 
@@ -119,7 +119,7 @@ export function TeamMembersList({
                         onClick={() => setRoleEdit(member.id)}
                         className={cn(
                           'px-2 py-1 text-sm rounded flex items-center gap-1',
-                          'text-gray-700 hover:bg-gray-100 transition-colors'
+                          'text-content-secondary hover:bg-surface-tertiary transition-colors'
                         )}
                       >
                         <Shield size={14} />
@@ -136,7 +136,7 @@ export function TeamMembersList({
                     </button>
                   </>
                 ) : (
-                  <span className="text-sm text-gray-600 flex items-center gap-1">
+                  <span className="text-sm text-content-secondary flex items-center gap-1">
                     <Shield size={14} />
                     {member.role.charAt(0).toUpperCase() + member.role.slice(1)}
                   </span>

@@ -49,7 +49,7 @@ export const AchievementsShowcase: React.FC<AchievementsShowcaseProps> = ({
         {Array.from({ length: 6 }).map((_, i) => (
           <div
             key={i}
-            className={clsx('bg-gray-200 dark:bg-gray-700 rounded-lg animate-pulse', {
+            className={clsx('bg-interactive-secondary rounded-lg animate-pulse', {
               'h-24': size === 'small',
               'h-32': size === 'medium',
               'h-40': size === 'large',
@@ -63,8 +63,8 @@ export const AchievementsShowcase: React.FC<AchievementsShowcaseProps> = ({
   if (achievementList.length === 0) {
     return (
       <div className="text-center py-8">
-        <Award className="w-8 h-8 text-gray-400 mx-auto mb-2" />
-        <p className="text-gray-500 dark:text-gray-400">No achievements yet. Keep going!</p>
+        <Award className="w-8 h-8 text-content-tertiary mx-auto mb-2" />
+        <p className="text-content-tertiary">No achievements yet. Keep going!</p>
       </div>
     )
   }
@@ -85,7 +85,7 @@ export const AchievementsShowcase: React.FC<AchievementsShowcaseProps> = ({
               {
                 'border-amber-300 dark:border-amber-600 bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-amber-900 dark:to-yellow-900':
                   achievement.unlocked,
-                'border-gray-300 dark:border-gray-600 bg-gray-100 dark:bg-gray-800 opacity-50':
+                'border-border bg-surface-tertiary opacity-50':
                   !achievement.unlocked,
               }
             )}
@@ -94,7 +94,7 @@ export const AchievementsShowcase: React.FC<AchievementsShowcaseProps> = ({
             {/* Locked Badge */}
             {!achievement.unlocked && (
               <div className="absolute top-1 right-1">
-                <Lock className="w-3 h-3 text-gray-400 dark:text-gray-600" />
+                <Lock className="w-3 h-3 text-content-tertiary" />
               </div>
             )}
 
@@ -112,7 +112,7 @@ export const AchievementsShowcase: React.FC<AchievementsShowcaseProps> = ({
               <h4
                 className={clsx('text-xs font-bold text-center line-clamp-2', {
                   'text-amber-900 dark:text-amber-100': achievement.unlocked,
-                  'text-gray-600 dark:text-gray-400': !achievement.unlocked,
+                  'text-content-secondary': !achievement.unlocked,
                 })}
               >
                 {achievement.name}
@@ -127,7 +127,7 @@ export const AchievementsShowcase: React.FC<AchievementsShowcaseProps> = ({
 
               {/* Unlock Hint */}
               {!achievement.unlocked && (
-                <p className="text-xs text-gray-500 dark:text-gray-500 mt-1 line-clamp-1">
+                <p className="text-xs text-content-tertiary mt-1 line-clamp-1">
                   Locked
                 </p>
               )}

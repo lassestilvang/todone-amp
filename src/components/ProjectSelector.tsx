@@ -40,9 +40,9 @@ export function ProjectSelector({ value, onChange, disabled = false, className }
         onClick={() => setIsOpen(!isOpen)}
         disabled={disabled}
         className={cn(
-          'flex items-center justify-between gap-2 px-3 py-2 border border-gray-300 rounded-md',
-          'text-sm font-medium text-gray-700 bg-white w-full',
-          'hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-500',
+          'flex items-center justify-between gap-2 px-3 py-2 border border-border rounded-md',
+          'text-sm font-medium text-content-secondary bg-surface-primary w-full',
+          'hover:bg-surface-tertiary focus:outline-none focus:ring-2 focus:ring-brand-500',
           'disabled:opacity-50 disabled:cursor-not-allowed'
         )}
       >
@@ -59,10 +59,10 @@ export function ProjectSelector({ value, onChange, disabled = false, className }
       </button>
 
       {isOpen && (
-        <div className="absolute top-full left-0 right-0 mt-1 z-50 bg-white border border-gray-300 rounded-lg shadow-lg">
+        <div className="absolute top-full left-0 right-0 mt-1 z-50 bg-surface-primary border border-border rounded-lg shadow-lg">
           <div className="max-h-48 overflow-y-auto">
             {projects.length === 0 ? (
-              <div className="px-4 py-3 text-sm text-gray-500">No projects</div>
+              <div className="px-4 py-3 text-sm text-content-tertiary">No projects</div>
             ) : (
               projects.map((project) => (
                 <button
@@ -71,7 +71,7 @@ export function ProjectSelector({ value, onChange, disabled = false, className }
                   onClick={() => handleSelect(project.id)}
                   className={cn(
                     'w-full text-left px-4 py-2 text-sm flex items-center gap-2',
-                    'hover:bg-gray-100 transition-colors',
+                    'hover:bg-surface-tertiary transition-colors',
                     value === project.id && 'bg-brand-50 text-brand-700'
                   )}
                 >

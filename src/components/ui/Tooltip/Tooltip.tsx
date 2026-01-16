@@ -81,7 +81,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
           <div
             role="tooltip"
             className={cn(
-              'fixed z-50 px-2 py-1 text-sm text-white bg-gray-900 dark:bg-gray-700 rounded shadow-lg',
+              'fixed z-50 px-2 py-1 text-sm text-tooltip-text bg-tooltip-bg rounded shadow-lg',
               'animate-fadeIn pointer-events-none',
               positionClasses[position],
               className

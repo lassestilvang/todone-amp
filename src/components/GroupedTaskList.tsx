@@ -127,15 +127,15 @@ export function GroupedTaskList({
           {/* Group Header */}
           <button
             onClick={() => toggleGroupCollapsed(group.key)}
-            className="w-full px-6 py-3 flex items-center gap-2 bg-gray-100 hover:bg-gray-150 transition-colors sticky top-0 z-5"
+            className="w-full px-6 py-3 flex items-center gap-2 bg-surface-tertiary hover:bg-gray-150 transition-colors sticky top-0 z-5"
           >
             {collapsedGroups.has(group.key) ? (
-              <ChevronRight size={16} className="text-gray-600" />
+              <ChevronRight size={16} className="text-content-secondary" />
             ) : (
-              <ChevronDown size={16} className="text-gray-600" />
+              <ChevronDown size={16} className="text-content-secondary" />
             )}
-            <span className="font-semibold text-gray-900">{group.label}</span>
-            <span className="ml-auto text-sm text-gray-600">({group.tasks.length})</span>
+            <span className="font-semibold text-content-primary">{group.label}</span>
+            <span className="ml-auto text-sm text-content-secondary">({group.tasks.length})</span>
           </button>
 
           {/* Group Tasks */}

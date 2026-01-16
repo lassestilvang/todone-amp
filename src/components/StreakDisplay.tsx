@@ -18,7 +18,7 @@ export const StreakDisplay: React.FC<StreakDisplayProps> = ({
 
   if (loading || !userStats) {
     return (
-      <div className={clsx('rounded-lg bg-gray-100 dark:bg-gray-800 animate-pulse', {
+      <div className={clsx('rounded-lg bg-surface-tertiary animate-pulse', {
         'h-16 w-16': size === 'small',
         'h-24 w-24': size === 'medium',
         'h-32 w-32': size === 'large',
@@ -36,7 +36,7 @@ export const StreakDisplay: React.FC<StreakDisplayProps> = ({
       <div className={clsx('rounded-lg border-2 p-4 text-center', {
         'border-orange-300 dark:border-orange-600 bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-900 dark:to-red-900':
           isBurning,
-        'border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800':
+        'border-border bg-surface-secondary':
           !isBurning,
       })}>
         <div className="flex items-center justify-center gap-2 mb-2">
@@ -44,12 +44,12 @@ export const StreakDisplay: React.FC<StreakDisplayProps> = ({
             className={clsx('w-6 h-6 transition-all', {
               'text-orange-500 animate-bounce': isBurning && animated,
               'text-orange-400': isBurning && !animated,
-              'text-gray-400': !isBurning,
+              'text-content-tertiary': !isBurning,
             })}
           />
           <h3 className={clsx('font-semibold', {
             'text-orange-900 dark:text-orange-100': isBurning,
-            'text-gray-700 dark:text-gray-300': !isBurning,
+            'text-content-secondary': !isBurning,
           })}>
             {isBurning ? 'You\'re on fire!' : 'Start your streak'}
           </h3>
@@ -57,14 +57,14 @@ export const StreakDisplay: React.FC<StreakDisplayProps> = ({
 
         <div className={clsx('text-4xl font-bold transition-all', {
           'text-orange-600 dark:text-orange-300': isBurning,
-          'text-gray-500 dark:text-gray-400': !isBurning,
+          'text-content-tertiary': !isBurning,
         })}>
           {currentStreak}
         </div>
 
         <p className={clsx('text-sm mt-2', {
           'text-orange-700 dark:text-orange-200': isBurning,
-          'text-gray-600 dark:text-gray-400': !isBurning,
+          'text-content-secondary': !isBurning,
         })}>
           {currentStreak === 1
             ? 'day completed'
@@ -72,7 +72,7 @@ export const StreakDisplay: React.FC<StreakDisplayProps> = ({
         </p>
 
         {!isBurning && (
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+          <p className="text-xs text-content-tertiary mt-2">
             Complete a task today to start
           </p>
         )}
@@ -100,7 +100,7 @@ export const StreakDisplay: React.FC<StreakDisplayProps> = ({
 
       {/* Daily Reminder */}
       {isBurning && userStats.lastCompletedAt && (
-        <div className="text-xs text-center text-gray-600 dark:text-gray-400 p-2">
+        <div className="text-xs text-center text-content-secondary p-2">
           Keep it up! Last completed: {new Date(userStats.lastCompletedAt).toLocaleDateString()}
         </div>
       )}

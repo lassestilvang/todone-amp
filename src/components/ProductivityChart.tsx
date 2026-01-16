@@ -48,19 +48,19 @@ export const ProductivityChart: React.FC<ProductivityChartProps> = ({
     return (
       <div
         className={cn(
-          'flex items-center justify-center rounded-lg border border-gray-200 p-12',
+          'flex items-center justify-center rounded-lg border border-border p-12',
           className
         )}
       >
-        <Loader2 className="h-6 w-6 animate-spin text-gray-400" />
+        <Loader2 className="h-6 w-6 animate-spin text-content-tertiary" />
       </div>
     )
   }
 
   if (!productivityData || productivityData.length === 0) {
     return (
-      <div className={cn('rounded-lg border border-gray-200 p-8 text-center', className)}>
-        <p className="text-sm text-gray-600">No productivity data available</p>
+      <div className={cn('rounded-lg border border-border p-8 text-center', className)}>
+        <p className="text-sm text-content-secondary">No productivity data available</p>
       </div>
     )
   }
@@ -87,14 +87,14 @@ export const ProductivityChart: React.FC<ProductivityChartProps> = ({
   }
 
   const StatCard = ({ icon: Icon, label, value, change }: StatCardProps) => (
-    <div className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
+    <div className="rounded-lg border border-border bg-surface-primary p-4">
       <div className="flex items-start justify-between">
         <div>
-          <p className="text-xs text-gray-600 dark:text-gray-400">{label}</p>
-          <p className="mt-1 text-2xl font-bold text-gray-900 dark:text-white">{value}</p>
-          {change && <p className="mt-1 text-xs text-green-600 dark:text-green-400">↑ {change}</p>}
+          <p className="text-xs text-content-secondary">{label}</p>
+          <p className="mt-1 text-2xl font-bold text-content-primary">{value}</p>
+          {change && <p className="mt-1 text-xs text-semantic-success">↑ {change}</p>}
         </div>
-        <Icon className="h-5 w-5 text-gray-400 dark:text-gray-600" />
+        <Icon className="h-5 w-5 text-content-tertiary" />
       </div>
     </div>
   )
@@ -103,7 +103,7 @@ export const ProductivityChart: React.FC<ProductivityChartProps> = ({
     <div className={cn('space-y-6', className)}>
       {/* Key Metrics */}
       <div>
-        <h2 className="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Your Productivity</h2>
+        <h2 className="mb-4 text-lg font-semibold text-content-primary">Your Productivity</h2>
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
           <StatCard
             icon={CheckCircle}
@@ -133,7 +133,7 @@ export const ProductivityChart: React.FC<ProductivityChartProps> = ({
       </div>
 
       {/* Chart Type Selector */}
-      <div className="flex gap-2 border-b border-gray-200 dark:border-gray-700">
+      <div className="flex gap-2 border-b border-border">
         {['all', 'completed', 'created'].map((metric) => (
           <button
             key={metric}
@@ -142,7 +142,7 @@ export const ProductivityChart: React.FC<ProductivityChartProps> = ({
               'px-3 py-2 text-sm font-medium border-b-2 transition-colors',
               selectedMetric === metric
                 ? 'border-blue-500 text-blue-600 dark:text-blue-400'
-                : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+                : 'border-transparent text-content-secondary hover:text-content-primary'
             )}
           >
             {metric === 'all' ? 'All Metrics' : metric === 'completed' ? 'Completed' : 'Created'}
@@ -151,8 +151,8 @@ export const ProductivityChart: React.FC<ProductivityChartProps> = ({
       </div>
 
       {/* Area Chart - Trend */}
-      <div className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
-        <h3 className="mb-4 text-sm font-semibold text-gray-900 dark:text-white">Completion Trend</h3>
+      <div className="rounded-lg border border-border bg-surface-primary p-4">
+        <h3 className="mb-4 text-sm font-semibold text-content-primary">Completion Trend</h3>
         <ResponsiveContainer width="100%" height={300}>
           {selectedMetric === 'all' ? (
             <AreaChart data={chartData}>
@@ -244,8 +244,8 @@ export const ProductivityChart: React.FC<ProductivityChartProps> = ({
       </div>
 
       {/* Bar Chart - Comparison */}
-      <div className="rounded-lg border border-gray-200 p-4">
-        <h3 className="mb-4 text-sm font-medium text-gray-900">Tasks Created vs Completed</h3>
+      <div className="rounded-lg border border-border p-4">
+        <h3 className="mb-4 text-sm font-medium text-content-primary">Tasks Created vs Completed</h3>
         <ResponsiveContainer width="100%" height={300}>
           <BarChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" />
@@ -260,8 +260,8 @@ export const ProductivityChart: React.FC<ProductivityChartProps> = ({
       </div>
 
       {/* Pie Chart - Distribution */}
-      <div className="rounded-lg border border-gray-200 p-4">
-        <h3 className="mb-4 text-sm font-medium text-gray-900">Distribution</h3>
+      <div className="rounded-lg border border-border p-4">
+        <h3 className="mb-4 text-sm font-medium text-content-primary">Distribution</h3>
         <div className="flex justify-center">
           <ResponsiveContainer width="100%" height={300}>
             <PieChart>

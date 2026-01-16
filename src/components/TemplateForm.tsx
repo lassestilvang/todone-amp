@@ -67,7 +67,7 @@ export function TemplateForm({
     <form onSubmit={handleSubmit} className={cn('space-y-4', className)}>
       {/* Name field */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+        <label className="block text-sm font-medium text-content-secondary">
           Template Name *
         </label>
         <input
@@ -76,13 +76,13 @@ export function TemplateForm({
           onChange={(e) => setName(e.target.value)}
           placeholder="e.g., Weekly Project Planning"
           required
-          className="mt-1 w-full rounded border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-800"
+          className="mt-1 w-full rounded border border-border px-3 py-2 text-sm"
         />
       </div>
 
       {/* Description field */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+        <label className="block text-sm font-medium text-content-secondary">
           Description
         </label>
         <textarea
@@ -90,19 +90,19 @@ export function TemplateForm({
           onChange={(e) => setDescription(e.target.value)}
           placeholder="What is this template used for?"
           rows={3}
-          className="mt-1 w-full rounded border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-800"
+          className="mt-1 w-full rounded border border-border px-3 py-2 text-sm"
         />
       </div>
 
       {/* Category field */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+        <label className="block text-sm font-medium text-content-secondary">
           Category
         </label>
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value as TemplateCategory)}
-          className="mt-1 w-full rounded border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-800"
+          className="mt-1 w-full rounded border border-border px-3 py-2 text-sm"
         >
           {CATEGORIES.map((cat) => (
             <option key={cat.value} value={cat.value}>
@@ -129,7 +129,7 @@ export function TemplateForm({
         <button
           type="button"
           onClick={onCancel}
-          className="rounded border border-gray-300 px-4 py-2 text-sm dark:border-gray-600"
+          className="rounded border border-border px-4 py-2 text-sm"
         >
           Cancel
         </button>

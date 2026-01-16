@@ -46,7 +46,7 @@ export const PrintTasksButton: React.FC<PrintTasksButtonProps> = ({
       <div className="relative">
         <button
           onClick={() => setShowOptions(!showOptions)}
-          className={`p-2 hover:bg-gray-100 rounded-md transition-colors ${className}`}
+          className={`p-2 hover:bg-surface-tertiary rounded-md transition-colors ${className}`}
           title="Print tasks"
           aria-label="Print options"
         >
@@ -54,17 +54,17 @@ export const PrintTasksButton: React.FC<PrintTasksButtonProps> = ({
         </button>
 
         {showOptions && (
-          <div className="absolute right-0 mt-2 bg-white border border-gray-200 rounded-md shadow-lg z-50">
+          <div className="absolute right-0 mt-2 bg-surface-primary border border-border rounded-md shadow-lg z-50">
             <button
               onClick={handlePrint}
-              className="w-full text-left px-4 py-2 hover:bg-gray-50 flex items-center gap-2"
+              className="w-full text-left px-4 py-2 hover:bg-surface-tertiary flex items-center gap-2"
             >
               <Printer size={16} />
               Print
             </button>
             <button
               onClick={handleExport}
-              className="w-full text-left px-4 py-2 hover:bg-gray-50 flex items-center gap-2 border-t border-gray-200"
+              className="w-full text-left px-4 py-2 hover:bg-surface-tertiary flex items-center gap-2 border-t border-border"
             >
               <Download size={16} />
               Export as HTML

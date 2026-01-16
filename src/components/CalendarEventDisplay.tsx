@@ -45,8 +45,8 @@ export const CalendarEventDisplay: React.FC<CalendarEventDisplayProps> = ({
           }}
         />
         <div className="flex-1 min-w-0">
-          <p className="truncate font-medium text-gray-900">{event.title}</p>
-          <p className="text-xs text-gray-500">
+          <p className="truncate font-medium text-content-primary">{event.title}</p>
+          <p className="text-xs text-content-tertiary">
             {event.isAllDay ? (
               formatDate(event.startTime)
             ) : (
@@ -56,7 +56,7 @@ export const CalendarEventDisplay: React.FC<CalendarEventDisplayProps> = ({
             )}
           </p>
         </div>
-        <span className="text-xs font-medium text-gray-600">
+        <span className="text-xs font-medium text-content-secondary">
           {event.service === 'google' ? 'Google' : 'Outlook'}
         </span>
       </div>
@@ -66,22 +66,22 @@ export const CalendarEventDisplay: React.FC<CalendarEventDisplayProps> = ({
   return (
     <div
       className={cn(
-        'rounded-lg border-l-4 bg-white p-4',
+        'rounded-lg border-l-4 bg-surface-primary p-4',
         event.service === 'google' ? 'border-l-blue-500' : 'border-l-cyan-500',
         className
       )}
     >
       <div className="space-y-2">
-        <h4 className="font-semibold text-gray-900">{event.title}</h4>
+        <h4 className="font-semibold text-content-primary">{event.title}</h4>
 
         {event.description && (
-          <p className="text-sm text-gray-600">{event.description}</p>
+          <p className="text-sm text-content-secondary">{event.description}</p>
         )}
 
-        <div className="flex flex-col gap-2 text-sm text-gray-600">
+        <div className="flex flex-col gap-2 text-sm text-content-secondary">
           {!event.isAllDay && (
             <div className="flex items-center gap-2">
-              <Clock className="h-4 w-4 text-gray-400" />
+              <Clock className="h-4 w-4 text-content-tertiary" />
               <span>
                 {formatTime(event.startTime)} - {formatTime(event.endTime)}
               </span>
@@ -90,7 +90,7 @@ export const CalendarEventDisplay: React.FC<CalendarEventDisplayProps> = ({
 
           {event.isAllDay && (
             <div className="flex items-center gap-2">
-              <Clock className="h-4 w-4 text-gray-400" />
+              <Clock className="h-4 w-4 text-content-tertiary" />
               <span>
                 {formatDate(event.startTime)}
                 {event.endTime > event.startTime && ` - ${formatDate(event.endTime)}`}
@@ -100,14 +100,14 @@ export const CalendarEventDisplay: React.FC<CalendarEventDisplayProps> = ({
 
           {event.location && (
             <div className="flex items-center gap-2">
-              <MapPin className="h-4 w-4 text-gray-400" />
+              <MapPin className="h-4 w-4 text-content-tertiary" />
               <span>{event.location}</span>
             </div>
           )}
 
           {event.attendees && event.attendees.length > 0 && (
             <div className="flex items-center gap-2">
-              <Users className="h-4 w-4 text-gray-400" />
+              <Users className="h-4 w-4 text-content-tertiary" />
               <span>{event.attendees.length} attendee(s)</span>
             </div>
           )}
@@ -120,7 +120,7 @@ export const CalendarEventDisplay: React.FC<CalendarEventDisplayProps> = ({
               backgroundColor: event.color || (event.service === 'google' ? '#4285f4' : '#0078d4'),
             }}
           />
-          <span className="text-xs font-medium text-gray-500">
+          <span className="text-xs font-medium text-content-tertiary">
             {event.service === 'google' ? 'Google Calendar' : 'Outlook Calendar'}
           </span>
         </div>

@@ -64,12 +64,12 @@ export function FilterBar() {
   }
 
   return (
-    <div className="px-6 py-3 border-b border-gray-200 bg-gray-50">
+    <div className="px-6 py-3 border-b border-border bg-surface-secondary">
       <div className="flex items-center gap-3">
         {/* Filter Icon & Label */}
         <div className="flex items-center gap-2">
-          <Filter size={16} className="text-gray-500" />
-          <span className="text-sm font-medium text-gray-600">Filters:</span>
+          <Filter size={16} className="text-content-tertiary" />
+          <span className="text-sm font-medium text-content-secondary">Filters:</span>
         </div>
 
         {/* Active Filter Display */}
@@ -85,13 +85,13 @@ export function FilterBar() {
             </button>
           </div>
         ) : (
-          <span className="text-sm text-gray-500">None</span>
+          <span className="text-sm text-content-tertiary">None</span>
         )}
 
         {/* Quick Filter Toggle */}
         <button
           onClick={() => setShowQuickFilters(!showQuickFilters)}
-          className="ml-auto px-2 py-1 text-sm text-gray-600 hover:bg-white rounded border border-gray-300 transition-colors"
+          className="ml-auto px-2 py-1 text-sm text-content-secondary hover:bg-surface-primary rounded border border-border transition-colors"
         >
           Quick Filter
         </button>
@@ -99,13 +99,13 @@ export function FilterBar() {
 
       {/* Quick Filters Dropdown */}
       {showQuickFilters && (
-        <div className="mt-3 p-3 bg-white rounded border border-gray-200 space-y-2">
+        <div className="mt-3 p-3 bg-surface-primary rounded border border-border space-y-2">
           <div className="grid grid-cols-2 gap-2">
             {quickFilters.map((filter) => (
               <button
                 key={filter.id}
                 onClick={() => setShowQuickFilters(false)}
-                className="px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 rounded border border-gray-200 transition-colors text-left"
+                className="px-3 py-2 text-sm font-medium text-content-secondary hover:bg-surface-tertiary rounded border border-border transition-colors text-left"
               >
                 {filter.label}
               </button>

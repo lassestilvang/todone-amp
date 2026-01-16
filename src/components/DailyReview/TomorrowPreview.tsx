@@ -68,10 +68,10 @@ export function TomorrowPreview({ onNext }: TomorrowPreviewProps) {
           <div className="w-16 h-16 mb-4 rounded-full bg-orange-100 dark:bg-orange-900/30 flex items-center justify-center">
             <Sunrise className="w-8 h-8 text-orange-500" />
           </div>
-          <p className="text-gray-500 dark:text-gray-400">
+          <p className="text-content-tertiary">
             No tasks scheduled for tomorrow yet.
           </p>
-          <p className="text-sm text-gray-400 dark:text-gray-500 mt-2">
+          <p className="text-sm text-content-tertiary mt-2">
             A clear calendar can be a fresh start!
           </p>
         </div>
@@ -93,11 +93,11 @@ export function TomorrowPreview({ onNext }: TomorrowPreviewProps) {
                   <Circle
                     className={cn('w-4 h-4 flex-shrink-0', PRIORITY_COLORS[task.priority ?? 'p4'])}
                   />
-                  <span className="text-sm text-gray-900 dark:text-white truncate">
+                  <span className="text-sm text-content-primary truncate">
                     {task.content}
                   </span>
                   {task.dueTime && (
-                    <span className="ml-auto text-xs text-gray-500 dark:text-gray-400 flex-shrink-0">
+                    <span className="ml-auto text-xs text-content-tertiary flex-shrink-0">
                       {task.dueTime}
                     </span>
                   )}
@@ -107,7 +107,7 @@ export function TomorrowPreview({ onNext }: TomorrowPreviewProps) {
           </div>
         </>
       )}
-      <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+      <div className="mt-6 pt-4 border-t border-border">
         <Button onClick={onNext} variant="primary" className="w-full">
           Continue
         </Button>

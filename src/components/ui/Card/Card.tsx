@@ -38,7 +38,7 @@ export const Card: React.FC<CardProps> = ({
     <Component
       onClick={onClick}
       className={cn(
-        'bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700',
+        'bg-surface-primary rounded-lg border border-border',
         paddings[padding],
         shadows[shadow],
         hoverable && 'transition-shadow hover:shadow-md cursor-pointer',
@@ -57,7 +57,7 @@ export interface CardHeaderProps {
 }
 
 export const CardHeader: React.FC<CardHeaderProps> = ({ children, className }) => (
-  <div className={cn('pb-3 border-b border-gray-200 dark:border-gray-700', className)}>
+  <div className={cn('pb-3 border-b border-border', className)}>
     {children}
   </div>
 )
@@ -68,7 +68,7 @@ export interface CardTitleProps {
 }
 
 export const CardTitle: React.FC<CardTitleProps> = ({ children, className }) => (
-  <h3 className={cn('text-lg font-semibold text-gray-900 dark:text-gray-100', className)}>
+  <h3 className={cn('text-lg font-semibold text-content-primary', className)}>
     {children}
   </h3>
 )
@@ -88,7 +88,7 @@ export interface CardFooterProps {
 }
 
 export const CardFooter: React.FC<CardFooterProps> = ({ children, className }) => (
-  <div className={cn('pt-3 border-t border-gray-200 dark:border-gray-700', className)}>
+  <div className={cn('pt-3 border-t border-border', className)}>
     {children}
   </div>
 )

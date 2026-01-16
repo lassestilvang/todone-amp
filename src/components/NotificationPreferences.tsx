@@ -74,14 +74,14 @@ export function NotificationPreferences({ isOpen, onClose }: NotificationPrefere
 
   return (
     <div className="fixed inset-0 z-50 flex items-end bg-black bg-opacity-50 md:items-center">
-      <div className="w-full max-w-md rounded-lg bg-white p-6 shadow-xl md:rounded-2xl dark:bg-gray-900">
+      <div className="w-full max-w-md rounded-lg bg-surface-primary p-6 shadow-xl md:rounded-2xl">
         <div className="mb-6 flex items-center justify-between">
-          <h2 className="text-xl font-semibold text-gray-900 dark:text-white">
+          <h2 className="text-xl font-semibold text-content-primary">
             Notification Preferences
           </h2>
           <button
             onClick={onClose}
-            className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300"
+            className="text-content-tertiary hover:text-content-secondary"
           >
             <X className="h-5 w-5" />
           </button>
@@ -89,15 +89,15 @@ export function NotificationPreferences({ isOpen, onClose }: NotificationPrefere
 
         <div className="space-y-6">
           {/* Browser Notifications */}
-          <div className="rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
+          <div className="rounded-lg bg-surface-secondary p-4">
             <label className="flex cursor-pointer items-center justify-between">
               <div className="flex items-center gap-3">
                 <Bell className="h-5 w-5 text-blue-500" />
                 <div>
-                  <p className="font-medium text-gray-900 dark:text-white">
+                  <p className="font-medium text-content-primary">
                     Browser Notifications
                   </p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-content-secondary">
                     Alerts in your browser
                   </p>
                 </div>
@@ -118,15 +118,15 @@ export function NotificationPreferences({ isOpen, onClose }: NotificationPrefere
           </div>
 
           {/* Email Notifications */}
-          <div className="rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
+          <div className="rounded-lg bg-surface-secondary p-4">
             <label className="flex cursor-pointer items-center justify-between">
               <div className="flex items-center gap-3">
                 <Mail className="h-5 w-5 text-green-500" />
                 <div>
-                  <p className="font-medium text-gray-900 dark:text-white">
+                  <p className="font-medium text-content-primary">
                     Email Notifications
                   </p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-content-secondary">
                     Alerts sent to your email
                   </p>
                 </div>
@@ -141,15 +141,15 @@ export function NotificationPreferences({ isOpen, onClose }: NotificationPrefere
           </div>
 
           {/* Push Notifications */}
-          <div className="rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
+          <div className="rounded-lg bg-surface-secondary p-4">
             <label className="flex cursor-pointer items-center justify-between">
               <div className="flex items-center gap-3">
                 <Smartphone className="h-5 w-5 text-purple-500" />
                 <div>
-                  <p className="font-medium text-gray-900 dark:text-white">
+                  <p className="font-medium text-content-primary">
                     Push Notifications
                   </p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-content-secondary">
                     Mobile app alerts
                   </p>
                 </div>
@@ -164,15 +164,15 @@ export function NotificationPreferences({ isOpen, onClose }: NotificationPrefere
           </div>
 
           {/* Sound Notifications */}
-          <div className="rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
+          <div className="rounded-lg bg-surface-secondary p-4">
             <label className="flex cursor-pointer items-center justify-between">
               <div className="flex items-center gap-3">
                 <Volume2 className="h-5 w-5 text-orange-500" />
                 <div>
-                  <p className="font-medium text-gray-900 dark:text-white">
+                  <p className="font-medium text-content-primary">
                     Sound Effects
                   </p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-content-secondary">
                     Play notification sounds
                   </p>
                 </div>
@@ -187,12 +187,12 @@ export function NotificationPreferences({ isOpen, onClose }: NotificationPrefere
           </div>
 
           {/* Quiet Hours */}
-          <div className="rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
+          <div className="rounded-lg bg-surface-secondary p-4">
             <label className="mb-4 flex cursor-pointer items-center gap-3">
-              <Clock className="h-5 w-5 text-gray-600 dark:text-gray-400" />
+              <Clock className="h-5 w-5 text-content-secondary" />
               <div className="flex-1">
-                <p className="font-medium text-gray-900 dark:text-white">Quiet Hours</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="font-medium text-content-primary">Quiet Hours</p>
+                <p className="text-sm text-content-secondary">
                   No notifications between these times
                 </p>
               </div>
@@ -222,8 +222,8 @@ export function NotificationPreferences({ isOpen, onClose }: NotificationPrefere
           </div>
 
           {/* Notification Types */}
-          <div className="rounded-lg bg-gray-50 p-4 dark:bg-gray-800">
-            <p className="mb-3 font-medium text-gray-900 dark:text-white">
+          <div className="rounded-lg bg-surface-secondary p-4">
+            <p className="mb-3 font-medium text-content-primary">
               Notification Types
             </p>
             <div className="space-y-2">
@@ -238,9 +238,9 @@ export function NotificationPreferences({ isOpen, onClose }: NotificationPrefere
                   <input
                     type="checkbox"
                     defaultChecked
-                    className="h-4 w-4 rounded border-gray-300 text-brand-500"
+                    className="h-4 w-4 rounded border-border text-brand-500"
                   />
-                  <span className="text-sm text-gray-700 dark:text-gray-300">
+                  <span className="text-sm text-content-secondary">
                     {type.label}
                   </span>
                 </label>

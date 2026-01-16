@@ -125,14 +125,14 @@ export function DailyReviewModal({ userId }: DailyReviewModalProps) {
       <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
         <div
           className={cn(
-            'bg-white dark:bg-gray-900 rounded-xl shadow-2xl',
+            'bg-surface-primary rounded-xl shadow-2xl',
             'w-full max-w-lg mx-4 max-h-[90vh] flex flex-col overflow-hidden'
           )}
           role="dialog"
           aria-modal="true"
           aria-labelledby="daily-review-title"
         >
-          <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+          <div className="flex items-center justify-between p-4 border-b border-border">
             <div className="flex items-center gap-3">
               <div
                 className={cn(
@@ -151,11 +151,11 @@ export function DailyReviewModal({ userId }: DailyReviewModalProps) {
               <div>
                 <h2
                   id="daily-review-title"
-                  className="font-semibold text-gray-900 dark:text-white"
+                  className="font-semibold text-content-primary"
                 >
                   {isMorning ? 'Morning Review' : 'Evening Review'}
                 </h2>
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-xs text-content-tertiary">
                   Step {currentIndex + 1} of {totalSteps}
                 </p>
               </div>
@@ -163,17 +163,17 @@ export function DailyReviewModal({ userId }: DailyReviewModalProps) {
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setShowSettings(true)}
-                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                className="p-2 rounded-lg hover:bg-surface-tertiary transition-colors"
                 aria-label="Settings"
               >
-                <Settings className="w-5 h-5 text-gray-500" />
+                <Settings className="w-5 h-5 text-content-tertiary" />
               </button>
               <button
                 onClick={closeReview}
-                className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                className="p-2 rounded-lg hover:bg-surface-tertiary transition-colors"
                 aria-label="Close"
               >
-                <X className="w-5 h-5 text-gray-500" />
+                <X className="w-5 h-5 text-content-tertiary" />
               </button>
             </div>
           </div>
@@ -189,7 +189,7 @@ export function DailyReviewModal({ userId }: DailyReviewModalProps) {
                       ? isMorning
                         ? 'bg-yellow-500'
                         : 'bg-indigo-500'
-                      : 'bg-gray-200 dark:bg-gray-700'
+                      : 'bg-interactive-secondary'
                   )}
                 />
               ))}
@@ -199,28 +199,28 @@ export function DailyReviewModal({ userId }: DailyReviewModalProps) {
           <div className="flex-1 overflow-y-auto p-4">{renderStep()}</div>
 
           {!isLastStep && (
-            <div className="flex items-center justify-between p-4 border-t border-gray-200 dark:border-gray-700">
+            <div className="flex items-center justify-between p-4 border-t border-border">
               <button
                 onClick={prevStep}
                 disabled={isFirstStep}
                 className={cn(
                   'flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors',
                   isFirstStep
-                    ? 'text-gray-300 dark:text-gray-600 cursor-not-allowed'
-                    : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                    ? 'text-content-tertiary cursor-not-allowed'
+                    : 'text-content-secondary hover:bg-surface-tertiary'
                 )}
               >
                 <ChevronLeft className="w-4 h-4" />
                 Back
               </button>
-              <div className="text-xs text-gray-400 dark:text-gray-500">
+              <div className="text-xs text-content-tertiary">
                 Use ← → arrows to navigate
               </div>
               <button
                 onClick={nextStep}
                 className={cn(
                   'flex items-center gap-1 px-3 py-2 rounded-lg text-sm font-medium transition-colors',
-                  'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                  'text-content-secondary hover:bg-surface-tertiary'
                 )}
               >
                 Next

@@ -40,13 +40,13 @@ export const LazyImage: React.FC<LazyImageProps> = ({
     return (
       <div
         className={clsx(
-          'flex items-center justify-center bg-gray-100 dark:bg-gray-800 rounded-lg',
+          'flex items-center justify-center bg-surface-tertiary rounded-lg',
           className
         )}
       >
         {fallback || (
           <div className="text-center">
-            <p className="text-sm text-gray-500 dark:text-gray-400">Failed to load image</p>
+            <p className="text-sm text-content-tertiary">Failed to load image</p>
           </div>
         )}
       </div>

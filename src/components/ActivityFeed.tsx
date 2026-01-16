@@ -25,11 +25,11 @@ export function ActivityFeed({ taskId, className }: ActivityFeedProps) {
     <div className={cn('space-y-4', className)}>
       {/* Header */}
       <div className="flex items-center gap-2 mb-4">
-        <History size={18} className="text-gray-700" />
-        <h3 className="font-semibold text-gray-900">
+        <History size={18} className="text-content-secondary" />
+        <h3 className="font-semibold text-content-primary">
           Activity
           {taskActivities.length > 0 && (
-            <span className="ml-2 text-sm font-normal text-gray-500">
+            <span className="ml-2 text-sm font-normal text-content-tertiary">
               ({taskActivities.length})
             </span>
           )}
@@ -39,15 +39,15 @@ export function ActivityFeed({ taskId, className }: ActivityFeedProps) {
       {/* Activity List */}
       {isLoading ? (
         <div className="flex items-center justify-center py-8">
-          <Loader size={20} className="text-gray-400 animate-spin" />
+          <Loader size={20} className="text-content-tertiary animate-spin" />
         </div>
       ) : taskActivities.length === 0 ? (
-        <div className="py-8 text-center text-gray-500">
+        <div className="py-8 text-center text-content-tertiary">
           <History size={32} className="mx-auto mb-2 opacity-50" />
           <p className="text-sm">No activity yet</p>
         </div>
       ) : (
-        <div className="space-y-1 border border-gray-200 rounded-lg divide-y divide-gray-200 bg-white">
+        <div className="space-y-1 border border-border rounded-lg divide-y divide-border bg-surface-primary">
           {taskActivities.map((activity) => (
             <ActivityItem key={activity.id} activity={activity} />
           ))}

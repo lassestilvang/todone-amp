@@ -71,13 +71,13 @@ export const BadgesDisplay: React.FC<BadgesDisplayProps> = ({
   }, [userStats, maxBadges])
 
   if (!userStats) {
-    return <div className="animate-pulse h-12 bg-gray-200 dark:bg-gray-700 rounded" />
+    return <div className="animate-pulse h-12 bg-interactive-secondary rounded" />
   }
 
   if (earnedBadges.length === 0) {
     return (
       <div className="p-4 text-center">
-        <p className="text-sm text-gray-500 dark:text-gray-400">
+        <p className="text-sm text-content-tertiary">
           Complete more tasks to earn badges!
         </p>
       </div>
@@ -105,7 +105,7 @@ export const BadgesDisplay: React.FC<BadgesDisplayProps> = ({
           title={showTooltip ? badge.description : undefined}
         >
           <div className="text-yellow-600 dark:text-yellow-400 mb-1">{badge.icon}</div>
-          <div className="text-xs font-bold text-gray-900 dark:text-white line-clamp-2">
+          <div className="text-xs font-bold text-content-primary line-clamp-2">
             {badge.name}
           </div>
           {showTooltip && (

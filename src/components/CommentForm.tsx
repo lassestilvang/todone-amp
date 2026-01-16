@@ -145,8 +145,8 @@ export function CommentForm({
           autoFocus={autoFocus}
           rows={3}
           className={cn(
-            'w-full px-3 py-2 border border-gray-300 rounded-lg',
-            'text-sm placeholder-gray-500 resize-none',
+            'w-full px-3 py-2 border border-border rounded-lg',
+            'text-sm placeholder-content-tertiary resize-none',
             'focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent',
           )}
         />
@@ -155,7 +155,7 @@ export function CommentForm({
         {showSuggestions && suggestions.length > 0 && (
           <div
             ref={suggestionsRef}
-            className="absolute bottom-full left-0 right-0 mb-2 bg-white border border-gray-300 rounded-lg shadow-lg z-50 max-h-48 overflow-y-auto"
+            className="absolute bottom-full left-0 right-0 mb-2 bg-surface-primary border border-border rounded-lg shadow-lg z-50 max-h-48 overflow-y-auto"
           >
             {suggestions.map((suggestion) => (
               <button
@@ -164,13 +164,13 @@ export function CommentForm({
                 onClick={() => handleMentionSelect(suggestion.userId, suggestion.name)}
                 className={cn(
                   'w-full text-left px-3 py-2 text-sm flex items-center gap-2',
-                  'hover:bg-gray-100 transition-colors',
+                  'hover:bg-surface-tertiary transition-colors',
                 )}
               >
-                <AtSign size={14} className="text-gray-500" />
+                <AtSign size={14} className="text-content-tertiary" />
                 <div className="flex-1 min-w-0">
-                  <p className="font-medium text-gray-900 truncate">{suggestion.name}</p>
-                  <p className="text-xs text-gray-500 truncate">{suggestion.email}</p>
+                  <p className="font-medium text-content-primary truncate">{suggestion.name}</p>
+                  <p className="text-xs text-content-tertiary truncate">{suggestion.email}</p>
                 </div>
               </button>
             ))}
@@ -179,7 +179,7 @@ export function CommentForm({
       </div>
 
       <div className="flex items-center justify-between">
-        <div className="text-xs text-gray-500">
+        <div className="text-xs text-content-tertiary">
           {mentions.length > 0 && <span>{mentions.length} mention{mentions.length !== 1 ? 's' : ''}</span>}
         </div>
         <Button

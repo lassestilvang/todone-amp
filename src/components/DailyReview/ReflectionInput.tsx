@@ -27,12 +27,12 @@ export function ReflectionInput({ onNext }: ReflectionInputProps) {
       </div>
 
       <div className="mb-4">
-        <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">Consider these prompts:</p>
+        <p className="text-sm text-content-tertiary mb-2">Consider these prompts:</p>
         <ul className="space-y-1">
           {REFLECTION_PROMPTS.map((prompt, index) => (
             <li
               key={index}
-              className="text-sm text-gray-600 dark:text-gray-300 flex items-center gap-2"
+              className="text-sm text-content-secondary flex items-center gap-2"
             >
               <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
               {prompt}
@@ -47,16 +47,16 @@ export function ReflectionInput({ onNext }: ReflectionInputProps) {
         placeholder="Write your thoughts here..."
         className={cn(
           'w-full h-40 px-4 py-3 rounded-lg border resize-none',
-          'bg-white dark:bg-gray-800',
-          'border-gray-200 dark:border-gray-700',
-          'text-gray-900 dark:text-white',
-          'placeholder-gray-400 dark:placeholder-gray-500',
+          'bg-surface-primary',
+          'border-border',
+          'text-content-primary',
+          'placeholder-content-tertiary',
           'focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent'
         )}
         autoFocus
       />
 
-      <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+      <div className="mt-6 pt-4 border-t border-border">
         <Button onClick={onNext} variant="primary" className="w-full">
           {reflection.trim() ? 'Save Reflection & Continue' : 'Skip for Now'}
         </Button>

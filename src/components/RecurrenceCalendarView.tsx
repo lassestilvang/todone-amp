@@ -68,23 +68,23 @@ export function RecurrenceCalendarView({
   }
 
   return (
-    <div className={cn('bg-white rounded-lg border border-gray-200 p-4', className)}>
+    <div className={cn('bg-surface-primary rounded-lg border border-border p-4', className)}>
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
-        <h3 className="font-semibold text-gray-900">
+        <h3 className="font-semibold text-content-primary">
           {format(currentMonth, 'MMMM yyyy')}
         </h3>
         <div className="flex gap-2">
           <button
             onClick={handlePrevMonth}
-            className="p-1.5 text-gray-600 hover:bg-gray-100 rounded transition-colors"
+            className="p-1.5 text-content-secondary hover:bg-surface-tertiary rounded transition-colors"
             aria-label="Previous month"
           >
             <ChevronLeft size={18} />
           </button>
           <button
             onClick={handleNextMonth}
-            className="p-1.5 text-gray-600 hover:bg-gray-100 rounded transition-colors"
+            className="p-1.5 text-content-secondary hover:bg-surface-tertiary rounded transition-colors"
             aria-label="Next month"
           >
             <ChevronRight size={18} />
@@ -95,7 +95,7 @@ export function RecurrenceCalendarView({
       {/* Day Headers */}
       <div className="grid grid-cols-7 gap-1 mb-2">
         {dayNames.map((day) => (
-          <div key={day} className="text-center text-xs font-semibold text-gray-600 py-2">
+          <div key={day} className="text-center text-xs font-semibold text-content-secondary py-2">
             {day}
           </div>
         ))}
@@ -120,13 +120,13 @@ export function RecurrenceCalendarView({
               className={cn(
                 'aspect-square relative flex items-center justify-center rounded text-sm font-medium',
                 'transition-colors duration-150',
-                !isCurrentMonth && 'text-gray-300 cursor-default',
+                !isCurrentMonth && 'text-content-tertiary cursor-default',
                 isCurrentMonth && [
                   instance
                     ? instance.completed
                       ? 'bg-green-100 text-green-900 hover:bg-green-200'
                       : 'bg-blue-100 text-blue-900 hover:bg-blue-200'
-                    : 'text-gray-900 hover:bg-gray-100',
+                    : 'text-content-primary hover:bg-surface-tertiary',
                 ],
               )}
               disabled={!isCurrentMonth}
@@ -154,7 +154,7 @@ export function RecurrenceCalendarView({
       </div>
 
       {/* Legend */}
-      <div className="mt-4 pt-4 border-t border-gray-200 space-y-2 text-xs text-gray-600">
+      <div className="mt-4 pt-4 border-t border-border space-y-2 text-xs text-content-secondary">
         <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded bg-blue-100" />
           <span>Upcoming occurrence</span>

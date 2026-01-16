@@ -48,7 +48,7 @@ export function ReminderSelector({ taskId, onReminderAdded, className }: Reminde
   return (
     <div className={cn('space-y-2', className)}>
       <div className="flex items-center justify-between">
-        <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">Reminders</h4>
+        <h4 className="text-sm font-medium text-content-secondary">Reminders</h4>
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="rounded p-1 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900"
@@ -63,43 +63,43 @@ export function ReminderSelector({ taskId, onReminderAdded, className }: Reminde
           {reminders.map((reminder) => (
             <div
               key={reminder.id}
-              className="flex items-center justify-between rounded border border-gray-200 bg-gray-50 p-2 dark:border-gray-700 dark:bg-gray-800"
+              className="flex items-center justify-between rounded border border-border bg-surface-secondary p-2"
             >
               <div className="flex items-center gap-2 text-sm">
                 {reminder.type === 'before' && (
                   <>
-                    <Clock className="h-4 w-4 text-gray-500" />
-                    <span className="text-gray-700 dark:text-gray-300">
+                    <Clock className="h-4 w-4 text-content-tertiary" />
+                    <span className="text-content-secondary">
                       {reminder.minutesBefore} min before
                     </span>
                   </>
                 )}
                 {reminder.type === 'at' && (
                   <>
-                    <Clock className="h-4 w-4 text-gray-500" />
-                    <span className="text-gray-700 dark:text-gray-300">
+                    <Clock className="h-4 w-4 text-content-tertiary" />
+                    <span className="text-content-secondary">
                       {reminder.reminderTime}
                     </span>
                   </>
                 )}
                 {reminder.type === 'location' && (
                   <>
-                    <MapPin className="h-4 w-4 text-gray-500" />
-                    <span className="text-gray-700 dark:text-gray-300">
+                    <MapPin className="h-4 w-4 text-content-tertiary" />
+                    <span className="text-content-secondary">
                       {reminder.location || 'Location'}
                     </span>
                   </>
                 )}
                 {reminder.type === 'manual' && (
                   <>
-                    <Bell className="h-4 w-4 text-gray-500" />
-                    <span className="text-gray-700 dark:text-gray-300">Manual</span>
+                    <Bell className="h-4 w-4 text-content-tertiary" />
+                    <span className="text-content-secondary">Manual</span>
                   </>
                 )}
               </div>
               <button
                 onClick={() => handleDelete(reminder.id)}
-                className="rounded p-0.5 text-gray-400 hover:text-red-600 dark:hover:text-red-400"
+                className="rounded p-0.5 text-content-tertiary hover:text-red-600 dark:hover:text-red-400"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -110,10 +110,10 @@ export function ReminderSelector({ taskId, onReminderAdded, className }: Reminde
 
       {/* Add reminder form */}
       {isOpen && (
-        <div className="rounded border border-gray-200 bg-gray-50 p-3 dark:border-gray-700 dark:bg-gray-800">
+        <div className="rounded border border-border bg-surface-secondary p-3">
           {/* Type selector */}
           <div className="mb-3">
-            <label className="mb-2 block text-xs font-medium text-gray-700 dark:text-gray-300">
+            <label className="mb-2 block text-xs font-medium text-content-secondary">
               Reminder type
             </label>
             <div className="grid grid-cols-2 gap-2">
@@ -125,7 +125,7 @@ export function ReminderSelector({ taskId, onReminderAdded, className }: Reminde
                     'rounded px-2 py-1.5 text-xs font-medium transition-colors',
                     selectedType === type
                       ? 'bg-blue-600 text-white'
-                      : 'bg-white text-gray-700 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600'
+                      : 'bg-surface-primary text-content-secondary hover:bg-surface-tertiary'
                   )}
                 >
                   {reminderLabels[type]}
@@ -137,7 +137,7 @@ export function ReminderSelector({ taskId, onReminderAdded, className }: Reminde
           {/* Type-specific settings */}
           {selectedType === 'before' && (
             <div className="mb-3">
-              <label className="mb-2 block text-xs font-medium text-gray-700 dark:text-gray-300">
+              <label className="mb-2 block text-xs font-medium text-content-secondary">
                 Minutes before
               </label>
               <div className="mb-2 flex gap-1">
@@ -149,7 +149,7 @@ export function ReminderSelector({ taskId, onReminderAdded, className }: Reminde
                       'rounded px-2 py-1 text-xs font-medium',
                       minutesBefore === minutes
                         ? 'bg-blue-600 text-white'
-                        : 'bg-white text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-200'
+                        : 'bg-surface-primary text-content-secondary hover:bg-interactive-secondary'
                     )}
                   >
                     {presetLabels[minutes]}
@@ -160,21 +160,21 @@ export function ReminderSelector({ taskId, onReminderAdded, className }: Reminde
                 type="number"
                 value={minutesBefore}
                 onChange={(e) => setMinutesBefore(parseInt(e.target.value) || 30)}
-                className="w-full rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                className="w-full rounded border border-border px-2 py-1 text-sm"
               />
             </div>
           )}
 
           {selectedType === 'at' && (
             <div className="mb-3">
-              <label className="mb-2 block text-xs font-medium text-gray-700 dark:text-gray-300">
+              <label className="mb-2 block text-xs font-medium text-content-secondary">
                 Reminder time
               </label>
               <input
                 type="time"
                 value={reminderTime}
                 onChange={(e) => setReminderTime(e.target.value)}
-                className="w-full rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700 dark:text-white"
+                className="w-full rounded border border-border px-2 py-1 text-sm"
               />
             </div>
           )}
@@ -189,7 +189,7 @@ export function ReminderSelector({ taskId, onReminderAdded, className }: Reminde
             </button>
             <button
               onClick={() => setIsOpen(false)}
-              className="flex-1 rounded bg-gray-200 px-2 py-1.5 text-xs font-medium text-gray-700 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+              className="flex-1 rounded bg-interactive-secondary px-2 py-1.5 text-xs font-medium text-content-secondary hover:bg-surface-tertiary"
             >
               Cancel
             </button>

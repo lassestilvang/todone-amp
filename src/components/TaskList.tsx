@@ -26,7 +26,7 @@ export const TaskList: React.FC<TaskListProps> = ({
     return (
       <div className="space-y-2">
         {[...Array(5)].map((_, i) => (
-          <div key={i} className="h-10 bg-gray-200 rounded animate-pulse" />
+          <div key={i} className="h-10 bg-interactive-secondary rounded animate-pulse" />
         ))}
       </div>
     )
@@ -35,7 +35,7 @@ export const TaskList: React.FC<TaskListProps> = ({
   if (tasks.length === 0) {
     return (
       <div className="flex flex-col items-center justify-center py-12 text-center">
-        <p className="text-gray-500 text-sm">{emptyMessage}</p>
+        <p className="text-content-tertiary text-sm">{emptyMessage}</p>
       </div>
     )
   }
@@ -50,14 +50,14 @@ export const TaskList: React.FC<TaskListProps> = ({
         onToggle={onToggle}
         onSelect={onSelect}
         emptyMessage={emptyMessage}
-        className="divide-y divide-gray-200 border-y border-gray-200"
+        className="divide-y divide-border border-y border-border"
       />
     )
   }
 
   // Otherwise use regular TaskItem list
   return (
-    <div className="divide-y divide-gray-200 border-y border-gray-200">
+    <div className="divide-y divide-border border-y border-border">
       {tasks.map((task) => (
         <TaskItem
           key={task.id}

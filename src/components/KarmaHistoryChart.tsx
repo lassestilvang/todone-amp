@@ -39,8 +39,8 @@ export const KarmaHistoryChart: React.FC<KarmaHistoryChartProps> = ({ days = 30 
 
   if (!userStats || historyData.length === 0) {
     return (
-      <div className="p-4 rounded-lg bg-gray-100 dark:bg-gray-800 animate-pulse">
-        <div className="h-64 bg-gray-300 dark:bg-gray-700 rounded" />
+      <div className="p-4 rounded-lg bg-surface-tertiary animate-pulse">
+        <div className="h-64 bg-interactive-secondary rounded" />
       </div>
     )
   }
@@ -55,16 +55,16 @@ export const KarmaHistoryChart: React.FC<KarmaHistoryChartProps> = ({ days = 30 
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <TrendingUp className="w-5 h-5 text-blue-600 dark:text-blue-400" />
-          <h3 className="font-semibold text-gray-900 dark:text-white">Karma Progress</h3>
+          <h3 className="font-semibold text-content-primary">Karma Progress</h3>
         </div>
-        <span className="text-xs font-medium text-gray-600 dark:text-gray-400">
+        <span className="text-xs font-medium text-content-secondary">
           Last {days} days
         </span>
       </div>
 
       {/* Chart Area */}
       <div className="mb-4">
-        <div className="flex items-end justify-between h-48 gap-0.5 bg-white dark:bg-gray-800 rounded p-4">
+        <div className="flex items-end justify-between h-48 gap-0.5 bg-surface-primary rounded p-4">
           {historyData.map((item, index) => {
             const percentage = ((item.karma - minKarma) / karmaRange) * 100
             const isRecent = index > historyData.length - 8 // Show last 8 days highlighted
@@ -83,13 +83,13 @@ export const KarmaHistoryChart: React.FC<KarmaHistoryChartProps> = ({ days = 30 
                       ? 'bg-gradient-to-t from-amber-500 to-amber-400 shadow-lg'
                       : isRecent
                         ? 'bg-gradient-to-t from-blue-500 to-blue-400'
-                        : 'bg-gray-300 dark:bg-gray-600'
+                        : 'bg-interactive-secondary'
                   )}
                   style={{ height: `${Math.max(percentage, 4)}%` }}
                 />
                 {/* Date label (show every 5th day) */}
                 {index % 5 === 0 && (
-                  <span className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+                  <span className="text-xs text-content-tertiary mt-2">
                     {item.date.getDate()}
                   </span>
                 )}
@@ -101,20 +101,20 @@ export const KarmaHistoryChart: React.FC<KarmaHistoryChartProps> = ({ days = 30 
 
       {/* Stats */}
       <div className="grid grid-cols-3 gap-2 text-xs">
-        <div className="p-2 bg-white dark:bg-gray-800 rounded">
-          <div className="text-gray-600 dark:text-gray-400">Current</div>
-          <div className="font-bold text-gray-900 dark:text-white">
+        <div className="p-2 bg-surface-primary rounded">
+          <div className="text-content-secondary">Current</div>
+          <div className="font-bold text-content-primary">
             {Math.round(userStats.karma)}
           </div>
         </div>
-        <div className="p-2 bg-white dark:bg-gray-800 rounded">
-          <div className="text-gray-600 dark:text-gray-400">Daily Avg</div>
-          <div className="font-bold text-gray-900 dark:text-white">
+        <div className="p-2 bg-surface-primary rounded">
+          <div className="text-content-secondary">Daily Avg</div>
+          <div className="font-bold text-content-primary">
             {Math.round(userStats.karma / Math.max(days, 1))}
           </div>
         </div>
-        <div className="p-2 bg-white dark:bg-gray-800 rounded">
-          <div className="text-gray-600 dark:text-gray-400">Total Gain</div>
+        <div className="p-2 bg-surface-primary rounded">
+          <div className="text-content-secondary">Total Gain</div>
           <div className="font-bold text-green-600 dark:text-green-400">
             +{Math.round(userStats.karma)}
           </div>
@@ -122,7 +122,7 @@ export const KarmaHistoryChart: React.FC<KarmaHistoryChartProps> = ({ days = 30 
       </div>
 
       {/* Info */}
-      <div className="mt-3 flex items-start gap-2 text-xs text-gray-600 dark:text-gray-400">
+      <div className="mt-3 flex items-start gap-2 text-xs text-content-secondary">
         <Calendar className="w-4 h-4 mt-0.5 flex-shrink-0" />
         <p>
           Your karma growth shows your progress over time. Complete more tasks to maintain

@@ -70,16 +70,16 @@ export function TodayTasksPreview({ onNext }: TodayTasksPreviewProps) {
           <div className="w-16 h-16 mb-4 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
             <CheckCircle2 className="w-8 h-8 text-blue-500" />
           </div>
-          <p className="text-gray-500 dark:text-gray-400">
+          <p className="text-content-tertiary">
             No tasks scheduled for today. Time to add some!
           </p>
         </div>
       ) : (
         <>
-          <div className="mb-4 p-3 rounded-lg bg-gray-100 dark:bg-gray-800">
+          <div className="mb-4 p-3 rounded-lg bg-surface-tertiary">
             <div className="flex justify-between text-sm">
-              <span className="text-gray-500 dark:text-gray-400">Completed today</span>
-              <span className="font-medium text-gray-900 dark:text-white">{completedCount}</span>
+              <span className="text-content-tertiary">Completed today</span>
+              <span className="font-medium text-content-primary">{completedCount}</span>
             </div>
           </div>
           <div className="space-y-2">
@@ -95,11 +95,11 @@ export function TodayTasksPreview({ onNext }: TodayTasksPreviewProps) {
                   <Circle
                     className={cn('w-4 h-4 flex-shrink-0', PRIORITY_COLORS[task.priority ?? 'p4'])}
                   />
-                  <span className="text-sm text-gray-900 dark:text-white truncate">
+                  <span className="text-sm text-content-primary truncate">
                     {task.content}
                   </span>
                   {task.dueTime && (
-                    <span className="ml-auto text-xs text-gray-500 dark:text-gray-400 flex-shrink-0">
+                    <span className="ml-auto text-xs text-content-tertiary flex-shrink-0">
                       {task.dueTime}
                     </span>
                   )}
@@ -109,7 +109,7 @@ export function TodayTasksPreview({ onNext }: TodayTasksPreviewProps) {
           </div>
         </>
       )}
-      <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+      <div className="mt-6 pt-4 border-t border-border">
         <Button onClick={onNext} variant="primary" className="w-full">
           Continue
         </Button>

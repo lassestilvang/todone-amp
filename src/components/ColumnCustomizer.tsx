@@ -26,7 +26,7 @@ export function ColumnCustomizer() {
     <>
       <button
         onClick={() => setShowModal(!showModal)}
-        className="p-2 text-gray-600 hover:bg-gray-100 rounded transition-colors"
+        className="p-2 text-content-secondary hover:bg-surface-tertiary rounded transition-colors"
         title="Customize columns"
       >
         <Settings size={18} />
@@ -41,12 +41,12 @@ export function ColumnCustomizer() {
           />
 
           <div className="flex items-center justify-center min-h-screen p-4">
-            <div className="relative bg-white rounded-lg shadow-xl max-w-sm w-full">
-              <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
-                <h3 className="text-lg font-semibold text-gray-900">Customize Columns</h3>
+            <div className="relative bg-surface-primary rounded-lg shadow-xl max-w-sm w-full">
+              <div className="sticky top-0 bg-surface-primary border-b border-border px-6 py-4 flex items-center justify-between">
+                <h3 className="text-lg font-semibold text-content-primary">Customize Columns</h3>
                 <button
                   onClick={() => setShowModal(false)}
-                  className="text-gray-400 hover:text-gray-600"
+                  className="text-content-tertiary hover:text-content-secondary"
                 >
                   ×
                 </button>
@@ -56,11 +56,11 @@ export function ColumnCustomizer() {
                 {listColumns.map((column) => (
                   <div
                     key={column.id}
-                    className="flex items-center justify-between p-3 rounded-lg border border-gray-200 hover:border-gray-300 transition-colors"
+                    className="flex items-center justify-between p-3 rounded-lg border border-border hover:border-border transition-colors"
                   >
                     <div className="flex items-center gap-3 flex-1">
-                      <GripVertical size={16} className="text-gray-400 cursor-grab" />
-                      <span className="text-sm font-medium text-gray-700">{column.label}</span>
+                      <GripVertical size={16} className="text-content-tertiary cursor-grab" />
+                      <span className="text-sm font-medium text-content-secondary">{column.label}</span>
                     </div>
 
                     <button
@@ -68,7 +68,7 @@ export function ColumnCustomizer() {
                       className={`p-2 rounded transition-colors ${
                         column.visible
                           ? 'text-brand-600 bg-brand-50'
-                          : 'text-gray-400 hover:bg-gray-100'
+                          : 'text-content-tertiary hover:bg-surface-tertiary'
                       }`}
                       title={column.visible ? 'Hide' : 'Show'}
                     >
@@ -82,7 +82,7 @@ export function ColumnCustomizer() {
                 ))}
               </div>
 
-              <div className="border-t border-gray-200 px-6 py-4 flex gap-2">
+              <div className="border-t border-border px-6 py-4 flex gap-2">
                 <Button onClick={handleResetColumns} variant="secondary" className="flex-1">
                   Reset
                 </Button>
@@ -91,7 +91,7 @@ export function ColumnCustomizer() {
                 </Button>
               </div>
 
-              <div className="text-xs text-gray-500 px-6 pb-4">
+              <div className="text-xs text-content-tertiary px-6 pb-4">
                 {visibleCount} of {listColumns.length} columns visible
               </div>
             </div>

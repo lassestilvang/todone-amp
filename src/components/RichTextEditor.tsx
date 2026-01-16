@@ -33,7 +33,7 @@ export function RichTextEditor({
         },
         codeBlock: {
           HTMLAttributes: {
-            class: 'bg-gray-100 rounded p-4 overflow-x-auto',
+            class: 'bg-surface-tertiary rounded p-4 overflow-x-auto',
           },
         },
       }),
@@ -46,7 +46,7 @@ export function RichTextEditor({
       attributes: {
         class: cn(
           'prose prose-sm max-w-none focus:outline-none',
-          'px-3 py-2 min-h-[120px] text-base text-gray-900'
+          'px-3 py-2 min-h-[120px] text-base text-content-primary'
         ),
       },
       handleDOMEvents: {
@@ -70,13 +70,13 @@ export function RichTextEditor({
   }
 
   const Toolbar = () => (
-    <div className="flex gap-0.5 p-2 border-b border-gray-300 bg-gray-50 rounded-t-md flex-wrap">
+    <div className="flex gap-0.5 p-2 border-b border-border bg-surface-secondary rounded-t-md flex-wrap">
       <button
         onClick={() => editor.chain().focus().toggleBold().run()}
         disabled={!editor.can().chain().focus().toggleBold().run()}
         className={cn(
-          'p-2 hover:bg-gray-200 rounded transition-colors',
-          editor.isActive('bold') ? 'bg-gray-300' : ''
+          'p-2 hover:bg-interactive-secondary rounded transition-colors',
+          editor.isActive('bold') ? 'bg-surface-tertiary' : ''
         )}
         title="Bold (Ctrl+B)"
         type="button"
@@ -88,8 +88,8 @@ export function RichTextEditor({
         onClick={() => editor.chain().focus().toggleItalic().run()}
         disabled={!editor.can().chain().focus().toggleItalic().run()}
         className={cn(
-          'p-2 hover:bg-gray-200 rounded transition-colors',
-          editor.isActive('italic') ? 'bg-gray-300' : ''
+          'p-2 hover:bg-interactive-secondary rounded transition-colors',
+          editor.isActive('italic') ? 'bg-surface-tertiary' : ''
         )}
         title="Italic (Ctrl+I)"
         type="button"
@@ -101,8 +101,8 @@ export function RichTextEditor({
         onClick={() => editor.chain().focus().toggleUnderline().run()}
         disabled={!editor.can().chain().focus().toggleUnderline().run()}
         className={cn(
-          'p-2 hover:bg-gray-200 rounded transition-colors',
-          editor.isActive('underline') ? 'bg-gray-300' : ''
+          'p-2 hover:bg-interactive-secondary rounded transition-colors',
+          editor.isActive('underline') ? 'bg-surface-tertiary' : ''
         )}
         title="Underline (Ctrl+U)"
         type="button"
@@ -110,13 +110,13 @@ export function RichTextEditor({
         <UnderlineIcon size={16} />
       </button>
 
-      <div className="w-px bg-gray-300 mx-1" />
+      <div className="w-px bg-border mx-1" />
 
       <button
         onClick={() => editor.chain().focus().toggleBulletList().run()}
         className={cn(
-          'p-2 hover:bg-gray-200 rounded transition-colors',
-          editor.isActive('bulletList') ? 'bg-gray-300' : ''
+          'p-2 hover:bg-interactive-secondary rounded transition-colors',
+          editor.isActive('bulletList') ? 'bg-surface-tertiary' : ''
         )}
         title="Bullet List"
         type="button"
@@ -127,8 +127,8 @@ export function RichTextEditor({
       <button
         onClick={() => editor.chain().focus().toggleOrderedList().run()}
         className={cn(
-          'p-2 hover:bg-gray-200 rounded transition-colors',
-          editor.isActive('orderedList') ? 'bg-gray-300' : ''
+          'p-2 hover:bg-interactive-secondary rounded transition-colors',
+          editor.isActive('orderedList') ? 'bg-surface-tertiary' : ''
         )}
         title="Numbered List"
         type="button"
@@ -136,7 +136,7 @@ export function RichTextEditor({
         <ListOrdered size={16} />
       </button>
 
-      <div className="w-px bg-gray-300 mx-1" />
+      <div className="w-px bg-border mx-1" />
 
       <button
         onClick={() => {
@@ -146,8 +146,8 @@ export function RichTextEditor({
           }
         }}
         className={cn(
-          'p-2 hover:bg-gray-200 rounded transition-colors',
-          editor.isActive('link') ? 'bg-gray-300' : ''
+          'p-2 hover:bg-interactive-secondary rounded transition-colors',
+          editor.isActive('link') ? 'bg-surface-tertiary' : ''
         )}
         title="Insert Link"
         type="button"
@@ -155,12 +155,12 @@ export function RichTextEditor({
         <Link2 size={16} />
       </button>
 
-      <div className="w-px bg-gray-300 mx-1" />
+      <div className="w-px bg-border mx-1" />
 
       <button
         onClick={() => editor.chain().focus().undo().run()}
         disabled={!editor.can().chain().focus().undo().run()}
-        className="p-2 hover:bg-gray-200 rounded transition-colors disabled:opacity-50"
+        className="p-2 hover:bg-interactive-secondary rounded transition-colors disabled:opacity-50"
         title="Undo"
         type="button"
       >
@@ -170,7 +170,7 @@ export function RichTextEditor({
       <button
         onClick={() => editor.chain().focus().redo().run()}
         disabled={!editor.can().chain().focus().redo().run()}
-        className="p-2 hover:bg-gray-200 rounded transition-colors disabled:opacity-50"
+        className="p-2 hover:bg-interactive-secondary rounded transition-colors disabled:opacity-50"
         title="Redo"
         type="button"
       >
@@ -180,11 +180,11 @@ export function RichTextEditor({
   )
 
   return (
-    <div className={cn('border border-gray-300 rounded-md overflow-hidden', className)}>
+    <div className={cn('border border-border rounded-md overflow-hidden', className)}>
       <Toolbar />
       <EditorContent
         editor={editor}
-        className="bg-white"
+        className="bg-surface-primary"
       />
     </div>
   )

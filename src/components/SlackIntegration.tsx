@@ -68,13 +68,13 @@ export const SlackIntegration: React.FC<SlackIntegrationPanelProps> = ({ classNa
 
       {!isConnected ? (
         // Connect Section
-        <div className="rounded-lg border border-gray-200 p-4">
+        <div className="rounded-lg border border-border p-4">
           <div className="text-center">
             <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-blue-50">
               <MessageSquare className="h-6 w-6 text-blue-600" />
             </div>
-            <h3 className="font-medium text-gray-900">Connect Slack</h3>
-            <p className="mt-2 text-sm text-gray-600">
+            <h3 className="font-medium text-content-primary">Connect Slack</h3>
+            <p className="mt-2 text-sm text-content-secondary">
               Get Slack notifications and manage tasks directly from Slack
             </p>
             <button
@@ -90,14 +90,14 @@ export const SlackIntegration: React.FC<SlackIntegrationPanelProps> = ({ classNa
       ) : (
         // Connected Section
         <>
-          <div className="rounded-lg border border-gray-200 p-4">
+          <div className="rounded-lg border border-border p-4">
             <div className="flex items-center justify-between">
               <div>
                 <div className="flex items-center gap-2">
                   <CheckCircle className="h-5 w-5 text-green-600" />
-                  <h3 className="font-medium text-gray-900">Connected</h3>
+                  <h3 className="font-medium text-content-primary">Connected</h3>
                 </div>
-                <p className="mt-1 text-sm text-gray-600">
+                <p className="mt-1 text-sm text-content-secondary">
                   Connected to {mockIntegration.teamName}
                 </p>
               </div>
@@ -111,71 +111,71 @@ export const SlackIntegration: React.FC<SlackIntegrationPanelProps> = ({ classNa
           </div>
 
           {/* Slack Commands */}
-          <div className="rounded-lg border border-gray-200 p-4">
+          <div className="rounded-lg border border-border p-4">
             <div className="flex items-center gap-2">
-              <Settings className="h-5 w-5 text-gray-600" />
-              <h3 className="font-medium text-gray-900">Slack Commands</h3>
+              <Settings className="h-5 w-5 text-content-secondary" />
+              <h3 className="font-medium text-content-primary">Slack Commands</h3>
             </div>
 
             <div className="mt-4 space-y-2">
-              <p className="text-sm font-medium text-gray-700">Available commands:</p>
+              <p className="text-sm font-medium text-content-secondary">Available commands:</p>
               <div className="space-y-1 text-sm">
-                <code className="block rounded bg-gray-100 px-3 py-2">/todone create Task title</code>
-                <code className="block rounded bg-gray-100 px-3 py-2">/todone my-tasks</code>
-                <code className="block rounded bg-gray-100 px-3 py-2">/todone today</code>
-                <code className="block rounded bg-gray-100 px-3 py-2">/todone help</code>
+                <code className="block rounded bg-surface-tertiary px-3 py-2">/todone create Task title</code>
+                <code className="block rounded bg-surface-tertiary px-3 py-2">/todone my-tasks</code>
+                <code className="block rounded bg-surface-tertiary px-3 py-2">/todone today</code>
+                <code className="block rounded bg-surface-tertiary px-3 py-2">/todone help</code>
               </div>
             </div>
           </div>
 
           {/* Notifications */}
-          <div className="rounded-lg border border-gray-200 p-4">
-            <h3 className="font-medium text-gray-900">Notifications</h3>
+          <div className="rounded-lg border border-border p-4">
+            <h3 className="font-medium text-content-primary">Notifications</h3>
 
             <div className="mt-4 space-y-3">
               <label className="flex items-center gap-3">
                 <input type="checkbox" defaultChecked className="h-4 w-4" />
-                <span className="text-sm text-gray-700">Notify on task assignment</span>
+                <span className="text-sm text-content-secondary">Notify on task assignment</span>
               </label>
               <label className="flex items-center gap-3">
                 <input type="checkbox" defaultChecked className="h-4 w-4" />
-                <span className="text-sm text-gray-700">Notify on @mentions in comments</span>
+                <span className="text-sm text-content-secondary">Notify on @mentions in comments</span>
               </label>
               <label className="flex items-center gap-3">
                 <input type="checkbox" defaultChecked className="h-4 w-4" />
-                <span className="text-sm text-gray-700">Notify on task comments</span>
+                <span className="text-sm text-content-secondary">Notify on task comments</span>
               </label>
               <label className="flex items-center gap-3">
                 <input type="checkbox" defaultChecked className="h-4 w-4" />
-                <span className="text-sm text-gray-700">Notify on overdue tasks</span>
+                <span className="text-sm text-content-secondary">Notify on overdue tasks</span>
               </label>
             </div>
           </div>
 
           {/* Daily Digest */}
-          <div className="rounded-lg border border-gray-200 p-4">
+          <div className="rounded-lg border border-border p-4">
             <div className="flex items-center justify-between">
-              <h3 className="font-medium text-gray-900">Daily Digest</h3>
+              <h3 className="font-medium text-content-primary">Daily Digest</h3>
               <input type="checkbox" defaultChecked className="h-4 w-4" />
             </div>
 
-            <p className="mt-2 text-sm text-gray-600">
+            <p className="mt-2 text-sm text-content-secondary">
               Get a daily summary of your tasks in Slack
             </p>
 
             <div className="mt-4 space-y-3">
               <div>
-                <label className="block text-sm font-medium text-gray-700">Send at</label>
+                <label className="block text-sm font-medium text-content-secondary">Send at</label>
                 <input
                   type="time"
                   defaultValue="09:00"
-                  className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm"
+                  className="mt-1 w-full rounded-lg border border-border px-3 py-2 text-sm"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700">Channel</label>
-                <select className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm">
+                <label className="block text-sm font-medium text-content-secondary">Channel</label>
+                <select className="mt-1 w-full rounded-lg border border-border px-3 py-2 text-sm">
                   <option value="#daily-tasks">📋 #daily-tasks</option>
                   <option value="@me">🔔 Direct Message</option>
                   <option value="#general">💬 #general</option>
@@ -185,15 +185,15 @@ export const SlackIntegration: React.FC<SlackIntegrationPanelProps> = ({ classNa
               <div className="space-y-2">
                 <label className="flex items-center gap-3">
                   <input type="checkbox" defaultChecked className="h-4 w-4" />
-                  <span className="text-sm text-gray-700">Include overdue tasks</span>
+                  <span className="text-sm text-content-secondary">Include overdue tasks</span>
                 </label>
                 <label className="flex items-center gap-3">
                   <input type="checkbox" defaultChecked className="h-4 w-4" />
-                  <span className="text-sm text-gray-700">Include upcoming tasks</span>
+                  <span className="text-sm text-content-secondary">Include upcoming tasks</span>
                 </label>
                 <label className="flex items-center gap-3">
                   <input type="checkbox" defaultChecked className="h-4 w-4" />
-                  <span className="text-sm text-gray-700">Include team activity</span>
+                  <span className="text-sm text-content-secondary">Include team activity</span>
                 </label>
               </div>
             </div>

@@ -56,7 +56,7 @@ export function TemplateGallery({ onSelectTemplate, className }: TemplateGallery
           placeholder="Search templates..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="flex-1 rounded border border-gray-300 px-3 py-2 text-sm dark:border-gray-600 dark:bg-gray-800"
+          className="flex-1 rounded border border-border px-3 py-2 text-sm"
         />
         {user && (
           <button
@@ -65,7 +65,7 @@ export function TemplateGallery({ onSelectTemplate, className }: TemplateGallery
               'rounded px-3 py-2 text-sm transition',
               viewFavoritesOnly
                 ? 'bg-amber-500 text-white'
-                : 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300'
+                : 'bg-interactive-secondary text-content-secondary'
             )}
           >
             ★
@@ -81,7 +81,7 @@ export function TemplateGallery({ onSelectTemplate, className }: TemplateGallery
             'rounded px-3 py-1 text-sm transition',
             selectedCategory === 'all'
               ? 'bg-blue-500 text-white'
-              : 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300'
+              : 'bg-interactive-secondary text-content-secondary'
           )}
         >
           All
@@ -94,7 +94,7 @@ export function TemplateGallery({ onSelectTemplate, className }: TemplateGallery
               'rounded px-3 py-1 text-sm transition',
               selectedCategory === cat.value
                 ? 'bg-blue-500 text-white'
-                : 'bg-gray-200 text-gray-700 dark:bg-gray-700 dark:text-gray-300'
+                : 'bg-interactive-secondary text-content-secondary'
             )}
           >
             {cat.label}
@@ -105,7 +105,7 @@ export function TemplateGallery({ onSelectTemplate, className }: TemplateGallery
       {/* Template grid */}
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
         {filtered.length === 0 ? (
-          <div className="col-span-full rounded border border-dashed border-gray-300 py-8 text-center text-gray-500 dark:border-gray-600">
+          <div className="col-span-full rounded border border-dashed border-border py-8 text-center text-content-tertiary">
             No templates found
           </div>
         ) : (
@@ -113,12 +113,12 @@ export function TemplateGallery({ onSelectTemplate, className }: TemplateGallery
             <div
               key={template.id}
               onClick={() => onSelectTemplate?.(template.id)}
-              className="cursor-pointer rounded border border-gray-200 p-3 transition hover:shadow-md dark:border-gray-700 dark:hover:bg-gray-800"
+              className="cursor-pointer rounded border border-border p-3 transition hover:shadow-md"
             >
               <div className="flex items-start justify-between gap-2">
                 <div className="flex-1">
-                  <h3 className="font-medium text-gray-900 dark:text-white">{template.name}</h3>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">
+                  <h3 className="font-medium text-content-primary">{template.name}</h3>
+                  <p className="text-xs text-content-tertiary">
                     {template.category}
                   </p>
                 </div>
@@ -129,16 +129,16 @@ export function TemplateGallery({ onSelectTemplate, className }: TemplateGallery
                 )}
               </div>
               {template.description && (
-                <p className="mt-2 text-xs text-gray-600 dark:text-gray-400">
+                <p className="mt-2 text-xs text-content-secondary">
                   {template.description}
                 </p>
               )}
               <div className="mt-3 flex items-center justify-between">
-                <span className="text-xs text-gray-400">
+                <span className="text-xs text-content-tertiary">
                   {template.data.sections.length} sections
                 </span>
                 {template.usageCount > 0 && (
-                  <span className="text-xs text-gray-400">{template.usageCount}x used</span>
+                  <span className="text-xs text-content-tertiary">{template.usageCount}x used</span>
                 )}
               </div>
             </div>

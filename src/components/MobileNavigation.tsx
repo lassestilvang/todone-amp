@@ -31,17 +31,17 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
   return (
     <>
       {/* Mobile Header */}
-      <div className="md:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b border-gray-200 flex items-center justify-between px-4 z-40">
+      <div className="md:hidden fixed top-0 left-0 right-0 h-16 bg-surface-primary border-b border-border flex items-center justify-between px-4 z-40">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white font-bold text-sm">
             T
           </div>
-          <span className="font-bold text-gray-900">Todone</span>
+          <span className="font-bold text-content-primary">Todone</span>
         </div>
 
         <button
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+          className="p-2 hover:bg-surface-tertiary rounded-lg transition-colors"
           aria-label="Toggle menu"
         >
           {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -59,7 +59,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
       {/* Mobile Menu */}
       <div
         className={cn(
-          'md:hidden fixed top-16 left-0 right-0 bg-white border-b border-gray-200 z-30',
+          'md:hidden fixed top-16 left-0 right-0 bg-surface-primary border-b border-border z-30',
           'transition-transform duration-200',
           isMenuOpen ? 'translate-y-0' : '-translate-y-full'
         )}
@@ -73,7 +73,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
                 'w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors',
                 currentView === id
                   ? 'bg-blue-100 text-blue-700'
-                  : 'text-gray-700 hover:bg-gray-100'
+                  : 'text-content-secondary hover:bg-surface-tertiary'
               )}
             >
               <Icon className="w-5 h-5" />
@@ -86,7 +86,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
           {user && (
             <button
               onClick={onOpenSettings}
-              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors"
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-content-secondary hover:bg-surface-tertiary transition-colors"
             >
               <Settings className="w-5 h-5" />
               Profile
@@ -96,7 +96,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
       </div>
 
       {/* Bottom Navigation Bar (for mobile) */}
-      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 flex justify-around z-40">
+      <div className="md:hidden fixed bottom-0 left-0 right-0 bg-surface-primary border-t border-border flex justify-around z-40">
         {mainViews.map(({ id, icon: Icon }) => (
           <button
             key={id}
@@ -105,7 +105,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
               'flex-1 flex items-center justify-center py-3 transition-colors',
               currentView === id
                 ? 'text-blue-600 border-t-2 border-blue-600'
-                : 'text-gray-600 hover:text-gray-900'
+                : 'text-content-secondary hover:text-content-primary'
             )}
             aria-label={`Navigate to ${id}`}
           >

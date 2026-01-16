@@ -67,8 +67,8 @@ export const PersonalDashboard: React.FC<PersonalDashboardProps> = ({ userId, cl
     <div className={cn('space-y-6', className)}>
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">Dashboard</h1>
-        <p className="mt-1 text-sm text-gray-600">Your productivity at a glance</p>
+        <h1 className="text-3xl font-bold text-content-primary">Dashboard</h1>
+        <p className="mt-1 text-sm text-content-secondary">Your productivity at a glance</p>
       </div>
 
       {/* Karma Widget - Hide on mobile, show on tablet+ */}
@@ -87,16 +87,16 @@ export const PersonalDashboard: React.FC<PersonalDashboardProps> = ({ userId, cl
       {/* Stats Grid */}
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {/* Today's Tasks */}
-        <div className="rounded-lg border border-gray-200 bg-white p-4 sm:p-6">
+        <div className="rounded-lg border border-border bg-surface-primary p-4 sm:p-6">
           <div className="flex items-start justify-between gap-4 sm:gap-0">
             <div className="flex-1">
-              <p className="text-sm font-medium text-gray-600">Today's Tasks</p>
-              <p className="mt-2 text-2xl sm:text-3xl font-bold text-gray-900">{todaysCompleted}</p>
-              <p className="mt-1 text-xs text-gray-500">of {todaysTasks.length}</p>
+              <p className="text-sm font-medium text-content-secondary">Today's Tasks</p>
+              <p className="mt-2 text-2xl sm:text-3xl font-bold text-content-primary">{todaysCompleted}</p>
+              <p className="mt-1 text-xs text-content-tertiary">of {todaysTasks.length}</p>
             </div>
             <Calendar className="h-6 w-6 sm:h-8 sm:w-8 text-blue-500 flex-shrink-0" />
           </div>
-          <div className="mt-4 h-2 bg-gray-200 rounded-full overflow-hidden">
+          <div className="mt-4 h-2 bg-interactive-secondary rounded-full overflow-hidden">
             <div
               className="h-full bg-blue-500 transition-all"
               style={{
@@ -107,40 +107,40 @@ export const PersonalDashboard: React.FC<PersonalDashboardProps> = ({ userId, cl
         </div>
 
         {/* Completion Rate */}
-        <div className="rounded-lg border border-gray-200 bg-white p-6">
+        <div className="rounded-lg border border-border bg-surface-primary p-6">
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Completion Rate</p>
-              <p className="mt-2 text-3xl font-bold text-gray-900">
+              <p className="text-sm font-medium text-content-secondary">Completion Rate</p>
+              <p className="mt-2 text-3xl font-bold text-content-primary">
                 {stats ? `${Math.round(stats.completionRate)}%` : '0%'}
               </p>
-              <p className="mt-1 text-xs text-gray-500">Last 30 days</p>
+              <p className="mt-1 text-xs text-content-tertiary">Last 30 days</p>
             </div>
-            <CheckCircle2 className="h-8 w-8 text-green-500" />
+            <CheckCircle2 className="h-8 w-8 text-semantic-success" />
           </div>
         </div>
 
         {/* Overdue Tasks */}
-        <div className="rounded-lg border border-gray-200 bg-white p-6">
+        <div className="rounded-lg border border-border bg-surface-primary p-6">
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Overdue</p>
-              <p className="mt-2 text-3xl font-bold text-gray-900">{overdueTasks}</p>
-              <p className="mt-1 text-xs text-gray-500">Need attention</p>
+              <p className="text-sm font-medium text-content-secondary">Overdue</p>
+              <p className="mt-2 text-3xl font-bold text-content-primary">{overdueTasks}</p>
+              <p className="mt-1 text-xs text-content-tertiary">Need attention</p>
             </div>
-            <AlertCircle className="h-8 w-8 text-red-500" />
+            <AlertCircle className="h-8 w-8 text-semantic-error" />
           </div>
         </div>
 
         {/* Daily Average */}
-        <div className="rounded-lg border border-gray-200 bg-white p-6">
+        <div className="rounded-lg border border-border bg-surface-primary p-6">
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-sm font-medium text-gray-600">Daily Average</p>
-              <p className="mt-2 text-3xl font-bold text-gray-900">
+              <p className="text-sm font-medium text-content-secondary">Daily Average</p>
+              <p className="mt-2 text-3xl font-bold text-content-primary">
                 {stats ? stats.averagePerDay : 0}
               </p>
-              <p className="mt-1 text-xs text-gray-500">Tasks/day</p>
+              <p className="mt-1 text-xs text-content-tertiary">Tasks/day</p>
             </div>
             <TrendingUp className="h-8 w-8 text-purple-500" />
           </div>
@@ -149,9 +149,9 @@ export const PersonalDashboard: React.FC<PersonalDashboardProps> = ({ userId, cl
 
       {/* At-Risk Tasks Section */}
       {atRiskTasks.length > 0 && (
-        <div className="rounded-lg border border-gray-200 bg-white p-6">
-          <h2 className="flex items-center gap-2 text-lg font-semibold text-gray-900 mb-4">
-            <AlertCircle className="h-5 w-5 text-orange-500" />
+        <div className="rounded-lg border border-border bg-surface-primary p-6">
+          <h2 className="flex items-center gap-2 text-lg font-semibold text-content-primary mb-4">
+            <AlertCircle className="h-5 w-5 text-semantic-warning" />
             At-Risk Tasks
           </h2>
 
@@ -161,10 +161,10 @@ export const PersonalDashboard: React.FC<PersonalDashboardProps> = ({ userId, cl
                 key={task.id}
                 className="flex items-start gap-3 rounded-lg border border-orange-200 bg-orange-50 p-3"
               >
-                <Clock className="h-4 w-4 text-orange-600 mt-0.5 flex-shrink-0" />
+                <Clock className="h-4 w-4 text-semantic-warning mt-0.5 flex-shrink-0" />
                 <div className="flex-1 min-w-0">
-                  <p className="text-sm font-medium text-gray-900 truncate">{task.content}</p>
-                  <p className="text-xs text-orange-600">
+                  <p className="text-sm font-medium text-content-primary truncate">{task.content}</p>
+                  <p className="text-xs text-semantic-warning">
                     {task.daysOverdue > 0
                       ? `${task.daysOverdue} day${task.daysOverdue > 1 ? 's' : ''} overdue`
                       : `Due in ${Math.abs(task.daysOverdue)} day${Math.abs(task.daysOverdue) > 1 ? 's' : ''}`}
@@ -187,7 +187,7 @@ export const PersonalDashboard: React.FC<PersonalDashboardProps> = ({ userId, cl
           </div>
 
           {atRiskTasks.length > 5 && (
-            <p className="mt-3 text-xs text-gray-500 text-center">
+            <p className="mt-3 text-xs text-content-tertiary text-center">
               +{atRiskTasks.length - 5} more at-risk task{atRiskTasks.length - 5 > 1 ? 's' : ''}
             </p>
           )}
@@ -196,23 +196,23 @@ export const PersonalDashboard: React.FC<PersonalDashboardProps> = ({ userId, cl
 
       {/* Quick Stats */}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-        <div className="rounded-lg border border-gray-200 bg-white p-4">
-          <p className="text-xs font-medium text-gray-600 uppercase">Weekly Average</p>
-          <p className="mt-1 text-2xl font-bold text-gray-900">
+        <div className="rounded-lg border border-border bg-surface-primary p-4">
+          <p className="text-xs font-medium text-content-secondary uppercase">Weekly Average</p>
+          <p className="mt-1 text-2xl font-bold text-content-primary">
             {stats ? stats.averagePerWeek : 0}
           </p>
         </div>
 
-        <div className="rounded-lg border border-gray-200 bg-white p-4">
-          <p className="text-xs font-medium text-gray-600 uppercase">Total Completed</p>
-          <p className="mt-1 text-2xl font-bold text-gray-900">
+        <div className="rounded-lg border border-border bg-surface-primary p-4">
+          <p className="text-xs font-medium text-content-secondary uppercase">Total Completed</p>
+          <p className="mt-1 text-2xl font-bold text-content-primary">
             {stats ? stats.completedTasks : 0}
           </p>
         </div>
 
-        <div className="rounded-lg border border-gray-200 bg-white p-4">
-          <p className="text-xs font-medium text-gray-600 uppercase">Total Created</p>
-          <p className="mt-1 text-2xl font-bold text-gray-900">
+        <div className="rounded-lg border border-border bg-surface-primary p-4">
+          <p className="text-xs font-medium text-content-secondary uppercase">Total Created</p>
+          <p className="mt-1 text-2xl font-bold text-content-primary">
             {stats ? stats.totalTasks : 0}
           </p>
         </div>

@@ -70,11 +70,11 @@ export const MobileInboxView: React.FC<MobileInboxViewProps> = ({
   }
 
   return (
-    <div className={cn('flex flex-col h-screen bg-white dark:bg-gray-900', className)}>
+    <div className={cn('flex flex-col h-screen bg-surface-primary', className)}>
       {/* Header */}
-      <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between gap-2">
+      <div className="px-4 py-3 border-b border-border flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
-          <span className="text-lg font-bold text-gray-900 dark:text-white">Inbox</span>
+          <span className="text-lg font-bold text-content-primary">Inbox</span>
           <span className="text-xs bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-200 px-2 py-1 rounded-full font-medium">
             {activeTasks.length}
           </span>
@@ -82,14 +82,14 @@ export const MobileInboxView: React.FC<MobileInboxViewProps> = ({
 
         <button
           onClick={onCreateTask}
-          className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+          className="p-2 hover:bg-surface-tertiary rounded-lg transition-colors"
         >
-          <Plus className="w-6 h-6 text-gray-900 dark:text-white" />
+          <Plus className="w-6 h-6 text-content-primary" />
         </button>
       </div>
 
       {/* Filter Tabs */}
-      <div className="px-4 pt-3 pb-2 border-b border-gray-200 dark:border-gray-700 flex gap-2">
+      <div className="px-4 pt-3 pb-2 border-b border-border flex gap-2">
         {(['all', 'active', 'completed'] as const).map((f) => (
           <button
             key={f}
@@ -98,7 +98,7 @@ export const MobileInboxView: React.FC<MobileInboxViewProps> = ({
               'px-3 py-1.5 rounded-full text-sm font-medium transition-colors',
               filter === f
                 ? 'bg-blue-500 text-white'
-                : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300'
+                : 'bg-surface-tertiary text-content-secondary'
             )}
           >
             {f === 'all' ? 'All' : f === 'active' ? 'Active' : 'Done'}
@@ -110,17 +110,17 @@ export const MobileInboxView: React.FC<MobileInboxViewProps> = ({
       <div className="flex-1 overflow-y-auto pb-4">
         {filteredTasks.length === 0 ? (
           <div className="p-8 text-center">
-            <p className="text-gray-500 dark:text-gray-400">
+            <p className="text-content-tertiary">
               {filter === 'completed' ? 'No completed tasks' : 'No tasks'}
             </p>
           </div>
         ) : (
-          <div className="divide-y divide-gray-200 dark:divide-gray-700">
+          <div className="divide-y divide-border">
             {/* Active Tasks Section */}
             {filter !== 'completed' && activeTasks.length > 0 && (
               <>
-                <div className="sticky top-0 px-4 py-2 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-                  <span className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase">
+                <div className="sticky top-0 px-4 py-2 bg-surface-secondary border-b border-border">
+                  <span className="text-xs font-semibold text-content-secondary uppercase">
                     Active Tasks
                   </span>
                 </div>
@@ -131,7 +131,7 @@ export const MobileInboxView: React.FC<MobileInboxViewProps> = ({
                     className={cn(
                       'p-4 transition-colors cursor-pointer',
                       getPriorityColor(task.priority),
-                      'hover:bg-gray-50 dark:hover:bg-gray-800 active:bg-gray-100 dark:active:bg-gray-700'
+                      'hover:bg-surface-tertiary active:bg-surface-tertiary'
                     )}
                   >
                     <div className="flex items-start gap-3">
@@ -145,7 +145,7 @@ export const MobileInboxView: React.FC<MobileInboxViewProps> = ({
                           'mt-0.5 w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors',
                           task.completed
                             ? 'bg-green-500 border-green-500'
-                            : 'border-gray-300 dark:border-gray-600 hover:border-blue-500'
+                            : 'border-border hover:border-blue-500'
                         )}
                       >
                         {task.completed && <span className="text-white text-sm">✓</span>}
@@ -157,22 +157,22 @@ export const MobileInboxView: React.FC<MobileInboxViewProps> = ({
                           className={cn(
                             'font-medium break-words',
                             task.completed
-                              ? 'line-through text-gray-500 dark:text-gray-400'
-                              : 'text-gray-900 dark:text-white'
+                              ? 'line-through text-content-tertiary'
+                              : 'text-content-primary'
                           )}
                         >
                           {task.content}
                         </p>
 
                         {/* Metadata */}
-                        <div className="flex items-center gap-2 mt-2 text-xs text-gray-600 dark:text-gray-400">
+                        <div className="flex items-center gap-2 mt-2 text-xs text-content-secondary">
                           {task.priority && (
-                            <span className="px-2 py-0.5 bg-white dark:bg-gray-700 rounded">
+                            <span className="px-2 py-0.5 bg-surface-primary rounded">
                               {priorityLabel(task.priority)}
                             </span>
                           )}
                           {task.dueDate && (
-                            <span className="px-2 py-0.5 bg-white dark:bg-gray-700 rounded">
+                            <span className="px-2 py-0.5 bg-surface-primary rounded">
                               {new Date(task.dueDate).toLocaleDateString('en-US', {
                                 month: 'short',
                                 day: 'numeric',
@@ -183,7 +183,7 @@ export const MobileInboxView: React.FC<MobileInboxViewProps> = ({
                       </div>
 
                       {/* Chevron */}
-                      <ChevronDown className="w-5 h-5 text-gray-400 dark:text-gray-500 flex-shrink-0 -rotate-90" />
+                      <ChevronDown className="w-5 h-5 text-content-tertiary flex-shrink-0 -rotate-90" />
                     </div>
                   </div>
                 ))}
@@ -193,8 +193,8 @@ export const MobileInboxView: React.FC<MobileInboxViewProps> = ({
             {/* Completed Tasks Section */}
             {(filter === 'all' || filter === 'completed') && completedTasks.length > 0 && (
               <>
-                <div className="sticky top-0 px-4 py-2 bg-gray-50 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
-                  <span className="text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase">
+                <div className="sticky top-0 px-4 py-2 bg-surface-secondary border-b border-border">
+                  <span className="text-xs font-semibold text-content-secondary uppercase">
                     Completed ({completedTasks.length})
                   </span>
                 </div>
@@ -214,17 +214,17 @@ export const MobileInboxView: React.FC<MobileInboxViewProps> = ({
                       </div>
 
                       <div className="flex-1 min-w-0">
-                        <p className="font-medium break-words line-through text-gray-500 dark:text-gray-400">
+                        <p className="font-medium break-words line-through text-content-tertiary">
                           {task.content}
                         </p>
                         {task.completedAt && (
-                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                          <p className="text-xs text-content-tertiary mt-1">
                             Completed {new Date(task.completedAt).toLocaleDateString()}
                           </p>
                         )}
                       </div>
 
-                      <ChevronDown className="w-5 h-5 text-gray-400 dark:text-gray-500 flex-shrink-0 -rotate-90" />
+                      <ChevronDown className="w-5 h-5 text-content-tertiary flex-shrink-0 -rotate-90" />
                     </div>
                   </div>
                 ))}

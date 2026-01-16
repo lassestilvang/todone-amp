@@ -71,12 +71,12 @@ export const WeeklyGoalProgress: React.FC<WeeklyGoalProgressProps> = ({ classNam
         <Calendar className="h-4 w-4 text-purple-500" />
         <div className="flex-1">
           <div className="flex items-center justify-between mb-1">
-            <span className="text-xs font-medium text-gray-700 dark:text-gray-300">Weekly Goal</span>
-            <span className="text-xs text-gray-500 dark:text-gray-400">
+            <span className="text-xs font-medium text-content-secondary">Weekly Goal</span>
+            <span className="text-xs text-content-tertiary">
               {totalCompleted}/{weeklyGoal}
             </span>
           </div>
-          <div className="w-full h-2 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
+          <div className="w-full h-2 rounded-full bg-interactive-secondary overflow-hidden">
             <div
               className={cn(
                 'h-full transition-all duration-300',
@@ -92,12 +92,12 @@ export const WeeklyGoalProgress: React.FC<WeeklyGoalProgressProps> = ({ classNam
   }
 
   return (
-    <div className={cn('space-y-3 rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800', className)}>
+    <div className={cn('space-y-3 rounded-lg border border-border bg-surface-primary p-4', className)}>
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Calendar className="h-5 w-5 text-purple-500" />
-          <h3 className="font-semibold text-gray-900 dark:text-white">Weekly Goal</h3>
+          <h3 className="font-semibold text-content-primary">Weekly Goal</h3>
         </div>
         {isGoalMet && <CheckCircle2 className="h-5 w-5 text-green-500" />}
       </div>
@@ -105,15 +105,15 @@ export const WeeklyGoalProgress: React.FC<WeeklyGoalProgressProps> = ({ classNam
       {/* Goal Info */}
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <span className="text-sm text-gray-600 dark:text-gray-400">Tasks completed this week</span>
-          <span className="text-lg font-bold text-gray-900 dark:text-white">
+          <span className="text-sm text-content-secondary">Tasks completed this week</span>
+          <span className="text-lg font-bold text-content-primary">
             {totalCompleted}/{weeklyGoal}
           </span>
         </div>
 
         {/* Progress Bar */}
         <div className="space-y-1">
-          <div className="w-full h-4 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
+          <div className="w-full h-4 rounded-full bg-interactive-secondary overflow-hidden">
             <div
               className={cn(
                 'h-full transition-all duration-300',
@@ -124,7 +124,7 @@ export const WeeklyGoalProgress: React.FC<WeeklyGoalProgressProps> = ({ classNam
               style={{ width: `${Math.min(progressPercentage, 100)}%` }}
             />
           </div>
-          <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400">
+          <div className="flex justify-between text-xs text-content-tertiary">
             <span>0</span>
             <span>50%</span>
             <span>{weeklyGoal}</span>
@@ -134,7 +134,7 @@ export const WeeklyGoalProgress: React.FC<WeeklyGoalProgressProps> = ({ classNam
 
       {/* Day Breakdown */}
       <div className="space-y-1">
-        <p className="text-xs font-medium text-gray-600 dark:text-gray-400">Daily breakdown</p>
+        <p className="text-xs font-medium text-content-secondary">Daily breakdown</p>
         <div className="grid grid-cols-7 gap-1">
           {weeklyProgress.map((dayProgress, idx) => (
             <div key={idx} className="flex flex-col items-center">
@@ -148,7 +148,7 @@ export const WeeklyGoalProgress: React.FC<WeeklyGoalProgressProps> = ({ classNam
               >
                 {dayProgress.completed}
               </div>
-              <span className="mt-1 text-xs text-gray-500 dark:text-gray-400">{dayProgress.day}</span>
+              <span className="mt-1 text-xs text-content-tertiary">{dayProgress.day}</span>
             </div>
           ))}
         </div>
@@ -170,7 +170,7 @@ export const WeeklyGoalProgress: React.FC<WeeklyGoalProgressProps> = ({ classNam
             {weeklyGoal - totalCompleted} more task{weeklyGoal - totalCompleted !== 1 ? 's' : ''} to reach your weekly goal
           </p>
         ) : (
-          <p className="text-gray-600 dark:text-gray-400">Set a weekly goal to get started</p>
+          <p className="text-content-secondary">Set a weekly goal to get started</p>
         )}
       </div>
     </div>

@@ -10,7 +10,7 @@ interface LabelColorPickerProps {
 export function LabelColorPicker({ value, onChange }: LabelColorPickerProps) {
   return (
     <div className="space-y-2">
-      <label className="block text-sm font-medium text-gray-700">Color</label>
+      <label className="block text-sm font-medium text-content-secondary">Color</label>
       <div className="grid grid-cols-5 gap-2">
         {LABEL_COLORS.map((color) => (
           <button
@@ -18,7 +18,7 @@ export function LabelColorPicker({ value, onChange }: LabelColorPickerProps) {
             onClick={() => onChange(color)}
             className={cn(
               'h-10 rounded-lg border-2 transition-all',
-              value === color ? 'border-gray-900 ring-2 ring-offset-2 ring-gray-400' : 'border-transparent hover:opacity-80',
+              value === color ? 'border-content-primary ring-2 ring-offset-2 ring-content-tertiary' : 'border-transparent hover:opacity-80',
               LABEL_COLOR_MAP[color]
             )}
             title={color}

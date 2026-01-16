@@ -77,7 +77,7 @@ export function OverdueTasksReview({ onNext }: OverdueTasksReviewProps) {
           <div className="w-16 h-16 mb-4 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center">
             <Check className="w-8 h-8 text-green-500" />
           </div>
-          <p className="text-gray-500 dark:text-gray-400">
+          <p className="text-content-tertiary">
             Great job staying on top of your tasks!
           </p>
         </div>
@@ -100,8 +100,8 @@ export function OverdueTasksReview({ onNext }: OverdueTasksReviewProps) {
           <div
             key={task.id}
             className={cn(
-              'p-4 rounded-lg border bg-white dark:bg-gray-800',
-              'border-gray-200 dark:border-gray-700'
+              'p-4 rounded-lg border bg-surface-primary',
+              'border-border'
             )}
           >
             <div className="flex items-start gap-3">
@@ -112,7 +112,7 @@ export function OverdueTasksReview({ onNext }: OverdueTasksReviewProps) {
                 )}
               />
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                <p className="text-sm font-medium text-content-primary truncate">
                   {task.content}
                 </p>
                 {task.dueDate && (
@@ -164,7 +164,7 @@ export function OverdueTasksReview({ onNext }: OverdueTasksReviewProps) {
           </div>
         ))}
       </div>
-      <div className="mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
+      <div className="mt-6 pt-4 border-t border-border">
         <Button onClick={onNext} variant="primary" className="w-full">
           Continue
         </Button>

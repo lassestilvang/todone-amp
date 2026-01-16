@@ -44,10 +44,10 @@ export const ReportGenerator: React.FC<ReportGeneratorProps> = ({ className }) =
   return (
     <div className={cn('space-y-6', className)}>
       {/* Report Generator */}
-      <div className="rounded-lg border border-gray-200 p-6">
+      <div className="rounded-lg border border-border p-6">
         <div className="mb-4 flex items-center gap-2">
           <FileText className="h-5 w-5 text-blue-600" />
-          <h3 className="text-lg font-semibold text-gray-900">Generate Report</h3>
+          <h3 className="text-lg font-semibold text-content-primary">Generate Report</h3>
         </div>
 
         {error && (
@@ -61,28 +61,28 @@ export const ReportGenerator: React.FC<ReportGeneratorProps> = ({ className }) =
           {/* Date Range */}
           <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
             <div>
-              <label className="block text-sm font-medium text-gray-700">Start Date</label>
+              <label className="block text-sm font-medium text-content-secondary">Start Date</label>
               <input
                 type="date"
                 value={dateRange.start}
                 onChange={(e) => setDateRange({ ...dateRange, start: e.target.value })}
-                className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm"
+                className="mt-1 w-full rounded-lg border border-border px-3 py-2 text-sm"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700">End Date</label>
+              <label className="block text-sm font-medium text-content-secondary">End Date</label>
               <input
                 type="date"
                 value={dateRange.end}
                 onChange={(e) => setDateRange({ ...dateRange, end: e.target.value })}
-                className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm"
+                className="mt-1 w-full rounded-lg border border-border px-3 py-2 text-sm"
               />
             </div>
           </div>
 
           {/* Format Selection */}
           <div>
-            <label className="block text-sm font-medium text-gray-700">Report Format</label>
+            <label className="block text-sm font-medium text-content-secondary">Report Format</label>
             <div className="mt-2 flex gap-4">
               <label className="flex items-center gap-2">
                 <input
@@ -92,7 +92,7 @@ export const ReportGenerator: React.FC<ReportGeneratorProps> = ({ className }) =
                   onChange={(e) => setFormat(e.target.value as 'csv' | 'pdf')}
                   className="h-4 w-4"
                 />
-                <span className="text-sm text-gray-700">CSV</span>
+                <span className="text-sm text-content-secondary">CSV</span>
               </label>
               <label className="flex items-center gap-2">
                 <input
@@ -102,7 +102,7 @@ export const ReportGenerator: React.FC<ReportGeneratorProps> = ({ className }) =
                   onChange={(e) => setFormat(e.target.value as 'csv' | 'pdf')}
                   className="h-4 w-4"
                 />
-                <span className="text-sm text-gray-700">PDF</span>
+                <span className="text-sm text-content-secondary">PDF</span>
               </label>
             </div>
           </div>
@@ -125,14 +125,14 @@ export const ReportGenerator: React.FC<ReportGeneratorProps> = ({ className }) =
 
       {/* Previous Reports */}
       {reports && reports.length > 0 && (
-        <div className="rounded-lg border border-gray-200 p-6">
-          <h3 className="mb-4 text-lg font-semibold text-gray-900">Previous Reports</h3>
+        <div className="rounded-lg border border-border p-6">
+          <h3 className="mb-4 text-lg font-semibold text-content-primary">Previous Reports</h3>
 
           <div className="space-y-2">
             {reports.map((report) => (
               <div
                 key={report.id}
-                className="flex items-center justify-between rounded-lg border border-gray-200 p-3 hover:bg-gray-50"
+                className="flex items-center justify-between rounded-lg border border-border p-3 hover:bg-surface-tertiary"
               >
                 <div className="flex items-center gap-3">
                   {report.status === 'completed' ? (
@@ -140,11 +140,11 @@ export const ReportGenerator: React.FC<ReportGeneratorProps> = ({ className }) =
                   ) : report.status === 'failed' ? (
                     <AlertCircle className="h-5 w-5 text-red-600" />
                   ) : (
-                    <Loader2 className="h-5 w-5 animate-spin text-gray-400" />
+                    <Loader2 className="h-5 w-5 animate-spin text-content-tertiary" />
                   )}
                   <div>
-                    <p className="text-sm font-medium text-gray-900">{report.title}</p>
-                    <p className="text-xs text-gray-600">
+                    <p className="text-sm font-medium text-content-primary">{report.title}</p>
+                    <p className="text-xs text-content-secondary">
                       <Calendar className="mr-1 inline h-3 w-3" />
                       {new Date(report.generatedAt).toLocaleDateString()} at{' '}
                       {new Date(report.generatedAt).toLocaleTimeString()}
@@ -155,7 +155,7 @@ export const ReportGenerator: React.FC<ReportGeneratorProps> = ({ className }) =
                 {report.status === 'completed' && report.fileUrl && (
                   <button
                     onClick={() => handleDownload(report)}
-                    className="rounded-lg border border-gray-300 bg-white px-3 py-1 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                    className="rounded-lg border border-border bg-surface-primary px-3 py-1 text-sm font-medium text-content-secondary hover:bg-surface-tertiary"
                   >
                     <Download className="h-4 w-4" />
                   </button>

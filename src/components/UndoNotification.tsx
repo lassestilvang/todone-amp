@@ -58,13 +58,13 @@ export function UndoNotification() {
   }
 
   return (
-    <div className="fixed bottom-4 left-4 bg-white border border-gray-200 rounded-lg shadow-lg p-4 flex items-center gap-3 max-w-md z-40">
+    <div className="fixed bottom-4 left-4 bg-surface-primary border border-border rounded-lg shadow-lg p-4 flex items-center gap-3 max-w-md z-40">
       <div className="flex-1">
-        <p className="text-sm font-medium text-gray-900">
+        <p className="text-sm font-medium text-content-primary">
           Deleted "{latestDeleted.task.content}"
         </p>
         {remainingTasks > 0 && (
-          <p className="text-xs text-gray-500">{remainingTasks} more in undo history</p>
+          <p className="text-xs text-content-tertiary">{remainingTasks} more in undo history</p>
         )}
       </div>
 
@@ -75,7 +75,7 @@ export function UndoNotification() {
 
       <button
         onClick={handleDismiss}
-        className="p-1 hover:bg-gray-100 rounded transition-colors"
+        className="p-1 hover:bg-surface-tertiary rounded transition-colors"
         aria-label="Dismiss"
       >
         <X size={16} />

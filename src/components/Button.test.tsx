@@ -14,19 +14,19 @@ describe('Button Component', () => {
     it('should render with all variant styles', () => {
       const { rerender } = render(<Button variant="primary">Primary</Button>)
       let button = screen.getByText('Primary')
-      expect(button).toHaveClass('bg-brand-600')
+      expect(button).toHaveClass('bg-interactive-primary')
 
       rerender(<Button variant="secondary">Secondary</Button>)
       button = screen.getByText('Secondary')
-      expect(button).toHaveClass('bg-gray-200')
+      expect(button).toHaveClass('bg-interactive-secondary')
 
       rerender(<Button variant="ghost">Ghost</Button>)
       button = screen.getByText('Ghost')
-      expect(button).toHaveClass('text-gray-700')
+      expect(button).toHaveClass('text-content-secondary')
 
       rerender(<Button variant="danger">Danger</Button>)
       button = screen.getByText('Danger')
-      expect(button).toHaveClass('bg-red-600')
+      expect(button).toHaveClass('bg-semantic-error')
     })
 
     it('should render with all size variants', () => {
@@ -114,7 +114,7 @@ describe('Button Component', () => {
     it('should have focus visible ring', () => {
       render(<Button>Focusable</Button>)
       const button = screen.getByRole('button')
-      expect(button).toHaveClass('focus:ring-2', 'focus:ring-brand-500')
+      expect(button).toHaveClass('focus:ring-2', 'focus:ring-focus')
     })
 
     it('should be keyboard accessible', async () => {

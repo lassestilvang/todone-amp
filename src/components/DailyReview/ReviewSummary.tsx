@@ -84,11 +84,11 @@ export function ReviewSummary({ onComplete, type }: ReviewSummaryProps) {
 
           <div className="grid grid-cols-2 gap-3">
             {isMorning && reviewedOverdueTaskIds.length > 0 && (
-              <div className="p-3 rounded-lg bg-gray-100 dark:bg-gray-800 text-center">
-                <p className="text-2xl font-bold text-gray-900 dark:text-white">
+              <div className="p-3 rounded-lg bg-surface-tertiary text-center">
+                <p className="text-2xl font-bold text-content-primary">
                   {reviewedOverdueTaskIds.length}
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Overdue Reviewed</p>
+                <p className="text-xs text-content-tertiary">Overdue Reviewed</p>
               </div>
             )}
 
@@ -100,7 +100,7 @@ export function ReviewSummary({ onComplete, type }: ReviewSummaryProps) {
                 <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
                   {rescheduledTaskIds.length}
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Rescheduled</p>
+                <p className="text-xs text-content-tertiary">Rescheduled</p>
               </div>
             )}
 
@@ -112,14 +112,14 @@ export function ReviewSummary({ onComplete, type }: ReviewSummaryProps) {
                 <p className="text-2xl font-bold text-green-600 dark:text-green-400">
                   {completedCount}
                 </p>
-                <p className="text-xs text-gray-500 dark:text-gray-400">Completed Today</p>
+                <p className="text-xs text-content-tertiary">Completed Today</p>
               </div>
             )}
           </div>
         </div>
       </div>
 
-      <div className="mt-auto pt-4 border-t border-gray-200 dark:border-gray-700">
+      <div className="mt-auto pt-4 border-t border-border">
         <Button onClick={onComplete} variant="primary" className="w-full">
           {isMorning ? 'Start My Day' : 'Finish Review'}
         </Button>

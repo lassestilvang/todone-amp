@@ -22,19 +22,19 @@ export const CompletionStats: React.FC<CompletionStatsProps> = ({ className }) =
     return (
       <div
         className={cn(
-          'flex items-center justify-center rounded-lg border border-gray-200 p-6',
+          'flex items-center justify-center rounded-lg border border-border p-6',
           className
         )}
       >
-        <Loader2 className="h-6 w-6 animate-spin text-gray-400" />
+        <Loader2 className="h-6 w-6 animate-spin text-content-tertiary" />
       </div>
     )
   }
 
   if (!completionStats) {
     return (
-      <div className={cn('rounded-lg border border-gray-200 p-6 text-center', className)}>
-        <p className="text-sm text-gray-600">No data available</p>
+      <div className={cn('rounded-lg border border-border p-6 text-center', className)}>
+        <p className="text-sm text-content-secondary">No data available</p>
       </div>
     )
   }
@@ -43,21 +43,21 @@ export const CompletionStats: React.FC<CompletionStatsProps> = ({ className }) =
     <div className={cn('space-y-4', className)}>
       <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
         {/* Total Tasks */}
-        <div className="rounded-lg border border-gray-200 p-4">
+        <div className="rounded-lg border border-border p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs font-medium text-gray-600">Total Tasks</p>
-              <p className="mt-2 text-2xl font-bold text-gray-900">{completionStats.totalTasks}</p>
+              <p className="text-xs font-medium text-content-secondary">Total Tasks</p>
+              <p className="mt-2 text-2xl font-bold text-content-primary">{completionStats.totalTasks}</p>
             </div>
             <Calendar className="h-8 w-8 text-blue-100" />
           </div>
         </div>
 
         {/* Completed Tasks */}
-        <div className="rounded-lg border border-gray-200 p-4">
+        <div className="rounded-lg border border-border p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs font-medium text-gray-600">Completed</p>
+              <p className="text-xs font-medium text-content-secondary">Completed</p>
               <p className="mt-2 text-2xl font-bold text-green-600">
                 {completionStats.completedTasks}
               </p>
@@ -67,11 +67,11 @@ export const CompletionStats: React.FC<CompletionStatsProps> = ({ className }) =
         </div>
 
         {/* Completion Rate */}
-        <div className="rounded-lg border border-gray-200 p-4">
+        <div className="rounded-lg border border-border p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs font-medium text-gray-600">Completion Rate</p>
-              <p className="mt-2 text-2xl font-bold text-gray-900">
+              <p className="text-xs font-medium text-content-secondary">Completion Rate</p>
+              <p className="mt-2 text-2xl font-bold text-content-primary">
                 {completionStats.completionRate.toFixed(1)}%
               </p>
             </div>
@@ -80,11 +80,11 @@ export const CompletionStats: React.FC<CompletionStatsProps> = ({ className }) =
         </div>
 
         {/* Average Per Week */}
-        <div className="rounded-lg border border-gray-200 p-4">
+        <div className="rounded-lg border border-border p-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-xs font-medium text-gray-600">Per Week</p>
-              <p className="mt-2 text-2xl font-bold text-gray-900">
+              <p className="text-xs font-medium text-content-secondary">Per Week</p>
+              <p className="mt-2 text-2xl font-bold text-content-primary">
                 {completionStats.averagePerWeek}
               </p>
             </div>
@@ -94,11 +94,11 @@ export const CompletionStats: React.FC<CompletionStatsProps> = ({ className }) =
       </div>
 
       {/* Daily Average */}
-      <div className="rounded-lg border border-gray-200 bg-gray-50 p-4">
-        <p className="text-sm font-medium text-gray-700">Daily Average</p>
+      <div className="rounded-lg border border-border bg-surface-secondary p-4">
+        <p className="text-sm font-medium text-content-secondary">Daily Average</p>
         <div className="mt-2 flex items-baseline gap-2">
-          <p className="text-3xl font-bold text-gray-900">{completionStats.averagePerDay}</p>
-          <p className="text-sm text-gray-600">tasks/day</p>
+          <p className="text-3xl font-bold text-content-primary">{completionStats.averagePerDay}</p>
+          <p className="text-sm text-content-secondary">tasks/day</p>
         </div>
       </div>
     </div>

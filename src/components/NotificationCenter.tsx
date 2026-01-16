@@ -120,7 +120,7 @@ export function NotificationCenter({ isOpen, onClose, className }: NotificationC
 
     return (
       <div>
-        <div className="sticky top-0 bg-gray-50 dark:bg-gray-800 px-4 py-2 text-xs font-semibold text-gray-600 dark:text-gray-400 uppercase tracking-wider border-b border-gray-200 dark:border-gray-700">
+        <div className="sticky top-0 bg-surface-secondary px-4 py-2 text-xs font-semibold text-content-secondary uppercase tracking-wider border-b border-border">
           {title}
         </div>
         <div className="space-y-0">
@@ -131,10 +131,10 @@ export function NotificationCenter({ isOpen, onClose, className }: NotificationC
               <div
                 key={notification.id}
                 className={cn(
-                  'flex items-start gap-3 border-b border-gray-100 p-4 transition-colors dark:border-gray-800',
+                  'flex items-start gap-3 border-b border-border p-4 transition-colors',
                   !notification.read
                     ? 'bg-blue-50 dark:bg-gray-800/50'
-                    : 'hover:bg-gray-50 dark:hover:bg-gray-800/30'
+                    : 'hover:bg-surface-tertiary'
                 )}
               >
                 {/* Icon */}
@@ -147,8 +147,8 @@ export function NotificationCenter({ isOpen, onClose, className }: NotificationC
                       className={cn(
                         'text-sm',
                         !notification.read
-                          ? 'font-semibold text-gray-900 dark:text-white'
-                          : 'text-gray-700 dark:text-gray-300'
+                          ? 'font-semibold text-content-primary'
+                          : 'text-content-secondary'
                       )}
                     >
                       {notification.message}
@@ -158,10 +158,10 @@ export function NotificationCenter({ isOpen, onClose, className }: NotificationC
                     )}
                   </div>
                   <div className="flex items-center justify-between">
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                    <p className="text-xs text-content-tertiary">
                       {formatRelativeTime(notification.createdAt)}
                     </p>
-                    <span className="text-xs text-gray-400 dark:text-gray-500">
+                    <span className="text-xs text-content-tertiary">
                       {notificationTypeLabels[notification.type] || 'Notification'}
                     </span>
                   </div>
@@ -172,7 +172,7 @@ export function NotificationCenter({ isOpen, onClose, className }: NotificationC
                   {!notification.read && (
                     <button
                       onClick={() => handleMarkAsRead(notification.id)}
-                      className="rounded p-1 text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                      className="rounded p-1 text-content-tertiary hover:bg-interactive-secondary transition-colors"
                       title="Mark as read"
                     >
                       <CheckCircle className="h-4 w-4" />
@@ -180,14 +180,14 @@ export function NotificationCenter({ isOpen, onClose, className }: NotificationC
                   )}
                   <button
                     onClick={() => handleArchive(notification.id)}
-                    className="rounded p-1 text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                    className="rounded p-1 text-content-tertiary hover:bg-interactive-secondary transition-colors"
                     title="Archive"
                   >
                     <Archive className="h-4 w-4" />
                   </button>
                   <button
                     onClick={() => handleDelete(notification.id)}
-                    className="rounded p-1 text-gray-400 hover:bg-red-100 hover:text-red-600 dark:hover:bg-red-900 dark:hover:text-red-400 transition-colors"
+                    className="rounded p-1 text-content-tertiary hover:bg-red-100 hover:text-red-600 dark:hover:bg-red-900 dark:hover:text-red-400 transition-colors"
                     title="Delete"
                   >
                     <Trash2 className="h-4 w-4" />
@@ -207,36 +207,36 @@ export function NotificationCenter({ isOpen, onClose, className }: NotificationC
       <div className="fixed inset-0 bg-black bg-opacity-50" onClick={onClose} />
 
       {/* Panel */}
-      <div className="relative ml-auto flex w-full flex-col bg-white dark:bg-gray-900 sm:w-96 sm:shadow-lg">
+      <div className="relative ml-auto flex w-full flex-col bg-surface-primary sm:w-96 sm:shadow-lg">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-gray-200 p-4 dark:border-gray-700">
+        <div className="flex items-center justify-between border-b border-border p-4">
           <div>
-            <h2 className="text-lg font-semibold text-gray-900 dark:text-white">
+            <h2 className="text-lg font-semibold text-content-primary">
               Notifications
             </h2>
             {unreadCount > 0 && (
-              <p className="text-sm text-gray-500 dark:text-gray-400">
+              <p className="text-sm text-content-tertiary">
                 {unreadCount} unread
               </p>
             )}
           </div>
           <button
             onClick={onClose}
-            className="rounded p-1 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            className="rounded p-1 text-content-tertiary hover:bg-surface-tertiary transition-colors"
           >
             <X className="h-5 w-5" />
           </button>
         </div>
 
         {/* Filters */}
-        <div className="flex gap-2 border-b border-gray-200 p-4 dark:border-gray-700">
+        <div className="flex gap-2 border-b border-border p-4">
           <button
             onClick={() => setFilter('all')}
             className={cn(
               'rounded-full px-3 py-1 text-sm font-medium transition-colors',
               filter === 'all'
                 ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200'
-                : 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                : 'bg-surface-tertiary text-content-secondary hover:bg-interactive-secondary'
             )}
           >
             All
@@ -247,7 +247,7 @@ export function NotificationCenter({ isOpen, onClose, className }: NotificationC
               'rounded-full px-3 py-1 text-sm font-medium transition-colors',
               filter === 'unread'
                 ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200'
-                : 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                : 'bg-surface-tertiary text-content-secondary hover:bg-interactive-secondary'
             )}
           >
             Unread
@@ -266,8 +266,8 @@ export function NotificationCenter({ isOpen, onClose, className }: NotificationC
         <div className="flex-1 overflow-y-auto">
           {visibleNotifications.length === 0 ? (
             <div className="flex flex-col items-center justify-center p-8 text-center">
-              <Bell className="h-12 w-12 text-gray-300 dark:text-gray-600 mb-2" />
-              <p className="text-gray-500 dark:text-gray-400">
+              <Bell className="h-12 w-12 text-content-tertiary mb-2" />
+              <p className="text-content-tertiary">
                 {filter === 'unread' ? 'No unread notifications' : 'No notifications'}
               </p>
             </div>

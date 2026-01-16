@@ -34,14 +34,14 @@ export function AdvancedFilterBuilder({
   return (
     <div className="space-y-4">
       {/* Mode Toggle */}
-      <div className="flex gap-2 border-b border-gray-200">
+      <div className="flex gap-2 border-b border-border">
         <button
           onClick={() => setMode('simple')}
           className={cn(
             'px-4 py-2 text-sm font-medium transition-colors',
             mode === 'simple'
               ? 'text-brand-600 border-b-2 border-brand-600'
-              : 'text-gray-600 hover:text-gray-900'
+              : 'text-content-secondary hover:text-content-primary'
           )}
         >
           Simple
@@ -52,7 +52,7 @@ export function AdvancedFilterBuilder({
             'px-4 py-2 text-sm font-medium transition-colors',
             mode === 'advanced'
               ? 'text-brand-600 border-b-2 border-brand-600'
-              : 'text-gray-600 hover:text-gray-900'
+              : 'text-content-secondary hover:text-content-primary'
           )}
         >
           Advanced
@@ -63,7 +63,7 @@ export function AdvancedFilterBuilder({
       {mode === 'simple' && (
         <div className="space-y-3">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-content-secondary mb-1">
               Quick Filters
             </label>
             <div className="space-y-2">
@@ -85,10 +85,10 @@ export function AdvancedFilterBuilder({
         <div className="space-y-3">
           <div>
             <div className="flex items-center justify-between mb-2">
-              <label className="block text-sm font-medium text-gray-700">Query</label>
+              <label className="block text-sm font-medium text-content-secondary">Query</label>
               <button
                 onClick={() => setShowHelp(!showHelp)}
-                className="p-1 text-gray-500 hover:text-gray-700 rounded transition-colors"
+                className="p-1 text-content-tertiary hover:text-content-secondary rounded transition-colors"
                 title="Help"
               >
                 <HelpCircle size={16} />
@@ -100,8 +100,8 @@ export function AdvancedFilterBuilder({
               placeholder='e.g., priority:p1 AND status:active'
               rows={3}
               className={cn(
-                'w-full px-3 py-2 border border-gray-300 rounded-lg',
-                'text-sm font-mono placeholder-gray-400',
+                'w-full px-3 py-2 border border-border rounded-lg',
+                'text-sm font-mono placeholder-content-tertiary',
                 'focus:outline-none focus:ring-2 focus:ring-brand-500'
               )}
             />
@@ -143,22 +143,22 @@ export function AdvancedFilterBuilder({
           <div className="relative">
             <button
               onClick={() => setShowSuggestions(!showSuggestions)}
-              className="w-full px-3 py-2 text-left text-sm border border-gray-300 rounded-lg hover:border-gray-400 flex items-center justify-between bg-gray-50"
+              className="w-full px-3 py-2 text-left text-sm border border-border rounded-lg hover:border-border flex items-center justify-between bg-surface-secondary"
             >
-              <span className="text-gray-600">Suggested filters</span>
+              <span className="text-content-secondary">Suggested filters</span>
               <ChevronDown
                 size={16}
-                className={cn('text-gray-400 transition-transform', showSuggestions && 'rotate-180')}
+                className={cn('text-content-tertiary transition-transform', showSuggestions && 'rotate-180')}
               />
             </button>
 
             {showSuggestions && (
-              <div className="absolute top-full left-0 right-0 z-10 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg max-h-64 overflow-y-auto">
+              <div className="absolute top-full left-0 right-0 z-10 mt-1 bg-surface-primary border border-border rounded-lg shadow-lg max-h-64 overflow-y-auto">
                 {suggestions.map((suggestion) => (
                   <button
                     key={suggestion}
                     onClick={() => applySuggestion(suggestion)}
-                    className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 border-b border-gray-100 last:border-b-0 transition-colors font-mono"
+                    className="w-full text-left px-3 py-2 text-sm text-content-secondary hover:bg-surface-tertiary border-b border-border last:border-b-0 transition-colors font-mono"
                   >
                     {suggestion}
                   </button>
@@ -170,7 +170,7 @@ export function AdvancedFilterBuilder({
       )}
 
       {/* Action Buttons */}
-      <div className="flex gap-2 pt-4 border-t border-gray-200">
+      <div className="flex gap-2 pt-4 border-t border-border">
         <button
           onClick={handleApply}
           disabled={!query.trim()}
@@ -178,14 +178,14 @@ export function AdvancedFilterBuilder({
             'flex-1 px-4 py-2 rounded-lg font-medium transition-colors',
             query.trim()
               ? 'bg-brand-600 text-white hover:bg-brand-700'
-              : 'bg-gray-200 text-gray-500 cursor-not-allowed'
+              : 'bg-interactive-secondary text-content-tertiary cursor-not-allowed'
           )}
         >
           Apply Filter
         </button>
         <button
           onClick={onCancel}
-          className="flex-1 px-4 py-2 text-gray-700 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition-colors"
+          className="flex-1 px-4 py-2 text-content-secondary border border-border rounded-lg font-medium hover:bg-surface-tertiary transition-colors"
         >
           Cancel
         </button>
@@ -204,13 +204,13 @@ function FilterQuickButton({ label, onClick }: FilterQuickButtonProps) {
     <button
       onClick={onClick}
       className={cn(
-        'w-full px-3 py-2 text-left text-sm border border-gray-300 rounded-lg',
+        'w-full px-3 py-2 text-left text-sm border border-border rounded-lg',
         'hover:border-brand-500 hover:bg-brand-50 transition-colors',
-        'font-medium text-gray-700 flex items-center justify-between'
+        'font-medium text-content-secondary flex items-center justify-between'
       )}
     >
       <span>{label}</span>
-      <Plus size={16} className="text-gray-400" />
+      <Plus size={16} className="text-content-tertiary" />
     </button>
   )
 }

@@ -36,24 +36,24 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) =
   const sidebarWidth = shouldShowCollapsed ? 'w-16' : 'w-64'
 
   return (
-    <div className={cn('bg-white border-r border-gray-200 flex flex-col h-screen transition-all duration-300', sidebarWidth)}>
+    <div className={cn('bg-surface-primary border-r border-border flex flex-col h-screen transition-all duration-300', sidebarWidth)}>
       {/* Header */}
-      <div className="px-4 py-4 border-b border-gray-200 flex items-center justify-between">
+      <div className="px-4 py-4 border-b border-border flex items-center justify-between">
         {!shouldShowCollapsed && (
           <div className="flex items-center gap-2 flex-1">
             <div className="w-8 h-8 rounded-lg bg-brand-600 flex items-center justify-center text-white font-bold">
               T
             </div>
             <div>
-              <h1 className="font-bold text-gray-900">Todone</h1>
-              <p className="text-xs text-gray-500">From to-do to todone</p>
+              <h1 className="font-bold text-content-primary">Todone</h1>
+              <p className="text-xs text-content-tertiary">From to-do to todone</p>
             </div>
           </div>
         )}
         {isTablet && (
           <button
             onClick={() => setIsCollapsed(!isCollapsed)}
-            className="p-1.5 hover:bg-gray-100 rounded transition-colors flex-shrink-0"
+            className="p-1.5 hover:bg-surface-tertiary rounded transition-colors flex-shrink-0"
             title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
             aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
           >
@@ -74,7 +74,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) =
                 shouldShowCollapsed && 'justify-center px-2',
                 currentView === id
                   ? 'bg-blue-100 text-blue-700'
-                  : 'text-gray-700 hover:bg-gray-100'
+                  : 'text-content-secondary hover:bg-surface-tertiary'
               )}
               title={shouldShowCollapsed ? label : undefined}
             >
@@ -93,13 +93,13 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) =
         {!shouldShowCollapsed && (
           <div className="mb-4">
             <div className="flex items-center justify-between px-3 py-2 mb-2">
-              <h3 className="text-xs font-semibold text-gray-600 uppercase">Projects</h3>
+              <h3 className="text-xs font-semibold text-content-secondary uppercase">Projects</h3>
               <button
                 onClick={() => setShowCreateProjectModal(true)}
-                className="p-1 hover:bg-gray-100 rounded transition-colors"
+                className="p-1 hover:bg-surface-tertiary rounded transition-colors"
                 title="Create new project"
               >
-                <Plus className="w-4 h-4 text-gray-400" />
+                <Plus className="w-4 h-4 text-content-tertiary" />
               </button>
             </div>
 
@@ -115,7 +115,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) =
                     'w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors text-left',
                     selectedProjectId === project.id
                       ? 'bg-blue-100 text-blue-700'
-                      : 'text-gray-700 hover:bg-gray-100'
+                      : 'text-content-secondary hover:bg-surface-tertiary'
                   )}
                   title={selectedProjectId === project.id ? project.name : undefined}
                 >
@@ -135,8 +135,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) =
         {!shouldShowCollapsed && labels.length > 0 && (
           <div className="mb-4">
             <div className="flex items-center gap-2 px-3 py-2 mb-2">
-              <Tag className="w-3 h-3 text-gray-400" />
-              <h3 className="text-xs font-semibold text-gray-600 uppercase">Labels</h3>
+              <Tag className="w-3 h-3 text-content-tertiary" />
+              <h3 className="text-xs font-semibold text-content-secondary uppercase">Labels</h3>
             </div>
 
             <div className="space-y-1">
@@ -148,7 +148,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) =
                     'w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors text-left',
                     currentView === `label-${label.id}`
                       ? 'bg-blue-100 text-blue-700'
-                      : 'text-gray-700 hover:bg-gray-100'
+                      : 'text-content-secondary hover:bg-surface-tertiary'
                   )}
                 >
                   <div
@@ -166,8 +166,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) =
         {!shouldShowCollapsed && (
           <div className="mb-4">
             <div className="flex items-center gap-2 px-3 py-2 mb-2">
-              <Sliders className="w-3 h-3 text-gray-400" />
-              <h3 className="text-xs font-semibold text-gray-600 uppercase">Filters</h3>
+              <Sliders className="w-3 h-3 text-content-tertiary" />
+              <h3 className="text-xs font-semibold text-content-secondary uppercase">Filters</h3>
             </div>
 
             <div className="space-y-1">
@@ -177,7 +177,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) =
                   'w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors text-left',
                   currentView === 'filter-completed'
                     ? 'bg-blue-100 text-blue-700'
-                    : 'text-gray-700 hover:bg-gray-100'
+                    : 'text-content-secondary hover:bg-surface-tertiary'
                 )}
               >
                 ✓ Completed
@@ -188,7 +188,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) =
                   'w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors text-left',
                   currentView === 'filter-overdue'
                     ? 'bg-blue-100 text-blue-700'
-                    : 'text-gray-700 hover:bg-gray-100'
+                    : 'text-content-secondary hover:bg-surface-tertiary'
                 )}
               >
                 ⚠ Overdue
@@ -200,15 +200,15 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) =
 
       {/* User Profile */}
       {user && (
-        <div className="px-4 py-4 border-t border-gray-200">
-          <div className={cn('flex items-center gap-2 p-2 rounded-md hover:bg-gray-100 cursor-pointer', shouldShowCollapsed && 'justify-center')}>
+        <div className="px-4 py-4 border-t border-border">
+          <div className={cn('flex items-center gap-2 p-2 rounded-md hover:bg-surface-tertiary cursor-pointer', shouldShowCollapsed && 'justify-center')}>
             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-brand-400 to-brand-600 text-white flex items-center justify-center text-sm font-bold flex-shrink-0">
               {user.name.charAt(0).toUpperCase()}
             </div>
             {!shouldShowCollapsed && (
               <div className="flex-1 min-w-0">
-                <p className="text-sm font-medium text-gray-900 truncate">{user.name}</p>
-                <p className="text-xs text-gray-500 truncate">{user.email}</p>
+                <p className="text-sm font-medium text-content-primary truncate">{user.name}</p>
+                <p className="text-xs text-content-tertiary truncate">{user.email}</p>
               </div>
             )}
           </div>

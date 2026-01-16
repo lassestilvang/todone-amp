@@ -113,20 +113,20 @@ export const RambleVoiceInput: React.FC = () => {
       {/* Header */}
       <div className="flex items-center gap-2">
         <Mic className="h-6 w-6 text-brand-500" />
-        <h2 className="text-xl font-semibold text-gray-900">Ramble</h2>
+        <h2 className="text-xl font-semibold text-content-primary">Ramble</h2>
         <span className="rounded-full bg-brand-100 px-2 py-1 text-xs font-medium text-brand-700">
           Pro
         </span>
       </div>
 
       {/* Description */}
-      <p className="text-sm text-gray-600">
+      <p className="text-sm text-content-secondary">
         Talk naturally about your tasks. AI understands context, extracts due dates, priorities,
         and creates organized tasks automatically.
       </p>
 
       {/* Recording Section */}
-      <div className="flex flex-col gap-4 rounded-lg border border-gray-200 bg-white p-6">
+      <div className="flex flex-col gap-4 rounded-lg border border-border bg-surface-primary p-6">
         {!transcript ? (
           <div className="flex flex-col items-center gap-4">
             <div className="flex h-24 w-24 items-center justify-center rounded-full bg-brand-50">
@@ -148,18 +148,18 @@ export const RambleVoiceInput: React.FC = () => {
             </div>
 
             <div className="text-center">
-              <p className="font-medium text-gray-900">
+              <p className="font-medium text-content-primary">
                 {isRecording ? 'Recording...' : 'Click to start talking'}
               </p>
               {isRecording && (
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-content-tertiary">
                   Speak naturally, mention dates, priorities, and details
                 </p>
               )}
             </div>
 
             {isProcessing && (
-              <div className="flex items-center gap-2 text-sm text-gray-600">
+              <div className="flex items-center gap-2 text-sm text-content-secondary">
                 <RefreshCw className="h-4 w-4 animate-spin" />
                 Processing audio...
               </div>
@@ -169,9 +169,9 @@ export const RambleVoiceInput: React.FC = () => {
           <div className="flex flex-col gap-4">
             {/* Transcript */}
             <div className="flex flex-col gap-2">
-              <label className="text-sm font-medium text-gray-900">Transcript</label>
-              <div className="rounded border border-gray-300 bg-gray-50 p-3">
-                <p className="text-sm text-gray-700">{transcript}</p>
+              <label className="text-sm font-medium text-content-primary">Transcript</label>
+              <div className="rounded border border-border bg-surface-secondary p-3">
+                <p className="text-sm text-content-secondary">{transcript}</p>
               </div>
             </div>
 
@@ -197,21 +197,21 @@ export const RambleVoiceInput: React.FC = () => {
       {/* Extracted Tasks */}
       {extractedTasks.length > 0 && (
         <div className="flex flex-col gap-4">
-          <h3 className="font-semibold text-gray-900">Extracted Tasks</h3>
+          <h3 className="font-semibold text-content-primary">Extracted Tasks</h3>
 
           <div className="flex flex-col gap-3">
             {extractedTasks.map((task, idx) => (
-              <div key={idx} className="flex flex-col gap-2 rounded-lg border border-gray-200 bg-white p-4">
+              <div key={idx} className="flex flex-col gap-2 rounded-lg border border-border bg-surface-primary p-4">
                 {/* Title */}
-                <h4 className="font-medium text-gray-900">{task.title}</h4>
+                <h4 className="font-medium text-content-primary">{task.title}</h4>
 
                 {/* Description */}
                 {task.description && (
-                  <p className="text-sm text-gray-600">{task.description}</p>
+                  <p className="text-sm text-content-secondary">{task.description}</p>
                 )}
 
                 {/* Metadata */}
-                <div className="flex flex-wrap gap-2 border-t border-gray-200 pt-2">
+                <div className="flex flex-wrap gap-2 border-t border-border pt-2">
                   {task.dueDate && (
                     <span className="inline-flex items-center rounded-full bg-blue-100 px-2 py-1 text-xs font-medium text-blue-800">
                       📅 {task.dueDate}
@@ -225,7 +225,7 @@ export const RambleVoiceInput: React.FC = () => {
                 </div>
 
                 {/* Action Button */}
-                <div className="flex gap-2 border-t border-gray-200 pt-2">
+                <div className="flex gap-2 border-t border-border pt-2">
                   <Button variant="primary" size="sm" className="flex-1">
                     <Check className="h-4 w-4" />
                     Create Task

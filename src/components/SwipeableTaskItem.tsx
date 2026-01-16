@@ -57,7 +57,7 @@ export const SwipeableTaskItem: React.FC<SwipeableTaskItemProps> = ({
   return (
     <div
       ref={containerRef}
-      className="relative overflow-hidden bg-white dark:bg-gray-800 rounded-lg mb-2"
+      className="relative overflow-hidden bg-surface-primary rounded-lg mb-2"
     >
       {/* Swipe background actions */}
       <div className="absolute inset-0 flex items-center justify-between px-4 pointer-events-none">

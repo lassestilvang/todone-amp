@@ -12,13 +12,12 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 
 const variants = {
   primary:
-    'bg-brand-600 text-white hover:bg-brand-700 active:bg-brand-800 dark:bg-brand-500 dark:hover:bg-brand-600 dark:active:bg-brand-700',
+    'bg-interactive-primary text-content-inverse hover:bg-interactive-primary-hover active:bg-interactive-primary-active',
   secondary:
-    'bg-gray-200 text-gray-900 hover:bg-gray-300 active:bg-gray-400 dark:bg-gray-700 dark:text-gray-100 dark:hover:bg-gray-600 dark:active:bg-gray-500',
-  ghost:
-    'text-gray-700 hover:bg-gray-100 active:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-800 dark:active:bg-gray-700',
+    'bg-interactive-secondary text-content-primary hover:bg-interactive-secondary-hover active:bg-interactive-secondary-active',
+  ghost: 'text-content-secondary hover:bg-surface-tertiary active:bg-interactive-secondary',
   danger:
-    'bg-red-600 text-white hover:bg-red-700 active:bg-red-800 dark:bg-red-500 dark:hover:bg-red-600 dark:active:bg-red-700',
+    'bg-semantic-error text-content-inverse hover:bg-red-700 active:bg-red-800 dark:hover:bg-red-600 dark:active:bg-red-500',
 }
 
 const sizes = {
@@ -38,7 +37,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled || isLoading}
         className={cn(
           'inline-flex items-center justify-center rounded-md font-medium transition-colors duration-150',
-          'focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900',
+          'focus:outline-none focus:ring-2 focus:ring-focus focus:ring-offset-2 focus:ring-offset-surface-primary',
           'disabled:opacity-50 disabled:cursor-not-allowed',
           variants[variant],
           sizes[size],

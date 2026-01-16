@@ -52,9 +52,9 @@ export const AchievementNotification: React.FC<AchievementNotificationProps> = (
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1">
               <Award className="w-4 h-4 text-amber-600 dark:text-amber-400 flex-shrink-0" />
-              <h3 className="font-bold text-gray-900 dark:text-white truncate">{name}</h3>
-            </div>
-            <p className="text-sm text-gray-700 dark:text-gray-300 mb-2">{description}</p>
+              <h3 className="font-bold text-content-primary truncate">{name}</h3>
+              </div>
+              <p className="text-sm text-content-secondary mb-2">{description}</p>
             <div className="flex items-center gap-1">
               <span className="text-xs font-semibold text-amber-600 dark:text-amber-400">
                 +{points} Karma
@@ -69,7 +69,7 @@ export const AchievementNotification: React.FC<AchievementNotificationProps> = (
             setIsVisible(false)
             onClose?.()
           }}
-          className="flex-shrink-0 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 transition-colors"
+          className="flex-shrink-0 text-content-tertiary hover:text-content-secondary transition-colors"
           aria-label="Close notification"
         >
           <X className="w-4 h-4" />

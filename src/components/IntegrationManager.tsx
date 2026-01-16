@@ -58,8 +58,8 @@ export const IntegrationManager: React.FC = () => {
     <div className="flex flex-col gap-6">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold text-gray-900">Integrations</h2>
-        <p className="text-sm text-gray-600">
+        <h2 className="text-xl font-semibold text-content-primary">Integrations</h2>
+        <p className="text-sm text-content-secondary">
           Connected: {integrations.filter((i) => i.isConnected).length} of {integrations.length}
         </p>
       </div>
@@ -72,12 +72,12 @@ export const IntegrationManager: React.FC = () => {
             className={`flex flex-col gap-3 rounded-lg border p-4 ${
               integration.isConnected
                 ? 'border-brand-200 bg-brand-50'
-                : 'border-gray-200 bg-white'
+                : 'border-border bg-surface-primary'
             }`}
           >
             {/* Icon and Title */}
             <div className="flex items-center justify-between">
-              <div className={`${integration.isConnected ? 'text-brand-500' : 'text-gray-400'}`}>
+              <div className={`${integration.isConnected ? 'text-brand-500' : 'text-content-tertiary'}`}>
                 {integration.icon}
               </div>
               {integration.isConnected && (
@@ -89,12 +89,12 @@ export const IntegrationManager: React.FC = () => {
 
             {/* Name and Description */}
             <div className="flex flex-col gap-1">
-              <h3 className="font-medium text-gray-900">{integration.name}</h3>
-              <p className="text-sm text-gray-600">{integration.description}</p>
+              <h3 className="font-medium text-content-primary">{integration.name}</h3>
+              <p className="text-sm text-content-secondary">{integration.description}</p>
             </div>
 
             {/* Actions */}
-            <div className="flex gap-2 border-t border-gray-200 pt-3">
+            <div className="flex gap-2 border-t border-border pt-3">
               {integration.isConnected ? (
                 <>
                   <Button
@@ -131,7 +131,7 @@ export const IntegrationManager: React.FC = () => {
 
             {/* Settings Panel */}
             {showSettings === integration.id && integration.isConnected && (
-              <div className="flex flex-col gap-3 border-t border-gray-200 pt-3">
+              <div className="flex flex-col gap-3 border-t border-border pt-3">
                 {integration.id === 'gmail' && (
                   <>
                     <label className="flex items-center gap-2">
@@ -140,7 +140,7 @@ export const IntegrationManager: React.FC = () => {
                         defaultChecked
                         className="h-4 w-4 rounded border-gray-300 text-brand-500"
                       />
-                      <span className="text-sm text-gray-700">Auto-create tasks from emails</span>
+                      <span className="text-sm text-content-secondary">Auto-create tasks from emails</span>
                     </label>
                     <label className="flex items-center gap-2">
                       <input
@@ -148,7 +148,7 @@ export const IntegrationManager: React.FC = () => {
                         defaultChecked
                         className="h-4 w-4 rounded border-gray-300 text-brand-500"
                       />
-                      <span className="text-sm text-gray-700">Extract due dates</span>
+                      <span className="text-sm text-content-secondary">Extract due dates</span>
                     </label>
                     <label className="flex items-center gap-2">
                       <input
@@ -156,9 +156,9 @@ export const IntegrationManager: React.FC = () => {
                         defaultChecked
                         className="h-4 w-4 rounded border-gray-300 text-brand-500"
                       />
-                      <span className="text-sm text-gray-700">Extract attachments</span>
+                      <span className="text-sm text-content-secondary">Extract attachments</span>
                     </label>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-content-tertiary">
                       Forward emails to: <code>add@todone.app</code>
                     </p>
                   </>
@@ -166,7 +166,7 @@ export const IntegrationManager: React.FC = () => {
 
                 {integration.id === 'zapier' && (
                   <>
-                    <p className="text-sm text-gray-700">
+                    <p className="text-sm text-content-secondary">
                       Create Zaps to connect Todone with your favorite apps
                     </p>
                     <Button variant="secondary" size="sm" className="w-full">
@@ -177,7 +177,7 @@ export const IntegrationManager: React.FC = () => {
 
                 {integration.id === 'chrome' && (
                   <>
-                    <p className="text-sm text-gray-700">Extension version: 1.0.0</p>
+                    <p className="text-sm text-content-secondary">Extension version: 1.0.0</p>
                     <Button variant="secondary" size="sm" className="w-full">
                       View in Chrome Web Store
                     </Button>
@@ -190,14 +190,14 @@ export const IntegrationManager: React.FC = () => {
       </div>
 
       {/* API Keys Section */}
-      <div className="flex flex-col gap-4 rounded-lg border border-gray-200 bg-white p-4">
-        <h3 className="font-semibold text-gray-900">API & Webhooks</h3>
+      <div className="flex flex-col gap-4 rounded-lg border border-border bg-surface-primary p-4">
+        <h3 className="font-semibold text-content-primary">API & Webhooks</h3>
 
         <div className="flex flex-col gap-3">
           <div className="flex flex-col gap-2">
-            <label className="text-xs font-medium text-gray-700">API Key</label>
+            <label className="text-xs font-medium text-content-secondary">API Key</label>
             <div className="flex items-center gap-2">
-              <code className="flex-1 rounded bg-gray-100 px-3 py-2 font-mono text-xs text-gray-700">
+              <code className="flex-1 rounded bg-surface-tertiary px-3 py-2 font-mono text-xs text-content-secondary">
                 todone_api_xxxxxxxxxxxxxxxxxxxxx
               </code>
               <Button variant="ghost" size="sm">
@@ -207,9 +207,9 @@ export const IntegrationManager: React.FC = () => {
           </div>
 
           <div className="flex flex-col gap-2">
-            <label className="text-xs font-medium text-gray-700">Webhook URL</label>
+            <label className="text-xs font-medium text-content-secondary">Webhook URL</label>
             <div className="flex items-center gap-2">
-              <code className="flex-1 rounded bg-gray-100 px-3 py-2 font-mono text-xs text-gray-700">
+              <code className="flex-1 rounded bg-surface-tertiary px-3 py-2 font-mono text-xs text-content-secondary">
                 https://todone.app/webhooks/xxxxx
               </code>
               <Button variant="ghost" size="sm">
@@ -218,7 +218,7 @@ export const IntegrationManager: React.FC = () => {
             </div>
           </div>
 
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-content-tertiary">
             Use these to build custom integrations or automate Todone workflows.{' '}
             <a href="#" className="text-brand-500 hover:underline">
               View API docs
@@ -228,31 +228,31 @@ export const IntegrationManager: React.FC = () => {
       </div>
 
       {/* Upcoming Integrations */}
-      <div className="flex flex-col gap-4 rounded-lg border border-gray-200 bg-gray-50 p-4">
-        <h3 className="font-semibold text-gray-900">Coming Soon</h3>
+      <div className="flex flex-col gap-4 rounded-lg border border-border bg-surface-secondary p-4">
+        <h3 className="font-semibold text-content-primary">Coming Soon</h3>
 
         <div className="flex flex-col gap-2">
           <div className="flex items-center gap-3">
-            <div className="h-8 w-8 rounded-lg bg-white" />
+            <div className="h-8 w-8 rounded-lg bg-surface-primary" />
             <div className="flex flex-col gap-1">
-              <p className="text-sm font-medium text-gray-700">Slack Integration</p>
-              <p className="text-xs text-gray-500">Manage tasks from Slack</p>
+              <p className="text-sm font-medium text-content-secondary">Slack Integration</p>
+              <p className="text-xs text-content-tertiary">Manage tasks from Slack</p>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="h-8 w-8 rounded-lg bg-white" />
+            <div className="h-8 w-8 rounded-lg bg-surface-primary" />
             <div className="flex flex-col gap-1">
-              <p className="text-sm font-medium text-gray-700">Microsoft Teams</p>
-              <p className="text-xs text-gray-500">Sync with Teams channels</p>
+              <p className="text-sm font-medium text-content-secondary">Microsoft Teams</p>
+              <p className="text-xs text-content-tertiary">Sync with Teams channels</p>
             </div>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="h-8 w-8 rounded-lg bg-white" />
+            <div className="h-8 w-8 rounded-lg bg-surface-primary" />
             <div className="flex flex-col gap-1">
-              <p className="text-sm font-medium text-gray-700">Linear Integration</p>
-              <p className="text-xs text-gray-500">Sync with Linear issues</p>
+              <p className="text-sm font-medium text-content-secondary">Linear Integration</p>
+              <p className="text-xs text-content-tertiary">Sync with Linear issues</p>
             </div>
           </div>
         </div>

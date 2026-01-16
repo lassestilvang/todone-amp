@@ -29,8 +29,8 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   if (!activeLayout) {
     return (
       <div className={cn('space-y-4', className)}>
-        <div className="rounded-lg border border-gray-200 bg-gray-50 p-8 text-center">
-          <p className="text-gray-600">No dashboard layout found. Create one to get started.</p>
+        <div className="rounded-lg border border-border bg-surface-secondary p-8 text-center">
+          <p className="text-content-secondary">No dashboard layout found. Create one to get started.</p>
           <button
             onClick={() => dashboardStore.createLayout(userId, 'My Dashboard')}
             className="mt-4 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
@@ -64,8 +64,8 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
       {/* Dashboard Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">{activeLayout.name}</h1>
-          <p className="mt-1 text-sm text-gray-600">Customize your dashboard layout</p>
+          <h1 className="text-3xl font-bold text-content-primary">{activeLayout.name}</h1>
+          <p className="mt-1 text-sm text-content-secondary">Customize your dashboard layout</p>
         </div>
 
         <div className="flex gap-2">
@@ -79,7 +79,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
           ) : (
             <button
               onClick={() => dashboardStore.setEditMode(true)}
-              className="flex items-center gap-2 rounded-lg border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+              className="flex items-center gap-2 rounded-lg border border-border px-4 py-2 text-sm font-medium text-content-secondary hover:bg-surface-tertiary"
             >
               <Edit2 className="h-4 w-4" />
               Edit Layout
@@ -94,13 +94,13 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
           <div
             key={widget.id}
             className={cn(
-              'rounded-lg border border-gray-200 bg-white overflow-hidden',
+              'rounded-lg border border-border bg-surface-primary overflow-hidden',
               dashboardStore.editMode && 'ring-2 ring-blue-400'
             )}
           >
             {/* Widget Header */}
-            <div className="flex items-center justify-between border-b border-gray-100 bg-gray-50 px-6 py-4">
-              <h3 className="font-semibold text-gray-900">
+            <div className="flex items-center justify-between border-b border-border bg-surface-secondary px-6 py-4">
+              <h3 className="font-semibold text-content-primary">
                 {widget.type === 'completion-stats' && 'Completion Stats'}
                 {widget.type === 'productivity-chart' && 'Productivity Chart'}
                 {widget.type === 'at-risk-tasks' && 'At-Risk Tasks'}
@@ -114,7 +114,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                       onClick={() =>
                         dashboardStore.toggleWidgetMinimize(activeLayout.id, widget.id)
                       }
-                      className="p-1 text-gray-600 hover:text-gray-900"
+                      className="p-1 text-content-secondary hover:text-content-primary"
                       title="Minimize"
                     >
                       <ChevronDown
@@ -149,8 +149,8 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
 
       {/* Add Widget Button (Edit Mode) */}
       {dashboardStore.editMode && (
-        <div className="rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 p-8 text-center">
-          <p className="text-sm font-medium text-gray-700 mb-4">Add a new widget</p>
+        <div className="rounded-lg border-2 border-dashed border-border bg-surface-secondary p-8 text-center">
+          <p className="text-sm font-medium text-content-secondary mb-4">Add a new widget</p>
 
           <div className="flex flex-wrap justify-center gap-2">
             {[
