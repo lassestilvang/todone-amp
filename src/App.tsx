@@ -8,7 +8,7 @@ import { useFilterStore } from '@/store/filterStore'
 import { useViewStore } from '@/store/viewStore'
 import { initializeQuickAddStore } from '@/store/quickAddStore'
 import { initializeDyslexiaFont } from '@/utils/dyslexiaFont'
-import { useTheme } from '@/hooks/useTheme'
+import { ThemeProvider } from '@/components/ThemeProvider'
 import { Sidebar } from '@/components/Sidebar'
 import { SkipNav } from '@/components/SkipNav'
 import { ResponsiveLayout } from '@/components/ResponsiveLayout'
@@ -46,8 +46,6 @@ function App() {
   const loadFilters = useFilterStore((state) => state.loadFilters)
   const selectedView = useViewStore((state) => state.selectedView)
   const setSelectedView = useViewStore((state) => state.setSelectedView)
-
-  useTheme()
 
   useKeyboardShortcuts(null)
 
@@ -132,30 +130,32 @@ function App() {
   }
 
   return (
-    <DragDropContextProvider>
-      <SkipNav />
-      <ResponsiveLayout
-        sidebar={
-          <div id="sidebar" role="navigation" aria-label="Main navigation" tabIndex={-1}>
-            <Sidebar currentView={currentView} onViewChange={handleViewChange} />
-          </div>
-        }
-        mobileNav={
-          <MobileNavigation currentView={currentView} onViewChange={handleViewChange} />
-        }
-      >
-        <main id="main-content" className="flex-1 flex flex-col overflow-hidden" tabIndex={-1}>
-          {renderView()}
-        </main>
-      </ResponsiveLayout>
-      <TaskDetailPanel />
-      <QuickAddModal />
-      <KeyboardShortcutsHelp />
-      <UndoNotification />
-      <AchievementNotificationCenter />
-      {user && <FocusModeWidget userId={user.id} />}
-      {user && <DailyReviewModal userId={user.id} />}
-    </DragDropContextProvider>
+    <ThemeProvider>
+      <DragDropContextProvider>
+        <SkipNav />
+        <ResponsiveLayout
+          sidebar={
+            <div id="sidebar" role="navigation" aria-label="Main navigation" tabIndex={-1}>
+              <Sidebar currentView={currentView} onViewChange={handleViewChange} />
+            </div>
+          }
+          mobileNav={
+            <MobileNavigation currentView={currentView} onViewChange={handleViewChange} />
+          }
+        >
+          <main id="main-content" className="flex-1 flex flex-col overflow-hidden" tabIndex={-1}>
+            {renderView()}
+          </main>
+        </ResponsiveLayout>
+        <TaskDetailPanel />
+        <QuickAddModal />
+        <KeyboardShortcutsHelp />
+        <UndoNotification />
+        <AchievementNotificationCenter />
+        {user && <FocusModeWidget userId={user.id} />}
+        {user && <DailyReviewModal userId={user.id} />}
+      </DragDropContextProvider>
+    </ThemeProvider>
   )
 }
 

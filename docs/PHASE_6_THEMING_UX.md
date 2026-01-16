@@ -41,7 +41,7 @@ This phase focuses on implementing a robust, accessible theming system with dark
 | T6.1.1 | Create unified CSS custom property system for all color tokens | High | ✅ |
 | T6.1.2 | Migrate hardcoded Tailwind colors to CSS variables | High | ✅ |
 | T6.1.3 | Define semantic color tokens (e.g., `--color-surface`, `--color-on-surface`) | High | ✅ |
-| T6.1.4 | Create `ThemeProvider` component to wrap app initialization | Medium | ⬜ |
+| T6.1.4 | Create `ThemeProvider` component to wrap app initialization | Medium | ✅ |
 | T6.1.5 | Add smooth transition animation for theme changes (150-200ms) | Medium | ⬜ |
 | T6.1.6 | Prevent flash of wrong theme on initial load (SSR/hydration) | High | ⬜ |
 
@@ -399,17 +399,15 @@ Fixed: CalendarIntegration.test, FloatingActionButton.test, ProjectSharing.test,
 
 ### Phase 2: Theme Infrastructure (Priority: High)
 
-#### Task NS-5: Create ThemeProvider Component (T6.1.4)
-**Description:** Create a React context provider that initializes theme on app mount, syncs with system preferences, and provides theme utilities to components.
+#### ✅ Task NS-5: Create ThemeProvider Component (T6.1.4) - COMPLETED
+**Description:** Created a React context provider that initializes theme on app mount, syncs with system preferences, and provides theme utilities to components.
 
-**Requirements:**
-- Wrap app in `main.tsx` or `App.tsx`
-- Call `useThemeStore().initialize()` on mount
-- Apply theme class to document root
-- Listen for system preference changes
-- Provide `useTheme()` hook for components
-
-**File:** `src/components/ThemeProvider.tsx`
+**Implemented:**
+- Created `src/contexts/ThemeContext.ts` with `ThemeContextValue` interface and context
+- Created `src/components/ThemeProvider.tsx` that wraps app and manages theme classes
+- Updated `src/hooks/useTheme.ts` to use the new context
+- Wrapped App content in `ThemeProvider` in `src/App.tsx`
+- Theme initialization, system preference listening, and DOM class management all working
 
 ---
 
@@ -548,6 +546,7 @@ npm run storybook
 
 | Date | Change | Author |
 |------|--------|--------|
+| 2026-01-16 | T6.1.4: COMPLETED - Created ThemeProvider component with context. Added `src/contexts/ThemeContext.ts`, `src/components/ThemeProvider.tsx`, updated `useTheme` hook to use context, wrapped App in ThemeProvider. All tests pass. | Amp |
 | 2026-01-16 | T6.1.2: COMPLETED - Migrated remaining 47 files (DailyReview, Eisenhower, FocusMode, Habits, misc components). Only 20 intentional hardcoded colors remain (fullscreen dark theme, stories, p4 priority). All 1658 tests pass. | Amp |
 | 2026-01-16 | T6.1.2: Partial completion - migrated T-Z components, UI library, pages/views, fixed tests; 47 files remaining (DailyReview, Eisenhower, FocusMode, Habits, misc) | Amp |
 | 2026-01-16 | T6.1.2: Migrated ~93 component files to semantic tokens; ~68 files remaining; 6 tests need updates | Amp |
