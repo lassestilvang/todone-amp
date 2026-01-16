@@ -80,7 +80,7 @@ export const AtRiskTasks: React.FC<AtRiskTasksProps> = ({ className }) => {
                   >
                     {task.priority.toUpperCase()}
                   </span>
-                  <span className="text-xs text-gray-600">
+                  <span className="text-xs text-content-secondary">
                     {task.daysOverdue > 0
                       ? `${task.daysOverdue} days overdue`
                       : `Due ${new Date(task.dueDate).toLocaleDateString()}`}

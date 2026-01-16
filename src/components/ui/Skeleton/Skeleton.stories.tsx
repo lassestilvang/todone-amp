@@ -66,7 +66,7 @@ export const AvatarSizes: Story = {
 
 export const TaskSkeleton: Story = {
   render: () => (
-    <div className="w-96 p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+    <div className="w-96 p-4 bg-surface-primary rounded-lg border border-border">
       <div className="flex items-center gap-3">
         <Skeleton variant="circular" width={20} height={20} />
         <div className="flex-1">
@@ -85,7 +85,7 @@ export const TaskListSkeleton: Story = {
       {Array.from({ length: 4 }).map((_, i) => (
         <div
           key={i}
-          className="p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700"
+          className="p-4 bg-surface-primary rounded-lg border border-border"
         >
           <div className="flex items-center gap-3">
             <Skeleton variant="circular" width={20} height={20} />
@@ -102,7 +102,7 @@ export const TaskListSkeleton: Story = {
 
 export const CardSkeleton: Story = {
   render: () => (
-    <div className="w-80 p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
+    <div className="w-80 p-4 bg-surface-primary rounded-lg border border-border">
       <div className="flex items-center gap-3 mb-4">
         <SkeletonAvatar size="md" />
         <div className="flex-1">

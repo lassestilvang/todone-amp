@@ -45,13 +45,13 @@ export const AuthPage: React.FC = () => {
           <div className="w-16 h-16 rounded-xl bg-brand-600 flex items-center justify-center text-white font-bold text-3xl mx-auto mb-4 shadow-lg">
             T
           </div>
-          <h1 className="text-3xl font-bold text-gray-900">Todone</h1>
-          <p className="text-gray-600 mt-2">From to-do to todone</p>
+          <h1 className="text-3xl font-bold text-content-primary">Todone</h1>
+          <p className="text-content-secondary mt-2">From to-do to todone</p>
         </div>
 
         {/* Card */}
-        <div className="bg-white rounded-xl shadow-xl p-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+        <div className="bg-surface-primary rounded-xl shadow-xl p-8">
+          <h2 className="text-2xl font-bold text-content-primary mb-6 text-center">
             {isSignup ? 'Create Account' : 'Welcome Back'}
           </h2>
 
@@ -99,7 +99,7 @@ export const AuthPage: React.FC = () => {
           </form>
 
           {/* Toggle Auth Mode */}
-          <p className="text-center text-gray-600 text-sm mt-6">
+          <p className="text-center text-content-secondary text-sm mt-6">
             {isSignup ? 'Already have an account?' : "Don't have an account?"}{' '}
             <button
               onClick={() => {
@@ -118,7 +118,7 @@ export const AuthPage: React.FC = () => {
 
         {/* Demo Credentials */}
         <div className="mt-6 p-4 bg-white/50 backdrop-blur rounded-lg">
-          <p className="text-xs text-gray-600 text-center">
+          <p className="text-xs text-content-secondary text-center">
             Try Demo: demo@todone.app / password
           </p>
         </div>

@@ -41,20 +41,20 @@ export const WeeklyReviewView: React.FC = () => {
   if (!user) {
     return (
       <div className="flex items-center justify-center h-full">
-        <p className="text-gray-500 dark:text-gray-400">Please sign in to view weekly review</p>
+        <p className="text-content-tertiary">Please sign in to view weekly review</p>
       </div>
     )
   }
 
   return (
     <div className="flex flex-col h-full">
-      <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+      <div className="px-6 py-4 border-b border-border">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <CalendarRange className="w-6 h-6 text-brand-600" />
             <div>
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Weekly Review</h2>
-              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+              <h2 className="text-2xl font-bold text-content-primary">Weekly Review</h2>
+              <p className="text-sm text-content-tertiary mt-1">
                 Track your weekly progress and productivity
               </p>
             </div>
@@ -63,10 +63,10 @@ export const WeeklyReviewView: React.FC = () => {
           <div className="flex items-center gap-2">
             <button
               onClick={handlePreviousWeek}
-              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+              className="p-2 hover:bg-surface-tertiary rounded-lg transition-colors"
               title="Previous week"
             >
-              <ChevronLeft className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+              <ChevronLeft className="w-5 h-5 text-content-secondary" />
             </button>
             {weekOffset !== 0 && (
               <button
@@ -79,10 +79,10 @@ export const WeeklyReviewView: React.FC = () => {
             <button
               onClick={handleNextWeek}
               disabled={weekOffset >= 0}
-              className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="p-2 hover:bg-surface-tertiary rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               title="Next week"
             >
-              <ChevronRight className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+              <ChevronRight className="w-5 h-5 text-content-secondary" />
             </button>
           </div>
         </div>
@@ -95,11 +95,11 @@ export const WeeklyReviewView: React.FC = () => {
           </div>
         ) : !metrics ? (
           <div className="flex flex-col items-center justify-center h-full text-center">
-            <CalendarRange className="w-16 h-16 text-gray-300 dark:text-gray-600 mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+            <CalendarRange className="w-16 h-16 text-content-tertiary mb-4" />
+            <h3 className="text-lg font-medium text-content-primary mb-2">
               No data available
             </h3>
-            <p className="text-gray-500 dark:text-gray-400 max-w-sm">
+            <p className="text-content-tertiary max-w-sm">
               Start completing tasks to see your weekly review statistics.
             </p>
           </div>

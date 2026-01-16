@@ -104,7 +104,7 @@ export const TaskSuggestions: React.FC<TaskSuggestionsProps> = ({
                         suggestion.suggestedTask.priority === 'p2',
                       'bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-200':
                         suggestion.suggestedTask.priority === 'p3',
-                      'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-200':
+                      'bg-surface-tertiary text-content-secondary':
                         suggestion.suggestedTask.priority === 'p4',
                     })}
                   >

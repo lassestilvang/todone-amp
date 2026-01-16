@@ -20,8 +20,8 @@ describe('CalendarIntegration', () => {
   it('should have proper styling for disconnected state', () => {
     const { container } = render(<CalendarIntegration platform="google" />)
     const wrapper = container.firstChild as HTMLElement
-    expect(wrapper).toHaveClass('border-gray-200')
-    expect(wrapper).toHaveClass('bg-white')
+    expect(wrapper).toHaveClass('border-border')
+    expect(wrapper).toHaveClass('bg-surface-primary')
   })
 
   it('should call onSyncComplete callback when sync completes', async () => {

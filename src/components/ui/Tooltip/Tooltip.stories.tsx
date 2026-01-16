@@ -53,7 +53,7 @@ export const Positions: Story = {
 export const WithIcon: Story = {
   render: () => (
     <div className="flex items-center gap-2">
-      <span className="text-gray-700 dark:text-gray-300">Karma Points</span>
+      <span className="text-content-secondary">Karma Points</span>
       <Tooltip content="Points earned by completing tasks">
         <button type="button" className="text-gray-400 hover:text-gray-600">
           <HelpCircle className="h-4 w-4" />
@@ -92,7 +92,7 @@ export const WithInfoIcon: Story = {
     <Tooltip content="Click to learn more about this feature" position="right">
       <button
         type="button"
-        className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
+        className="p-2 rounded-full hover:bg-surface-tertiary"
       >
         <Info className="h-5 w-5 text-blue-500" />
       </button>

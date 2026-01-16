@@ -136,7 +136,7 @@ export const AchievementsShowcase: React.FC<AchievementsShowcaseProps> = ({
             {/* Tooltip on hover (mobile-friendly description) */}
             <div
               className={clsx(
-                'absolute left-0 right-0 top-full mt-1 bg-gray-900 text-white text-xs rounded p-2 hidden group-hover:block z-10 whitespace-normal',
+                'absolute left-0 right-0 top-full mt-1 bg-tooltip-bg text-tooltip-text text-xs rounded p-2 hidden group-hover:block z-10 whitespace-normal',
                 'pointer-events-none'
               )}
             >

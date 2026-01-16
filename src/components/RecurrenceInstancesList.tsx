@@ -127,7 +127,7 @@ export function RecurrenceInstancesList({ task, className }: RecurrenceInstances
               {/* Delete Button */}
               <button
                 onClick={() => handleDeleteInstance(instance.id)}
-                className="flex-shrink-0 p-1 text-gray-400 hover:text-red-600 rounded transition-colors hover:bg-red-50"
+                className="flex-shrink-0 p-1 text-content-tertiary hover:text-semantic-error rounded transition-colors hover:bg-semantic-error-light"
                 aria-label="Delete instance"
               >
                 <Trash2 size={16} />

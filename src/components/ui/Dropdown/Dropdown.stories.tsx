@@ -136,7 +136,7 @@ export const PrioritySelector: Story = {
           Priority 3
         </DropdownItem>
         <DropdownItem>
-          <span className="font-bold text-gray-400 mr-2">-</span>
+          <span className="font-bold text-content-tertiary mr-2">-</span>
           Priority 4
         </DropdownItem>
       </DropdownMenu>

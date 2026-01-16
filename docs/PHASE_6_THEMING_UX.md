@@ -39,7 +39,7 @@ This phase focuses on implementing a robust, accessible theming system with dark
 | ID | Task | Priority | Status |
 |----|------|----------|--------|
 | T6.1.1 | Create unified CSS custom property system for all color tokens | High | ✅ |
-| T6.1.2 | Migrate hardcoded Tailwind colors to CSS variables | High | 🔄 |
+| T6.1.2 | Migrate hardcoded Tailwind colors to CSS variables | High | ✅ |
 | T6.1.3 | Define semantic color tokens (e.g., `--color-surface`, `--color-on-surface`) | High | ✅ |
 | T6.1.4 | Create `ThemeProvider` component to wrap app initialization | Medium | ⬜ |
 | T6.1.5 | Add smooth transition animation for theme changes (150-200ms) | Medium | ⬜ |
@@ -539,6 +539,7 @@ npm run storybook
 
 | Date | Change | Author |
 |------|--------|--------|
+| 2026-01-16 | T6.1.2: Completed migration - all components, UI library, pages, and views now use semantic tokens; all tests updated and passing | Amp |
 | 2026-01-16 | T6.1.2: Migrated ~93 component files to semantic tokens; ~68 files remaining; 6 tests need updates | Amp |
 | 2026-01-15 | T6.1.2 in progress: Migrated core UI components (Card, Button, Input, Dropdown, Tooltip) to semantic tokens, updated related tests | Amp |
 | 2026-01-15 | Completed T6.1.1 & T6.1.3: Created `src/styles/tokens.css` with full semantic token system, updated Tailwind config to use CSS variables | Amp |

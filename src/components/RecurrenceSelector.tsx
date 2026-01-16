@@ -131,7 +131,7 @@ export function RecurrenceSelector({ value, onChange }: RecurrenceSelectorProps)
 
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-3 py-2 text-left text-sm border border-border rounded-lg hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-500 flex items-center justify-between"
+        className="w-full px-3 py-2 text-left text-sm border border-border rounded-lg hover:border-hover focus:outline-none focus:ring-2 focus:ring-brand-500 flex items-center justify-between"
       >
         <span className="text-content-primary">
           {value ? formatRecurrencePattern(value) : 'No recurrence'}

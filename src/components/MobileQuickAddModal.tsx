@@ -94,18 +94,10 @@ export const MobileQuickAddModal: React.FC<MobileQuickAddModalProps> = ({
           </label>
           <div className="grid grid-cols-2 gap-2">
             {[
-              { id: 'p1', label: 'High', color: 'bg-red-100 dark:bg-red-900 text-red-700 dark:text-red-200' },
-              {
-                id: 'p2',
-                label: 'Medium',
-                color: 'bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-200',
-              },
-              { id: 'p3', label: 'Low', color: 'bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-200' },
-              {
-                id: 'p4',
-                label: 'Very Low',
-                color: 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200',
-              },
+              { id: 'p1', label: 'High', color: 'bg-priority-p1-bg text-priority-p1' },
+              { id: 'p2', label: 'Medium', color: 'bg-priority-p2-bg text-priority-p2' },
+              { id: 'p3', label: 'Low', color: 'bg-priority-p3-bg text-priority-p3' },
+              { id: 'p4', label: 'Very Low', color: 'bg-priority-p4-bg text-priority-p4' },
             ].map((p) => (
               <button
                 key={p.id}
@@ -113,7 +105,7 @@ export const MobileQuickAddModal: React.FC<MobileQuickAddModalProps> = ({
                 className={cn(
                   'py-3 rounded-lg font-medium transition-all',
                   priority === p.id
-                    ? `${p.color} ring-2 ring-offset-2 dark:ring-offset-gray-900`
+                    ? `${p.color} ring-2 ring-offset-2 ring-offset-surface-primary`
                     : `${p.color} opacity-60 hover:opacity-80`
                 )}
               >

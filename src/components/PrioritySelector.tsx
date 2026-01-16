@@ -9,11 +9,11 @@ export interface PrioritySelectorProps {
 }
 
 const PRIORITIES: Array<{ value: Priority; label: string; color: string }> = [
-  { value: 'p1', label: 'P1', color: 'bg-red-500' },
-  { value: 'p2', label: 'P2', color: 'bg-orange-500' },
-  { value: 'p3', label: 'P3', color: 'bg-blue-500' },
-  { value: 'p4', label: 'P4', color: 'bg-gray-500' },
-  { value: null, label: 'None', color: 'bg-gray-200' },
+  { value: 'p1', label: 'P1', color: 'bg-priority-p1' },
+  { value: 'p2', label: 'P2', color: 'bg-priority-p2' },
+  { value: 'p3', label: 'P3', color: 'bg-priority-p3' },
+  { value: 'p4', label: 'P4', color: 'bg-priority-p4' },
+  { value: null, label: 'None', color: 'bg-interactive-secondary' },
 ]
 
 export function PrioritySelector({ value, onChange, disabled = false, className }: PrioritySelectorProps) {

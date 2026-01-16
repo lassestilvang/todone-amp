@@ -78,21 +78,21 @@ export const TodayView: React.FC = () => {
   return (
     <div className="flex flex-col h-full">
       {/* Header */}
-      <div className="px-6 py-4 border-b border-gray-200">
+      <div className="px-6 py-4 border-b border-border">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-bold text-gray-900">Today</h2>
-            <p className="text-sm text-gray-500 mt-1">
+            <h2 className="text-2xl font-bold text-content-primary">Today</h2>
+            <p className="text-sm text-content-tertiary mt-1">
               {todayTasks.length} tasks · {completedToday.length} completed
             </p>
           </div>
           <div className="flex items-center gap-3">
             <button
               onClick={() => setShowFilterPanel(true)}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 hover:bg-surface-tertiary rounded-lg transition-colors"
               title="Show filters"
             >
-              <Filter size={20} className="text-gray-600" />
+              <Filter size={20} className="text-content-secondary" />
             </button>
             <ViewSwitcher variant="inline" />
           </div>
@@ -103,7 +103,7 @@ export const TodayView: React.FC = () => {
       <div className="flex-1 overflow-y-auto">
         {/* External Calendar Events Section */}
         {showExternalEvents && (
-          <div className="border-b border-gray-200">
+          <div className="border-b border-border">
             <div className="px-6 py-3 bg-blue-50 border-b border-blue-200">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 text-blue-700 font-medium text-sm">
@@ -126,7 +126,7 @@ export const TodayView: React.FC = () => {
         
         {/* Overdue Section */}
         {filteredOverdueTasks.length > 0 && (
-          <div className="border-b border-gray-200">
+          <div className="border-b border-border">
             <div className="px-6 py-3 bg-red-50 border-b border-red-200">
               <div className="flex items-center gap-2 text-red-700 font-medium text-sm">
                 <AlertCircle className="w-4 h-4" />
@@ -145,7 +145,7 @@ export const TodayView: React.FC = () => {
 
         {/* Today's Tasks */}
         <div>
-          <div className="px-6 py-3 bg-gray-50 font-medium text-sm text-gray-700 border-b border-gray-200">
+          <div className="px-6 py-3 bg-surface-secondary font-medium text-sm text-content-secondary border-b border-border">
             Today ({filteredTodayTasks.length})
           </div>
           <VirtualTaskList
@@ -160,8 +160,8 @@ export const TodayView: React.FC = () => {
 
         {/* Completed Today */}
         {filteredCompletedToday.length > 0 && (
-          <div className="border-t border-gray-200">
-            <div className="px-6 py-3 bg-gray-50 font-medium text-sm text-gray-700 border-b border-gray-200">
+          <div className="border-t border-border">
+            <div className="px-6 py-3 bg-surface-secondary font-medium text-sm text-content-secondary border-b border-border">
               Completed ({filteredCompletedToday.length})
             </div>
             <VirtualTaskList
@@ -176,10 +176,10 @@ export const TodayView: React.FC = () => {
       </div>
 
       {/* Quick Add Footer */}
-      <div className="border-t border-gray-200 px-6 py-4 bg-gray-50">
+      <div className="border-t border-border px-6 py-4 bg-surface-secondary">
         <button 
           onClick={openQuickAdd}
-          className="w-full flex items-center justify-center gap-2 px-4 py-2 text-gray-700 font-medium hover:bg-white border border-gray-300 rounded-md transition-colors"
+          className="w-full flex items-center justify-center gap-2 px-4 py-2 text-content-secondary font-medium hover:bg-surface-primary border border-border rounded-md transition-colors"
         >
           <Plus className="w-4 h-4" />
           Add task

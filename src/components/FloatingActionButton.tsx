@@ -57,7 +57,7 @@ export const FloatingActionButton: React.FC<FloatingActionButtonProps> = ({
 
   const secondaryBgClasses = {
     light: 'bg-surface-primary text-content-secondary shadow-md hover:bg-surface-tertiary',
-    dark: 'bg-gray-700 text-white shadow-md hover:bg-gray-600',
+    dark: 'bg-surface-elevated text-white shadow-md hover:bg-interactive-secondary-hover',
   };
 
   const colorClasses = {

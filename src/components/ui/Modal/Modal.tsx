@@ -71,16 +71,16 @@ export const Modal: React.FC<ModalProps> = ({
         aria-modal="true"
         aria-labelledby={title ? 'modal-title' : undefined}
         className={cn(
-          'relative w-full mx-4 bg-white dark:bg-gray-800 rounded-lg shadow-xl animate-slideUp',
+          'relative w-full mx-4 bg-surface-primary rounded-lg shadow-xl animate-slideUp',
           sizes[size],
           className
         )}
       >
         {/* Header */}
         {(title || showCloseButton) && (
-          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+          <div className="flex items-center justify-between px-6 py-4 border-b border-border">
             {title && (
-              <h2 id="modal-title" className="text-lg font-semibold text-gray-900 dark:text-gray-100">
+              <h2 id="modal-title" className="text-lg font-semibold text-content-primary">
                 {title}
               </h2>
             )}
@@ -88,7 +88,7 @@ export const Modal: React.FC<ModalProps> = ({
               <button
                 type="button"
                 onClick={onClose}
-                className="p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-300 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                className="p-1 text-content-tertiary hover:text-content-secondary rounded-md hover:bg-surface-tertiary transition-colors"
                 aria-label="Close modal"
               >
                 <X className="h-5 w-5" />

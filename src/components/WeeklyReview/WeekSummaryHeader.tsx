@@ -32,20 +32,20 @@ export const WeekSummaryHeader: React.FC<WeekSummaryHeaderProps> = ({
       ? 'text-green-500'
       : metrics.comparedToLastWeek.tasksCompleted < 0
         ? 'text-red-500'
-        : 'text-gray-500'
+        : 'text-content-tertiary'
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+    <div className="bg-surface-primary rounded-xl p-6 border border-border">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
           <div className="p-2 bg-brand-100 dark:bg-brand-900/30 rounded-lg">
             <Calendar className="w-6 h-6 text-brand-600" />
           </div>
           <div>
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+            <h2 className="text-xl font-bold text-content-primary">
               {formatDate(weekStart)} - {formatDate(weekEnd)}, {year}
             </h2>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Weekly Review</p>
+            <p className="text-sm text-content-tertiary">Weekly Review</p>
           </div>
         </div>
         <div className={cn('flex items-center gap-1', trendColor)}>
@@ -90,9 +90,9 @@ interface StatCardProps {
 }
 
 const StatCard: React.FC<StatCardProps> = ({ label, value, subtext }) => (
-  <div className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4">
-    <p className="text-sm text-gray-500 dark:text-gray-400 mb-1">{label}</p>
-    <p className="text-2xl font-bold text-gray-900 dark:text-white">{value}</p>
-    <p className="text-xs text-gray-400 dark:text-gray-500 mt-1">{subtext}</p>
+  <div className="bg-surface-secondary rounded-lg p-4">
+    <p className="text-sm text-content-tertiary mb-1">{label}</p>
+    <p className="text-2xl font-bold text-content-primary">{value}</p>
+    <p className="text-xs text-content-tertiary mt-1">{subtext}</p>
   </div>
 )

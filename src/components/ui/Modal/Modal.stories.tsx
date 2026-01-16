@@ -30,7 +30,7 @@ const ModalWrapper = ({
     <>
       <Button onClick={() => setIsOpen(true)}>Open Modal</Button>
       <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title={title} size={size}>
-        {children || <p className="text-gray-600 dark:text-gray-300">Modal content goes here.</p>}
+        {children || <p className="text-content-secondary">Modal content goes here.</p>}
       </Modal>
     </>
   )
@@ -93,7 +93,7 @@ export const ConfirmDialog: Story = {
           </Button>
           <Modal isOpen={isOpen} onClose={() => setIsOpen(false)} title="Delete Task?" size="sm">
             <div>
-              <p className="text-gray-600 dark:text-gray-300 mb-4">
+              <p className="text-content-secondary mb-4">
                 This action cannot be undone. Are you sure you want to delete this task?
               </p>
               <div className="flex gap-2 justify-end">
@@ -127,7 +127,7 @@ export const NoCloseButton: Story = {
             showCloseButton={false}
           >
             <div>
-              <p className="text-gray-600 dark:text-gray-300 mb-4">
+              <p className="text-content-secondary mb-4">
                 This modal has no X button. Press Escape or click overlay to close.
               </p>
               <Button onClick={() => setIsOpen(false)}>Close</Button>

@@ -48,7 +48,7 @@ describe('TaskItem Component', () => {
       const completedTask = { ...mockTask, completed: true }
       render(<TaskItem task={completedTask} />)
       const taskText = screen.getByText('Test task')
-      expect(taskText).toHaveClass('line-through', 'text-gray-400')
+      expect(taskText).toHaveClass('line-through', 'text-content-tertiary')
     })
 
     it('should show active task without strike-through', () => {
@@ -210,7 +210,7 @@ describe('TaskItem Component', () => {
     it('should apply hover styling on inactive task', () => {
       render(<TaskItem task={mockTask} />)
       const container = screen.getByText('Test task').closest('div')?.parentElement
-      expect(container).toHaveClass('border-transparent', 'hover:bg-gray-50')
+      expect(container).toHaveClass('border-transparent', 'hover:bg-surface-tertiary')
     })
 
     it('should apply selection styling when selected', () => {

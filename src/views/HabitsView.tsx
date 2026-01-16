@@ -73,22 +73,22 @@ export const HabitsView: React.FC = () => {
   if (!user) {
     return (
       <div className="flex items-center justify-center h-full">
-        <p className="text-gray-500 dark:text-gray-400">Please sign in to view habits</p>
+        <p className="text-content-tertiary">Please sign in to view habits</p>
       </div>
     )
   }
 
   return (
     <div className="flex flex-col h-full">
-      <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
+      <div className="px-6 py-4 border-b border-border">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             {selectedHabit ? (
               <button
                 onClick={() => setSelectedHabit(null)}
-                className="p-2 -ml-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                className="p-2 -ml-2 hover:bg-surface-tertiary rounded-lg transition-colors"
               >
-                <ArrowLeft className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                <ArrowLeft className="w-5 h-5 text-content-secondary" />
               </button>
             ) : (
               <Target className="w-6 h-6 text-brand-600" />
@@ -98,20 +98,20 @@ export const HabitsView: React.FC = () => {
                 <>
                   <div className="flex items-center gap-2">
                     <span className="text-2xl">{selectedHabit.icon}</span>
-                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                    <h2 className="text-2xl font-bold text-content-primary">
                       {selectedHabit.name}
                     </h2>
                   </div>
                   {selectedHabit.description && (
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                    <p className="text-sm text-content-tertiary mt-1">
                       {selectedHabit.description}
                     </p>
                   )}
                 </>
               ) : (
                 <>
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Habits</h2>
-                  <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                  <h2 className="text-2xl font-bold text-content-primary">Habits</h2>
+                  <p className="text-sm text-content-tertiary mt-1">
                     {activeHabits.length} habit{activeHabits.length !== 1 ? 's' : ''}
                     {habitsWithStreaks > 0 && (
                       <span className="ml-2 inline-flex items-center gap-1 text-orange-500">
@@ -130,15 +130,15 @@ export const HabitsView: React.FC = () => {
               <>
                 <button
                   onClick={() => handleEdit(selectedHabit)}
-                  className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+                  className="p-2 hover:bg-surface-tertiary rounded-lg transition-colors"
                   title="Edit habit"
                 >
-                  <Edit className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+                  <Edit className="w-5 h-5 text-content-secondary" />
                 </button>
                 <button
                   onClick={() => handleArchive(selectedHabit)}
                   className={clsx(
-                    'p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors',
+                    'p-2 hover:bg-surface-tertiary rounded-lg transition-colors',
                     selectedHabit.archivedAt && 'text-brand-600'
                   )}
                   title={selectedHabit.archivedAt ? 'Unarchive habit' : 'Archive habit'}
@@ -182,11 +182,11 @@ export const HabitsView: React.FC = () => {
           </div>
         ) : habits.length === 0 ? (
           <div className="flex flex-col items-center justify-center h-full text-center">
-            <Target className="w-16 h-16 text-gray-300 dark:text-gray-600 mb-4" />
-            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+            <Target className="w-16 h-16 text-content-tertiary mb-4" />
+            <h3 className="text-lg font-medium text-content-primary mb-2">
               No habits yet
             </h3>
-            <p className="text-gray-500 dark:text-gray-400 mb-4 max-w-sm">
+            <p className="text-content-tertiary mb-4 max-w-sm">
               Start building positive habits by creating your first one. Track your progress and maintain streaks!
             </p>
             <button

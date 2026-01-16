@@ -135,7 +135,7 @@ export function TemplatePreview({ templateId, onClose, onApply, className }: Tem
               'rounded px-3 py-2 text-sm transition',
               isFav
                 ? 'bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300'
-                : 'bg-gray-100 text-gray-700 hover:bg-gray-200 dark:bg-gray-700 dark:text-gray-300'
+                : 'bg-surface-tertiary text-content-secondary hover:bg-interactive-secondary'
             )}
           >
             {isFav ? '★' : '☆'}

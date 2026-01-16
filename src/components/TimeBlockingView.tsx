@@ -113,7 +113,7 @@ export function TimeBlockingView({ selectedDate }: TimeBlockingViewProps) {
                     'bg-red-100 text-red-900': task.priority === 'p1',
                     'bg-orange-100 text-orange-900': task.priority === 'p2',
                     'bg-blue-100 text-blue-900': task.priority === 'p3',
-                    'bg-gray-100 text-gray-900': !task.priority || task.priority === 'p4',
+                    'bg-surface-tertiary text-content-primary': !task.priority || task.priority === 'p4',
                   }
                 )}
               >
@@ -161,7 +161,7 @@ export function TimeBlockingView({ selectedDate }: TimeBlockingViewProps) {
                             'bg-red-100 text-red-900': task.priority === 'p1',
                             'bg-orange-100 text-orange-900': task.priority === 'p2',
                             'bg-blue-100 text-blue-900': task.priority === 'p3',
-                            'bg-gray-100 text-gray-900': !task.priority || task.priority === 'p4',
+                            'bg-surface-tertiary text-content-primary': !task.priority || task.priority === 'p4',
                           }
                         )}
                         title={task.content}

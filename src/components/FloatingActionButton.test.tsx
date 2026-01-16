@@ -208,7 +208,7 @@ describe('FloatingActionButton', () => {
     fireEvent.click(mainButton);
     
     const deleteButton = screen.getByLabelText('Delete');
-    expect(deleteButton).toHaveClass('text-red-600', 'bg-red-50');
+    expect(deleteButton).toHaveClass('text-semantic-error', 'bg-red-50');
   });
 
   it('applies theme classes correctly', () => {
@@ -220,7 +220,7 @@ describe('FloatingActionButton', () => {
     );
     
     const mainButton = screen.getByLabelText('Add');
-    expect(mainButton).toHaveClass('bg-gray-800');
+    expect(mainButton).toHaveClass('bg-surface-primary');
   });
 
   it('has minimum touch areas of 44px', () => {

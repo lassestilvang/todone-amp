@@ -78,7 +78,7 @@ export const MobileTaskDetail: React.FC<MobileTaskDetailProps> = ({
       case 'p3':
         return 'text-yellow-600 dark:text-yellow-400 bg-yellow-50 dark:bg-yellow-900/20'
       default:
-        return 'text-gray-600 dark:text-gray-400 bg-gray-50 dark:bg-gray-900/20'
+        return 'text-content-secondary bg-surface-secondary'
     }
   }
 

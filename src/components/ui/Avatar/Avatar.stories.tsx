@@ -82,7 +82,7 @@ export const TeamMembers: Story = {
       <Avatar name="Alice Smith" className="ring-2 ring-white" />
       <Avatar name="Bob Jones" className="ring-2 ring-white" />
       <Avatar name="Charlie Brown" className="ring-2 ring-white" />
-      <div className="flex items-center justify-center h-10 w-10 rounded-full bg-gray-300 text-gray-700 text-sm font-medium ring-2 ring-white">
+      <div className="flex items-center justify-center h-10 w-10 rounded-full bg-surface-tertiary text-content-secondary text-sm font-medium ring-2 ring-white">
         +5
       </div>
     </div>

@@ -76,13 +76,13 @@ export const EisenhowerView: React.FC = () => {
   return (
     <div className="flex flex-col h-full">
       {/* Header */}
-      <div className="px-6 py-4 border-b border-gray-200">
+      <div className="px-6 py-4 border-b border-border">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <Grid3X3 className="w-6 h-6 text-brand-600" />
             <div>
-              <h2 className="text-2xl font-bold text-gray-900">Eisenhower Matrix</h2>
-              <p className="text-sm text-gray-500 mt-1">
+              <h2 className="text-2xl font-bold text-content-primary">Eisenhower Matrix</h2>
+              <p className="text-sm text-content-tertiary mt-1">
                 {incompleteTasks.length} task{incompleteTasks.length !== 1 ? 's' : ''} to prioritize
               </p>
             </div>
@@ -90,23 +90,23 @@ export const EisenhowerView: React.FC = () => {
           <div className="flex items-center gap-3">
             <button
               onClick={() => setShowLegend(!showLegend)}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 hover:bg-surface-tertiary rounded-lg transition-colors"
               title={showLegend ? 'Hide legend' : 'Show legend'}
             >
-              <HelpCircle size={20} className="text-gray-600" />
+              <HelpCircle size={20} className="text-content-secondary" />
             </button>
             <button
               onClick={() => setShowFilterPanel(true)}
-              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              className="p-2 hover:bg-surface-tertiary rounded-lg transition-colors"
               title="Show filters"
             >
-              <Filter size={20} className="text-gray-600" />
+              <Filter size={20} className="text-content-secondary" />
             </button>
           </div>
         </div>
 
         {showLegend && (
-          <div className="mt-4 p-3 bg-gray-50 rounded-lg">
+          <div className="mt-4 p-3 bg-surface-secondary rounded-lg">
             <MatrixLegend />
           </div>
         )}
@@ -124,10 +124,10 @@ export const EisenhowerView: React.FC = () => {
       </div>
 
       {/* Quick Add Footer */}
-      <div className="border-t border-gray-200 px-6 py-4 bg-gray-50">
+      <div className="border-t border-border px-6 py-4 bg-surface-secondary">
         <button
           onClick={openQuickAdd}
-          className="w-full flex items-center justify-center gap-2 px-4 py-2 text-gray-700 font-medium hover:bg-white border border-gray-300 rounded-md transition-colors"
+          className="w-full flex items-center justify-center gap-2 px-4 py-2 text-content-secondary font-medium hover:bg-surface-primary border border-border rounded-md transition-colors"
         >
           <Plus className="w-4 h-4" />
           Add task

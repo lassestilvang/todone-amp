@@ -45,6 +45,6 @@ describe('ProjectSharing', () => {
     const wrapper = container.firstChild as HTMLElement
     expect(wrapper).toHaveClass('rounded-lg')
     expect(wrapper).toHaveClass('border')
-    expect(wrapper).toHaveClass('bg-white')
+    expect(wrapper).toHaveClass('bg-surface-primary')
   })
 })

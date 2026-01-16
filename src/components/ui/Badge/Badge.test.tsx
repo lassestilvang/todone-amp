@@ -11,7 +11,7 @@ describe('Badge', () => {
   it('applies default variant styles', () => {
     render(<Badge>Default</Badge>)
     const badge = screen.getByText('Default')
-    expect(badge).toHaveClass('bg-gray-100', 'text-gray-700')
+    expect(badge).toHaveClass('bg-surface-tertiary', 'text-content-secondary')
   })
 
   describe('variants', () => {

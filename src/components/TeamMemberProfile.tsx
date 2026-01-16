@@ -192,17 +192,17 @@ export const TeamMemberProfile: React.FC<TeamMemberProfileProps> = ({
 
       {/* Actions */}
       {onContact && (
-        <div className="flex gap-2 border-t border-gray-200 pt-4 dark:border-gray-700">
+        <div className="flex gap-2 border-t border-border pt-4">
           <button
             onClick={() => onContact(member.id, 'email')}
-            className="flex-1 flex items-center justify-center gap-2 rounded-md border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+            className="flex-1 flex items-center justify-center gap-2 rounded-md border border-border px-3 py-2 text-sm font-medium text-content-secondary hover:bg-surface-tertiary"
           >
             <Mail className="h-4 w-4" />
             Email
           </button>
           <button
             onClick={() => onContact(member.id, 'message')}
-            className="flex-1 flex items-center justify-center gap-2 rounded-md border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-700"
+            className="flex-1 flex items-center justify-center gap-2 rounded-md border border-border px-3 py-2 text-sm font-medium text-content-secondary hover:bg-surface-tertiary"
           >
             <MessageSquare className="h-4 w-4" />
             Message
@@ -220,14 +220,14 @@ export const TeamMemberProfile: React.FC<TeamMemberProfileProps> = ({
 
       {/* Expanded Details */}
       {showDetails && (
-        <div className="border-t border-gray-200 pt-4 dark:border-gray-700">
-          <div className="space-y-2 text-xs text-gray-600 dark:text-gray-400">
+        <div className="border-t border-border pt-4">
+          <div className="space-y-2 text-xs text-content-secondary">
             <div className="flex items-center justify-between">
               <span className="flex items-center gap-2">
                 <User className="h-3 w-3" />
                 Member ID
               </span>
-              <code className="rounded bg-gray-100 px-2 py-1 font-mono dark:bg-gray-700">{member.id.slice(0, 8)}</code>
+              <code className="rounded bg-surface-tertiary px-2 py-1 font-mono">{member.id.slice(0, 8)}</code>
             </div>
             <div className="flex items-center justify-between">
               <span>Role</span>

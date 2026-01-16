@@ -85,10 +85,10 @@ export function BoardCard({ task, isDragging, hasSubtasks = 0, isExpanded = fals
         {task.priority && !task.completed && (
           <div
             className={cn('text-xs font-bold rounded px-2 py-0.5 flex-shrink-0', {
-              'bg-red-100 text-red-700': task.priority === 'p1',
-              'bg-orange-100 text-orange-700': task.priority === 'p2',
-              'bg-blue-100 text-blue-700': task.priority === 'p3',
-              'bg-gray-100 text-gray-700': task.priority === 'p4',
+              'bg-priority-p1-bg text-priority-p1': task.priority === 'p1',
+              'bg-priority-p2-bg text-priority-p2': task.priority === 'p2',
+              'bg-priority-p3-bg text-priority-p3': task.priority === 'p3',
+              'bg-priority-p4-bg text-priority-p4': task.priority === 'p4',
             })}
           >
             {task.priority.toUpperCase()}

@@ -112,7 +112,7 @@ export function NotificationPreferences({ isOpen, onClose }: NotificationPrefere
                     setBrowserNotifs(false)
                   }
                 }}
-                className="h-5 w-5 rounded border-gray-300 text-brand-500"
+                className="h-5 w-5 rounded border-border text-brand-500"
               />
             </label>
           </div>
@@ -135,7 +135,7 @@ export function NotificationPreferences({ isOpen, onClose }: NotificationPrefere
                 type="checkbox"
                 checked={emailNotifs}
                 onChange={(e) => setEmailNotifs(e.target.checked)}
-                className="h-5 w-5 rounded border-gray-300 text-brand-500"
+                className="h-5 w-5 rounded border-border text-brand-500"
               />
             </label>
           </div>
@@ -158,7 +158,7 @@ export function NotificationPreferences({ isOpen, onClose }: NotificationPrefere
                 type="checkbox"
                 checked={pushNotifs}
                 onChange={(e) => setPushNotifs(e.target.checked)}
-                className="h-5 w-5 rounded border-gray-300 text-brand-500"
+                className="h-5 w-5 rounded border-border text-brand-500"
               />
             </label>
           </div>
@@ -181,7 +181,7 @@ export function NotificationPreferences({ isOpen, onClose }: NotificationPrefere
                 type="checkbox"
                 checked={soundEnabled}
                 onChange={(e) => setSoundEnabled(e.target.checked)}
-                className="h-5 w-5 rounded border-gray-300 text-brand-500"
+                className="h-5 w-5 rounded border-border text-brand-500"
               />
             </label>
           </div>
@@ -200,7 +200,7 @@ export function NotificationPreferences({ isOpen, onClose }: NotificationPrefere
                 type="checkbox"
                 checked={quietEnabled}
                 onChange={(e) => setQuietEnabled(e.target.checked)}
-                className="h-5 w-5 rounded border-gray-300 text-brand-500"
+                className="h-5 w-5 rounded border-border text-brand-500"
               />
             </label>
             {quietEnabled && (

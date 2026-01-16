@@ -9,7 +9,7 @@ export interface BadgeProps {
 }
 
 const variants = {
-  default: 'bg-gray-100 text-gray-700 dark:bg-gray-700 dark:text-gray-300',
+  default: 'bg-surface-tertiary text-content-secondary',
   primary: 'bg-brand-100 text-brand-700 dark:bg-brand-900 dark:text-brand-300',
   success: 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300',
   warning: 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300',

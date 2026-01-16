@@ -43,11 +43,11 @@ export function DailyAgendaView() {
   const completionRate = totalTasks > 0 ? Math.round((groupedTasks.completed.length / totalTasks) * 100) : 0
 
   return (
-    <div className="flex flex-col h-full bg-white">
+    <div className="flex flex-col h-full bg-surface-primary">
       {/* Header */}
-      <div className="border-b border-gray-200 p-4">
+      <div className="border-b border-border p-4">
         <div className="flex items-center justify-between mb-4">
-          <h1 className="text-2xl font-bold text-gray-900">Daily Agenda</h1>
+          <h1 className="text-2xl font-bold text-content-primary">Daily Agenda</h1>
           <Button variant="primary" size="sm" onClick={handleToday}>
             Today
           </Button>
@@ -60,10 +60,10 @@ export function DailyAgendaView() {
           </Button>
 
           <div className="text-center">
-            <div className="text-lg font-semibold text-gray-900">
+            <div className="text-lg font-semibold text-content-primary">
               {format(selectedDate, 'EEEE, MMMM d, yyyy')}
             </div>
-            <div className="text-sm text-gray-600">
+            <div className="text-sm text-content-secondary">
               {groupedTasks.active.length} tasks, {completionRate}% done
             </div>
           </div>
@@ -76,11 +76,11 @@ export function DailyAgendaView() {
 
       {/* Content */}
       <div className="flex-1 overflow-auto">
-        <div className="max-w-3xl mx-auto divide-y divide-gray-200">
+        <div className="max-w-3xl mx-auto divide-y divide-border">
           {/* Active Tasks */}
           <div>
-            <div className="sticky top-0 bg-gray-50 px-4 py-2 border-b border-gray-200">
-              <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">
+            <div className="sticky top-0 bg-surface-secondary px-4 py-2 border-b border-border">
+              <h2 className="text-sm font-semibold text-content-secondary uppercase tracking-wide">
                 {groupedTasks.active.length > 0
                   ? `${groupedTasks.active.length} Active Task${groupedTasks.active.length !== 1 ? 's' : ''}`
                   : 'No active tasks'}
@@ -88,7 +88,7 @@ export function DailyAgendaView() {
             </div>
 
             {groupedTasks.active.length > 0 ? (
-              <div className="divide-y divide-gray-100">
+              <div className="divide-y divide-border">
                 {groupedTasks.active.map((task) => (
                   <TaskItem
                     key={task.id}
@@ -100,7 +100,7 @@ export function DailyAgendaView() {
               </div>
             ) : (
               <div className="px-4 py-8 text-center">
-                <p className="text-gray-500">No tasks scheduled for today</p>
+                <p className="text-content-tertiary">No tasks scheduled for today</p>
               </div>
             )}
           </div>
@@ -108,13 +108,13 @@ export function DailyAgendaView() {
           {/* Completed Tasks */}
           {groupedTasks.completed.length > 0 && (
             <div>
-              <div className="sticky top-0 bg-gray-50 px-4 py-2 border-b border-gray-200">
-                <h2 className="text-sm font-semibold text-gray-700 uppercase tracking-wide">
+              <div className="sticky top-0 bg-surface-secondary px-4 py-2 border-b border-border">
+                <h2 className="text-sm font-semibold text-content-secondary uppercase tracking-wide">
                   {groupedTasks.completed.length} Completed
                 </h2>
               </div>
 
-              <div className="divide-y divide-gray-100">
+              <div className="divide-y divide-border">
                 {groupedTasks.completed.map((task) => (
                   <TaskItem
                     key={task.id}
@@ -130,13 +130,13 @@ export function DailyAgendaView() {
       </div>
 
       {/* Footer Stats */}
-      <div className="border-t border-gray-200 bg-gray-50 px-4 py-3">
+      <div className="border-t border-border bg-surface-secondary px-4 py-3">
         <div className="flex items-center justify-between text-sm">
-          <div className="text-gray-600">
-            <span className="font-semibold text-gray-900">{groupedTasks.completed.length}</span> of{' '}
-            <span className="font-semibold text-gray-900">{totalTasks}</span> completed
+          <div className="text-content-secondary">
+            <span className="font-semibold text-content-primary">{groupedTasks.completed.length}</span> of{' '}
+            <span className="font-semibold text-content-primary">{totalTasks}</span> completed
           </div>
-          <div className="flex-1 h-2 bg-gray-200 rounded-full ml-4">
+          <div className="flex-1 h-2 bg-surface-tertiary rounded-full ml-4">
             <div
               className="h-full bg-brand-600 rounded-full transition-all duration-300"
               style={{ width: `${completionRate}%` }}

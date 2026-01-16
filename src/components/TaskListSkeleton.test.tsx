@@ -90,7 +90,7 @@ describe('BoardViewSkeleton', () => {
   it('each column has skeleton cards', () => {
     const { container } = render(<BoardViewSkeleton />)
 
-    const cards = container.querySelectorAll('[class*="rounded-lg"][class*="bg-white"]')
+    const cards = container.querySelectorAll('[class*="rounded-lg"][class*="bg-surface-primary"]')
     expect(cards.length).toBeGreaterThan(0)
   })
 })

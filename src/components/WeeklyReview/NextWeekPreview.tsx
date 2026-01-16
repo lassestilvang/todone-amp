@@ -24,22 +24,20 @@ export const NextWeekPreview: React.FC<NextWeekPreviewProps> = ({ tasks }) => {
   const highPriorityCount = tasks.filter((t) => t.priority === 'p1' || t.priority === 'p2').length
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+    <div className="bg-surface-primary rounded-xl p-6 border border-border">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <CalendarDays className="w-5 h-5 text-blue-500" />
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">Next Week Preview</h3>
+          <h3 className="text-lg font-semibold text-content-primary">Next Week Preview</h3>
         </div>
-        <span className="text-sm text-gray-500 dark:text-gray-400">{tasks.length} tasks</span>
+        <span className="text-sm text-content-tertiary">{tasks.length} tasks</span>
       </div>
 
       {tasks.length === 0 ? (
         <div className="text-center py-8">
-          <CalendarDays className="w-12 h-12 text-gray-300 dark:text-gray-600 mx-auto mb-3" />
-          <p className="text-gray-500 dark:text-gray-400">No tasks scheduled for next week</p>
-          <p className="text-sm text-gray-400 dark:text-gray-500 mt-1">
-            Plan ahead by scheduling some tasks
-          </p>
+          <CalendarDays className="w-12 h-12 text-content-tertiary mx-auto mb-3" />
+          <p className="text-content-tertiary">No tasks scheduled for next week</p>
+          <p className="text-sm text-content-tertiary mt-1">Plan ahead by scheduling some tasks</p>
         </div>
       ) : (
         <>
@@ -56,7 +54,7 @@ export const NextWeekPreview: React.FC<NextWeekPreviewProps> = ({ tasks }) => {
             {sortedTasks.slice(0, 8).map((task) => (
               <div
                 key={task.id}
-                className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700/50"
+                className="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-tertiary"
               >
                 <Circle
                   className={cn(
@@ -64,21 +62,19 @@ export const NextWeekPreview: React.FC<NextWeekPreviewProps> = ({ tasks }) => {
                     task.priority === 'p1' && 'text-red-500',
                     task.priority === 'p2' && 'text-orange-500',
                     task.priority === 'p3' && 'text-blue-500',
-                    (!task.priority || task.priority === 'p4') && 'text-gray-400'
+                    (!task.priority || task.priority === 'p4') && 'text-content-tertiary'
                   )}
                 />
                 <div className="flex-1 min-w-0">
-                  <p className="text-gray-700 dark:text-gray-300 truncate">{task.content}</p>
+                  <p className="text-content-secondary truncate">{task.content}</p>
                   {task.dueDate && (
-                    <p className="text-xs text-gray-500 dark:text-gray-400">
-                      {formatDate(task.dueDate)}
-                    </p>
+                    <p className="text-xs text-content-tertiary">{formatDate(task.dueDate)}</p>
                   )}
                 </div>
               </div>
             ))}
             {tasks.length > 8 && (
-              <p className="text-sm text-gray-500 dark:text-gray-400 text-center pt-2">
+              <p className="text-sm text-content-tertiary text-center pt-2">
                 +{tasks.length - 8} more tasks
               </p>
             )}

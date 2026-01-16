@@ -149,14 +149,9 @@ describe('TaskAssignmentModal', () => {
       />,
     )
 
-    // Find the X button (first button in the header with text-gray-400 class)
-    const buttons = container.querySelectorAll('button')
-    let closeButton: Element | null = null
-    buttons.forEach((btn) => {
-      if (btn.classList.contains('text-gray-400')) {
-        closeButton = btn
-      }
-    })
+    // Find the close button using aria-label approach or by finding the X icon button
+    const closeButton = container.querySelector('button.text-content-tertiary')
+    expect(closeButton).toBeInTheDocument()
     if (closeButton) {
       fireEvent.click(closeButton)
       expect(onClose).toHaveBeenCalled()

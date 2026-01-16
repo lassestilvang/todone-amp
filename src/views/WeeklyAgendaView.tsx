@@ -67,11 +67,11 @@ export function WeeklyAgendaView() {
   const completionRate = totalTasks > 0 ? Math.round((totalCompleted / totalTasks) * 100) : 0
 
   return (
-    <div className="flex flex-col h-full bg-white">
+    <div className="flex flex-col h-full bg-surface-primary">
       {/* Header */}
-      <div className="border-b border-gray-200 p-4">
+      <div className="border-b border-border p-4">
         <div className="flex items-center justify-between mb-4">
-          <h1 className="text-2xl font-bold text-gray-900">Weekly Agenda</h1>
+          <h1 className="text-2xl font-bold text-content-primary">Weekly Agenda</h1>
           <Button variant="primary" size="sm" onClick={handleThisWeek}>
             This Week
           </Button>
@@ -84,10 +84,10 @@ export function WeeklyAgendaView() {
           </Button>
 
           <div className="text-center">
-            <div className="text-lg font-semibold text-gray-900">
+            <div className="text-lg font-semibold text-content-primary">
               {format(weekStart, 'MMM d')} - {format(addDays(weekStart, 6), 'MMM d, yyyy')}
             </div>
-            <div className="text-sm text-gray-600">
+            <div className="text-sm text-content-secondary">
               {totalTasks} total tasks, {completionRate}% done
             </div>
           </div>
@@ -106,20 +106,20 @@ export function WeeklyAgendaView() {
               key={day.dateStr}
               className={cn(
                 'flex flex-col border rounded-lg overflow-hidden',
-                day.isToday ? 'border-brand-500 bg-brand-50' : 'border-gray-200 bg-white'
+                day.isToday ? 'border-brand-500 bg-brand-50' : 'border-border bg-surface-primary'
               )}
             >
               {/* Day Header */}
               <div
                 className={cn(
                   'px-3 py-2 border-b text-center',
-                  day.isToday ? 'bg-brand-100 border-brand-200' : 'bg-gray-50 border-gray-100'
+                  day.isToday ? 'bg-brand-100 border-brand-200' : 'bg-surface-secondary border-border'
                 )}
               >
-                <div className={cn('text-sm font-semibold', day.isToday ? 'text-brand-700' : 'text-gray-700')}>
+                <div className={cn('text-sm font-semibold', day.isToday ? 'text-brand-700' : 'text-content-secondary')}>
                   {day.dayName}
                 </div>
-                <div className={cn('text-xs', day.isToday ? 'text-brand-600' : 'text-gray-500')}>
+                <div className={cn('text-xs', day.isToday ? 'text-brand-600' : 'text-content-tertiary')}>
                   {format(day.date, 'd')}
                 </div>
               </div>
@@ -132,8 +132,8 @@ export function WeeklyAgendaView() {
                       <div
                         key={task.id}
                         className={cn(
-                          'px-2 py-1 text-xs cursor-pointer hover:bg-gray-50 truncate',
-                          task.completed && 'line-through text-gray-400'
+                          'px-2 py-1 text-xs cursor-pointer hover:bg-surface-tertiary truncate',
+                          task.completed && 'line-through text-content-tertiary'
                         )}
                         onClick={() => openTaskDetail(task.id, task)}
                         title={task.content}
@@ -151,19 +151,19 @@ export function WeeklyAgendaView() {
                     ))}
 
                     {day.tasks.length > 3 && (
-                      <div className="px-2 py-1 text-xs text-gray-500 bg-gray-50">
+                      <div className="px-2 py-1 text-xs text-content-tertiary bg-surface-secondary">
                         +{day.tasks.length - 3} more
                       </div>
                     )}
                   </div>
                 ) : (
-                  <div className="p-2 text-xs text-gray-400 text-center">No tasks</div>
+                  <div className="p-2 text-xs text-content-tertiary text-center">No tasks</div>
                 )}
               </div>
 
               {/* Footer Stats */}
               {(day.tasks.length > 0 || day.completed > 0) && (
-                <div className="px-2 py-1 text-xs text-gray-600 border-t border-gray-100 bg-gray-50">
+                <div className="px-2 py-1 text-xs text-content-secondary border-t border-border bg-surface-secondary">
                   <div className="flex justify-between">
                     <span>{day.tasks.length}</span>
                     <span className="text-green-600">{day.completed} ✓</span>
@@ -176,13 +176,13 @@ export function WeeklyAgendaView() {
       </div>
 
       {/* Footer Stats */}
-      <div className="border-t border-gray-200 bg-gray-50 px-4 py-3">
+      <div className="border-t border-border bg-surface-secondary px-4 py-3">
         <div className="flex items-center justify-between text-sm">
-          <div className="text-gray-600">
-            <span className="font-semibold text-gray-900">{totalCompleted}</span> of{' '}
-            <span className="font-semibold text-gray-900">{totalTasks}</span> completed
+          <div className="text-content-secondary">
+            <span className="font-semibold text-content-primary">{totalCompleted}</span> of{' '}
+            <span className="font-semibold text-content-primary">{totalTasks}</span> completed
           </div>
-          <div className="flex-1 h-2 bg-gray-200 rounded-full ml-4">
+          <div className="flex-1 h-2 bg-surface-tertiary rounded-full ml-4">
             <div
               className="h-full bg-brand-600 rounded-full transition-all duration-300"
               style={{ width: `${completionRate}%` }}

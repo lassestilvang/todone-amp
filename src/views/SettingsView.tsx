@@ -157,9 +157,9 @@ export const SettingsView: React.FC = () => {
   }
 
   const SettingsSection = ({ title, description }: { title: string; description: string }) => (
-    <div className="mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
-      <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">{title}</h3>
-      <p className="text-sm text-gray-600 dark:text-gray-400">{description}</p>
+    <div className="mb-6 pb-6 border-b border-border">
+      <h3 className="text-lg font-semibold text-content-primary mb-1">{title}</h3>
+      <p className="text-sm text-content-secondary">{description}</p>
     </div>
   )
 
@@ -170,7 +170,7 @@ export const SettingsView: React.FC = () => {
         'flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors',
         activeTab === tab
           ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200'
-          : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+          : 'text-content-secondary hover:bg-surface-tertiary'
       )}
     >
       <Icon className="h-5 w-5" />
@@ -179,19 +179,19 @@ export const SettingsView: React.FC = () => {
   )
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="min-h-screen bg-surface-secondary">
       <div className="max-w-5xl mx-auto p-4 sm:p-6 lg:p-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+          <h1 className="text-3xl font-bold text-content-primary flex items-center gap-2">
             <Settings className="h-8 w-8" />
             Settings
           </h1>
-          <p className="text-gray-600 dark:text-gray-400 mt-2">Manage your account and preferences</p>
+          <p className="text-content-secondary mt-2">Manage your account and preferences</p>
         </div>
 
         {/* Tabs */}
-        <div className="flex flex-wrap gap-2 mb-8 p-4 bg-white dark:bg-gray-800 rounded-lg">
+        <div className="flex flex-wrap gap-2 mb-8 p-4 bg-surface-primary rounded-lg">
           <TabButton tab="account" icon={User} label="Account" />
           <TabButton tab="app" icon={Palette} label="App" />
           <TabButton tab="notifications" icon={Bell} label="Notifications" />
@@ -200,7 +200,7 @@ export const SettingsView: React.FC = () => {
         </div>
 
         {/* Content */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg p-6 sm:p-8 shadow-sm">
+        <div className="bg-surface-primary rounded-lg p-6 sm:p-8 shadow-sm">
           {/* Account Settings */}
           {activeTab === 'account' && (
             <div>
@@ -211,28 +211,28 @@ export const SettingsView: React.FC = () => {
 
               <div className="space-y-4 mb-6">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-content-secondary mb-2">
                     Name
                   </label>
                   <input
                     type="text"
                     value={user.name}
                     onChange={(e) => updateUser({ ...user, name: e.target.value })}
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700 text-gray-900 dark:text-white"
+                    className="w-full px-3 py-2 border border-border rounded-lg bg-surface-primary text-content-primary"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-content-secondary mb-2">
                     Email
                   </label>
                   <input
                     type="email"
                     value={user.email}
                     disabled
-                    className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white"
+                    className="w-full px-3 py-2 border border-border rounded-lg bg-surface-tertiary text-content-primary"
                   />
-                  <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Email cannot be changed</p>
+                  <p className="text-xs text-content-tertiary mt-1">Email cannot be changed</p>
                 </div>
               </div>
 
@@ -243,7 +243,7 @@ export const SettingsView: React.FC = () => {
 
               <div className="space-y-4 mb-6">
                 <div className="relative">
-                  <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                  <label className="block text-sm font-medium text-content-secondary mb-2">
                     New Password
                   </label>
                   <div className="relative">
@@ -252,11 +252,11 @@ export const SettingsView: React.FC = () => {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       placeholder="Enter new password"
-                      className="w-full px-3 py-2 pr-10 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-700"
+                      className="w-full px-3 py-2 pr-10 border border-border rounded-lg bg-surface-primary"
                     />
                     <button
                       onClick={() => setShowPassword(!showPassword)}
-                      className="absolute right-3 top-8 text-gray-500"
+                      className="absolute right-3 top-8 text-content-tertiary"
                     >
                       {showPassword ? '🙈' : '👁️'}
                     </button>
@@ -411,7 +411,7 @@ export const SettingsView: React.FC = () => {
                     defaultChecked={true}
                     className="h-4 w-4 rounded border-gray-300"
                   />
-                  <span className="text-sm text-gray-700 dark:text-gray-300">Browser notifications</span>
+                  <span className="text-sm text-content-secondary">Browser notifications</span>
                 </label>
 
                 <label className="flex items-center gap-3">
@@ -420,7 +420,7 @@ export const SettingsView: React.FC = () => {
                     defaultChecked={true}
                     className="h-4 w-4 rounded border-gray-300"
                   />
-                  <span className="text-sm text-gray-700 dark:text-gray-300">Email notifications</span>
+                  <span className="text-sm text-content-secondary">Email notifications</span>
                 </label>
 
                 <label className="flex items-center gap-3">
@@ -429,7 +429,7 @@ export const SettingsView: React.FC = () => {
                     defaultChecked={false}
                     className="h-4 w-4 rounded border-gray-300"
                   />
-                  <span className="text-sm text-gray-700 dark:text-gray-300">Push notifications</span>
+                  <span className="text-sm text-content-secondary">Push notifications</span>
                 </label>
 
                 <label className="flex items-center gap-3">
@@ -438,16 +438,16 @@ export const SettingsView: React.FC = () => {
                     defaultChecked={true}
                     className="h-4 w-4 rounded border-gray-300"
                   />
-                  <span className="text-sm text-gray-700 dark:text-gray-300">Sound notifications</span>
+                  <span className="text-sm text-content-secondary">Sound notifications</span>
                 </label>
               </div>
 
-              <div className="mt-6 pt-6 border-t border-gray-200 dark:border-gray-700">
-                <h3 className="font-medium text-gray-900 dark:text-white mb-3">Quiet Hours</h3>
+              <div className="mt-6 pt-6 border-t border-border">
+                <h3 className="font-medium text-content-primary mb-3">Quiet Hours</h3>
                 <div className="space-y-3">
                   <label className="flex items-center gap-3">
                     <input type="checkbox" defaultChecked={false} className="h-4 w-4 rounded" />
-                    <span className="text-sm text-gray-700 dark:text-gray-300">Enable quiet hours</span>
+                    <span className="text-sm text-content-secondary">Enable quiet hours</span>
                   </label>
                 </div>
               </div>
@@ -463,7 +463,7 @@ export const SettingsView: React.FC = () => {
               />
 
               <div className="space-y-4 mb-6">
-                <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                <div className="p-4 bg-surface-secondary rounded-lg">
                   <label className="flex items-start gap-3">
                     <input
                       type="checkbox"
@@ -472,17 +472,17 @@ export const SettingsView: React.FC = () => {
                       className="h-4 w-4 rounded border-gray-300 mt-1"
                     />
                     <div>
-                      <span className="text-sm font-medium text-gray-900 dark:text-white">
+                      <span className="text-sm font-medium text-content-primary">
                         Show profile on leaderboard
                       </span>
-                      <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                      <p className="text-xs text-content-secondary mt-1">
                         Allow other users to see your name and karma level on the global leaderboard
                       </p>
                     </div>
                   </label>
                 </div>
 
-                <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                <div className="p-4 bg-surface-secondary rounded-lg">
                   <label className="flex items-start gap-3">
                     <input
                       type="checkbox"
@@ -491,17 +491,17 @@ export const SettingsView: React.FC = () => {
                       className="h-4 w-4 rounded border-gray-300 mt-1"
                     />
                     <div>
-                      <span className="text-sm font-medium text-gray-900 dark:text-white">
+                      <span className="text-sm font-medium text-content-primary">
                         Allow analytics collection
                       </span>
-                      <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                      <p className="text-xs text-content-secondary mt-1">
                         Help us improve by sharing usage statistics (no personal data)
                       </p>
                     </div>
                   </label>
                 </div>
 
-                <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                <div className="p-4 bg-surface-secondary rounded-lg">
                   <label className="flex items-start gap-3">
                     <input
                       type="checkbox"
@@ -510,8 +510,8 @@ export const SettingsView: React.FC = () => {
                       className="h-4 w-4 rounded border-gray-300 mt-1"
                     />
                     <div>
-                      <span className="text-sm font-medium text-gray-900 dark:text-white">Share achievements</span>
-                      <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                      <span className="text-sm font-medium text-content-primary">Share achievements</span>
+                      <p className="text-xs text-content-secondary mt-1">
                         Allow friends to see when you unlock new badges and achievements
                       </p>
                     </div>
@@ -524,7 +524,7 @@ export const SettingsView: React.FC = () => {
                 description="Manage your active sessions"
               />
 
-              <div className="p-3 bg-gray-50 dark:bg-gray-700 rounded-lg mb-3 text-sm text-gray-700 dark:text-gray-300">
+              <div className="p-3 bg-surface-secondary rounded-lg mb-3 text-sm text-content-secondary">
                 <p className="font-medium mb-1">Current Session</p>
                 <p className="text-xs">Browser • {new Date().toLocaleDateString()}</p>
               </div>
@@ -552,11 +552,11 @@ export const SettingsView: React.FC = () => {
                       'p-4 rounded-lg border-2 transition-all text-center',
                       themeMode === mode.id
                         ? 'border-blue-500 bg-blue-50 dark:bg-blue-900'
-                        : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
+                        : 'border-border hover:border-gray-300'
                     )}
                   >
                     <div className="text-2xl mb-2">{mode.icon}</div>
-                    <p className="text-sm font-medium text-gray-900 dark:text-white">{mode.name}</p>
+                    <p className="text-sm font-medium text-content-primary">{mode.name}</p>
                   </button>
                 ))}
               </div>
@@ -575,11 +575,11 @@ export const SettingsView: React.FC = () => {
                       'p-4 rounded-lg border-2 transition-all text-left',
                       colorTheme === theme.id
                         ? 'border-blue-500 bg-blue-50 dark:bg-blue-900'
-                        : 'border-gray-200 dark:border-gray-700 hover:border-gray-300'
+                        : 'border-border hover:border-gray-300'
                     )}
                   >
-                    <p className="text-sm font-medium text-gray-900 dark:text-white">{theme.name}</p>
-                    <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">{theme.description}</p>
+                    <p className="text-sm font-medium text-content-primary">{theme.name}</p>
+                    <p className="text-xs text-content-secondary mt-1">{theme.description}</p>
                   </button>
                 ))}
               </div>
@@ -623,7 +623,7 @@ export const SettingsView: React.FC = () => {
                 description="Enhanced readability options for dyslexia support"
               />
 
-              <div className="p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+              <div className="p-4 bg-surface-secondary rounded-lg">
                 <label className="flex items-center gap-3">
                   <input
                     type="checkbox"
@@ -632,10 +632,10 @@ export const SettingsView: React.FC = () => {
                     className="h-4 w-4 rounded border-gray-300"
                   />
                   <div>
-                    <span className="text-sm font-medium text-gray-900 dark:text-white">
+                    <span className="text-sm font-medium text-content-primary">
                       Dyslexia-friendly font (OpenDyslexic)
                     </span>
-                    <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
+                    <p className="text-xs text-content-secondary mt-1">
                       Use OpenDyslexic font designed to improve readability for people with dyslexia
                     </p>
                   </div>
@@ -649,9 +649,9 @@ export const SettingsView: React.FC = () => {
       {/* Delete Account Modal */}
       {isDeleteModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
-          <div className="bg-white dark:bg-gray-800 rounded-lg p-6 max-w-md w-full">
-            <h2 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Delete Account?</h2>
-            <p className="text-gray-600 dark:text-gray-400 mb-4">
+          <div className="bg-surface-primary rounded-lg p-6 max-w-md w-full">
+            <h2 className="text-lg font-bold text-content-primary mb-2">Delete Account?</h2>
+            <p className="text-content-secondary mb-4">
               This will permanently delete your account and all associated data. This action cannot be undone.
             </p>
             <div className="flex gap-3 justify-end">
