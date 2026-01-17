@@ -53,7 +53,7 @@ This phase focuses on implementing a robust, accessible theming system with dark
 | T6.2.2 | Fix Sidebar component dark mode styles | High | ✅ |
 | T6.2.3 | Fix TaskCard component dark mode styles | High | ✅ |
 | T6.2.4 | Fix Modal/Dialog components dark mode styles | High | ✅ |
-| T6.2.5 | Fix Form inputs/buttons dark mode styles | High | ⬜ |
+| T6.2.5 | Fix Form inputs/buttons dark mode styles | High | ✅ |
 | T6.2.6 | Fix DropdownMenu components dark mode styles | Medium | ⬜ |
 | T6.2.7 | Fix DatePicker/Calendar dark mode styles | Medium | ⬜ |
 | T6.2.8 | Fix Toast/Notification dark mode styles | Medium | ⬜ |
@@ -542,6 +542,7 @@ npm run storybook
 
 | Date | Change | Author |
 |------|--------|--------|
+| 2026-01-17 | T6.2.5: COMPLETED - Fixed Form inputs/buttons dark mode. Updated TemplateForm, DatePickerInput, TimePickerInput, OAuthButton, RambleVoiceInput, CommentForm, FloatingActionButton, DataExportImport, CalendarView, SlackIntegration, EmailIntegration, OfflineIndicator, AtRiskTasks, ComparisonAnalytics, PersonalDashboard, EnhancedSearchBar, CalendarEventsList, ReportGenerator, SavedQueryManager, ContextMenu, TemplateGallery, TemplatePreview, KeyboardShortcutsSettings, TeamDashboard, TeamAnalytics, ConflictResolver, RecurrenceInstancesList. All 1658 tests pass. | Amp |
 | 2026-01-17 | T6.2.4: COMPLETED - Fixed Modal dark mode. Updated QuickAddModal, MobileQuickAddModal, ShareProjectModal, AchievementDetailModal, TaskAssignmentModal to use semantic tokens. | Amp |
 | 2026-01-17 | T6.2.3: COMPLETED - Fixed TaskCard dark mode. Updated TaskItem, MatrixTaskCard, SubTaskItem, SwipeableTaskItem to use semantic priority tokens and brand colors for selection states. | Amp |
 | 2026-01-17 | T6.2.2: COMPLETED - Fixed Sidebar dark mode. Updated all active state styles from `bg-blue-100 text-blue-700` to `bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-400`. | Amp |

@@ -61,10 +61,10 @@ export const FloatingActionButton: React.FC<FloatingActionButtonProps> = ({
   };
 
   const colorClasses = {
-    primary: 'text-brand-500 bg-brand-50',
+    primary: 'text-brand-500 bg-brand-50 dark:bg-brand-900/30',
     secondary: 'text-content-secondary bg-surface-secondary',
-    success: 'text-semantic-success bg-green-50',
-    danger: 'text-semantic-error bg-red-50',
+    success: 'text-semantic-success bg-green-50 dark:bg-green-900/30',
+    danger: 'text-semantic-error bg-red-50 dark:bg-red-900/30',
   };
 
   const handleMainAction = () => {

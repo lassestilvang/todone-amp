@@ -124,7 +124,7 @@ export function TemplatePreview({ templateId, onClose, onApply, className }: Tem
         <button
           onClick={handleApply}
           disabled={isApplying || !projectName.trim()}
-          className="flex-1 rounded bg-blue-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-600 disabled:opacity-50"
+          className="flex-1 rounded bg-interactive-primary px-4 py-2 text-sm font-medium text-content-inverse transition hover:bg-interactive-primary-hover disabled:opacity-50"
         >
           {isApplying ? 'Applying...' : 'Apply Template'}
         </button>

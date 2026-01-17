@@ -32,11 +32,11 @@ export const CalendarEventsList: React.FC<CalendarEventsListProps> = ({
 
   if (error) {
     return (
-      <div className={cn('flex gap-3 rounded-lg border border-red-200 bg-red-50 p-4', className)}>
+      <div className={cn('flex gap-3 rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-900/30', className)}>
         <AlertCircle className="h-5 w-5 flex-shrink-0 text-semantic-error" />
         <div>
-          <p className="text-sm font-medium text-red-900">Failed to load events</p>
-          <p className="text-xs text-red-700">{error}</p>
+          <p className="text-sm font-medium text-red-900 dark:text-red-100">Failed to load events</p>
+          <p className="text-xs text-red-700 dark:text-red-300">{error}</p>
         </div>
       </div>
     )

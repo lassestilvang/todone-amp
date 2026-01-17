@@ -80,7 +80,7 @@ export function TemplateGallery({ onSelectTemplate, className }: TemplateGallery
           className={cn(
             'rounded px-3 py-1 text-sm transition',
             selectedCategory === 'all'
-              ? 'bg-blue-500 text-white'
+              ? 'bg-interactive-primary text-content-inverse'
               : 'bg-interactive-secondary text-content-secondary'
           )}
         >
@@ -93,7 +93,7 @@ export function TemplateGallery({ onSelectTemplate, className }: TemplateGallery
             className={cn(
               'rounded px-3 py-1 text-sm transition',
               selectedCategory === cat.value
-                ? 'bg-blue-500 text-white'
+                ? 'bg-interactive-primary text-content-inverse'
                 : 'bg-interactive-secondary text-content-secondary'
             )}
           >

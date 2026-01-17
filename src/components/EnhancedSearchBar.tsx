@@ -153,7 +153,7 @@ export const EnhancedSearchBar: React.FC<EnhancedSearchBarProps> = ({
               className={cn(
                 'w-full border-b border-border px-4 py-2 text-left text-sm last:border-b-0 transition',
                 index === selectedIndex
-                  ? 'bg-blue-50 text-blue-900'
+                  ? 'bg-blue-50 text-blue-900 dark:bg-blue-900 dark:text-blue-100'
                   : 'text-content-secondary hover:bg-surface-tertiary'
               )}
             >

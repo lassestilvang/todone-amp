@@ -48,7 +48,7 @@ export const SavedQueryManager: React.FC<SavedQueryManagerProps> = ({ onApply, c
               <button
                 onClick={() => onApply(query.query)}
                 title="Apply this query"
-                className="p-2 text-blue-600 hover:bg-blue-50 rounded"
+                className="p-2 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900 rounded"
               >
                 <Play className="h-4 w-4" />
               </button>
@@ -65,7 +65,7 @@ export const SavedQueryManager: React.FC<SavedQueryManagerProps> = ({ onApply, c
               <button
                 onClick={() => deleteSavedQuery(query.id)}
                 title="Delete query"
-                className="p-2 text-red-600 hover:bg-red-50 rounded"
+                className="p-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900 rounded"
               >
                 <Trash2 className="h-4 w-4" />
               </button>

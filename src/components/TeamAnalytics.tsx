@@ -159,7 +159,7 @@ export const TeamAnalytics: React.FC<TeamAnalyticsProps> = ({ teamId, className 
                       )}
                       <span className="font-medium text-content-primary">{stat.name}</span>
                       {stat.userId === topPerformer.userId && (
-                        <span className="ml-2 rounded-full bg-yellow-100 px-2 py-1 text-xs font-medium text-yellow-700">
+                        <span className="ml-2 rounded-full bg-yellow-100 px-2 py-1 text-xs font-medium text-yellow-700 dark:bg-yellow-900 dark:text-yellow-200">
                           🏆 Top
                         </span>
                       )}

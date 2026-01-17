@@ -284,7 +284,7 @@ export function KeyboardShortcutsSettings({ onClose }: KeyboardShortcutsSettings
       <div className="flex-1 overflow-y-auto p-6">
         <div className="space-y-4">
           {error && (
-            <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-sm text-red-700">
+            <div className="p-3 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg text-sm text-red-700 dark:text-red-300">
               {error}
             </div>
           )}

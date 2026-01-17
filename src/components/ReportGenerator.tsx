@@ -51,7 +51,7 @@ export const ReportGenerator: React.FC<ReportGeneratorProps> = ({ className }) =
         </div>
 
         {error && (
-          <div className="mb-4 flex gap-2 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700">
+          <div className="mb-4 flex gap-2 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700 dark:border-red-800 dark:bg-red-900/30 dark:text-red-300">
             <AlertCircle className="h-5 w-5 flex-shrink-0" />
             <p>{error}</p>
           </div>

@@ -98,13 +98,13 @@ export const RambleVoiceInput: React.FC = () => {
   const getPriorityColor = (priority?: string) => {
     switch (priority) {
       case 'urgent':
-        return 'bg-red-100 text-red-800'
+        return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
       case 'high':
-        return 'bg-orange-100 text-orange-800'
+        return 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200'
       case 'medium':
-        return 'bg-yellow-100 text-yellow-800'
+        return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
       default:
-        return 'bg-green-100 text-green-800'
+        return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
     }
   }
 
@@ -188,9 +188,9 @@ export const RambleVoiceInput: React.FC = () => {
 
       {/* Error Message */}
       {error && (
-        <div className="flex items-center gap-3 rounded-lg border border-red-200 bg-red-50 p-4">
-          <AlertCircle className="h-5 w-5 text-red-600" />
-          <p className="text-sm text-red-800">{error}</p>
+        <div className="flex items-center gap-3 rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-900/30">
+          <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400" />
+          <p className="text-sm text-red-800 dark:text-red-200">{error}</p>
         </div>
       )}
 
@@ -213,7 +213,7 @@ export const RambleVoiceInput: React.FC = () => {
                 {/* Metadata */}
                 <div className="flex flex-wrap gap-2 border-t border-border pt-2">
                   {task.dueDate && (
-                    <span className="inline-flex items-center rounded-full bg-blue-100 px-2 py-1 text-xs font-medium text-blue-800">
+                    <span className="inline-flex items-center rounded-full bg-blue-100 px-2 py-1 text-xs font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-200">
                       📅 {task.dueDate}
                     </span>
                   )}
@@ -238,9 +238,9 @@ export const RambleVoiceInput: React.FC = () => {
       )}
 
       {/* Tips */}
-      <div className="flex flex-col gap-3 rounded-lg border border-blue-200 bg-blue-50 p-4">
-        <h4 className="font-medium text-blue-900">Tips for Best Results</h4>
-        <ul className="list-inside list-disc space-y-1 text-sm text-blue-800">
+      <div className="flex flex-col gap-3 rounded-lg border border-blue-200 bg-blue-50 p-4 dark:border-blue-800 dark:bg-blue-900/30">
+        <h4 className="font-medium text-blue-900 dark:text-blue-100">Tips for Best Results</h4>
+        <ul className="list-inside list-disc space-y-1 text-sm text-blue-800 dark:text-blue-200">
           <li>Speak naturally - mention specific dates and priorities</li>
           <li>Use phrases like "due Friday" or "urgent" for better extraction</li>
           <li>Mention who should be assigned (for team members)</li>

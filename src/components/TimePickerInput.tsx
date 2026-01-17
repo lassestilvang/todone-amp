@@ -69,7 +69,7 @@ export function TimePickerInput({
         className={cn(
           'flex items-center gap-2 px-3 py-2 border border-border rounded-md',
           'text-sm font-medium text-content-secondary bg-surface-primary',
-          'hover:bg-surface-tertiary focus:outline-none focus:ring-2 focus:ring-brand-500',
+          'hover:bg-surface-tertiary focus:outline-none focus:ring-2 focus:ring-focus',
           'disabled:opacity-50 disabled:cursor-not-allowed w-full justify-between'
         )}
       >
@@ -90,7 +90,7 @@ export function TimePickerInput({
               placeholder="at 3pm, at 14:00..."
               className={cn(
                 'w-full px-3 py-2 border border-border rounded-md text-sm',
-                'placeholder-content-tertiary focus:outline-none focus:ring-2 focus:ring-brand-500'
+                'bg-input-bg text-content-primary placeholder-content-tertiary focus:outline-none focus:ring-2 focus:ring-focus'
               )}
               autoFocus
             />
@@ -106,7 +106,7 @@ export function TimePickerInput({
                   onClick={() => handleTimeSelect(time)}
                   className={cn(
                     'px-2 py-2 text-xs font-medium rounded',
-                    'hover:bg-brand-100 border border-border',
+                    'hover:bg-brand-100 dark:hover:bg-brand-900 border border-border',
                     value === time && 'bg-brand-500 text-white border-brand-500'
                   )}
                 >

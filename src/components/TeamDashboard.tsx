@@ -149,10 +149,10 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({ teamId }) => {
 
       {/* At-Risk Tasks */}
       {atRiskMembers.length > 0 && (
-        <div className="flex flex-col gap-4 rounded-lg border border-red-200 bg-red-50 p-4">
+        <div className="flex flex-col gap-4 rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-900/30">
           <div className="flex items-center gap-2">
-            <AlertCircle className="h-5 w-5 text-red-600" />
-            <h3 className="font-semibold text-red-900">At-Risk Members</h3>
+            <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400" />
+            <h3 className="font-semibold text-red-900 dark:text-red-200">At-Risk Members</h3>
           </div>
 
           <div className="flex flex-col gap-2">

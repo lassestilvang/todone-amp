@@ -76,7 +76,7 @@ export function TemplateForm({
           onChange={(e) => setName(e.target.value)}
           placeholder="e.g., Weekly Project Planning"
           required
-          className="mt-1 w-full rounded border border-border px-3 py-2 text-sm"
+          className="mt-1 w-full rounded border border-input-border bg-input-bg px-3 py-2 text-sm text-content-primary placeholder-input-placeholder"
         />
       </div>
 
@@ -90,7 +90,7 @@ export function TemplateForm({
           onChange={(e) => setDescription(e.target.value)}
           placeholder="What is this template used for?"
           rows={3}
-          className="mt-1 w-full rounded border border-border px-3 py-2 text-sm"
+          className="mt-1 w-full rounded border border-input-border bg-input-bg px-3 py-2 text-sm text-content-primary placeholder-input-placeholder"
         />
       </div>
 
@@ -102,7 +102,7 @@ export function TemplateForm({
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value as TemplateCategory)}
-          className="mt-1 w-full rounded border border-border px-3 py-2 text-sm"
+          className="mt-1 w-full rounded border border-input-border bg-input-bg px-3 py-2 text-sm text-content-primary"
         >
           {CATEGORIES.map((cat) => (
             <option key={cat.value} value={cat.value}>
@@ -113,7 +113,7 @@ export function TemplateForm({
       </div>
 
       {/* Info */}
-      <div className="rounded bg-blue-50 p-3 text-sm text-blue-700 dark:bg-blue-900 dark:text-blue-300">
+      <div className="rounded bg-info-light p-3 text-sm text-info-dark">
         Template will be created from current project structure when you apply it.
       </div>
 
@@ -122,14 +122,14 @@ export function TemplateForm({
         <button
           type="submit"
           disabled={isLoading}
-          className="flex-1 rounded bg-blue-500 px-4 py-2 text-sm font-medium text-white transition hover:bg-blue-600 disabled:opacity-50"
+          className="flex-1 rounded bg-interactive-primary px-4 py-2 text-sm font-medium text-content-inverse transition hover:bg-interactive-primary-hover disabled:opacity-50"
         >
           {isLoading ? 'Creating...' : 'Create Template'}
         </button>
         <button
           type="button"
           onClick={onCancel}
-          className="rounded border border-border px-4 py-2 text-sm"
+          className="rounded border border-border bg-surface-primary px-4 py-2 text-sm text-content-primary hover:bg-surface-tertiary"
         >
           Cancel
         </button>

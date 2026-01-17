@@ -89,7 +89,7 @@ export function DatePickerInput({
         className={cn(
           'flex items-center gap-2 px-3 py-2 border border-border rounded-md',
           'text-sm font-medium text-content-secondary bg-surface-primary',
-          'hover:bg-surface-tertiary focus:outline-none focus:ring-2 focus:ring-brand-500',
+          'hover:bg-surface-tertiary focus:outline-none focus:ring-2 focus:ring-focus',
           'disabled:opacity-50 disabled:cursor-not-allowed w-full justify-between'
         )}
       >
@@ -110,7 +110,7 @@ export function DatePickerInput({
               placeholder="Today, tomorrow, in 3 days..."
               className={cn(
                 'w-full px-3 py-2 border border-border rounded-md text-sm',
-                'placeholder-content-tertiary focus:outline-none focus:ring-2 focus:ring-brand-500'
+                'bg-input-bg text-content-primary placeholder-content-tertiary focus:outline-none focus:ring-2 focus:ring-focus'
               )}
               autoFocus
             />
@@ -148,7 +148,7 @@ export function DatePickerInput({
                   className={cn(
                     'h-8 text-sm font-medium rounded',
                     day === null && 'invisible',
-                    day && 'hover:bg-brand-100 cursor-pointer',
+                    day && 'hover:bg-brand-100 dark:hover:bg-brand-900 cursor-pointer',
                     value &&
                       day === value.getDate() &&
                       value.getMonth() === calendarDate.getMonth() &&

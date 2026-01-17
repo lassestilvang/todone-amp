@@ -145,9 +145,10 @@ export function CommentForm({
           autoFocus={autoFocus}
           rows={3}
           className={cn(
-            'w-full px-3 py-2 border border-border rounded-lg',
-            'text-sm placeholder-content-tertiary resize-none',
-            'focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent',
+            'w-full px-3 py-2 border border-input-border rounded-lg',
+            'bg-input-bg text-content-primary',
+            'text-sm placeholder-input-placeholder resize-none',
+            'focus:outline-none focus:ring-2 focus:ring-focus focus:border-transparent',
           )}
         />
 

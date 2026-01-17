@@ -148,7 +148,9 @@ export const ComparisonAnalytics: React.FC<ComparisonAnalyticsProps> = ({ classN
       <div
         className={cn(
           'rounded-lg border p-4',
-          isImprovement ? 'border-green-200 bg-green-50' : 'border-red-200 bg-red-50'
+          isImprovement
+            ? 'border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-900/30'
+            : 'border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-900/30'
         )}
       >
         <div className="flex items-center gap-3">
@@ -161,13 +163,13 @@ export const ComparisonAnalytics: React.FC<ComparisonAnalyticsProps> = ({ classN
             <p
               className={cn(
                 'text-sm font-medium',
-                isImprovement ? 'text-green-700' : 'text-red-700'
+                isImprovement ? 'text-green-700 dark:text-green-300' : 'text-red-700 dark:text-red-300'
               )}
             >
               {isImprovement ? 'Improvement' : 'Decrease'} of{' '}
               {Math.abs(comparisonStats.changePercentage).toFixed(1)}%
             </p>
-            <p className={cn('text-xs', isImprovement ? 'text-green-600' : 'text-red-600')}>
+            <p className={cn('text-xs', isImprovement ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400')}>
               {isImprovement
                 ? 'Great progress! Keep it up.'
                 : 'Try to focus more on task completion.'}

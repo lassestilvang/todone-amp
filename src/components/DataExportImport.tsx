@@ -288,18 +288,18 @@ export function DataExportImport() {
           </p>
 
           {importSuccess && (
-            <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-              <p className="text-green-800 font-medium">✓ Data imported successfully!</p>
-              <p className="text-sm text-green-700 mt-1">
+            <div className="p-4 bg-green-50 border border-green-200 rounded-lg dark:bg-green-900/30 dark:border-green-800">
+              <p className="text-green-800 font-medium dark:text-green-300">✓ Data imported successfully!</p>
+              <p className="text-sm text-green-700 mt-1 dark:text-green-300">
                 Your data has been added to your Todone workspace.
               </p>
             </div>
           )}
 
           {importError && (
-            <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-              <p className="text-red-800 font-medium">✗ Import failed</p>
-              <p className="text-sm text-red-700 mt-1">{importError}</p>
+            <div className="p-4 bg-red-50 border border-red-200 rounded-lg dark:bg-red-900/30 dark:border-red-800">
+              <p className="text-red-800 font-medium dark:text-red-300">✗ Import failed</p>
+              <p className="text-sm text-red-700 mt-1 dark:text-red-300">{importError}</p>
             </div>
           )}
 
@@ -318,9 +318,9 @@ export function DataExportImport() {
             </label>
           </div>
 
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-            <h4 className="font-medium text-blue-900 mb-2">Import Tips</h4>
-            <ul className="text-sm text-blue-800 space-y-1">
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 dark:bg-blue-900/30 dark:border-blue-800">
+            <h4 className="font-medium text-blue-900 mb-2 dark:text-blue-300">Import Tips</h4>
+            <ul className="text-sm text-blue-800 space-y-1 dark:text-blue-300">
               <li>• Only JSON exports from Todone are supported</li>
               <li>• Imported data will be added to your existing workspace</li>
               <li>• Duplicate tasks may be created if importing the same file twice</li>
@@ -338,16 +338,16 @@ export function DataExportImport() {
           </p>
 
           {templateApplySuccess && (
-            <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
-              <p className="text-green-800 font-medium">✓ Template applied successfully!</p>
-              <p className="text-sm text-green-700 mt-1">Your new project has been created.</p>
+            <div className="p-4 bg-green-50 border border-green-200 rounded-lg dark:bg-green-900/30 dark:border-green-800">
+              <p className="text-green-800 font-medium dark:text-green-300">✓ Template applied successfully!</p>
+              <p className="text-sm text-green-700 mt-1 dark:text-green-300">Your new project has been created.</p>
             </div>
           )}
 
           {templateApplyError && (
-            <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
-              <p className="text-red-800 font-medium">✗ Failed to apply template</p>
-              <p className="text-sm text-red-700 mt-1">{templateApplyError}</p>
+            <div className="p-4 bg-red-50 border border-red-200 rounded-lg dark:bg-red-900/30 dark:border-red-800">
+              <p className="text-red-800 font-medium dark:text-red-300">✗ Failed to apply template</p>
+              <p className="text-sm text-red-700 mt-1 dark:text-red-300">{templateApplyError}</p>
             </div>
           )}
 

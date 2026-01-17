@@ -200,7 +200,7 @@ function MonthView({ currentDate, tasksByDate, onTaskClick }: MonthViewProps) {
                   className={cn(
                     'bg-surface-primary p-2 min-h-24 flex flex-col',
                     !isCurrentMonth && 'bg-surface-secondary',
-                    isTodayDate && 'bg-blue-50'
+                    isTodayDate && 'bg-blue-50 dark:bg-blue-900/20'
                   )}
                 >
                   {/* Day Number */}
@@ -224,9 +224,9 @@ function MonthView({ currentDate, tasksByDate, onTaskClick }: MonthViewProps) {
                         className={cn(
                           'w-full text-xs p-1 rounded text-left hover:opacity-80 transition-opacity line-clamp-1 font-medium',
                           {
-                            'bg-red-100 text-red-800': task.priority === 'p1',
-                            'bg-orange-100 text-orange-800': task.priority === 'p2',
-                            'bg-blue-100 text-blue-800': task.priority === 'p3',
+                            'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200': task.priority === 'p1',
+                            'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200': task.priority === 'p2',
+                            'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200': task.priority === 'p3',
                             'bg-surface-tertiary text-content-primary': !task.priority || task.priority === 'p4',
                           }
                         )}
@@ -292,7 +292,7 @@ function WeekView({ currentDate, tasksByDate, onTaskClick }: WeekViewProps) {
             key={format(day, 'yyyy-MM-dd')} 
             className={cn(
               'bg-surface-secondary py-2 px-2 text-center',
-              isToday(day) && 'bg-blue-50 border-b-2 border-blue-300'
+              isToday(day) && 'bg-blue-50 dark:bg-blue-900/20 border-b-2 border-blue-300 dark:border-blue-700'
             )}
           >
             <div className="text-xs font-semibold text-content-secondary">{format(day, 'EEE')}</div>
@@ -334,7 +334,7 @@ function WeekView({ currentDate, tasksByDate, onTaskClick }: WeekViewProps) {
             return (
               <div
                 key={dateKey}
-                className={cn('bg-surface-primary border-r border-border', isToday(day) && 'bg-blue-50')}
+                className={cn('bg-surface-primary border-r border-border', isToday(day) && 'bg-blue-50 dark:bg-blue-900/20')}
               >
                 {hours.map((hour) => (
                   <div key={`${dateKey}-${hour}`} className="h-16 border-b border-border p-1 relative">
@@ -352,9 +352,9 @@ function WeekView({ currentDate, tasksByDate, onTaskClick }: WeekViewProps) {
                             className={cn(
                               'w-full text-xs p-1 rounded text-left hover:opacity-80 transition-opacity line-clamp-1 font-medium',
                               {
-                                'bg-red-100 text-red-800': task.priority === 'p1',
-                                'bg-orange-100 text-orange-800': task.priority === 'p2',
-                                'bg-blue-100 text-blue-800': task.priority === 'p3',
+                                'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200': task.priority === 'p1',
+                                'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200': task.priority === 'p2',
+                                'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200': task.priority === 'p3',
                                 'bg-surface-tertiary text-content-primary': !task.priority || task.priority === 'p4',
                               }
                             )}
