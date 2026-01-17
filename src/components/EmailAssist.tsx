@@ -184,10 +184,13 @@ export const EmailAssist: React.FC = () => {
       )}
 
       {/* Setup Info */}
-      <div className="flex flex-col gap-3 rounded-lg border border-blue-200 bg-blue-50 p-4">
-        <h4 className="font-medium text-blue-900">How to Use</h4>
-        <ol className="list-inside list-decimal space-y-2 text-sm text-blue-800">
-          <li>Forward relevant emails to: <code className="bg-white px-2 py-1 font-mono">add@todone.app</code></li>
+      <div className="flex flex-col gap-3 rounded-lg border border-info/30 bg-info-light p-4">
+        <h4 className="font-medium text-info-dark dark:text-info">How to Use</h4>
+        <ol className="list-inside list-decimal space-y-2 text-sm text-content-secondary">
+          <li>
+            Forward relevant emails to:{' '}
+            <code className="bg-surface-primary px-2 py-1 font-mono">add@todone.app</code>
+          </li>
           <li>AI automatically extracts tasks, dates, and action items</li>
           <li>Review and adjust extracted information</li>
           <li>Create tasks directly to your project</li>

@@ -73,7 +73,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) =
                 'w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium transition-colors',
                 shouldShowCollapsed && 'justify-center px-2',
                 currentView === id
-                  ? 'bg-blue-100 text-blue-700'
+                  ? 'bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-400'
                   : 'text-content-secondary hover:bg-surface-tertiary'
               )}
               title={shouldShowCollapsed ? label : undefined}
@@ -114,7 +114,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) =
                   className={cn(
                     'w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors text-left',
                     selectedProjectId === project.id
-                      ? 'bg-blue-100 text-blue-700'
+                      ? 'bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-400'
                       : 'text-content-secondary hover:bg-surface-tertiary'
                   )}
                   title={selectedProjectId === project.id ? project.name : undefined}
@@ -147,7 +147,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) =
                   className={cn(
                     'w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors text-left',
                     currentView === `label-${label.id}`
-                      ? 'bg-blue-100 text-blue-700'
+                      ? 'bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-400'
                       : 'text-content-secondary hover:bg-surface-tertiary'
                   )}
                 >
@@ -176,7 +176,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) =
                 className={cn(
                   'w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors text-left',
                   currentView === 'filter-completed'
-                    ? 'bg-blue-100 text-blue-700'
+                    ? 'bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-400'
                     : 'text-content-secondary hover:bg-surface-tertiary'
                 )}
               >
@@ -187,7 +187,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) =
                 className={cn(
                   'w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors text-left',
                   currentView === 'filter-overdue'
-                    ? 'bg-blue-100 text-blue-700'
+                    ? 'bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-400'
                     : 'text-content-secondary hover:bg-surface-tertiary'
                 )}
               >

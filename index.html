@@ -9,6 +9,19 @@
     <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="apple-touch-icon" href="/icons/icon-192.svg" />
     <title>Todone - Task Management</title>
+    <!-- Prevent flash of wrong theme by setting class before CSS loads -->
+    <script>
+      (function() {
+        try {
+          var stored = localStorage.getItem('todone-theme');
+          var theme = stored ? JSON.parse(stored) : null;
+          var mode = theme && theme.state && theme.state.mode ? theme.state.mode : 'system';
+          var isDark = mode === 'dark' || 
+            (mode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+          document.documentElement.classList.add(isDark ? 'dark' : 'light');
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

@@ -89,9 +89,9 @@ export function SubTaskItem({
         {task.priority && !task.completed && (
           <div
             className={cn('text-xs font-bold rounded px-2 py-1', {
-              'bg-red-100 text-red-700': task.priority === 'p1',
-              'bg-orange-100 text-orange-700': task.priority === 'p2',
-              'bg-blue-100 text-blue-700': task.priority === 'p3',
+              'bg-priority-p1-bg text-priority-p1': task.priority === 'p1',
+              'bg-priority-p2-bg text-priority-p2': task.priority === 'p2',
+              'bg-priority-p3-bg text-priority-p3': task.priority === 'p3',
               'bg-surface-tertiary text-content-secondary': task.priority === 'p4',
             })}
           >
@@ -117,7 +117,7 @@ export function SubTaskItem({
               e.stopPropagation()
               onDelete(task.id)
             }}
-            className="p-1 hover:bg-red-100 text-red-600 rounded transition-colors"
+            className="p-1 hover:bg-semantic-error/10 text-semantic-error rounded transition-colors"
             title="Delete task"
           >
             <Trash2 size={16} />

@@ -12,6 +12,7 @@
 
   :root {
     color-scheme: light;
+    --theme-transition-duration: 150ms;
   }
 
   :root.dark {
@@ -26,8 +27,27 @@
     @apply bg-gray-900 text-gray-100;
   }
 
-  * {
-    @apply transition-colors duration-150;
+  /* Theme transition - only apply to color-related properties for performance */
+  html.theme-transition,
+  html.theme-transition *,
+  html.theme-transition *::before,
+  html.theme-transition *::after {
+    transition: background-color var(--theme-transition-duration) ease-out,
+                border-color var(--theme-transition-duration) ease-out,
+                color var(--theme-transition-duration) ease-out,
+                fill var(--theme-transition-duration) ease-out,
+                stroke var(--theme-transition-duration) ease-out,
+                box-shadow var(--theme-transition-duration) ease-out !important;
+  }
+
+  /* Respect user preference for reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    html.theme-transition,
+    html.theme-transition *,
+    html.theme-transition *::before,
+    html.theme-transition *::after {
+      transition: none !important;
+    }
   }
 }
 

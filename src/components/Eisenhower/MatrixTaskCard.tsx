@@ -14,9 +14,9 @@ interface MatrixTaskCardProps {
 }
 
 const priorityColors: Record<string, string> = {
-  p1: 'border-l-red-500',
-  p2: 'border-l-orange-500',
-  p3: 'border-l-blue-500',
+  p1: 'border-l-priority-p1',
+  p2: 'border-l-priority-p2',
+  p3: 'border-l-priority-p3',
   p4: 'border-l-border',
 }
 

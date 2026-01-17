@@ -475,7 +475,7 @@ export function QuickAddModal() {
           )}
 
           {/* Help Text */}
-          <div className="border-t border-border px-6 py-3 bg-blue-50 text-xs text-content-secondary space-y-1">
+          <div className="border-t border-border px-6 py-3 bg-info-light text-xs text-content-secondary space-y-1">
             {mode === 'create' ? (
               <>
                 <p>

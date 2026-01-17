@@ -155,8 +155,8 @@ export const MobileQuickAddModal: React.FC<MobileQuickAddModalProps> = ({
             disabled={isLoading}
             className={cn(
               'flex-1 py-3 rounded-lg font-medium transition-colors',
-              'bg-blue-500 hover:bg-blue-600 text-white',
-              'disabled:bg-blue-400 disabled:cursor-not-allowed',
+              'bg-brand-600 hover:bg-brand-700 text-white',
+              'disabled:bg-brand-400 disabled:cursor-not-allowed',
               'flex items-center justify-center gap-2'
             )}
           >

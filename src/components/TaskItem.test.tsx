@@ -94,7 +94,7 @@ describe('TaskItem Component', () => {
     it('should render selection indicator when selected', () => {
       render(<TaskItem task={mockTask} isSelected={true} />)
       const container = screen.getByText('Test task').closest('div')?.parentElement
-      expect(container).toHaveClass('bg-blue-50', 'border-blue-500')
+      expect(container).toHaveClass('bg-brand-50', 'border-brand-500')
     })
   })
 
@@ -216,7 +216,7 @@ describe('TaskItem Component', () => {
     it('should apply selection styling when selected', () => {
       render(<TaskItem task={mockTask} isSelected={true} />)
       const container = screen.getByText('Test task').closest('div')?.parentElement
-      expect(container).toHaveClass('bg-blue-50', 'border-blue-500')
+      expect(container).toHaveClass('bg-brand-50', 'border-brand-500')
     })
 
     it('should apply completed styling when task is completed', () => {

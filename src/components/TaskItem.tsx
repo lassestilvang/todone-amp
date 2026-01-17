@@ -15,9 +15,9 @@ interface TaskItemProps {
 }
 
 const priorityConfig: Record<string, { color: string; icon: string }> = {
-  p1: { color: 'text-red-600', icon: '!!!' },
-  p2: { color: 'text-orange-600', icon: '!!' },
-  p3: { color: 'text-blue-600', icon: '!' },
+  p1: { color: 'text-priority-p1', icon: '!!!' },
+  p2: { color: 'text-priority-p2', icon: '!!' },
+  p3: { color: 'text-priority-p3', icon: '!' },
   p4: { color: 'text-content-tertiary', icon: '-' },
   null: { color: 'text-content-tertiary', icon: '-' },
 }
@@ -40,7 +40,9 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, onToggle, onSelect, is
       onClick={() => onSelect?.(task.id)}
       className={cn(
         'flex items-center gap-3 px-4 py-2 border-l-4 cursor-pointer transition-all duration-150',
-        isSelected ? 'bg-blue-50 border-blue-500' : 'border-transparent hover:bg-surface-tertiary'
+        isSelected
+          ? 'bg-brand-50 dark:bg-brand-900/20 border-brand-500'
+          : 'border-transparent hover:bg-surface-tertiary'
       )}
     >
       {/* Checkbox */}

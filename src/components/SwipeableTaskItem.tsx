@@ -63,14 +63,14 @@ export const SwipeableTaskItem: React.FC<SwipeableTaskItemProps> = ({
       <div className="absolute inset-0 flex items-center justify-between px-4 pointer-events-none">
         {/* Right action - Complete */}
         <div className={cn('flex items-center gap-2', swipeOffset > 20 && 'opacity-100')}>
-          <CheckCircle2 className="h-5 w-5 text-green-500" />
-          <span className="text-sm font-medium text-green-600">Complete</span>
+          <CheckCircle2 className="h-5 w-5 text-semantic-success" />
+          <span className="text-sm font-medium text-semantic-success">Complete</span>
         </div>
 
         {/* Left action - Delete */}
         <div className={cn('flex items-center gap-2', swipeOffset < -20 && 'opacity-100')}>
-          <span className="text-sm font-medium text-red-600">Delete</span>
-          <Trash2 className="h-5 w-5 text-red-500" />
+          <span className="text-sm font-medium text-semantic-error">Delete</span>
+          <Trash2 className="h-5 w-5 text-semantic-error" />
         </div>
       </div>
 

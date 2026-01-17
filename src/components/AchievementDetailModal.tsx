@@ -90,22 +90,20 @@ export const AchievementDetailModal: React.FC<AchievementDetailModalProps> = ({
             </div>
 
             {/* Reward */}
-            <div className="flex items-center gap-2 p-3 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
-              <Gift className="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0" />
-              <span className="text-sm font-medium text-blue-900 dark:text-blue-100">
+            <div className="flex items-center gap-2 p-3 bg-info-light rounded-lg">
+              <Gift className="w-5 h-5 text-info dark:text-info flex-shrink-0" />
+              <span className="text-sm font-medium text-info-dark dark:text-info">
                 Reward: +{achievement.points} Karma Points
               </span>
             </div>
 
             {/* Unlock Info */}
             {isUnlocked && (
-              <div className="p-3 bg-green-50 dark:bg-green-900/30 rounded-lg">
-                <p className="text-sm text-green-700 dark:text-green-200">
+              <div className="p-3 bg-success-light rounded-lg">
+                <p className="text-sm text-success-dark dark:text-semantic-success">
                   ✓ Achievement unlocked!
                 </p>
-                <p className="text-xs text-green-600 dark:text-green-300 mt-1">
-                  Great job on your progress!
-                </p>
+                <p className="text-xs text-semantic-success mt-1">Great job on your progress!</p>
               </div>
             )}
 
@@ -141,7 +139,7 @@ export const AchievementDetailModal: React.FC<AchievementDetailModalProps> = ({
               Close
             </button>
             {isUnlocked && (
-              <button className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center justify-center gap-2">
+              <button className="flex-1 px-4 py-2 bg-brand-600 text-white rounded-lg font-medium hover:bg-brand-700 transition-colors flex items-center justify-center gap-2">
                 <Share2 className="w-4 h-4" />
                 Share
               </button>

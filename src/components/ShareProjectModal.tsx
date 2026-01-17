@@ -141,7 +141,7 @@ export function ShareProjectModal({
                     </select>
                     <button
                       onClick={() => handleUnshare(share.id)}
-                      className="rounded px-2 py-1 text-xs text-semantic-error hover:bg-red-50 dark:hover:bg-red-900/30"
+                      className="rounded px-2 py-1 text-xs text-semantic-error hover:bg-semantic-error/10"
                     >
                       Remove
                     </button>
@@ -209,7 +209,7 @@ export function ShareProjectModal({
                 'flex-1 rounded px-3 py-2 text-sm font-medium transition',
                 isSharing || selectedUserIds.length === 0
                   ? 'bg-interactive-secondary text-content-tertiary'
-                  : 'bg-blue-500 text-white hover:bg-blue-600'
+                  : 'bg-brand-600 text-white hover:bg-brand-700'
               )}
               >
               {isSharing ? 'Sharing...' : 'Share'}
@@ -272,8 +272,8 @@ export function ShareProjectModal({
                   className={cn(
                     'rounded px-3 py-1 text-xs font-medium transition',
                     copySuccess
-                      ? 'bg-green-500 text-white'
-                      : 'bg-blue-500 text-white hover:bg-blue-600'
+                      ? 'bg-semantic-success text-white'
+                      : 'bg-brand-600 text-white hover:bg-brand-700'
                   )}
                 >
                   {copySuccess ? '✓ Copied' : 'Copy'}

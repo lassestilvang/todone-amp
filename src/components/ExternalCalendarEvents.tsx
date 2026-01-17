@@ -132,7 +132,7 @@ const ExternalEventItem: React.FC<{
             href={event.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex-shrink-0 p-1.5 hover:bg-white/50 rounded transition-colors"
+            className="flex-shrink-0 p-1.5 hover:bg-surface-tertiary rounded transition-colors"
             onClick={(e) => e.stopPropagation()}
             title="Open in calendar app"
             aria-label={`Open ${event.title} in calendar app`}

@@ -49,7 +49,7 @@ const IssueCard: React.FC<{
                   <strong>WCAG:</strong> {issue.wcagCriteria}
                 </p>
               )}
-              <p className="text-xs bg-white/50 p-2 rounded border-l-2 border-border">
+              <p className="text-xs bg-surface-secondary p-2 rounded border-l-2 border-border">
                 <strong>Fix:</strong> {issue.suggestion}
               </p>
             </>

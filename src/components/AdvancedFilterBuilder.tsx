@@ -109,26 +109,27 @@ export function AdvancedFilterBuilder({
 
           {/* Help Text */}
           {showHelp && (
-            <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg text-sm space-y-2">
+            <div className="p-3 bg-info-light border border-info/30 rounded-lg text-sm space-y-2">
               <div>
-                <p className="font-medium text-blue-900">Syntax:</p>
-                <p className="text-blue-800">
-                  <code className="bg-white px-1 rounded">field:value</code> matches a condition
+                <p className="font-medium text-info-dark dark:text-info">Syntax:</p>
+                <p className="text-content-secondary">
+                  <code className="bg-surface-primary px-1 rounded">field:value</code> matches a
+                  condition
                 </p>
               </div>
               <div>
-                <p className="font-medium text-blue-900">Fields:</p>
-                <p className="text-blue-800 text-xs">
+                <p className="font-medium text-info-dark dark:text-info">Fields:</p>
+                <p className="text-content-secondary text-xs">
                   priority, status, label, project, due, created, search
                 </p>
               </div>
               <div>
-                <p className="font-medium text-blue-900">Operators:</p>
-                <p className="text-blue-800 text-xs">AND, OR, NOT, parentheses</p>
+                <p className="font-medium text-info-dark dark:text-info">Operators:</p>
+                <p className="text-content-secondary text-xs">AND, OR, NOT, parentheses</p>
               </div>
               <div>
-                <p className="font-medium text-blue-900">Examples:</p>
-                <p className="text-blue-800 text-xs font-mono">
+                <p className="font-medium text-info-dark dark:text-info">Examples:</p>
+                <p className="text-content-secondary text-xs font-mono">
                   priority:p1 AND status:active
                   <br />
                   (priority:p1 OR priority:p2) AND due:overdue

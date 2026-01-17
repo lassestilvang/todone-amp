@@ -96,9 +96,9 @@ export function TaskAssignmentModal({
 
         {/* Error Message */}
         {error && (
-          <div className="mb-4 flex items-center gap-2 rounded-lg bg-red-50 p-3 dark:bg-red-900/20">
-            <AlertCircle className="h-4 w-4 text-red-600 dark:text-red-400" />
-            <p className="text-sm text-red-600 dark:text-red-400">{error}</p>
+          <div className="mb-4 flex items-center gap-2 rounded-lg bg-error-light p-3">
+            <AlertCircle className="h-4 w-4 text-semantic-error" />
+            <p className="text-sm text-semantic-error">{error}</p>
           </div>
         )}
 

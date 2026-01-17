@@ -42,17 +42,17 @@ This phase focuses on implementing a robust, accessible theming system with dark
 | T6.1.2 | Migrate hardcoded Tailwind colors to CSS variables | High | ✅ |
 | T6.1.3 | Define semantic color tokens (e.g., `--color-surface`, `--color-on-surface`) | High | ✅ |
 | T6.1.4 | Create `ThemeProvider` component to wrap app initialization | Medium | ✅ |
-| T6.1.5 | Add smooth transition animation for theme changes (150-200ms) | Medium | ⬜ |
-| T6.1.6 | Prevent flash of wrong theme on initial load (SSR/hydration) | High | ⬜ |
+| T6.1.5 | Add smooth transition animation for theme changes (150-200ms) | Medium | ✅ |
+| T6.1.6 | Prevent flash of wrong theme on initial load (SSR/hydration) | High | ✅ |
 
 ### 2. 🌓 Dark/Light Mode Implementation
 
 | ID | Task | Priority | Status |
 |----|------|----------|--------|
-| T6.2.1 | Audit all components for missing `dark:` variants | High | ⬜ |
-| T6.2.2 | Fix Sidebar component dark mode styles | High | ⬜ |
-| T6.2.3 | Fix TaskCard component dark mode styles | High | ⬜ |
-| T6.2.4 | Fix Modal/Dialog components dark mode styles | High | ⬜ |
+| T6.2.1 | Audit all components for missing `dark:` variants | High | ✅ |
+| T6.2.2 | Fix Sidebar component dark mode styles | High | ✅ |
+| T6.2.3 | Fix TaskCard component dark mode styles | High | ✅ |
+| T6.2.4 | Fix Modal/Dialog components dark mode styles | High | ✅ |
 | T6.2.5 | Fix Form inputs/buttons dark mode styles | High | ⬜ |
 | T6.2.6 | Fix DropdownMenu components dark mode styles | Medium | ⬜ |
 | T6.2.7 | Fix DatePicker/Calendar dark mode styles | Medium | ⬜ |
@@ -411,32 +411,28 @@ Fixed: CalendarIntegration.test, FloatingActionButton.test, ProjectSharing.test,
 
 ---
 
-#### Task NS-6: Prevent Theme Flash on Load (T6.1.6)
-**Description:** Add inline script in `index.html` to set theme class before React hydrates, preventing flash of wrong theme.
+#### ✅ Task NS-6: Prevent Theme Flash on Load (T6.1.6) - COMPLETED
+**Description:** Added inline script in `index.html` to set theme class before React hydrates.
 
-**Implementation:**
-```html
-<script>
-  (function() {
-    const stored = localStorage.getItem('todone-theme');
-    const theme = stored ? JSON.parse(stored) : null;
-    const mode = theme?.state?.mode || 'system';
-    const isDark = mode === 'dark' || 
-      (mode === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-    document.documentElement.classList.toggle('dark', isDark);
-  })();
-</script>
-```
+**Implemented:**
+- Added synchronous inline script in `<head>` that runs before CSS loads
+- Reads `todone-theme` from localStorage and parses stored state
+- Respects system preference when mode is 'system'
+- Adds 'dark' or 'light' class to `<html>` element immediately
+- Wrapped in try/catch for robustness
 
 ---
 
-#### Task NS-7: Add Theme Transition Animation (T6.1.5)
-**Description:** Currently `src/index.css` has `* { @apply transition-colors duration-150; }` but this may cause performance issues. Optimize to only transition specific properties on theme-related elements.
+#### ✅ Task NS-7: Add Theme Transition Animation (T6.1.5) - COMPLETED
+**Description:** Optimized theme transitions for performance and accessibility.
 
-**Considerations:**
-- Use CSS custom property for transition duration
-- Consider `prefers-reduced-motion` for accessibility
-- Only apply to color/background properties, not all properties
+**Implemented:**
+- Replaced global `* { transition-colors }` with targeted `.theme-transition` class
+- Added `--theme-transition-duration: 150ms` CSS variable
+- Transitions only apply to: background-color, border-color, color, fill, stroke, box-shadow
+- Added `prefers-reduced-motion` media query to disable transitions for accessibility
+- Updated ThemeProvider to toggle transition class only during theme changes (not on initial load)
+- Transition class is removed after animation completes to avoid affecting other animations
 
 ---
 
@@ -546,6 +542,12 @@ npm run storybook
 
 | Date | Change | Author |
 |------|--------|--------|
+| 2026-01-17 | T6.2.4: COMPLETED - Fixed Modal dark mode. Updated QuickAddModal, MobileQuickAddModal, ShareProjectModal, AchievementDetailModal, TaskAssignmentModal to use semantic tokens. | Amp |
+| 2026-01-17 | T6.2.3: COMPLETED - Fixed TaskCard dark mode. Updated TaskItem, MatrixTaskCard, SubTaskItem, SwipeableTaskItem to use semantic priority tokens and brand colors for selection states. | Amp |
+| 2026-01-17 | T6.2.2: COMPLETED - Fixed Sidebar dark mode. Updated all active state styles from `bg-blue-100 text-blue-700` to `bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-400`. | Amp |
+| 2026-01-17 | T6.2.1: COMPLETED - Audited all components for missing dark: variants. Fixed AdvancedFilterBuilder, EmailAssist, AccessibilityAuditor, ExternalCalendarEvents. Remaining bg-white usages are intentional (toggle knobs, fullscreen overlays, contrast buttons). | Amp |
+| 2026-01-17 | T6.1.6: COMPLETED - Prevented theme flash on load. Added inline script in `index.html` `<head>` to set dark/light class before CSS loads. | Amp |
+| 2026-01-17 | T6.1.5: COMPLETED - Optimized theme transitions. Replaced global transition with targeted `.theme-transition` class, added CSS variable, transitions only on color properties, respects `prefers-reduced-motion`, updated ThemeProvider to toggle class only during changes. | Amp |
 | 2026-01-16 | T6.1.4: COMPLETED - Created ThemeProvider component with context. Added `src/contexts/ThemeContext.ts`, `src/components/ThemeProvider.tsx`, updated `useTheme` hook to use context, wrapped App in ThemeProvider. All tests pass. | Amp |
 | 2026-01-16 | T6.1.2: COMPLETED - Migrated remaining 47 files (DailyReview, Eisenhower, FocusMode, Habits, misc components). Only 20 intentional hardcoded colors remain (fullscreen dark theme, stories, p4 priority). All 1658 tests pass. | Amp |
 | 2026-01-16 | T6.1.2: Partial completion - migrated T-Z components, UI library, pages/views, fixed tests; 47 files remaining (DailyReview, Eisenhower, FocusMode, Habits, misc) | Amp |
