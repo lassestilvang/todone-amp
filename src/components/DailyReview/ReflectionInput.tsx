@@ -21,8 +21,8 @@ export function ReflectionInput({ onNext }: ReflectionInputProps) {
   return (
     <ReviewStep title="Evening Reflection" description="Take a moment to reflect on your day">
       <div className="flex flex-col items-center mb-6">
-        <div className="w-16 h-16 mb-4 rounded-full bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center">
-          <BookOpen className="w-8 h-8 text-indigo-500" />
+        <div className="w-16 h-16 mb-4 rounded-full bg-accent-indigo-subtle flex items-center justify-center">
+          <BookOpen className="w-8 h-8 text-accent-indigo" />
         </div>
       </div>
 
@@ -34,7 +34,7 @@ export function ReflectionInput({ onNext }: ReflectionInputProps) {
               key={index}
               className="text-sm text-content-secondary flex items-center gap-2"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" />
+              <span className="w-1.5 h-1.5 rounded-full bg-accent-indigo" />
               {prompt}
             </li>
           ))}
@@ -51,7 +51,7 @@ export function ReflectionInput({ onNext }: ReflectionInputProps) {
           'border-border',
           'text-content-primary',
           'placeholder-content-tertiary',
-          'focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent'
+          'focus:outline-none focus:ring-2 focus:ring-accent-indigo focus:border-transparent'
         )}
         autoFocus
       />

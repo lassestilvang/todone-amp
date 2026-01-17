@@ -17,8 +17,8 @@ export function DailyIntention({ onNext }: DailyIntentionProps) {
       description="What's your main focus for today?"
     >
       <div className="flex flex-col items-center mb-6">
-        <div className="w-16 h-16 mb-4 rounded-full bg-purple-100 dark:bg-purple-900/30 flex items-center justify-center">
-          <Target className="w-8 h-8 text-purple-500" />
+        <div className="w-16 h-16 mb-4 rounded-full bg-accent-purple-subtle flex items-center justify-center">
+          <Target className="w-8 h-8 text-accent-purple" />
         </div>
       </div>
       <div className="space-y-4">
@@ -32,7 +32,7 @@ export function DailyIntention({ onNext }: DailyIntentionProps) {
             'border-border',
             'text-content-primary',
             'placeholder-content-tertiary',
-            'focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent'
+            'focus:outline-none focus:ring-2 focus:ring-accent-purple focus:border-transparent'
           )}
           autoFocus
         />

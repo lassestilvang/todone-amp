@@ -84,6 +84,14 @@ export default {
           bg: 'var(--color-tooltip-bg)',
           text: 'var(--color-tooltip-text)',
         },
+        accent: {
+          purple: 'var(--color-accent-purple)',
+          'purple-subtle': 'var(--color-accent-purple-subtle)',
+          indigo: 'var(--color-accent-indigo)',
+          'indigo-subtle': 'var(--color-accent-indigo-subtle)',
+          teal: 'var(--color-accent-teal)',
+          'teal-subtle': 'var(--color-accent-teal-subtle)',
+        },
       },
       boxShadow: {
         sm: 'var(--shadow-sm)',

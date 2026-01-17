@@ -36,7 +36,7 @@ export function DroppableTaskList({
         ref={setNodeRef}
         className={cn(
           'space-y-2 transition-all duration-200 ease-out',
-          isOver && 'bg-brand-50 border-2 border-brand-300 rounded-lg p-2 shadow-sm',
+          isOver && 'bg-brand-50 dark:bg-brand-900/20 border-2 border-brand-300 dark:border-brand-700 rounded-lg p-2 shadow-sm',
           className
         )}
       >

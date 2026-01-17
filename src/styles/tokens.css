@@ -109,6 +109,16 @@
      ======================================================================== */
   --color-tooltip-bg: #1f2937;
   --color-tooltip-text: #ffffff;
+
+  /* ========================================================================
+     Accent Colors - For illustrations and decorative elements
+     ======================================================================== */
+  --color-accent-purple: #a855f7;
+  --color-accent-purple-subtle: #f3e8ff;
+  --color-accent-indigo: #6366f1;
+  --color-accent-indigo-subtle: #e0e7ff;
+  --color-accent-teal: #14b8a6;
+  --color-accent-teal-subtle: #ccfbf1;
 }
 
 /* ==========================================================================
@@ -195,4 +205,12 @@
   /* Tooltip Colors */
   --color-tooltip-bg: #374151;
   --color-tooltip-text: #f9fafb;
+
+  /* Accent Colors - For illustrations and decorative elements */
+  --color-accent-purple: #c084fc;
+  --color-accent-purple-subtle: rgba(168, 85, 247, 0.2);
+  --color-accent-indigo: #818cf8;
+  --color-accent-indigo-subtle: rgba(99, 102, 241, 0.2);
+  --color-accent-teal: #2dd4bf;
+  --color-accent-teal-subtle: rgba(20, 184, 166, 0.2);
 }

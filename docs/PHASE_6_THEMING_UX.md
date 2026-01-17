@@ -57,7 +57,7 @@ This phase focuses on implementing a robust, accessible theming system with dark
 | T6.2.6 | Fix DropdownMenu components dark mode styles | Medium | ✅ |
 | T6.2.7 | Fix DatePicker/Calendar dark mode styles | Medium | ✅ |
 | T6.2.8 | Fix Toast/Notification dark mode styles | Medium | ✅ |
-| T6.2.9 | Fix EmptyState illustrations dark mode | Low | ⬜ |
+| T6.2.9 | Fix EmptyState illustrations dark mode | Low | ✅ |
 | T6.2.10 | Ensure all icons have appropriate color in both modes | Medium | ⬜ |
 
 ### 3. 🎯 Theme Switcher UI
@@ -542,6 +542,7 @@ npm run storybook
 
 | Date | Change | Author |
 |------|--------|--------|
+| 2026-01-17 | T6.2.9: COMPLETED - Fixed EmptyState illustrations dark mode. Added accent color tokens (purple, indigo, teal) to tokens.css and Tailwind config. Updated EmptyState base component with subtle background circle. Migrated DailyIntention and ReflectionInput to use semantic accent tokens. Fixed DroppableTaskList dark mode for drag-over state. All 1658 tests pass. | Amp |
 | 2026-01-17 | T6.2.8: COMPLETED - Fixed Toast/Notification dark mode. Updated NotificationCenter (semantic tokens for icons, unread indicators, filter buttons, mark all read), NotificationPreferences (semantic tokens for notification type icons). All tests pass. | Amp |
 | 2026-01-17 | T6.2.7: COMPLETED - Fixed DatePicker/Calendar dark mode. Updated RecurrenceCalendarView (semantic tokens for completed/upcoming/exception indicators and legend), MobileCalendarView (brand colors for selection, semantic tokens for today/priority), CalendarSelector (brand colors for checkboxes and action buttons), CalendarView (semantic-info-light for today indicator in month/week views). All 1658 tests pass. | Amp |
 | 2026-01-17 | T6.2.6: COMPLETED - Fixed DropdownMenu components dark mode. Updated ContextMenu (semantic-error-light for danger hover), Dropdown.stories (semantic priority colors), PrioritySelector (ring-focus), AssigneeSelector (dark mode for selected items and clear all), ProjectSelector, SectionSelector, TeamSelector (dark mode for selected states). All 1658 tests pass. | Amp |
