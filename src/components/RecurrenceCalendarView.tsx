@@ -124,8 +124,8 @@ export function RecurrenceCalendarView({
                 isCurrentMonth && [
                   instance
                     ? instance.completed
-                      ? 'bg-green-100 text-green-900 hover:bg-green-200'
-                      : 'bg-blue-100 text-blue-900 hover:bg-blue-200'
+                      ? 'bg-semantic-success-light text-semantic-success hover:bg-semantic-success-light/80 dark:bg-semantic-success-light dark:text-semantic-success-dark'
+                      : 'bg-semantic-info-light text-semantic-info hover:bg-semantic-info-light/80 dark:bg-semantic-info-light dark:text-semantic-info-dark'
                     : 'text-content-primary hover:bg-surface-tertiary',
                 ],
               )}
@@ -137,9 +137,9 @@ export function RecurrenceCalendarView({
               {isCurrentMonth && instance && (
                 <div className="absolute bottom-1 right-1">
                   {instance.completed ? (
-                    <CheckCircle2 size={12} className="text-green-600" />
+                    <CheckCircle2 size={12} className="text-semantic-success" />
                   ) : (
-                    <Circle size={12} className="text-blue-600" />
+                    <Circle size={12} className="text-semantic-info" />
                   )}
                 </div>
               )}
@@ -156,15 +156,15 @@ export function RecurrenceCalendarView({
       {/* Legend */}
       <div className="mt-4 pt-4 border-t border-border space-y-2 text-xs text-content-secondary">
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded bg-blue-100" />
+          <div className="w-3 h-3 rounded bg-semantic-info-light" />
           <span>Upcoming occurrence</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded bg-green-100" />
+          <div className="w-3 h-3 rounded bg-semantic-success-light" />
           <span>Completed</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-orange-500" />
+          <div className="w-2 h-2 rounded-full bg-semantic-warning" />
           <span>Exception (skipped/rescheduled)</span>
         </div>
       </div>

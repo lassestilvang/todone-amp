@@ -200,16 +200,16 @@ function MonthView({ currentDate, tasksByDate, onTaskClick }: MonthViewProps) {
                   className={cn(
                     'bg-surface-primary p-2 min-h-24 flex flex-col',
                     !isCurrentMonth && 'bg-surface-secondary',
-                    isTodayDate && 'bg-blue-50 dark:bg-blue-900/20'
+                    isTodayDate && 'bg-semantic-info-light'
                   )}
                 >
                   {/* Day Number */}
                   <div
                     className={cn(
                       'text-sm font-semibold mb-1',
-                      isTodayDate && 'text-blue-600',
+                      isTodayDate && 'text-semantic-info',
                       !isCurrentMonth && 'text-content-tertiary',
-                      isCurrentMonth && 'text-content-primary'
+                      isCurrentMonth && !isTodayDate && 'text-content-primary'
                     )}
                   >
                     {format(day, 'd')}
@@ -292,11 +292,11 @@ function WeekView({ currentDate, tasksByDate, onTaskClick }: WeekViewProps) {
             key={format(day, 'yyyy-MM-dd')} 
             className={cn(
               'bg-surface-secondary py-2 px-2 text-center',
-              isToday(day) && 'bg-blue-50 dark:bg-blue-900/20 border-b-2 border-blue-300 dark:border-blue-700'
+              isToday(day) && 'bg-semantic-info-light border-b-2 border-semantic-info'
             )}
           >
             <div className="text-xs font-semibold text-content-secondary">{format(day, 'EEE')}</div>
-            <div className={cn('text-lg font-bold', isToday(day) && 'text-blue-600')}>
+            <div className={cn('text-lg font-bold', isToday(day) ? 'text-semantic-info' : 'text-content-primary')}>
               {format(day, 'd')}
             </div>
             <div className="text-xs text-content-tertiary">{format(day, 'MMM')}</div>
@@ -334,7 +334,7 @@ function WeekView({ currentDate, tasksByDate, onTaskClick }: WeekViewProps) {
             return (
               <div
                 key={dateKey}
-                className={cn('bg-surface-primary border-r border-border', isToday(day) && 'bg-blue-50 dark:bg-blue-900/20')}
+                className={cn('bg-surface-primary border-r border-border', isToday(day) && 'bg-semantic-info-light')}
               >
                 {hours.map((hour) => (
                   <div key={`${dateKey}-${hour}`} className="h-16 border-b border-border p-1 relative">

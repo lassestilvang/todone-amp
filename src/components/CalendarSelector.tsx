@@ -83,7 +83,7 @@ export const CalendarSelector: React.FC<CalendarSelectorProps> = ({
                   className={cn(
                     'flex h-5 w-5 items-center justify-center rounded border',
                     integration.selectedCalendars.includes(calendar.id)
-                      ? 'border-blue-600 bg-blue-600'
+                      ? 'border-brand-600 bg-brand-600 dark:border-brand-500 dark:bg-brand-500'
                       : 'border-border bg-surface-primary'
                   )}
                 >
@@ -113,7 +113,7 @@ export const CalendarSelector: React.FC<CalendarSelectorProps> = ({
                   onCalendarsChange(mockCalendars.map((c) => c.id))
                 }
               }}
-              className="w-full rounded-lg px-3 py-2 text-center text-sm font-medium text-blue-600 hover:bg-surface-tertiary"
+              className="w-full rounded-lg px-3 py-2 text-center text-sm font-medium text-brand-600 dark:text-brand-400 hover:bg-surface-tertiary"
             >
               {selectedCount === totalCount ? 'Deselect All' : 'Select All'}
             </button>

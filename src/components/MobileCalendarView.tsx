@@ -135,7 +135,7 @@ export const MobileCalendarView: React.FC<MobileCalendarViewProps> = ({
               onClick={() => setViewMode(mode)}
               className={`flex-1 py-2 px-3 rounded-lg font-medium text-sm transition-colors ${
                 viewMode === mode
-                  ? 'bg-blue-600 text-white dark:bg-blue-500'
+                  ? 'bg-brand-600 text-white dark:bg-brand-500'
                   : 'bg-interactive-secondary text-content-secondary'
               }`}
             >
@@ -172,7 +172,7 @@ export const MobileCalendarView: React.FC<MobileCalendarViewProps> = ({
                   )}
                   {task.priority && (
                     <div className="mt-2">
-                      <span className="inline-flex text-xs font-semibold px-2 py-0.5 rounded bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-200">
+                      <span className="inline-flex text-xs font-semibold px-2 py-0.5 rounded bg-semantic-info-light text-semantic-info dark:text-semantic-info-dark">
                         {task.priority.toUpperCase()}
                       </span>
                     </div>
@@ -199,9 +199,9 @@ export const MobileCalendarView: React.FC<MobileCalendarViewProps> = ({
                     }}
                     className={`w-full px-3 py-2 rounded-lg font-medium text-sm mb-2 transition-colors ${
                       isSelected(date)
-                        ? 'bg-blue-600 text-white dark:bg-blue-500'
+                        ? 'bg-brand-600 text-white dark:bg-brand-500'
                         : isToday(date)
-                          ? 'bg-yellow-100 dark:bg-yellow-900 text-yellow-900 dark:text-yellow-100'
+                          ? 'bg-semantic-warning-light text-semantic-warning-dark dark:bg-semantic-warning-light dark:text-semantic-warning-dark'
                           : 'bg-surface-tertiary text-content-secondary'
                     }`}
                   >
