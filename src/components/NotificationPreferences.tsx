@@ -92,7 +92,7 @@ export function NotificationPreferences({ isOpen, onClose }: NotificationPrefere
           <div className="rounded-lg bg-surface-secondary p-4">
             <label className="flex cursor-pointer items-center justify-between">
               <div className="flex items-center gap-3">
-                <Bell className="h-5 w-5 text-blue-500" />
+                <Bell className="h-5 w-5 text-semantic-info" />
                 <div>
                   <p className="font-medium text-content-primary">
                     Browser Notifications
@@ -121,7 +121,7 @@ export function NotificationPreferences({ isOpen, onClose }: NotificationPrefere
           <div className="rounded-lg bg-surface-secondary p-4">
             <label className="flex cursor-pointer items-center justify-between">
               <div className="flex items-center gap-3">
-                <Mail className="h-5 w-5 text-green-500" />
+                <Mail className="h-5 w-5 text-semantic-success" />
                 <div>
                   <p className="font-medium text-content-primary">
                     Email Notifications
@@ -144,7 +144,7 @@ export function NotificationPreferences({ isOpen, onClose }: NotificationPrefere
           <div className="rounded-lg bg-surface-secondary p-4">
             <label className="flex cursor-pointer items-center justify-between">
               <div className="flex items-center gap-3">
-                <Smartphone className="h-5 w-5 text-purple-500" />
+                <Smartphone className="h-5 w-5 text-purple-500 dark:text-purple-400" />
                 <div>
                   <p className="font-medium text-content-primary">
                     Push Notifications
@@ -167,7 +167,7 @@ export function NotificationPreferences({ isOpen, onClose }: NotificationPrefere
           <div className="rounded-lg bg-surface-secondary p-4">
             <label className="flex cursor-pointer items-center justify-between">
               <div className="flex items-center gap-3">
-                <Volume2 className="h-5 w-5 text-orange-500" />
+                <Volume2 className="h-5 w-5 text-semantic-warning" />
                 <div>
                   <p className="font-medium text-content-primary">
                     Sound Effects

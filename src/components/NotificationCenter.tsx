@@ -14,11 +14,11 @@ interface NotificationCenterProps {
 }
 
 const notificationIcons: Record<string, React.ReactNode> = {
-  task_assigned: <AlertCircle className="h-5 w-5 text-blue-500" />,
-  task_shared: <Share2 className="h-5 w-5 text-purple-500" />,
-  reminder: <Clock className="h-5 w-5 text-orange-500" />,
-  comment: <MessageCircle className="h-5 w-5 text-green-500" />,
-  system: <Bell className="h-5 w-5 text-gray-500" />,
+  task_assigned: <AlertCircle className="h-5 w-5 text-semantic-info" />,
+  task_shared: <Share2 className="h-5 w-5 text-purple-500 dark:text-purple-400" />,
+  reminder: <Clock className="h-5 w-5 text-semantic-warning" />,
+  comment: <MessageCircle className="h-5 w-5 text-semantic-success" />,
+  system: <Bell className="h-5 w-5 text-content-tertiary" />,
 }
 
 const notificationTypeLabels: Record<string, string> = {
@@ -132,7 +132,7 @@ export function NotificationCenter({ isOpen, onClose, className }: NotificationC
                 key={notification.id}
                 className={cn(
                   'flex items-start gap-3 border-b border-border p-4 transition-colors',
-                  !notification.read ? 'bg-blue-50 dark:bg-blue-900/20' : 'hover:bg-surface-tertiary'
+                  !notification.read ? 'bg-semantic-info-light' : 'hover:bg-surface-tertiary'
                 )}
               >
                 {/* Icon */}
@@ -152,7 +152,7 @@ export function NotificationCenter({ isOpen, onClose, className }: NotificationC
                       {notification.message}
                     </p>
                     {!notification.read && (
-                      <span className="flex-shrink-0 inline-block h-2 w-2 rounded-full bg-blue-500 mt-1" />
+                      <span className="flex-shrink-0 inline-block h-2 w-2 rounded-full bg-semantic-info mt-1" />
                     )}
                   </div>
                   <div className="flex items-center justify-between">
@@ -233,7 +233,7 @@ export function NotificationCenter({ isOpen, onClose, className }: NotificationC
             className={cn(
               'rounded-full px-3 py-1 text-sm font-medium transition-colors',
               filter === 'all'
-                ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200'
+                ? 'bg-brand-100 text-brand-700 dark:bg-brand-900/30 dark:text-brand-400'
                 : 'bg-surface-tertiary text-content-secondary hover:bg-interactive-secondary'
             )}
           >
@@ -244,7 +244,7 @@ export function NotificationCenter({ isOpen, onClose, className }: NotificationC
             className={cn(
               'rounded-full px-3 py-1 text-sm font-medium transition-colors',
               filter === 'unread'
-                ? 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200'
+                ? 'bg-brand-100 text-brand-700 dark:bg-brand-900/30 dark:text-brand-400'
                 : 'bg-surface-tertiary text-content-secondary hover:bg-interactive-secondary'
             )}
           >
@@ -253,7 +253,7 @@ export function NotificationCenter({ isOpen, onClose, className }: NotificationC
           {unreadCount > 0 && (
             <button
               onClick={handleMarkAllAsRead}
-              className="ml-auto rounded px-2 py-1 text-xs font-medium text-blue-600 hover:bg-blue-50 dark:text-blue-400 dark:hover:bg-blue-900 transition-colors"
+              className="ml-auto rounded px-2 py-1 text-xs font-medium text-brand-600 hover:bg-brand-50 dark:text-brand-400 dark:hover:bg-brand-900/30 transition-colors"
             >
               Mark all read
             </button>
