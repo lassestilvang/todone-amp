@@ -109,7 +109,7 @@ export const EmailAssist: React.FC = () => {
               title="Copy all tasks"
             >
               {copied ? (
-                <Check className="h-4 w-4 text-green-600" />
+                <Check className="h-4 w-4 text-icon-success" />
               ) : (
                 <Copy className="h-4 w-4" />
               )}
@@ -130,7 +130,7 @@ export const EmailAssist: React.FC = () => {
                 {/* Metadata */}
                 <div className="flex flex-wrap gap-2 border-t border-border pt-2">
                   {task.dueDate && (
-                    <span className="inline-flex items-center rounded-full bg-blue-100 px-2 py-1 text-xs font-medium text-blue-800">
+                    <span className="inline-flex items-center rounded-full bg-semantic-info-light px-2 py-1 text-xs font-medium text-semantic-info">
                       📅 {task.dueDate}
                     </span>
                   )}

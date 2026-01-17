@@ -75,13 +75,13 @@ export function CompletedTasksCelebration({ onNext }: CompletedTasksCelebrationP
           <Trophy
             className={cn(
               'w-12 h-12',
-              completedToday >= 5 ? 'text-yellow-500' : 'text-blue-500'
+              completedToday >= 5 ? 'text-icon-yellow' : 'text-icon-info'
             )}
           />
           {completedToday >= 5 && (
             <>
-              <Sparkles className="absolute -top-1 -right-1 w-6 h-6 text-yellow-400 animate-pulse" />
-              <Star className="absolute -bottom-1 -left-1 w-5 h-5 text-yellow-400 animate-pulse" />
+              <Sparkles className="absolute -top-1 -right-1 w-6 h-6 text-icon-yellow animate-pulse" />
+              <Star className="absolute -bottom-1 -left-1 w-5 h-5 text-icon-yellow animate-pulse" />
             </>
           )}
         </div>

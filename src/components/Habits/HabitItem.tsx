@@ -56,7 +56,7 @@ export const HabitItem: React.FC<HabitItemProps> = ({ habit, onClick }) => {
         <div className="flex items-center gap-2">
           <h3 className="font-medium text-content-primary truncate">{habit.name}</h3>
           {streak > 0 && (
-            <span className="flex items-center gap-1 text-sm text-orange-500">
+            <span className="flex items-center gap-1 text-sm text-icon-orange">
               <Flame className="w-4 h-4" />
               {streak}
             </span>

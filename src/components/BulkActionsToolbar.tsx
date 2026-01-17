@@ -123,7 +123,7 @@ export const BulkActionsToolbar: React.FC<BulkActionsToolbarProps> = ({
             size="sm"
             onClick={handleDeleteAll}
             title="Delete selected tasks"
-            className="flex items-center gap-2 hover:text-red-600"
+            className="flex items-center gap-2 hover:text-icon-error"
           >
             <Trash2 className="w-4 h-4" />
             <span className="hidden sm:inline">Delete</span>

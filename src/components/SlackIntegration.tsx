@@ -55,7 +55,7 @@ export const SlackIntegration: React.FC<SlackIntegrationPanelProps> = ({ classNa
   return (
     <div className={cn('space-y-6', className)}>
       <div className="flex items-center gap-2">
-        <MessageSquare className="h-5 w-5 text-blue-600" />
+        <MessageSquare className="h-5 w-5 text-icon-info" />
         <h2 className="text-lg font-semibold">Slack Integration</h2>
       </div>
 
@@ -71,7 +71,7 @@ export const SlackIntegration: React.FC<SlackIntegrationPanelProps> = ({ classNa
         <div className="rounded-lg border border-border p-4">
           <div className="text-center">
             <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-blue-50 dark:bg-blue-900/30">
-              <MessageSquare className="h-6 w-6 text-blue-600" />
+              <MessageSquare className="h-6 w-6 text-icon-info" />
             </div>
             <h3 className="font-medium text-content-primary">Connect Slack</h3>
             <p className="mt-2 text-sm text-content-secondary">
@@ -94,7 +94,7 @@ export const SlackIntegration: React.FC<SlackIntegrationPanelProps> = ({ classNa
             <div className="flex items-center justify-between">
               <div>
                 <div className="flex items-center gap-2">
-                  <CheckCircle className="h-5 w-5 text-green-600" />
+                  <CheckCircle className="h-5 w-5 text-icon-success" />
                   <h3 className="font-medium text-content-primary">Connected</h3>
                 </div>
                 <p className="mt-1 text-sm text-content-secondary">

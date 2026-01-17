@@ -42,8 +42,8 @@ export const StreakDisplay: React.FC<StreakDisplayProps> = ({
         <div className="flex items-center justify-center gap-2 mb-2">
           <Flame
             className={clsx('w-6 h-6 transition-all', {
-              'text-orange-500 animate-bounce': isBurning && animated,
-              'text-orange-400': isBurning && !animated,
+              'text-icon-orange animate-bounce': isBurning && animated,
+              'text-icon-orange': isBurning && !animated,
               'text-content-tertiary': !isBurning,
             })}
           />

@@ -43,7 +43,7 @@ export const AtRiskTasks: React.FC<AtRiskTasksProps> = ({ className }) => {
       <div className={cn('rounded-lg border border-border p-6 text-center', className)}>
         <div className="flex justify-center">
           <div className="rounded-lg bg-green-50 dark:bg-green-900/30 p-3">
-            <Clock className="h-6 w-6 text-green-600" />
+            <Clock className="h-6 w-6 text-icon-success" />
           </div>
         </div>
         <p className="mt-3 font-medium text-content-primary">All tasks on track</p>
@@ -55,7 +55,7 @@ export const AtRiskTasks: React.FC<AtRiskTasksProps> = ({ className }) => {
   return (
     <div className={cn('space-y-4', className)}>
       <div className="flex items-center gap-2">
-        <AlertTriangle className="h-5 w-5 text-red-600" />
+        <AlertTriangle className="h-5 w-5 text-icon-error" />
         <h3 className="font-medium text-content-primary">At-Risk Tasks ({atRiskTasks.length})</h3>
       </div>
 

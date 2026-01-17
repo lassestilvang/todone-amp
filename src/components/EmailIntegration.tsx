@@ -43,7 +43,7 @@ export const EmailIntegration: React.FC<EmailIntegrationPanelProps> = ({ classNa
   return (
     <div className={cn('space-y-6', className)}>
       <div className="flex items-center gap-2">
-        <Mail className="h-5 w-5 text-blue-600" />
+        <Mail className="h-5 w-5 text-icon-info" />
         <h2 className="text-lg font-semibold">Email Integration</h2>
       </div>
 
@@ -64,8 +64,8 @@ export const EmailIntegration: React.FC<EmailIntegrationPanelProps> = ({ classNa
             </p>
           </div>
           <div className="flex items-center gap-1 rounded-full bg-green-50 px-2 py-1 dark:bg-green-900/30">
-            <CheckCircle className="h-4 w-4 text-green-600" />
-            <span className="text-xs font-medium text-green-700">Active</span>
+            <CheckCircle className="h-4 w-4 text-icon-success" />
+            <span className="text-xs font-medium text-semantic-success">Active</span>
           </div>
         </div>
 
@@ -87,8 +87,8 @@ export const EmailIntegration: React.FC<EmailIntegrationPanelProps> = ({ classNa
           </div>
 
           <div className="rounded-lg border border-blue-200 bg-blue-50 p-3 dark:border-blue-800 dark:bg-blue-900/30">
-            <p className="text-sm font-medium text-blue-900">How to use</p>
-            <ol className="mt-2 space-y-1 text-xs text-blue-700">
+            <p className="text-sm font-medium text-semantic-info">How to use</p>
+            <ol className="mt-2 space-y-1 text-xs text-semantic-info">
               <li>1. Copy your forwarding address above</li>
               <li>2. Forward any email to create a task</li>
               <li>3. Email subject becomes task title</li>

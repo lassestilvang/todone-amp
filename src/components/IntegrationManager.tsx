@@ -81,7 +81,7 @@ export const IntegrationManager: React.FC = () => {
                 {integration.icon}
               </div>
               {integration.isConnected && (
-                <span className="inline-flex items-center rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-800">
+                <span className="inline-flex items-center rounded-full bg-semantic-success-light px-2 py-1 text-xs font-medium text-semantic-success">
                   Connected
                 </span>
               )}
@@ -113,7 +113,7 @@ export const IntegrationManager: React.FC = () => {
                     size="sm"
                     onClick={() => handleDisconnect(integration.id)}
                   >
-                    <Unlink2 className="h-4 w-4 text-red-500" />
+                    <Unlink2 className="h-4 w-4 text-icon-error" />
                   </Button>
                 </>
               ) : (

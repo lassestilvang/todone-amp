@@ -107,12 +107,12 @@ export const HabitStreakCalendar: React.FC<HabitStreakCalendarProps> = ({ habit 
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-semibold text-content-primary">Activity</h3>
         <div className="flex items-center gap-4">
-          <div className="flex items-center gap-1.5 text-orange-500">
+          <div className="flex items-center gap-1.5 text-icon-orange">
             <Flame className="w-5 h-5" />
             <span className="font-semibold">{currentStreak}</span>
             <span className="text-sm text-content-tertiary">current</span>
           </div>
-          <div className="flex items-center gap-1.5 text-yellow-500">
+          <div className="flex items-center gap-1.5 text-icon-yellow">
             <Trophy className="w-5 h-5" />
             <span className="font-semibold">{bestStreak}</span>
             <span className="text-sm text-content-tertiary">best</span>

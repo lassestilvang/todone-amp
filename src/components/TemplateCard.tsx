@@ -58,7 +58,7 @@ export function TemplateCard({
           </p>
         </div>
         {template.isPrebuilt ? (
-          <span className="whitespace-nowrap rounded bg-blue-100 px-2 py-1 text-xs font-medium text-blue-700 dark:bg-blue-900 dark:text-blue-300">
+          <span className="whitespace-nowrap rounded bg-semantic-info-light px-2 py-1 text-xs font-medium text-semantic-info">
             Built-in
           </span>
         ) : null}
@@ -116,7 +116,7 @@ export function TemplateCard({
           {isOwned && showActions && (
             <button
               onClick={handleDelete}
-              className="flex-1 rounded bg-red-100 px-2 py-1 text-xs text-red-700 transition hover:bg-red-200 dark:bg-red-900 dark:text-red-300"
+              className="flex-1 rounded bg-semantic-error-light px-2 py-1 text-xs text-semantic-error transition hover:bg-semantic-error-light"
             >
               Delete
             </button>

@@ -46,7 +46,7 @@ export const ReportGenerator: React.FC<ReportGeneratorProps> = ({ className }) =
       {/* Report Generator */}
       <div className="rounded-lg border border-border p-6">
         <div className="mb-4 flex items-center gap-2">
-          <FileText className="h-5 w-5 text-blue-600" />
+          <FileText className="h-5 w-5 text-icon-info" />
           <h3 className="text-lg font-semibold text-content-primary">Generate Report</h3>
         </div>
 
@@ -136,9 +136,9 @@ export const ReportGenerator: React.FC<ReportGeneratorProps> = ({ className }) =
               >
                 <div className="flex items-center gap-3">
                   {report.status === 'completed' ? (
-                    <CheckCircle className="h-5 w-5 text-green-600" />
+                    <CheckCircle className="h-5 w-5 text-icon-success" />
                   ) : report.status === 'failed' ? (
-                    <AlertCircle className="h-5 w-5 text-red-600" />
+                    <AlertCircle className="h-5 w-5 text-icon-error" />
                   ) : (
                     <Loader2 className="h-5 w-5 animate-spin text-content-tertiary" />
                   )}

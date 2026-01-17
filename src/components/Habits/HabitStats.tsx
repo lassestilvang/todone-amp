@@ -36,7 +36,7 @@ export const HabitStats: React.FC<HabitStatsProps> = ({ habit }) => {
       label: 'Current Streak',
       value: currentStreak,
       unit: currentStreak === 1 ? 'day' : 'days',
-      color: 'text-orange-500',
+      color: 'text-icon-orange',
       bgColor: 'bg-orange-50 dark:bg-orange-900/20',
     },
     {
@@ -44,7 +44,7 @@ export const HabitStats: React.FC<HabitStatsProps> = ({ habit }) => {
       label: 'Best Streak',
       value: bestStreak,
       unit: bestStreak === 1 ? 'day' : 'days',
-      color: 'text-yellow-500',
+      color: 'text-icon-yellow',
       bgColor: 'bg-yellow-50 dark:bg-yellow-900/20',
     },
     {
@@ -52,7 +52,7 @@ export const HabitStats: React.FC<HabitStatsProps> = ({ habit }) => {
       label: 'Total Completions',
       value: totalCompletions,
       unit: '',
-      color: 'text-green-500',
+      color: 'text-icon-success',
       bgColor: 'bg-green-50 dark:bg-green-900/20',
     },
     {
@@ -60,7 +60,7 @@ export const HabitStats: React.FC<HabitStatsProps> = ({ habit }) => {
       label: 'Avg per Week',
       value: avgPerWeek,
       unit: '',
-      color: 'text-blue-500',
+      color: 'text-icon-info',
       bgColor: 'bg-blue-50 dark:bg-blue-900/20',
     },
   ]

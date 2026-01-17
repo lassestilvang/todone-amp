@@ -175,7 +175,7 @@ export function FilterPanel({ isOpen, onClose, onAdvancedQueryChange }: FilterPa
 
                         <button
                           onClick={() => handleRemoveRule(rule.id)}
-                          className="p-1 text-content-tertiary hover:text-red-600 hover:bg-red-50 rounded"
+                          className="p-1 text-content-tertiary hover:text-icon-error hover:bg-semantic-error-light rounded"
                         >
                           <X size={16} />
                         </button>
@@ -375,7 +375,7 @@ export function FilterPanel({ isOpen, onClose, onAdvancedQueryChange }: FilterPa
                       e.stopPropagation()
                       deleteFilter(filter.id)
                     }}
-                    className="p-1 text-content-tertiary hover:text-red-600 hover:bg-red-50 rounded transition-colors"
+                    className="p-1 text-content-tertiary hover:text-icon-error hover:bg-semantic-error-light rounded transition-colors"
                   >
                     <X size={16} />
                   </button>

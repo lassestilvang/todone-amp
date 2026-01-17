@@ -68,7 +68,7 @@ export const WeeklyGoalProgress: React.FC<WeeklyGoalProgressProps> = ({ classNam
   if (compact) {
     return (
       <div className={cn('flex items-center gap-2', className)}>
-        <Calendar className="h-4 w-4 text-purple-500" />
+        <Calendar className="h-4 w-4 text-icon-purple" />
         <div className="flex-1">
           <div className="flex items-center justify-between mb-1">
             <span className="text-xs font-medium text-content-secondary">Weekly Goal</span>
@@ -86,7 +86,7 @@ export const WeeklyGoalProgress: React.FC<WeeklyGoalProgressProps> = ({ classNam
             />
           </div>
         </div>
-        {isGoalMet && <CheckCircle2 className="h-4 w-4 text-green-500" />}
+        {isGoalMet && <CheckCircle2 className="h-4 w-4 text-icon-success" />}
       </div>
     )
   }
@@ -96,10 +96,10 @@ export const WeeklyGoalProgress: React.FC<WeeklyGoalProgressProps> = ({ classNam
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Calendar className="h-5 w-5 text-purple-500" />
+          <Calendar className="h-5 w-5 text-icon-purple" />
           <h3 className="font-semibold text-content-primary">Weekly Goal</h3>
         </div>
-        {isGoalMet && <CheckCircle2 className="h-5 w-5 text-green-500" />}
+        {isGoalMet && <CheckCircle2 className="h-5 w-5 text-icon-success" />}
       </div>
 
       {/* Goal Info */}

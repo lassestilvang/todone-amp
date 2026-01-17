@@ -180,7 +180,7 @@ export function RecurrenceExceptionManager({
                   onClick={() => {
                     // Handle removal
                   }}
-                  className="p-1 text-red-600 hover:bg-red-50 rounded transition-colors"
+                  className="p-1 text-icon-error hover:bg-semantic-error-light rounded transition-colors"
                   aria-label="Remove exception"
                 >
                   <Trash2 size={14} />

@@ -22,7 +22,7 @@ export const SyncStatus: React.FC<SyncStatusProps> = ({ className = '', showDeta
           className
         )}
       >
-        <WifiOff className="w-4 h-4 text-yellow-600 dark:text-yellow-400 flex-shrink-0" />
+        <WifiOff className="w-4 h-4 text-icon-warning flex-shrink-0" />
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium text-yellow-800 dark:text-yellow-100">Offline Mode</p>
           {showDetails && pendingCount > 0 && (
@@ -44,7 +44,7 @@ export const SyncStatus: React.FC<SyncStatusProps> = ({ className = '', showDeta
           className
         )}
       >
-        <RefreshCw className="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0 animate-spin" />
+        <RefreshCw className="w-4 h-4 text-icon-info flex-shrink-0 animate-spin" />
         <div className="flex-1 min-w-0">
           <p className="text-sm font-medium text-blue-800 dark:text-blue-100">Syncing Changes</p>
           {showDetails && pendingCount > 0 && (
@@ -67,7 +67,7 @@ export const SyncStatus: React.FC<SyncStatusProps> = ({ className = '', showDeta
         )}
       >
         <div className="flex items-center gap-2 flex-1 min-w-0">
-          <AlertCircle className="w-4 h-4 text-red-600 dark:text-red-400 flex-shrink-0" />
+          <AlertCircle className="w-4 h-4 text-icon-error flex-shrink-0" />
           <div className="flex-1 min-w-0">
             <p className="text-sm font-medium text-red-800 dark:text-red-100">Sync Failed</p>
             {showDetails && (

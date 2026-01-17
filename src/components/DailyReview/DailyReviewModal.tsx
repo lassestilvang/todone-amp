@@ -143,9 +143,9 @@ export function DailyReviewModal({ userId }: DailyReviewModalProps) {
                 )}
               >
                 {isMorning ? (
-                  <Sun className="w-5 h-5 text-yellow-500" />
+                  <Sun className="w-5 h-5 text-icon-yellow" />
                 ) : (
-                  <Moon className="w-5 h-5 text-indigo-500" />
+                  <Moon className="w-5 h-5 text-icon-indigo" />
                 )}
               </div>
               <div>

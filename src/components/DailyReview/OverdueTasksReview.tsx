@@ -8,10 +8,10 @@ import { cn } from '@/utils/cn'
 import type { Task } from '@/types'
 
 const PRIORITY_COLORS: Record<string, string> = {
-  p1: 'text-red-500 border-red-500',
-  p2: 'text-orange-500 border-orange-500',
-  p3: 'text-blue-500 border-blue-500',
-  p4: 'text-gray-400 border-gray-400',
+  p1: 'text-priority-p1 border-priority-p1',
+  p2: 'text-priority-p2 border-priority-p2',
+  p3: 'text-priority-p3 border-priority-p3',
+  p4: 'text-content-tertiary border-border',
 }
 
 interface OverdueTasksReviewProps {
@@ -75,7 +75,7 @@ export function OverdueTasksReview({ onNext }: OverdueTasksReviewProps) {
       >
         <div className="flex flex-col items-center justify-center py-12 text-center">
           <div className="w-16 h-16 mb-4 rounded-full bg-semantic-success-subtle flex items-center justify-center">
-            <Check className="w-8 h-8 text-green-500" />
+            <Check className="w-8 h-8 text-icon-success" />
           </div>
           <p className="text-content-tertiary">
             Great job staying on top of your tasks!

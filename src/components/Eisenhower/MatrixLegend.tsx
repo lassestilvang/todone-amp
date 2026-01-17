@@ -14,14 +14,14 @@ const quadrants: QuadrantInfo[] = [
     id: 'do-first',
     title: 'Do First',
     subtitle: 'Urgent & Important',
-    color: 'text-red-700',
+    color: 'text-semantic-error',
     bgColor: 'bg-red-100',
   },
   {
     id: 'schedule',
     title: 'Schedule',
     subtitle: 'Not Urgent but Important',
-    color: 'text-blue-700',
+    color: 'text-semantic-info',
     bgColor: 'bg-blue-100',
   },
   {

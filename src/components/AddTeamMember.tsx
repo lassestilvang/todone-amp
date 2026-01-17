@@ -99,7 +99,7 @@ export function AddTeamMember({
 
           {/* Info message */}
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-            <p className="text-sm text-blue-900">
+            <p className="text-sm text-semantic-info">
               An invitation will be sent to this email address. They'll need to accept it to join the team.
             </p>
           </div>
@@ -107,7 +107,7 @@ export function AddTeamMember({
           {/* Error message */}
           {error && (
             <div className="bg-red-50 border border-red-200 rounded-lg p-3">
-              <p className="text-sm text-red-900">{error}</p>
+              <p className="text-sm text-semantic-error">{error}</p>
             </div>
           )}
 

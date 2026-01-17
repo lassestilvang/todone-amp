@@ -7,10 +7,10 @@ import { cn } from '@/utils/cn'
 import type { Task } from '@/types'
 
 const PRIORITY_COLORS: Record<string, string> = {
-  p1: 'text-red-500',
-  p2: 'text-orange-500',
-  p3: 'text-blue-500',
-  p4: 'text-gray-400',
+  p1: 'text-priority-p1',
+  p2: 'text-priority-p2',
+  p3: 'text-priority-p3',
+  p4: 'text-content-tertiary',
 }
 
 const PRIORITY_BG: Record<string, string> = {
@@ -66,7 +66,7 @@ export function TomorrowPreview({ onNext }: TomorrowPreviewProps) {
       {tomorrowTasks.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-12 text-center">
           <div className="w-16 h-16 mb-4 rounded-full bg-priority-p2-subtle flex items-center justify-center">
-            <Sunrise className="w-8 h-8 text-orange-500" />
+            <Sunrise className="w-8 h-8 text-icon-orange" />
           </div>
           <p className="text-content-tertiary">
             No tasks scheduled for tomorrow yet.

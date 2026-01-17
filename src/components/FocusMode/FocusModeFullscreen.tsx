@@ -4,9 +4,9 @@ import clsx from 'clsx'
 import { useFocusTimer } from '@/hooks/useFocusTimer'
 
 const SESSION_COLORS: Record<string, string> = {
-  focus: 'text-blue-400',
-  'short-break': 'text-green-400',
-  'long-break': 'text-purple-400',
+  focus: 'text-icon-info',
+  'short-break': 'text-icon-success',
+  'long-break': 'text-icon-purple',
 }
 
 interface FocusModeFullscreenProps {

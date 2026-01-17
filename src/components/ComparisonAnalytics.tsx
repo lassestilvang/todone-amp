@@ -163,13 +163,13 @@ export const ComparisonAnalytics: React.FC<ComparisonAnalyticsProps> = ({ classN
             <p
               className={cn(
                 'text-sm font-medium',
-                isImprovement ? 'text-green-700 dark:text-green-300' : 'text-red-700 dark:text-red-300'
+                isImprovement ? 'text-semantic-success' : 'text-semantic-error'
               )}
             >
               {isImprovement ? 'Improvement' : 'Decrease'} of{' '}
               {Math.abs(comparisonStats.changePercentage).toFixed(1)}%
             </p>
-            <p className={cn('text-xs', isImprovement ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400')}>
+            <p className={cn('text-xs', isImprovement ? 'text-icon-success' : 'text-icon-error')}>
               {isImprovement
                 ? 'Great progress! Keep it up.'
                 : 'Try to focus more on task completion.'}

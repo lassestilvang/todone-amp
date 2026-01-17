@@ -98,7 +98,7 @@ export const LevelProgressBar: React.FC<LevelProgressBarProps> = ({ className, c
           </div>
         </div>
         <div className="flex items-center gap-1">
-          <Zap className="h-4 w-4 text-yellow-500" />
+          <Zap className="h-4 w-4 text-icon-yellow" />
           <span className="text-sm font-bold text-content-primary">{currentKarma}</span>
         </div>
       </div>

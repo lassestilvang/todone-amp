@@ -6,14 +6,14 @@ import type { KarmaLevel } from '@/types'
 
 const LEVEL_COLORS = {
   beginner: 'text-content-tertiary',
-  novice: 'text-blue-500',
-  intermediate: 'text-green-500',
-  advanced: 'text-purple-500',
-  professional: 'text-orange-500',
-  expert: 'text-red-500',
-  master: 'text-pink-500',
-  grandmaster: 'text-indigo-500',
-  enlightened: 'text-yellow-500',
+  novice: 'text-icon-info',
+  intermediate: 'text-icon-success',
+  advanced: 'text-icon-purple',
+  professional: 'text-icon-orange',
+  expert: 'text-icon-error',
+  master: 'text-icon-pink',
+  grandmaster: 'text-icon-indigo',
+  enlightened: 'text-icon-yellow',
 }
 
 const LEVEL_ORDER: KarmaLevel[] = [
@@ -92,7 +92,7 @@ export const KarmaWidget: React.FC = () => {
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <Zap className="w-5 h-5 text-yellow-500" />
+          <Zap className="w-5 h-5 text-icon-yellow" />
           <h3 className="font-semibold text-content-primary">Karma Points</h3>
         </div>
         <span className={clsx('text-sm font-bold capitalize', levelColor)}>{userStats.karmaLevel}</span>
@@ -174,7 +174,7 @@ export const KarmaWidget: React.FC = () => {
           <div className="text-xs text-content-tertiary">Completed</div>
           <div className="text-lg font-bold text-content-primary flex items-center gap-1">
             {userStats.totalCompleted}
-            <TrendingUp className="w-4 h-4 text-green-500" />
+            <TrendingUp className="w-4 h-4 text-icon-success" />
           </div>
         </div>
 

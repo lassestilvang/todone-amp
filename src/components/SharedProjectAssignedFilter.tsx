@@ -70,7 +70,7 @@ export function SharedProjectAssignedFilter({ projectId, className }: SharedProj
                     type="checkbox"
                     checked={task.completed}
                     disabled
-                    className="h-4 w-4 rounded border-border text-blue-600"
+                    className="h-4 w-4 rounded border-border text-brand-600"
                   />
                   <div className="flex-1">
                     <p className="text-sm text-content-primary">{task.content}</p>
@@ -118,7 +118,7 @@ export function SharedProjectAssignedFilter({ projectId, className }: SharedProj
                     type="checkbox"
                     checked={task.completed}
                     disabled
-                    className="h-4 w-4 rounded border-border text-blue-600"
+                    className="h-4 w-4 rounded border-border text-brand-600"
                   />
                   <div className="flex-1">
                     <p className="line-through text-sm text-content-tertiary">

@@ -21,11 +21,11 @@ export const CompletedThisWeek: React.FC<CompletedThisWeekProps> = ({ tasks }) =
     <div className="bg-surface-primary rounded-xl p-6 border border-border">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <PartyPopper className="w-5 h-5 text-yellow-500" />
+          <PartyPopper className="w-5 h-5 text-icon-yellow" />
           <h3 className="text-lg font-semibold text-content-primary">Completed This Week</h3>
         </div>
         {highPriorityCount > 0 && (
-          <div className="flex items-center gap-1 text-yellow-500">
+          <div className="flex items-center gap-1 text-icon-yellow">
             <Star className="w-4 h-4 fill-current" />
             <span className="text-sm font-medium">{highPriorityCount} high priority</span>
           </div>
@@ -45,7 +45,7 @@ export const CompletedThisWeek: React.FC<CompletedThisWeekProps> = ({ tasks }) =
               key={task.id}
               className="flex items-center gap-3 p-2 rounded-lg hover:bg-surface-tertiary"
             >
-              <CheckCircle2 className="w-5 h-5 text-green-500 flex-shrink-0" />
+              <CheckCircle2 className="w-5 h-5 text-icon-success flex-shrink-0" />
               <span className="text-content-secondary line-through flex-1 truncate">
                 {task.content}
               </span>

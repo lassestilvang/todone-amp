@@ -57,7 +57,7 @@ export function PermissionManager({
         <button
           onClick={() => onRemove(share.id)}
           disabled={isLoading}
-          className="text-xs text-red-600 hover:text-red-700 disabled:opacity-50 dark:text-red-400"
+          className="text-xs text-icon-error hover:text-semantic-error disabled:opacity-50"
         >
           Remove
         </button>
@@ -85,7 +85,7 @@ export function PermissionManager({
                   className={cn(
                     'font-medium',
                     share.role === perm.value
-                      ? 'text-blue-600 dark:text-blue-300'
+                      ? 'text-semantic-info'
                       : 'text-content-primary'
                   )}
                 >
@@ -94,7 +94,7 @@ export function PermissionManager({
                 <p className="text-xs text-content-secondary">{perm.description}</p>
               </div>
               {share.role === perm.value && (
-                <div className="mt-1 text-blue-600 dark:text-blue-300">✓</div>
+                <div className="mt-1 text-semantic-info">✓</div>
               )}
             </button>
           ))}

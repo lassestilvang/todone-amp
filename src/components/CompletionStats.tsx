@@ -58,7 +58,7 @@ export const CompletionStats: React.FC<CompletionStatsProps> = ({ className }) =
           <div className="flex items-center justify-between">
             <div>
               <p className="text-xs font-medium text-content-secondary">Completed</p>
-              <p className="mt-2 text-2xl font-bold text-green-600">
+              <p className="mt-2 text-2xl font-bold text-icon-success">
                 {completionStats.completedTasks}
               </p>
             </div>

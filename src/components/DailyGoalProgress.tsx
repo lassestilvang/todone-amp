@@ -39,7 +39,7 @@ export const DailyGoalProgress: React.FC<DailyGoalProgressProps> = ({ className,
   if (compact) {
     return (
       <div className={cn('flex items-center gap-2', className)}>
-        <Target className="h-4 w-4 text-blue-500" />
+        <Target className="h-4 w-4 text-icon-info" />
         <div className="flex-1">
           <div className="flex items-center justify-between mb-1">
             <span className="text-xs font-medium text-content-secondary">Daily Goal</span>
@@ -57,7 +57,7 @@ export const DailyGoalProgress: React.FC<DailyGoalProgressProps> = ({ className,
             />
           </div>
         </div>
-        {isGoalMet && <CheckCircle2 className="h-4 w-4 text-green-500" />}
+        {isGoalMet && <CheckCircle2 className="h-4 w-4 text-icon-success" />}
       </div>
     )
   }
@@ -67,10 +67,10 @@ export const DailyGoalProgress: React.FC<DailyGoalProgressProps> = ({ className,
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Target className="h-5 w-5 text-blue-500" />
+          <Target className="h-5 w-5 text-icon-info" />
           <h3 className="font-semibold text-content-primary">Daily Goal</h3>
         </div>
-        {isGoalMet && <CheckCircle2 className="h-5 w-5 text-green-500" />}
+        {isGoalMet && <CheckCircle2 className="h-5 w-5 text-icon-success" />}
       </div>
 
       {/* Goal Info */}

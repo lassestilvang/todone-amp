@@ -42,7 +42,7 @@ export const AnalyticsDashboard: React.FC<AnalyticsDashboardProps> = ({ teamId, 
             className={cn(
               'flex items-center gap-2 border-b-2 px-4 py-3 text-sm font-medium transition',
               activeTab === tab.id
-                ? 'border-blue-600 text-blue-600'
+                ? 'border-brand-600 text-brand-600'
                 : 'border-transparent text-content-secondary hover:text-content-primary'
             )}
           >

@@ -27,7 +27,7 @@ export const NextWeekPreview: React.FC<NextWeekPreviewProps> = ({ tasks }) => {
     <div className="bg-surface-primary rounded-xl p-6 border border-border">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <CalendarDays className="w-5 h-5 text-blue-500" />
+          <CalendarDays className="w-5 h-5 text-icon-info" />
           <h3 className="text-lg font-semibold text-content-primary">Next Week Preview</h3>
         </div>
         <span className="text-sm text-content-tertiary">{tasks.length} tasks</span>
@@ -59,9 +59,9 @@ export const NextWeekPreview: React.FC<NextWeekPreviewProps> = ({ tasks }) => {
                 <Circle
                   className={cn(
                     'w-4 h-4 flex-shrink-0',
-                    task.priority === 'p1' && 'text-red-500',
-                    task.priority === 'p2' && 'text-orange-500',
-                    task.priority === 'p3' && 'text-blue-500',
+                    task.priority === 'p1' && 'text-priority-p1',
+                    task.priority === 'p2' && 'text-priority-p2',
+                    task.priority === 'p3' && 'text-priority-p3',
                     (!task.priority || task.priority === 'p4') && 'text-content-tertiary'
                   )}
                 />

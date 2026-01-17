@@ -97,7 +97,7 @@ export function RecurrenceInstancesList({ task, className }: RecurrenceInstances
                 aria-label={instance.completed ? 'Mark incomplete' : 'Mark complete'}
               >
                 {instance.completed ? (
-                  <CheckCircle2 size={20} className="text-green-600" />
+                  <CheckCircle2 size={20} className="text-icon-success" />
                 ) : (
                   <Circle size={20} />
                 )}
@@ -118,7 +118,7 @@ export function RecurrenceInstancesList({ task, className }: RecurrenceInstances
                   })}
                 </p>
                 {instance.isException && (
-                  <p className="text-xs text-orange-600 capitalize">
+                  <p className="text-xs text-icon-orange capitalize">
                     {instance.exceptionReason}
                   </p>
                 )}

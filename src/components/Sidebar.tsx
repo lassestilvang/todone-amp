@@ -124,7 +124,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) =
                     style={{ backgroundColor: project.color }}
                   />
                   <span className="flex-1 truncate">{project.name}</span>
-                  {project.isFavorite && <Star className="w-4 h-4 text-yellow-500" fill="currentColor" />}
+                  {project.isFavorite && <Star className="w-4 h-4 text-icon-yellow" fill="currentColor" />}
                 </button>
               ))}
             </div>

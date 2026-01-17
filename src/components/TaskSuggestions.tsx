@@ -54,7 +54,7 @@ export const TaskSuggestions: React.FC<TaskSuggestionsProps> = ({
       {/* Ambiguity Warning */}
       {showAmbiguityWarning && (
         <div className="p-3 bg-yellow-50 dark:bg-yellow-900 border-b border-yellow-200 dark:border-yellow-700 flex items-start gap-2">
-          <AlertCircle className="w-4 h-4 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-0.5" />
+          <AlertCircle className="w-4 h-4 text-icon-warning flex-shrink-0 mt-0.5" />
           <div>
             <p className="text-sm font-medium text-yellow-800 dark:text-yellow-100">Input looks ambiguous</p>
             <p className="text-xs text-yellow-700 dark:text-yellow-200">
@@ -113,13 +113,13 @@ export const TaskSuggestions: React.FC<TaskSuggestionsProps> = ({
                 )}
 
                 {suggestion.suggestedTask.dueDate && (
-                  <span className="text-xs font-semibold px-2 py-1 rounded bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200">
+                  <span className="text-xs font-semibold px-2 py-1 rounded bg-semantic-info-light text-semantic-info">
                     📅 {suggestion.suggestedTask.dueDate.toLocaleDateString()}
                   </span>
                 )}
 
                 {suggestion.suggestedTask.dueTime && (
-                  <span className="text-xs font-semibold px-2 py-1 rounded bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-200">
+                  <span className="text-xs font-semibold px-2 py-1 rounded bg-accent-purple-subtle text-accent-purple">
                     🕐 {suggestion.suggestedTask.dueTime}
                   </span>
                 )}
@@ -151,14 +151,14 @@ export const TaskSuggestions: React.FC<TaskSuggestionsProps> = ({
       {/* Similar Tasks Warning */}
       {!loading && similarTasks.length > 0 && (
         <div className="p-3 bg-blue-50 dark:bg-blue-900 border-t border-blue-200 dark:border-blue-700">
-          <p className="text-xs font-semibold text-blue-800 dark:text-blue-100 mb-2">
+          <p className="text-xs font-semibold text-semantic-info mb-2">
             Similar Tasks Found
           </p>
           <div className="space-y-1">
             {similarTasks.map((similar) => {
               const task = existingTasks.find((t) => t.id === similar.taskId)
               return (
-                <div key={similar.taskId} className="text-xs text-blue-700 dark:text-blue-200">
+                <div key={similar.taskId} className="text-xs text-semantic-info">
                   • {task?.content} ({Math.round(similar.similarity * 100)}% match)
                 </div>
               )

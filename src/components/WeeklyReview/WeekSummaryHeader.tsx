@@ -29,9 +29,9 @@ export const WeekSummaryHeader: React.FC<WeekSummaryHeaderProps> = ({
 
   const trendColor =
     metrics.comparedToLastWeek.tasksCompleted > 0
-      ? 'text-green-500'
+      ? 'text-icon-success'
       : metrics.comparedToLastWeek.tasksCompleted < 0
-        ? 'text-red-500'
+        ? 'text-icon-error'
         : 'text-content-tertiary'
 
   return (

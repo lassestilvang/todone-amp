@@ -127,7 +127,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
 
                     <button
                       onClick={() => dashboardStore.removeWidget(activeLayout.id, widget.id)}
-                      className="p-1 text-red-600 hover:text-red-700"
+                      className="p-1 text-icon-error hover:text-semantic-error"
                       title="Remove widget"
                     >
                       <X className="h-4 w-4" />

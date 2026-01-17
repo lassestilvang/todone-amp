@@ -182,7 +182,7 @@ export function LabelManagement({ isOpen, onClose, userId }: LabelManagementProp
                           </button>
                           <button
                             onClick={() => handleDelete(label.id)}
-                            className="p-1 text-red-400 hover:text-red-600 rounded-md hover:bg-surface-primary transition-colors"
+                            className="p-1 text-icon-error hover:text-semantic-error rounded-md hover:bg-surface-primary transition-colors"
                             title="Delete label"
                           >
                             <Trash2 size={16} />

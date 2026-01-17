@@ -10,9 +10,9 @@ export interface LeaderboardProps {
 
 const MEDAL_ICONS = [Trophy, Medal, Medal]
 const MEDAL_COLORS = [
-  'text-yellow-500',
+  'text-icon-yellow',
   'text-gray-400',
-  'text-orange-600',
+  'text-icon-orange',
 ]
 
 export const Leaderboard: React.FC<LeaderboardProps> = ({ limit = 10 }) => {
@@ -77,7 +77,7 @@ export const Leaderboard: React.FC<LeaderboardProps> = ({ limit = 10 }) => {
 
             {/* Karma Points */}
             <div className="flex items-center gap-1 flex-shrink-0">
-              <Zap className="w-4 h-4 text-yellow-500" />
+              <Zap className="w-4 h-4 text-icon-yellow" />
               <span className="font-bold text-content-primary">{entry.karma}</span>
             </div>
           </div>

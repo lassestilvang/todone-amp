@@ -26,17 +26,17 @@ interface ExternalCalendarEventsProps {
 }
 
 const calendarColors = {
-  google: 'bg-blue-50 border-blue-200 text-blue-900',
-  outlook: 'bg-cyan-50 border-cyan-200 text-cyan-900',
-  apple: 'bg-surface-secondary border-border text-content-primary',
-  other: 'bg-purple-50 border-purple-200 text-purple-900',
+  google: 'bg-semantic-info-light border-semantic-info text-semantic-info dark:text-content-primary',
+  outlook: 'bg-accent-teal-subtle border-accent-teal text-accent-teal dark:text-content-primary',
+  apple: 'bg-surface-tertiary border-border text-content-primary',
+  other: 'bg-accent-purple-subtle border-accent-purple text-accent-purple dark:text-content-primary',
 };
 
 const calendarBadgeColors = {
-  google: 'bg-blue-100 text-blue-800',
-  outlook: 'bg-cyan-100 text-cyan-800',
+  google: 'bg-semantic-info-light text-semantic-info',
+  outlook: 'bg-accent-teal-subtle text-accent-teal',
   apple: 'bg-surface-tertiary text-content-primary',
-  other: 'bg-purple-100 text-purple-800',
+  other: 'bg-accent-purple-subtle text-accent-purple',
 };
 
 const parseDate = (date: Date | string): Date => {
@@ -189,7 +189,7 @@ export const ExternalCalendarEvents: React.FC<ExternalCalendarEventsProps> = ({
       </div>
 
       {filteredEvents.length > maxItems && (
-        <button className="text-xs text-blue-600 hover:text-blue-700 font-medium px-1 py-1">
+        <button className="text-xs text-semantic-info hover:text-semantic-info font-medium px-1 py-1">
           View all {filteredEvents.length} events
         </button>
       )}

@@ -137,7 +137,7 @@ export const TeamMemberProfile: React.FC<TeamMemberProfileProps> = ({
       <div className="space-y-2 border-t border-border pt-4">
         <div className="flex items-center gap-2">
           <Mail className="h-4 w-4 text-content-tertiary" />
-          <a href={`mailto:${member.email}`} className="text-sm text-blue-600 hover:underline dark:text-blue-400">
+          <a href={`mailto:${member.email}`} className="text-sm text-semantic-info hover:underline">
             {member.email}
           </a>
         </div>
@@ -155,15 +155,15 @@ export const TeamMemberProfile: React.FC<TeamMemberProfileProps> = ({
           <div className="grid grid-cols-3 gap-2">
             <div className="rounded-md bg-blue-50 p-2 dark:bg-blue-900">
               <p className="text-xs text-content-secondary">Assigned</p>
-              <p className="mt-1 text-lg font-bold text-blue-600 dark:text-blue-400">{metrics.tasksAssigned}</p>
+              <p className="mt-1 text-lg font-bold text-semantic-info">{metrics.tasksAssigned}</p>
             </div>
             <div className="rounded-md bg-green-50 p-2 dark:bg-green-900">
               <p className="text-xs text-content-secondary">Completed</p>
-              <p className="mt-1 text-lg font-bold text-green-600 dark:text-green-400">{metrics.tasksCompleted}</p>
+              <p className="mt-1 text-lg font-bold text-icon-success">{metrics.tasksCompleted}</p>
             </div>
             <div className="rounded-md bg-orange-50 p-2 dark:bg-orange-900">
               <p className="text-xs text-content-secondary">Overdue</p>
-              <p className="mt-1 text-lg font-bold text-orange-600 dark:text-orange-400">{metrics.tasksOverdue}</p>
+              <p className="mt-1 text-lg font-bold text-icon-orange">{metrics.tasksOverdue}</p>
             </div>
           </div>
 
@@ -181,7 +181,7 @@ export const TeamMemberProfile: React.FC<TeamMemberProfileProps> = ({
             <div className="rounded-md bg-green-50 p-2 dark:bg-green-900">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <Zap className="h-4 w-4 text-green-600 dark:text-green-400" />
+                  <Zap className="h-4 w-4 text-icon-success" />
                   <span className="text-xs text-green-700 dark:text-green-300">Active {lastActiveText}</span>
                 </div>
               </div>
@@ -213,7 +213,7 @@ export const TeamMemberProfile: React.FC<TeamMemberProfileProps> = ({
       {/* Toggle Details */}
       <button
         onClick={() => setShowDetails(!showDetails)}
-        className="w-full text-center text-xs text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
+        className="w-full text-center text-xs text-semantic-info hover:text-semantic-info"
       >
         {showDetails ? 'Hide details' : 'Show details'}
       </button>

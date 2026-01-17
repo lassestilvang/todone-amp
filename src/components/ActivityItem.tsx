@@ -26,19 +26,19 @@ function formatRelativeTime(date: Date): string {
 function getActivityIcon(action: string) {
   switch (action) {
     case 'completed':
-      return <CheckCircle size={16} className="text-green-600" />
+      return <CheckCircle size={16} className="text-icon-success" />
     case 'commented':
-      return <MessageSquare size={16} className="text-blue-600" />
+      return <MessageSquare size={16} className="text-icon-info" />
     case 'assigned':
     case 'unassigned':
-      return <User size={16} className="text-purple-600" />
+      return <User size={16} className="text-icon-purple" />
     case 'labeled':
     case 'unlabeled':
-      return <Tag size={16} className="text-orange-600" />
+      return <Tag size={16} className="text-icon-orange" />
     case 'dateChanged':
-      return <Calendar size={16} className="text-teal-600" />
+      return <Calendar size={16} className="text-icon-teal" />
     case 'priorityChanged':
-      return <AlertCircle size={16} className="text-red-600" />
+      return <AlertCircle size={16} className="text-icon-error" />
     default:
       return <AlertCircle size={16} className="text-content-secondary" />
   }

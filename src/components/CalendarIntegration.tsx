@@ -98,7 +98,7 @@ export const CalendarIntegration: React.FC<CalendarIntegrationProps> = ({
           <h3 className="font-medium text-content-primary">
             {platform === 'google' ? 'Google Calendar' : 'Outlook Calendar'}
           </h3>
-          <span className="ml-2 inline-flex items-center rounded-full bg-green-100 px-2 py-1 text-xs font-medium text-green-800">
+          <span className="ml-2 inline-flex items-center rounded-full bg-semantic-success-light px-2 py-1 text-xs font-medium text-semantic-success">
             Connected
           </span>
         </div>

@@ -127,7 +127,7 @@ export function FocusSettings({ isOpen, onClose }: FocusSettingsProps) {
           {/* Auto-start Settings */}
           <div className="rounded-lg bg-surface-secondary p-4">
             <div className="mb-4 flex items-center gap-3">
-              <Moon className="h-5 w-5 text-purple-500" />
+              <Moon className="h-5 w-5 text-icon-purple" />
               <p className="font-medium text-content-primary">Auto-start</p>
             </div>
             <div className="space-y-3">
@@ -159,7 +159,7 @@ export function FocusSettings({ isOpen, onClose }: FocusSettingsProps) {
           {/* Sound Settings */}
           <div className="rounded-lg bg-surface-secondary p-4">
             <div className="mb-4 flex items-center gap-3">
-              <Volume2 className="h-5 w-5 text-green-500" />
+              <Volume2 className="h-5 w-5 text-icon-success" />
               <p className="font-medium text-content-primary">Sound</p>
             </div>
             <div className="space-y-4">

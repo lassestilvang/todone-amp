@@ -82,13 +82,13 @@ export const PullToRefresh: React.FC<PullToRefreshProps> = ({ onRefresh, childre
       >
         <div className="flex flex-col items-center">
           <RefreshCw
-            className="h-6 w-6 text-blue-500 transition-transform"
+            className="h-6 w-6 text-icon-info transition-transform"
             style={{
               transform: `rotate(${progress * 3.6}deg) scale(${Math.min(1 + progress / 100, 1.2)})`,
               opacity: Math.min(progress / 100 + 0.3, 1),
             }}
           />
-          <span className="text-xs text-blue-600 mt-1">
+          <span className="text-xs text-semantic-info mt-1">
             {isRefreshing ? 'Refreshing...' : isReady ? 'Release to refresh' : 'Pull to refresh'}
           </span>
         </div>

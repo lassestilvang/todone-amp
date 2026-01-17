@@ -134,12 +134,12 @@ export function AIAssistance({
 
         {!isLoading &&
           suggestions.map((suggestion) => (
-            <div key={suggestion.id} className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <div key={suggestion.id} className="bg-semantic-info-light border border-semantic-info rounded-lg p-4">
               {/* Confidence indicator */}
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-blue-600" />
-                  <span className="text-xs font-medium text-blue-700">
+                  <Sparkles className="w-4 h-4 text-icon-info" />
+                  <span className="text-xs font-medium text-semantic-info">
                     {(suggestion.confidence * 100).toFixed(0)}% confidence
                   </span>
                 </div>
@@ -188,7 +188,7 @@ export function AIAssistance({
                     className={cn(
                       'p-1 rounded transition-colors',
                       feedback[suggestion.id] === 'helpful'
-                        ? 'text-green-600 bg-green-50'
+                        ? 'text-icon-success bg-semantic-success-light'
                         : 'text-content-tertiary hover:bg-surface-tertiary'
                     )}
                   >
@@ -199,7 +199,7 @@ export function AIAssistance({
                     className={cn(
                       'p-1 rounded transition-colors',
                       feedback[suggestion.id] === 'not-helpful'
-                        ? 'text-red-600 bg-red-50'
+                        ? 'text-icon-error bg-semantic-error-light'
                         : 'text-content-tertiary hover:bg-surface-tertiary'
                     )}
                   >

@@ -109,7 +109,7 @@ const FeatureNudgeCard: React.FC<FeatureNudgeCardProps> = ({ nudge, onDismiss })
           {nudge.action && (
             <button
               onClick={nudge.action.onClick}
-              className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-semantic-info hover:text-blue-700 group"
+              className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-semantic-info hover:text-semantic-info group"
             >
               {nudge.action.label}
               <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />

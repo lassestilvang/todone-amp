@@ -37,7 +37,7 @@ export const OfflineIndicator: React.FC<OfflineIndicatorProps> = ({
         className
       )}
     >
-      <WifiOff className="w-5 h-5 text-red-600 dark:text-red-400 flex-shrink-0 mt-0.5" />
+      <WifiOff className="w-5 h-5 text-icon-error flex-shrink-0 mt-0.5" />
       <div className="flex-1 min-w-0">
         <h3 className="text-sm font-semibold text-red-900 dark:text-red-100">You're offline</h3>
         <p className="text-xs text-red-700 dark:text-red-300 mt-1">

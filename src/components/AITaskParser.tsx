@@ -205,7 +205,7 @@ export function AITaskParser({
 
       {parsed.title && (
         <div className="flex items-start gap-2 p-2 bg-surface-secondary rounded-md border border-border">
-          <Check size={14} className="text-green-500 mt-0.5 shrink-0" />
+          <Check size={14} className="text-icon-success mt-0.5 shrink-0" />
           <div>
             <div className="text-xs text-content-tertiary mb-0.5">Task title:</div>
             <div className="text-sm font-medium text-content-primary">

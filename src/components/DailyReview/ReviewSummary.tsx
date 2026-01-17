@@ -45,9 +45,9 @@ export function ReviewSummary({ onComplete, type }: ReviewSummaryProps) {
           )}
         >
           {isMorning ? (
-            <Sun className="w-10 h-10 text-yellow-500" />
+            <Sun className="w-10 h-10 text-icon-yellow" />
           ) : (
-            <Moon className="w-10 h-10 text-indigo-500" />
+            <Moon className="w-10 h-10 text-icon-indigo" />
           )}
         </div>
 
@@ -55,7 +55,7 @@ export function ReviewSummary({ onComplete, type }: ReviewSummaryProps) {
           {isMorning && intention && (
             <div className="p-4 rounded-lg bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800">
               <div className="flex items-start gap-3">
-                <Target className="w-5 h-5 text-purple-500 flex-shrink-0 mt-0.5" />
+                <Target className="w-5 h-5 text-icon-purple flex-shrink-0 mt-0.5" />
                 <div>
                   <p className="text-sm font-medium text-purple-700 dark:text-purple-300">
                     Today's Intention
@@ -69,7 +69,7 @@ export function ReviewSummary({ onComplete, type }: ReviewSummaryProps) {
           {!isMorning && reflection && (
             <div className="p-4 rounded-lg bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800">
               <div className="flex items-start gap-3">
-                <BookOpen className="w-5 h-5 text-indigo-500 flex-shrink-0 mt-0.5" />
+                <BookOpen className="w-5 h-5 text-icon-indigo flex-shrink-0 mt-0.5" />
                 <div>
                   <p className="text-sm font-medium text-indigo-700 dark:text-indigo-300">
                     Your Reflection
@@ -95,7 +95,7 @@ export function ReviewSummary({ onComplete, type }: ReviewSummaryProps) {
             {rescheduledTaskIds.length > 0 && (
               <div className="p-3 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-center">
                 <div className="flex items-center justify-center gap-1 mb-1">
-                  <RefreshCw className="w-4 h-4 text-blue-500" />
+                  <RefreshCw className="w-4 h-4 text-icon-info" />
                 </div>
                 <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
                   {rescheduledTaskIds.length}
@@ -107,7 +107,7 @@ export function ReviewSummary({ onComplete, type }: ReviewSummaryProps) {
             {!isMorning && (
               <div className="p-3 rounded-lg bg-green-50 dark:bg-green-900/20 text-center">
                 <div className="flex items-center justify-center gap-1 mb-1">
-                  <CheckCircle className="w-4 h-4 text-green-500" />
+                  <CheckCircle className="w-4 h-4 text-icon-success" />
                 </div>
                 <p className="text-2xl font-bold text-green-600 dark:text-green-400">
                   {completedCount}

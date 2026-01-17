@@ -72,7 +72,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
               className={cn(
                 'w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors',
                 currentView === id
-                  ? 'bg-blue-100 text-blue-700'
+                  ? 'bg-brand-100 text-brand-700'
                   : 'text-content-secondary hover:bg-surface-tertiary'
               )}
             >
@@ -104,7 +104,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
             className={cn(
               'flex-1 flex items-center justify-center py-3 transition-colors',
               currentView === id
-                ? 'text-blue-600 border-t-2 border-blue-600'
+                ? 'text-brand-600 border-t-2 border-brand-600'
                 : 'text-content-secondary hover:text-content-primary'
             )}
             aria-label={`Navigate to ${id}`}

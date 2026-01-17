@@ -98,7 +98,7 @@ export function FocusModeWidget({ userId, linkedTaskId }: FocusModeWidgetProps) 
           <div className="relative w-80">
             <div className="flex items-center justify-between p-4 border-b border-border">
               <div className="flex items-center gap-2">
-                <Timer className="w-5 h-5 text-blue-500" />
+                <Timer className="w-5 h-5 text-icon-info" />
                 <span className="font-medium text-content-primary">Focus Mode</span>
               </div>
               <div className="flex items-center gap-1">
@@ -152,7 +152,7 @@ export function FocusModeWidget({ userId, linkedTaskId }: FocusModeWidgetProps) 
             aria-label="Expand focus timer"
           >
             <Timer
-              className={clsx('w-5 h-5', isActive ? 'text-blue-500' : 'text-content-tertiary')}
+              className={clsx('w-5 h-5', isActive ? 'text-icon-info' : 'text-content-tertiary')}
             />
             <span
               className={clsx(

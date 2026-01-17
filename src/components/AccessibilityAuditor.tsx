@@ -20,7 +20,7 @@ const IssueIcon: React.FC<{ level: 'error' | 'warning' | 'info' }> = ({ level })
     case 'warning':
       return <AlertCircle className="w-5 h-5 text-semantic-warning" />;
     case 'info':
-      return <Info className="w-5 h-5 text-blue-600" />;
+      return <Info className="w-5 h-5 text-icon-info" />;
   }
 };
 
@@ -114,22 +114,22 @@ export const AccessibilityAuditor: React.FC<AccessibilityAuditorProps> = ({
 
         <div className="grid grid-cols-3 gap-4 mb-6">
           <div className="text-center p-3 bg-red-50 rounded-lg border border-red-200">
-            <div className="text-2xl font-bold text-red-600">{errorCount}</div>
-            <div className="text-sm text-red-700">Errors</div>
+            <div className="text-2xl font-bold text-semantic-error">{errorCount}</div>
+            <div className="text-sm text-semantic-error">Errors</div>
           </div>
           <div className="text-center p-3 bg-yellow-50 rounded-lg border border-yellow-200">
-            <div className="text-2xl font-bold text-yellow-600">{warningCount}</div>
-            <div className="text-sm text-yellow-700">Warnings</div>
+            <div className="text-2xl font-bold text-semantic-warning">{warningCount}</div>
+            <div className="text-sm text-semantic-warning">Warnings</div>
           </div>
           <div className="text-center p-3 bg-blue-50 rounded-lg border border-blue-200">
-            <div className="text-2xl font-bold text-blue-600">{infoCount}</div>
-            <div className="text-sm text-blue-700">Info</div>
+            <div className="text-2xl font-bold text-semantic-info">{infoCount}</div>
+            <div className="text-sm text-semantic-info">Info</div>
           </div>
         </div>
 
         {issues.length === 0 && (
           <div className="flex items-center justify-center py-8 text-content-secondary">
-            <CheckCircle className="w-6 h-6 mr-2 text-green-600" />
+            <CheckCircle className="w-6 h-6 mr-2 text-icon-success" />
             <span className="font-medium">No accessibility issues found!</span>
           </div>
         )}

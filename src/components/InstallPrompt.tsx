@@ -42,7 +42,7 @@ export const InstallPrompt: React.FC<InstallPromptProps> = ({ className }) => {
               onClick={install}
               className={cn(
                 'px-3 py-1.5 text-xs font-semibold rounded',
-                'bg-white text-blue-600 hover:bg-blue-50',
+                'bg-white text-brand-600 hover:bg-brand-50',
                 'transition-colors'
               )}
             >

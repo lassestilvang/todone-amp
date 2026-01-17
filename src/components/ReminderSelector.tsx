@@ -51,7 +51,7 @@ export function ReminderSelector({ taskId, onReminderAdded, className }: Reminde
         <h4 className="text-sm font-medium text-content-secondary">Reminders</h4>
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="rounded p-1 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900"
+          className="rounded p-1 text-icon-info hover:bg-semantic-info-light"
         >
           <Plus className="h-4 w-4" />
         </button>
@@ -99,7 +99,7 @@ export function ReminderSelector({ taskId, onReminderAdded, className }: Reminde
               </div>
               <button
                 onClick={() => handleDelete(reminder.id)}
-                className="rounded p-0.5 text-content-tertiary hover:text-red-600 dark:hover:text-red-400"
+                className="rounded p-0.5 text-content-tertiary hover:text-icon-error"
               >
                 <X className="h-4 w-4" />
               </button>

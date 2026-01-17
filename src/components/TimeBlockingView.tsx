@@ -110,9 +110,9 @@ export function TimeBlockingView({ selectedDate }: TimeBlockingViewProps) {
                 className={cn(
                   'w-full px-3 py-2 rounded-lg text-left text-sm font-medium transition-all hover:opacity-80',
                   {
-                    'bg-red-100 text-red-900': task.priority === 'p1',
-                    'bg-orange-100 text-orange-900': task.priority === 'p2',
-                    'bg-blue-100 text-blue-900': task.priority === 'p3',
+                    'bg-priority-p1-bg text-priority-p1': task.priority === 'p1',
+                    'bg-priority-p2-bg text-priority-p2': task.priority === 'p2',
+                    'bg-priority-p3-bg text-priority-p3': task.priority === 'p3',
                     'bg-surface-tertiary text-content-primary': !task.priority || task.priority === 'p4',
                   }
                 )}
@@ -158,9 +158,9 @@ export function TimeBlockingView({ selectedDate }: TimeBlockingViewProps) {
                         className={cn(
                           'w-full px-2 py-1 rounded text-xs font-medium text-left line-clamp-2 transition-all hover:opacity-80',
                           {
-                            'bg-red-100 text-red-900': task.priority === 'p1',
-                            'bg-orange-100 text-orange-900': task.priority === 'p2',
-                            'bg-blue-100 text-blue-900': task.priority === 'p3',
+                            'bg-priority-p1-bg text-priority-p1': task.priority === 'p1',
+                            'bg-priority-p2-bg text-priority-p2': task.priority === 'p2',
+                            'bg-priority-p3-bg text-priority-p3': task.priority === 'p3',
                             'bg-surface-tertiary text-content-primary': !task.priority || task.priority === 'p4',
                           }
                         )}
@@ -218,11 +218,11 @@ function CurrentTimeIndicator() {
 
   return (
     <div
-      className="absolute left-0 right-0 h-1 bg-red-500 z-20 pointer-events-none transition-all"
+      className="absolute left-0 right-0 h-1 bg-icon-error z-20 pointer-events-none transition-all"
       style={{ top: `${position}px` }}
     >
-      <div className="absolute -left-2 -top-1.5 w-4 h-4 bg-red-500 rounded-full border-2 border-white shadow-md" />
-      <div className="absolute left-20 -top-2 text-xs font-bold text-red-500 bg-surface-primary px-2 rounded">
+      <div className="absolute -left-2 -top-1.5 w-4 h-4 bg-icon-error rounded-full border-2 border-white shadow-md" />
+      <div className="absolute left-20 -top-2 text-xs font-bold text-icon-error bg-surface-primary px-2 rounded">
         Now
       </div>
     </div>

@@ -94,7 +94,7 @@ export const PersonalDashboard: React.FC<PersonalDashboardProps> = ({ userId, cl
               <p className="mt-2 text-2xl sm:text-3xl font-bold text-content-primary">{todaysCompleted}</p>
               <p className="mt-1 text-xs text-content-tertiary">of {todaysTasks.length}</p>
             </div>
-            <Calendar className="h-6 w-6 sm:h-8 sm:w-8 text-blue-500 flex-shrink-0" />
+            <Calendar className="h-6 w-6 sm:h-8 sm:w-8 text-icon-info flex-shrink-0" />
           </div>
           <div className="mt-4 h-2 bg-interactive-secondary rounded-full overflow-hidden">
             <div
@@ -142,7 +142,7 @@ export const PersonalDashboard: React.FC<PersonalDashboardProps> = ({ userId, cl
               </p>
               <p className="mt-1 text-xs text-content-tertiary">Tasks/day</p>
             </div>
-            <TrendingUp className="h-8 w-8 text-purple-500" />
+            <TrendingUp className="h-8 w-8 text-icon-purple" />
           </div>
         </div>
       </div>

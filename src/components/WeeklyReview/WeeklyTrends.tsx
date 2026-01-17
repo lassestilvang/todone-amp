@@ -90,7 +90,7 @@ interface TrendIndicatorProps {
 const TrendIndicator: React.FC<TrendIndicatorProps> = ({ value, suffix }) => {
   const Icon = value > 0 ? TrendingUp : value < 0 ? TrendingDown : Minus
   const colorClass =
-    value > 0 ? 'text-green-500' : value < 0 ? 'text-red-500' : 'text-content-tertiary'
+    value > 0 ? 'text-icon-success' : value < 0 ? 'text-icon-error' : 'text-content-tertiary'
 
   return (
     <div className={cn('flex items-center justify-center gap-1 mt-4', colorClass)}>

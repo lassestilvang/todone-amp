@@ -128,7 +128,7 @@ export const AIInsights: React.FC<AIInsightsProps> = ({ className = '' }) => {
     return (
       <div className={`p-4 bg-surface-primary rounded-lg border border-border ${className}`}>
         <div className="flex items-center gap-2 mb-4">
-          <Brain className="w-5 h-5 text-blue-500" />
+          <Brain className="w-5 h-5 text-icon-info" />
           <h3 className="font-semibold text-content-primary">AI Insights</h3>
         </div>
         <div className="space-y-2">
@@ -144,7 +144,7 @@ export const AIInsights: React.FC<AIInsightsProps> = ({ className = '' }) => {
     return (
       <div className={`p-4 bg-surface-primary rounded-lg border border-border ${className}`}>
         <div className="flex items-center gap-2 mb-4">
-          <Brain className="w-5 h-5 text-blue-500" />
+          <Brain className="w-5 h-5 text-icon-info" />
           <h3 className="font-semibold text-content-primary">AI Insights</h3>
         </div>
         <p className="text-sm text-content-secondary">No insights at the moment. Keep working!</p>
@@ -155,7 +155,7 @@ export const AIInsights: React.FC<AIInsightsProps> = ({ className = '' }) => {
   return (
     <div className={`p-4 bg-surface-primary rounded-lg border border-border ${className}`}>
       <div className="flex items-center gap-2 mb-4">
-        <Brain className="w-5 h-5 text-blue-500" />
+        <Brain className="w-5 h-5 text-icon-info" />
         <h3 className="font-semibold text-content-primary">AI Insights</h3>
       </div>
 

@@ -58,7 +58,7 @@ export function DailyReviewSettings({ isOpen, onClose, userId }: DailyReviewSett
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center">
-                    <Sun className="w-5 h-5 text-yellow-500" />
+                    <Sun className="w-5 h-5 text-icon-yellow" />
                   </div>
                   <div>
                     <p className="font-medium text-content-primary">Morning Review</p>
@@ -110,7 +110,7 @@ export function DailyReviewSettings({ isOpen, onClose, userId }: DailyReviewSett
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-lg bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center">
-                    <Moon className="w-5 h-5 text-indigo-500" />
+                    <Moon className="w-5 h-5 text-icon-indigo" />
                   </div>
                   <div>
                     <p className="font-medium text-content-primary">Evening Review</p>

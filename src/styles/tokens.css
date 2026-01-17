@@ -119,6 +119,21 @@
   --color-accent-indigo-subtle: #e0e7ff;
   --color-accent-teal: #14b8a6;
   --color-accent-teal-subtle: #ccfbf1;
+
+  /* ========================================================================
+     Icon Colors - For consistent icon styling across themes
+     ======================================================================== */
+  --color-icon-success: #22c55e;
+  --color-icon-error: #ef4444;
+  --color-icon-warning: #f59e0b;
+  --color-icon-info: #3b82f6;
+  --color-icon-purple: #a855f7;
+  --color-icon-orange: #f97316;
+  --color-icon-teal: #14b8a6;
+  --color-icon-yellow: #eab308;
+  --color-icon-indigo: #6366f1;
+  --color-icon-pink: #ec4899;
+  --color-icon-cyan: #06b6d4;
 }
 
 /* ==========================================================================
@@ -213,4 +228,17 @@
   --color-accent-indigo-subtle: rgba(99, 102, 241, 0.2);
   --color-accent-teal: #2dd4bf;
   --color-accent-teal-subtle: rgba(20, 184, 166, 0.2);
+
+  /* Icon Colors - Adjusted for dark mode visibility */
+  --color-icon-success: #4ade80;
+  --color-icon-error: #f87171;
+  --color-icon-warning: #fbbf24;
+  --color-icon-info: #60a5fa;
+  --color-icon-purple: #c084fc;
+  --color-icon-orange: #fb923c;
+  --color-icon-teal: #2dd4bf;
+  --color-icon-yellow: #facc15;
+  --color-icon-indigo: #818cf8;
+  --color-icon-pink: #f472b6;
+  --color-icon-cyan: #22d3ee;
 }
