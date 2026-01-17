@@ -85,7 +85,7 @@ export function SectionSelector({
               className={cn(
                 'w-full text-left px-3 py-2 text-sm rounded',
                 'hover:bg-surface-tertiary transition-colors',
-                value === 'default' && 'bg-brand-50 text-brand-700'
+                value === 'default' && 'bg-brand-50 dark:bg-brand-900/30 text-brand-700 dark:text-brand-400'
               )}
             >
               Default Section

@@ -70,7 +70,7 @@ export function TeamSelector({
                 className={cn(
                   'w-full text-left px-4 py-2 text-sm flex items-center gap-2',
                   'hover:bg-surface-tertiary transition-colors',
-                  !value && 'bg-brand-50 text-brand-700'
+                  !value && 'bg-brand-50 dark:bg-brand-900/30 text-brand-700 dark:text-brand-400'
                 )}
               >
                 <div className="w-3 h-3 rounded-full bg-content-tertiary" />
@@ -91,7 +91,7 @@ export function TeamSelector({
                   className={cn(
                     'w-full text-left px-4 py-2 text-sm flex items-center gap-2',
                     'hover:bg-surface-tertiary transition-colors',
-                    value === team.id && 'bg-brand-50 text-brand-700'
+                    value === team.id && 'bg-brand-50 dark:bg-brand-900/30 text-brand-700 dark:text-brand-400'
                   )}
                 >
                   <div className="w-3 h-3 rounded-full bg-brand-500" />

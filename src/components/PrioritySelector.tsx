@@ -29,7 +29,7 @@ export function PrioritySelector({ value, onChange, disabled = false, className 
             'flex items-center justify-center w-10 h-10 rounded-md font-semibold text-sm transition-all',
             priority.color,
             value === priority.value
-              ? 'ring-2 ring-offset-1 ring-gray-400 text-white'
+              ? 'ring-2 ring-offset-2 ring-focus text-white'
               : 'text-white hover:opacity-80',
             disabled && 'opacity-50 cursor-not-allowed'
           )}

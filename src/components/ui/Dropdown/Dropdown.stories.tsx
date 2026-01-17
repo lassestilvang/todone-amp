@@ -124,19 +124,19 @@ export const PrioritySelector: Story = {
       <DropdownTrigger>Set Priority</DropdownTrigger>
       <DropdownMenu>
         <DropdownItem>
-          <span className="font-bold text-red-600 mr-2">!!!</span>
+          <span className="font-bold text-priority-p1 mr-2">!!!</span>
           Priority 1
         </DropdownItem>
         <DropdownItem>
-          <span className="font-bold text-orange-600 mr-2">!!</span>
+          <span className="font-bold text-priority-p2 mr-2">!!</span>
           Priority 2
         </DropdownItem>
         <DropdownItem>
-          <span className="font-bold text-blue-600 mr-2">!</span>
+          <span className="font-bold text-priority-p3 mr-2">!</span>
           Priority 3
         </DropdownItem>
         <DropdownItem>
-          <span className="font-bold text-content-tertiary mr-2">-</span>
+          <span className="font-bold text-priority-p4 mr-2">-</span>
           Priority 4
         </DropdownItem>
       </DropdownMenu>

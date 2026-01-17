@@ -54,7 +54,7 @@ This phase focuses on implementing a robust, accessible theming system with dark
 | T6.2.3 | Fix TaskCard component dark mode styles | High | ✅ |
 | T6.2.4 | Fix Modal/Dialog components dark mode styles | High | ✅ |
 | T6.2.5 | Fix Form inputs/buttons dark mode styles | High | ✅ |
-| T6.2.6 | Fix DropdownMenu components dark mode styles | Medium | ⬜ |
+| T6.2.6 | Fix DropdownMenu components dark mode styles | Medium | ✅ |
 | T6.2.7 | Fix DatePicker/Calendar dark mode styles | Medium | ⬜ |
 | T6.2.8 | Fix Toast/Notification dark mode styles | Medium | ⬜ |
 | T6.2.9 | Fix EmptyState illustrations dark mode | Low | ⬜ |
@@ -542,6 +542,7 @@ npm run storybook
 
 | Date | Change | Author |
 |------|--------|--------|
+| 2026-01-17 | T6.2.6: COMPLETED - Fixed DropdownMenu components dark mode. Updated ContextMenu (semantic-error-light for danger hover), Dropdown.stories (semantic priority colors), PrioritySelector (ring-focus), AssigneeSelector (dark mode for selected items and clear all), ProjectSelector, SectionSelector, TeamSelector (dark mode for selected states). All 1658 tests pass. | Amp |
 | 2026-01-17 | T6.2.5: COMPLETED - Fixed Form inputs/buttons dark mode. Updated TemplateForm, DatePickerInput, TimePickerInput, OAuthButton, RambleVoiceInput, CommentForm, FloatingActionButton, DataExportImport, CalendarView, SlackIntegration, EmailIntegration, OfflineIndicator, AtRiskTasks, ComparisonAnalytics, PersonalDashboard, EnhancedSearchBar, CalendarEventsList, ReportGenerator, SavedQueryManager, ContextMenu, TemplateGallery, TemplatePreview, KeyboardShortcutsSettings, TeamDashboard, TeamAnalytics, ConflictResolver, RecurrenceInstancesList. All 1658 tests pass. | Amp |
 | 2026-01-17 | T6.2.4: COMPLETED - Fixed Modal dark mode. Updated QuickAddModal, MobileQuickAddModal, ShareProjectModal, AchievementDetailModal, TaskAssignmentModal to use semantic tokens. | Amp |
 | 2026-01-17 | T6.2.3: COMPLETED - Fixed TaskCard dark mode. Updated TaskItem, MatrixTaskCard, SubTaskItem, SwipeableTaskItem to use semantic priority tokens and brand colors for selection states. | Amp |

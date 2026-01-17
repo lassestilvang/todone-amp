@@ -118,7 +118,7 @@ export function AssigneeSelector({
                   className={cn(
                     'w-full text-left px-4 py-2 text-sm flex items-center gap-3',
                     'hover:bg-surface-tertiary transition-colors',
-                    assigneeIds.includes(member.userId) && 'bg-brand-50'
+                    assigneeIds.includes(member.userId) && 'bg-brand-50 dark:bg-brand-900/30'
                   )}
                 >
                   {member.avatar ? (
@@ -171,7 +171,7 @@ export function AssigneeSelector({
                     onChange([])
                     setIsOpen(false)
                   }}
-                  className="text-sm text-red-600 hover:text-red-700 font-medium flex items-center gap-1"
+                  className="text-sm text-semantic-error hover:opacity-80 font-medium flex items-center gap-1"
                 >
                   <X size={14} />
                   Clear all

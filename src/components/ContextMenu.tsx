@@ -181,7 +181,7 @@ export const ContextMenu: React.FC<ContextMenuProps> = ({
                   item.disabled
                     ? 'text-content-tertiary cursor-not-allowed'
                     : item.isDangerous
-                      ? 'text-semantic-error hover:bg-red-50 dark:hover:bg-red-900/30'
+                      ? 'text-semantic-error hover:bg-semantic-error-light'
                       : 'text-content-primary hover:bg-surface-tertiary'
                 )}
               >
