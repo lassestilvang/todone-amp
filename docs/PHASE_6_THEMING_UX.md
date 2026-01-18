@@ -80,7 +80,7 @@ This phase focuses on implementing a robust, accessible theming system with dark
 | T6.4.3 | Complete Dracula theme implementation | Medium | ✅ |
 | T6.4.4 | Complete Solarized Light theme implementation | Medium | ✅ |
 | T6.4.5 | Complete Solarized Dark theme implementation | Medium | ✅ |
-| T6.4.6 | Add theme preview in Settings before applying | Low | ⬜ |
+| T6.4.6 | Add theme preview in Settings before applying | Low | ✅ |
 | T6.4.7 | Consider additional popular themes (One Dark, GitHub, etc.) | Low | ⬜ |
 
 ### 5. ♿ Accessibility & Contrast
@@ -541,6 +541,7 @@ npm run storybook
 
 | Date | Change | Author |
 |------|--------|--------|
+| 2026-01-18 | T6.4.6: COMPLETED - Added theme preview functionality in Settings. Clicking a theme now previews it live with "Previewing" badge, and shows a confirmation bar with Apply/Cancel buttons. Reverts to original theme on cancel or when leaving the tab. Uses refs for cleanup effect to properly restore theme on unmount. All 39 SettingsView tests pass. | Amp |
 | 2026-01-18 | T6.5.1, T6.5.2, T6.5.4, T6.5.5: COMPLETED - Full WCAG AA contrast audit with automated script (`scripts/audit-contrast.ts`). Fixed 21 contrast issues across light/dark modes. Darkened text-tertiary, text-disabled, border-default, placeholder, priority colors (P1-P4), and semantic colors in light mode. Lightened border-default, text-disabled, placeholder, success, and error colors in dark mode. All 54 color combinations now pass 4.5:1 (text) or 3:1 (UI) requirements. All 1681 tests pass. | Amp |
 | 2026-01-18 | T6.4.2-5: COMPLETED - Implemented complete theme definitions for Nord, Dracula, Solarized Light, and Solarized Dark. Each theme now defines all semantic tokens (surfaces, text, borders, interactive, semantic colors, priorities, focus, shadows, sidebar, inputs, tooltips, accents, icons, brand). Build successful. | Amp |
 | 2026-01-18 | T6.4.1: COMPLETED - Created ThemePreviewThumbnail component with visual mockup of each theme. Added preview colors (bg, surface, text, accent, border) to all COLOR_THEMES configs. Shows miniature UI preview with sidebar header, text lines, and accent color. All 39 SettingsView tests pass. | Amp |

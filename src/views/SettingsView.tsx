@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useAuthStore } from '@/store/authStore'
 import { useTaskStore } from '@/store/taskStore'
 import { useProjectStore } from '@/store/projectStore'
@@ -18,6 +18,8 @@ import {
   Download,
   Trash2,
   ChevronDown,
+  Check,
+  X,
   type LucideIcon,
 } from 'lucide-react'
 import { Button } from '@/components/Button'
@@ -150,6 +152,48 @@ export const SettingsView: React.FC = () => {
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false)
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
+  const [previewTheme, setPreviewTheme] = useState<ThemeName | null>(null)
+  const [originalTheme, setOriginalTheme] = useState<ThemeName | null>(null)
+  const originalThemeRef = useRef<ThemeName | null>(null)
+  const setColorThemeRef = useRef(setColorTheme)
+
+  useEffect(() => {
+    originalThemeRef.current = originalTheme
+  }, [originalTheme])
+
+  useEffect(() => {
+    setColorThemeRef.current = setColorTheme
+  }, [setColorTheme])
+
+  const startPreview = (theme: ThemeName) => {
+    if (theme === colorTheme) return
+    if (originalTheme === null) {
+      setOriginalTheme(colorTheme)
+    }
+    setPreviewTheme(theme)
+    setColorTheme(theme)
+  }
+
+  const confirmPreview = () => {
+    setPreviewTheme(null)
+    setOriginalTheme(null)
+  }
+
+  const cancelPreview = () => {
+    if (originalTheme !== null) {
+      setColorTheme(originalTheme)
+    }
+    setPreviewTheme(null)
+    setOriginalTheme(null)
+  }
+
+  useEffect(() => {
+    return () => {
+      if (originalThemeRef.current !== null) {
+        setColorThemeRef.current(originalThemeRef.current)
+      }
+    }
+  }, [])
 
   if (!user) return null
 
@@ -195,10 +239,6 @@ export const SettingsView: React.FC = () => {
 
   const handleThemeModeChange = (mode: ThemeMode) => {
     setThemeMode(mode)
-  }
-
-  const handleColorThemeChange = (theme: ThemeName) => {
-    setColorTheme(theme)
   }
 
   const handlePrivacyToggle = (key: string, value: boolean) => {
@@ -618,29 +658,80 @@ export const SettingsView: React.FC = () => {
 
               <SettingsSection
                 title="Color Theme"
-                description="Choose a color scheme for the application"
+                description="Choose a color scheme for the application. Click to preview, then confirm or cancel."
               />
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
-                {COLOR_THEMES.map((theme) => (
-                  <button
-                    key={theme.id}
-                    onClick={() => handleColorThemeChange(theme.id)}
-                    className={cn(
-                      'p-3 rounded-lg border-2 transition-all text-left flex items-center gap-3',
-                      colorTheme === theme.id
-                        ? 'border-brand-500 bg-brand-50 dark:bg-brand-900/30'
-                        : 'border-border hover:border-gray-300 dark:hover:border-gray-600'
-                    )}
-                  >
-                    <ThemePreviewThumbnail theme={theme} />
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-content-primary">{theme.name}</p>
-                      <p className="text-xs text-content-secondary mt-0.5">{theme.description}</p>
-                    </div>
-                  </button>
-                ))}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-4">
+                {COLOR_THEMES.map((theme) => {
+                  const isCurrentTheme = originalTheme === null ? colorTheme === theme.id : originalTheme === theme.id
+                  const isPreviewing = previewTheme === theme.id
+                  return (
+                    <button
+                      key={theme.id}
+                      onClick={() => startPreview(theme.id)}
+                      className={cn(
+                        'p-3 rounded-lg border-2 transition-all text-left flex items-center gap-3',
+                        isPreviewing
+                          ? 'border-brand-500 bg-brand-50 dark:bg-brand-900/30 ring-2 ring-brand-500/50'
+                          : isCurrentTheme
+                            ? 'border-brand-500 bg-brand-50 dark:bg-brand-900/30'
+                            : 'border-border hover:border-gray-300 dark:hover:border-gray-600'
+                      )}
+                    >
+                      <ThemePreviewThumbnail theme={theme} />
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2">
+                          <p className="text-sm font-medium text-content-primary">{theme.name}</p>
+                          {isCurrentTheme && !isPreviewing && (
+                            <span className="text-xs px-1.5 py-0.5 rounded bg-brand-100 dark:bg-brand-900/50 text-brand-700 dark:text-brand-300">
+                              Current
+                            </span>
+                          )}
+                          {isPreviewing && (
+                            <span className="text-xs px-1.5 py-0.5 rounded bg-amber-100 dark:bg-amber-900/50 text-amber-700 dark:text-amber-300">
+                              Previewing
+                            </span>
+                          )}
+                        </div>
+                        <p className="text-xs text-content-secondary mt-0.5">{theme.description}</p>
+                      </div>
+                    </button>
+                  )
+                })}
               </div>
+
+              {previewTheme !== null && (
+                <div className="flex items-center gap-3 p-3 mb-6 rounded-lg bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800">
+                  <div className="flex-1">
+                    <p className="text-sm font-medium text-amber-800 dark:text-amber-200">
+                      Previewing: {COLOR_THEMES.find((t) => t.id === previewTheme)?.name}
+                    </p>
+                    <p className="text-xs text-amber-600 dark:text-amber-400">
+                      Apply this theme or cancel to revert
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant="secondary"
+                      size="sm"
+                      onClick={cancelPreview}
+                      className="flex items-center gap-1"
+                    >
+                      <X className="h-4 w-4" />
+                      Cancel
+                    </Button>
+                    <Button
+                      variant="primary"
+                      size="sm"
+                      onClick={confirmPreview}
+                      className="flex items-center gap-1"
+                    >
+                      <Check className="h-4 w-4" />
+                      Apply
+                    </Button>
+                  </div>
+                </div>
+              )}
 
               <SettingsSection
                 title="Accent Color"
