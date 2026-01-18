@@ -17,6 +17,39 @@ const themeModes: { mode: ThemeMode; label: string; icon: typeof Sun }[] = [
   { mode: 'system', label: 'System', icon: Monitor },
 ]
 
+interface AnimatedThemeIconProps {
+  mode: ThemeMode
+  resolvedMode: 'light' | 'dark'
+  className?: string
+}
+
+const AnimatedThemeIcon: React.FC<AnimatedThemeIconProps> = ({ mode, resolvedMode, className }) => {
+  if (mode === 'system') {
+    return <Monitor className={cn(className, 'transition-transform duration-300')} />
+  }
+
+  const isDark = resolvedMode === 'dark'
+
+  return (
+    <span className={cn('relative inline-flex items-center justify-center', className)}>
+      <Sun
+        className={cn(
+          'absolute transition-all duration-300 ease-in-out',
+          className,
+          isDark ? 'rotate-90 scale-0 opacity-0' : 'rotate-0 scale-100 opacity-100'
+        )}
+      />
+      <Moon
+        className={cn(
+          'transition-all duration-300 ease-in-out',
+          className,
+          isDark ? 'rotate-0 scale-100 opacity-100' : '-rotate-90 scale-0 opacity-0'
+        )}
+      />
+    </span>
+  )
+}
+
 const sizeClasses = {
   sm: {
     icon: 'h-4 w-4',
@@ -57,7 +90,6 @@ const IconVariant: React.FC<{
     setMode(themeModes[nextIndex].mode)
   }
 
-  const Icon = getCurrentIcon(mode, resolvedMode)
   const currentTheme = themeModes.find((t) => t.mode === mode)
 
   return (
@@ -75,7 +107,7 @@ const IconVariant: React.FC<{
       aria-label={`Current theme: ${currentTheme?.label}. Click to cycle theme.`}
       title={`Theme: ${currentTheme?.label}`}
     >
-      <Icon className={cn(sizes.icon, 'transition-transform')} />
+      <AnimatedThemeIcon mode={mode} resolvedMode={resolvedMode} className={sizes.icon} />
       {showLabel && <span className={sizes.text}>{currentTheme?.label}</span>}
     </button>
   )
