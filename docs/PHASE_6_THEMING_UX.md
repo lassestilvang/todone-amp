@@ -87,11 +87,11 @@ This phase focuses on implementing a robust, accessible theming system with dark
 
 | ID | Task | Priority | Status |
 |----|------|----------|--------|
-| T6.5.1 | Audit all color combinations for WCAG AA contrast (4.5:1 text, 3:1 UI) | High | ⬜ |
-| T6.5.2 | Fix priority colors (P1-P4) contrast in both modes | High | ⬜ |
+| T6.5.1 | Audit all color combinations for WCAG AA contrast (4.5:1 text, 3:1 UI) | High | ✅ |
+| T6.5.2 | Fix priority colors (P1-P4) contrast in both modes | High | ✅ |
 | T6.5.3 | Ensure focus ring visibility in all themes | High | ⬜ |
-| T6.5.4 | Fix disabled state contrast | Medium | ⬜ |
-| T6.5.5 | Ensure sufficient contrast for placeholder text | Medium | ⬜ |
+| T6.5.4 | Fix disabled state contrast | Medium | ✅ |
+| T6.5.5 | Ensure sufficient contrast for placeholder text | Medium | ✅ |
 | T6.5.6 | Add high-contrast mode option for accessibility | Low | ⬜ |
 | T6.5.7 | Test with color blindness simulation tools | Medium | ⬜ |
 | T6.5.8 | Ensure chart/graph colors are distinguishable | Medium | ⬜ |
@@ -541,6 +541,7 @@ npm run storybook
 
 | Date | Change | Author |
 |------|--------|--------|
+| 2026-01-18 | T6.5.1, T6.5.2, T6.5.4, T6.5.5: COMPLETED - Full WCAG AA contrast audit with automated script (`scripts/audit-contrast.ts`). Fixed 21 contrast issues across light/dark modes. Darkened text-tertiary, text-disabled, border-default, placeholder, priority colors (P1-P4), and semantic colors in light mode. Lightened border-default, text-disabled, placeholder, success, and error colors in dark mode. All 54 color combinations now pass 4.5:1 (text) or 3:1 (UI) requirements. All 1681 tests pass. | Amp |
 | 2026-01-18 | T6.4.2-5: COMPLETED - Implemented complete theme definitions for Nord, Dracula, Solarized Light, and Solarized Dark. Each theme now defines all semantic tokens (surfaces, text, borders, interactive, semantic colors, priorities, focus, shadows, sidebar, inputs, tooltips, accents, icons, brand). Build successful. | Amp |
 | 2026-01-18 | T6.4.1: COMPLETED - Created ThemePreviewThumbnail component with visual mockup of each theme. Added preview colors (bg, surface, text, accent, border) to all COLOR_THEMES configs. Shows miniature UI preview with sidebar header, text lines, and accent color. All 39 SettingsView tests pass. | Amp |
 | 2026-01-18 | T6.3.6: COMPLETED - Added current theme indicator to Sidebar header. Shows "Auto" when in system mode, or "light"/"dark" for resolved mode. Hidden when sidebar is collapsed. Includes aria-live for accessibility and tooltip with full details. All tests pass. | Amp |

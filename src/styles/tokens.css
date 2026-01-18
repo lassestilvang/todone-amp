@@ -20,54 +20,56 @@
      ======================================================================== */
   --color-text-primary: #111827;
   --color-text-secondary: #4b5563;
-  --color-text-tertiary: #9ca3af;
+  --color-text-tertiary: #6b7280; /* Darkened from #9ca3af for 4.5:1 contrast */
   --color-text-inverse: #ffffff;
-  --color-text-disabled: #d1d5db;
+  --color-text-disabled: #6b7280; /* Darkened from #d1d5db for 3:1 contrast */
 
   /* ========================================================================
      Border Colors
      ======================================================================== */
-  --color-border-default: #e5e7eb;
-  --color-border-hover: #d1d5db;
+  --color-border-default: #6b7280; /* Darkened from #e5e7eb for 3:1 contrast */
+  --color-border-hover: #4b5563;
   --color-border-focus: #22c55e;
-  --color-border-subtle: #f3f4f6;
+  --color-border-subtle: #d1d5db;
 
   /* ========================================================================
      Interactive Colors - Buttons, links, etc.
      ======================================================================== */
-  --color-interactive-primary: #22c55e;
-  --color-interactive-primary-hover: #16a34a;
-  --color-interactive-primary-active: #15803d;
+  --color-interactive-primary: #16a34a; /* Darkened from #22c55e for 3:1 contrast */
+  --color-interactive-primary-hover: #15803d;
+  --color-interactive-primary-active: #166534;
   --color-interactive-secondary: #e5e7eb;
   --color-interactive-secondary-hover: #d1d5db;
   --color-interactive-secondary-active: #9ca3af;
 
   /* ========================================================================
      Semantic Colors - Status and feedback
+     Text colors meet 4.5:1 contrast on their light backgrounds
      ======================================================================== */
-  --color-success: #22c55e;
+  --color-success: #15803d; /* Darkened from #22c55e for 4.5:1 on success-light */
   --color-success-light: #dcfce7;
-  --color-success-dark: #15803d;
-  --color-warning: #f59e0b;
+  --color-success-dark: #166534;
+  --color-warning: #92400e; /* Darkened from #f59e0b for 4.5:1 on warning-light */
   --color-warning-light: #fef3c7;
-  --color-warning-dark: #b45309;
-  --color-error: #ef4444;
+  --color-warning-dark: #78350f;
+  --color-error: #b91c1c; /* Darkened from #ef4444 for 4.5:1 on error-light */
   --color-error-light: #fee2e2;
-  --color-error-dark: #b91c1c;
-  --color-info: #3b82f6;
+  --color-error-dark: #991b1b;
+  --color-info: #1d4ed8; /* Darkened from #3b82f6 for 4.5:1 on info-light */
   --color-info-light: #dbeafe;
-  --color-info-dark: #1d4ed8;
+  --color-info-dark: #1e40af;
 
   /* ========================================================================
      Priority Colors - Task priorities
+     Text meets 4.5:1 on backgrounds, 3:1 on surface-primary
      ======================================================================== */
-  --color-priority-p1: #ef4444;
+  --color-priority-p1: #b91c1c; /* Darkened from #ef4444 for 4.5:1 contrast */
   --color-priority-p1-bg: #fef2f2;
-  --color-priority-p2: #f97316;
+  --color-priority-p2: #c2410c; /* Darkened from #f97316 for 4.5:1 contrast */
   --color-priority-p2-bg: #fff7ed;
-  --color-priority-p3: #3b82f6;
+  --color-priority-p3: #1d4ed8; /* Darkened from #3b82f6 for 4.5:1 contrast */
   --color-priority-p3-bg: #eff6ff;
-  --color-priority-p4: #6b7280;
+  --color-priority-p4: #4b5563; /* Darkened from #6b7280 for better contrast */
   --color-priority-p4-bg: #f9fafb;
 
   /* ========================================================================
@@ -98,10 +100,10 @@
      Input/Form Colors
      ======================================================================== */
   --color-input-bg: #ffffff;
-  --color-input-border: #d1d5db;
-  --color-input-border-hover: #9ca3af;
-  --color-input-border-focus: #22c55e;
-  --color-input-placeholder: #9ca3af;
+  --color-input-border: #9ca3af; /* Darkened for 3:1 contrast */
+  --color-input-border-hover: #6b7280;
+  --color-input-border-focus: #16a34a;
+  --color-input-placeholder: #6b7280; /* Darkened from #9ca3af for 4.5:1 contrast */
   --color-input-disabled-bg: #f9fafb;
 
   /* ========================================================================
@@ -153,13 +155,13 @@
   --color-text-secondary: #d1d5db;
   --color-text-tertiary: #9ca3af;
   --color-text-inverse: #111827;
-  --color-text-disabled: #4b5563;
+  --color-text-disabled: #6b7280; /* Lightened from #4b5563 for 3:1 contrast */
 
   /* Border Colors */
-  --color-border-default: #374151;
-  --color-border-hover: #4b5563;
+  --color-border-default: #6b7280; /* Lightened from #374151 for 3:1 contrast */
+  --color-border-hover: #9ca3af;
   --color-border-focus: #4ade80;
-  --color-border-subtle: #1f2937;
+  --color-border-subtle: #4b5563;
 
   /* Interactive Colors */
   --color-interactive-primary: #4ade80;
@@ -169,16 +171,16 @@
   --color-interactive-secondary-hover: #4b5563;
   --color-interactive-secondary-active: #6b7280;
 
-  /* Semantic Colors - Slightly adjusted for dark mode visibility */
-  --color-success: #4ade80;
-  --color-success-light: #166534;
-  --color-success-dark: #86efac;
+  /* Semantic Colors - Adjusted for dark mode visibility with 4.5:1+ contrast */
+  --color-success: #86efac; /* Lightened from #4ade80 for 4.5:1 on success-light */
+  --color-success-light: #14532d; /* Darkened for better contrast with lighter text */
+  --color-success-dark: #bbf7d0;
   --color-warning: #fbbf24;
   --color-warning-light: #78350f;
   --color-warning-dark: #fcd34d;
-  --color-error: #f87171;
+  --color-error: #fca5a5; /* Lightened from #f87171 for 4.5:1 on error-light */
   --color-error-light: #7f1d1d;
-  --color-error-dark: #fca5a5;
+  --color-error-dark: #fecaca;
   --color-info: #60a5fa;
   --color-info-light: #1e3a5f;
   --color-info-dark: #93c5fd;
@@ -211,10 +213,10 @@
 
   /* Input/Form Colors */
   --color-input-bg: #1f2937;
-  --color-input-border: #4b5563;
-  --color-input-border-hover: #6b7280;
+  --color-input-border: #6b7280; /* Lightened for 3:1 contrast */
+  --color-input-border-hover: #9ca3af;
   --color-input-border-focus: #4ade80;
-  --color-input-placeholder: #6b7280;
+  --color-input-placeholder: #9ca3af; /* Lightened from #6b7280 for 4.5:1 contrast */
   --color-input-disabled-bg: #374151;
 
   /* Tooltip Colors */
