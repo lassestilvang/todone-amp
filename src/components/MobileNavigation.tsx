@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Menu, X, Home, Calendar, TrendingUp, Settings } from 'lucide-react'
 import { cn } from '@/utils/cn'
 import { useAuthStore } from '@/store/authStore'
+import { ThemeSwitcher } from './ThemeSwitcher'
 
 interface MobileNavigationProps {
   currentView: string
@@ -39,13 +40,16 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
           <span className="font-bold text-content-primary">Todone</span>
         </div>
 
-        <button
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="p-2 hover:bg-surface-tertiary rounded-lg transition-colors"
-          aria-label="Toggle menu"
-        >
-          {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="flex items-center gap-2">
+          <ThemeSwitcher variant="icon" size="sm" />
+          <button
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="p-2 hover:bg-surface-tertiary rounded-lg transition-colors"
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu Overlay */}

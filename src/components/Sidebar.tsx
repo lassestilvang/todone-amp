@@ -5,6 +5,7 @@ import { useLabelStore } from '@/store/labelStore'
 import { useIsMobile } from '@/hooks/useIsMobile'
 import { StreakBadge } from './StreakDisplay'
 import { CreateProjectModal } from './CreateProjectModal'
+import { ThemeSwitcher } from './ThemeSwitcher'
 import { cn } from '@/utils/cn'
 import { Plus, Star, Inbox, Calendar, TrendingUp, Tag, Sliders, ChevronLeft, ChevronRight, Grid3X3, CalendarRange } from 'lucide-react'
 
@@ -50,16 +51,19 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) =
             </div>
           </div>
         )}
-        {isTablet && (
-          <button
-            onClick={() => setIsCollapsed(!isCollapsed)}
-            className="p-1.5 hover:bg-surface-tertiary rounded transition-colors flex-shrink-0"
-            title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-            aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
-          >
-            {isCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
-          </button>
-        )}
+        <div className={cn('flex items-center gap-1', shouldShowCollapsed && 'flex-col')}>
+          <ThemeSwitcher variant="icon" size="sm" />
+          {isTablet && (
+            <button
+              onClick={() => setIsCollapsed(!isCollapsed)}
+              className="p-1.5 hover:bg-surface-tertiary rounded transition-colors flex-shrink-0"
+              title={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+              aria-label={isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+            >
+              {isCollapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Main Views */}

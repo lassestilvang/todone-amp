@@ -1,6 +1,7 @@
 import { Inbox, Calendar, Clock, Menu, X } from 'lucide-react'
 import { cn } from '@/utils/cn'
 import { useState } from 'react'
+import { ThemeSwitcher } from './ThemeSwitcher'
 
 interface MobileNavProps {
   currentView: string
@@ -50,12 +51,15 @@ export function MobileNav({ currentView, onViewChange }: MobileNavProps) {
       {/* Mobile Hamburger Menu */}
       <div className="md:hidden fixed top-4 left-4 right-4 flex justify-between items-center z-50">
         <h1 className="text-xl font-bold text-content-primary">Todone</h1>
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="p-2 hover:bg-surface-tertiary rounded-lg transition-colors"
-        >
-          {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+        <div className="flex items-center gap-2">
+          <ThemeSwitcher variant="icon" size="sm" />
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="p-2 hover:bg-surface-tertiary rounded-lg transition-colors"
+          >
+            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Sidebar Overlay */}

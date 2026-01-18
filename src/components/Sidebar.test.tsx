@@ -1,6 +1,24 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { Sidebar } from './Sidebar'
+import { ThemeContext, ThemeContextValue } from '@/contexts/ThemeContext'
+
+const mockThemeContext: ThemeContextValue = {
+  mode: 'system',
+  theme: 'default',
+  resolvedMode: 'light',
+  isDark: false,
+  setMode: vi.fn(),
+  setTheme: vi.fn(),
+}
+
+const renderWithTheme = (ui: React.ReactElement) => {
+  return render(
+    <ThemeContext.Provider value={mockThemeContext}>
+      {ui}
+    </ThemeContext.Provider>
+  )
+}
 
 // Mock stores
 vi.mock('@/store/viewStore', () => ({
@@ -38,13 +56,13 @@ describe('Sidebar Component', () => {
 
   describe('rendering', () => {
     it('should render sidebar', () => {
-      render(<Sidebar currentView="inbox" onViewChange={vi.fn()} />)
+      renderWithTheme(<Sidebar currentView="inbox" onViewChange={vi.fn()} />)
       const sidebar = screen.getByRole('navigation')
       expect(sidebar).toBeInTheDocument()
     })
 
     it('should render projects section', () => {
-      render(<Sidebar currentView="inbox" onViewChange={vi.fn()} />)
+      renderWithTheme(<Sidebar currentView="inbox" onViewChange={vi.fn()} />)
       const workProject = screen.queryByText('Work')
       if (workProject) {
         expect(workProject).toBeInTheDocument()
@@ -54,7 +72,7 @@ describe('Sidebar Component', () => {
 
   describe('project list', () => {
     it('should display projects when available', () => {
-      render(<Sidebar currentView="inbox" onViewChange={vi.fn()} />)
+      renderWithTheme(<Sidebar currentView="inbox" onViewChange={vi.fn()} />)
       const workProject = screen.queryByText('Work')
       if (workProject) {
         expect(workProject).toBeInTheDocument()
@@ -64,7 +82,7 @@ describe('Sidebar Component', () => {
 
   describe('interactions', () => {
     it('should render as navigation element', () => {
-      render(<Sidebar currentView="inbox" onViewChange={vi.fn()} />)
+      renderWithTheme(<Sidebar currentView="inbox" onViewChange={vi.fn()} />)
       const sidebar = screen.getByRole('navigation')
       expect(sidebar).toBeInTheDocument()
     })
@@ -72,7 +90,7 @@ describe('Sidebar Component', () => {
 
   describe('collapsibility', () => {
     it('should have collapsible projects section', () => {
-      render(<Sidebar currentView="inbox" onViewChange={vi.fn()} />)
+      renderWithTheme(<Sidebar currentView="inbox" onViewChange={vi.fn()} />)
       // Check for collapse/expand button
       const sidebar = screen.getByRole('navigation')
       expect(sidebar).toBeInTheDocument()
@@ -81,13 +99,13 @@ describe('Sidebar Component', () => {
 
   describe('accessibility', () => {
     it('should have proper ARIA labels', () => {
-      render(<Sidebar currentView="inbox" onViewChange={vi.fn()} />)
+      renderWithTheme(<Sidebar currentView="inbox" onViewChange={vi.fn()} />)
       const sidebar = screen.getByRole('navigation')
       expect(sidebar).toBeInTheDocument()
     })
 
     it('should be keyboard navigable', () => {
-      render(<Sidebar currentView="inbox" onViewChange={vi.fn()} />)
+      renderWithTheme(<Sidebar currentView="inbox" onViewChange={vi.fn()} />)
       
       const sidebar = screen.getByRole('navigation')
       expect(sidebar).toBeInTheDocument()

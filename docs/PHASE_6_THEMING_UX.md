@@ -64,9 +64,9 @@ This phase focuses on implementing a robust, accessible theming system with dark
 
 | ID | Task | Priority | Status |
 |----|------|----------|--------|
-| T6.3.1 | Create `ThemeSwitcher` component with system/light/dark options | High | ⬜ |
-| T6.3.2 | Add theme toggle to app header/navbar | High | ⬜ |
-| T6.3.3 | Add theme toggle to mobile navigation | High | ⬜ |
+| T6.3.1 | Create `ThemeSwitcher` component with system/light/dark options | High | ✅ |
+| T6.3.2 | Add theme toggle to app header/navbar | High | ✅ |
+| T6.3.3 | Add theme toggle to mobile navigation | High | ✅ |
 | T6.3.4 | Create animated sun/moon icon transition | Low | ⬜ |
 | T6.3.5 | Add keyboard shortcut for theme toggle (e.g., `Cmd+Shift+L`) | Low | ⬜ |
 | T6.3.6 | Show current theme indicator in UI | Medium | ⬜ |
@@ -438,44 +438,43 @@ Fixed: CalendarIntegration.test, FloatingActionButton.test, ProjectSharing.test,
 
 ### Phase 3: Theme Switcher UI (Priority: High)
 
-#### Task NS-8: Create ThemeSwitcher Component (T6.3.1)
-**Description:** Build a reusable theme toggle component with three modes: System, Light, Dark.
+#### ✅ Task NS-8: Create ThemeSwitcher Component (T6.3.1) - COMPLETED
+**Description:** Built a reusable theme toggle component with three modes: System, Light, Dark.
 
-**Variants:**
-- `icon` - Simple icon button that cycles through modes
-- `dropdown` - Dropdown menu with all options
-- `segmented` - Segmented control showing all three options
-
-**File:** `src/components/ThemeSwitcher.tsx`
-
-**Props:**
-```tsx
-interface ThemeSwitcherProps {
-  variant?: 'icon' | 'dropdown' | 'segmented'
-  size?: 'sm' | 'md' | 'lg'
-  showLabel?: boolean
-  className?: string
-}
-```
+**Implemented:**
+- Created `src/components/ThemeSwitcher.tsx` with three variants:
+  - `icon` - Simple icon button that cycles through modes (light → dark → system)
+  - `dropdown` - Dropdown menu with all options and check mark for selected
+  - `segmented` - Segmented control showing all three options
+- Supports `size` prop: `sm`, `md`, `lg`
+- Supports `showLabel` prop to display text labels
+- Full accessibility: ARIA roles (radiogroup, listbox, options), keyboard navigation
+- Uses semantic color tokens (`bg-surface-*`, `text-content-*`, `bg-brand-*`)
+- Created `ThemeSwitcher.test.tsx` with 22 passing tests
+- Created `ThemeSwitcher.stories.tsx` with all variant/size combinations
 
 ---
 
-#### Task NS-9: Integrate Theme Switcher in Header (T6.3.2)
-**Description:** Add ThemeSwitcher to the main app header/navbar, positioned near user profile or settings.
+#### ✅ Task NS-9: Integrate Theme Switcher in Header (T6.3.2) - COMPLETED
+**Description:** Added ThemeSwitcher to the sidebar header, positioned near the collapse button.
 
-**Files to modify:**
-- `src/components/Sidebar.tsx` or equivalent header component
-- Position: Near top-right, before user avatar
+**Implemented:**
+- Added `ThemeSwitcher` import to `src/components/Sidebar.tsx`
+- Integrated icon variant (size="sm") in header, next to tablet collapse button
+- Stacks vertically when sidebar is collapsed on tablet
+- Updated Sidebar tests to wrap with ThemeContext provider
+- All 1680 tests pass
 
 ---
 
-#### Task NS-10: Add Theme Switcher to Mobile Nav (T6.3.3)
-**Description:** Add theme toggle to mobile navigation drawer/bottom sheet.
+#### ✅ Task NS-10: Add Theme Switcher to Mobile Nav (T6.3.3) - COMPLETED
+**Description:** Added theme toggle to both mobile navigation components.
 
-**Files to modify:**
-- `src/components/MobileNav.tsx`
-- `src/components/MobileNavigation.tsx`
-- `src/components/BottomSheet.tsx` (if used for settings)
+**Implemented:**
+- Added ThemeSwitcher to `src/components/MobileNav.tsx` header (next to hamburger menu)
+- Added ThemeSwitcher to `src/components/MobileNavigation.tsx` header (next to menu toggle)
+- Both use icon variant with size="sm" for compact mobile display
+- All 1680 tests pass
 
 ---
 
@@ -542,6 +541,9 @@ npm run storybook
 
 | Date | Change | Author |
 |------|--------|--------|
+| 2026-01-18 | T6.3.3: COMPLETED - Added ThemeSwitcher to MobileNav.tsx and MobileNavigation.tsx headers. All 1680 tests pass. | Amp |
+| 2026-01-18 | T6.3.2: COMPLETED - Added ThemeSwitcher to Sidebar header. Updated Sidebar.test.tsx to wrap with ThemeContext provider. All 1680 tests pass. | Amp |
+| 2026-01-18 | T6.3.1: COMPLETED - Created ThemeSwitcher component with 3 variants (icon, dropdown, segmented), 3 sizes (sm, md, lg), optional labels, full accessibility support. Added 22 unit tests and Storybook stories. | Amp |
 | 2026-01-17 | T6.2.10: COMPLETED - Ensured all icons have appropriate color in both modes. Created new icon color token system (`--color-icon-*`) in tokens.css with 11 semantic icon colors that auto-adjust for light/dark mode. Added Tailwind `text-icon-*` utilities. Migrated 50+ components including ActivityItem, AIAssistance, DailyReview (6 files), WeeklyReview (5 files), FocusMode (3 files), Habits (3 files), Eisenhower (2 files), and many more. Remaining 15 hardcoded colors are intentional (light text on gradient backgrounds). All 1658 tests pass. | Amp |
 | 2026-01-17 | T6.2.9: COMPLETED - Fixed EmptyState illustrations dark mode. Added accent color tokens (purple, indigo, teal) to tokens.css and Tailwind config. Updated EmptyState base component with subtle background circle. Migrated DailyIntention and ReflectionInput to use semantic accent tokens. Fixed DroppableTaskList dark mode for drag-over state. All 1658 tests pass. | Amp |
 | 2026-01-17 | T6.2.8: COMPLETED - Fixed Toast/Notification dark mode. Updated NotificationCenter (semantic tokens for icons, unread indicators, filter buttons, mark all read), NotificationPreferences (semantic tokens for notification type icons). All tests pass. | Amp |
