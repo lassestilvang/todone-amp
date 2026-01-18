@@ -1,0 +1,125 @@
+/* ==========================================================================
+   GitHub Light Theme
+   
+   A clean light theme inspired by GitHub's light mode.
+   https://github.com
+   ========================================================================== */
+
+.theme-github-light {
+  /* Surface Colors */
+  --color-surface-primary: #ffffff;
+  --color-surface-secondary: #f6f8fa;
+  --color-surface-tertiary: #eaeef2;
+  --color-surface-elevated: #ffffff;
+  --color-surface-overlay: rgba(27, 31, 36, 0.5);
+
+  /* Text Colors */
+  --color-text-primary: #1f2328;
+  --color-text-secondary: #656d76;
+  --color-text-tertiary: #656d76;
+  --color-text-inverse: #ffffff;
+  --color-text-disabled: #8c959f;
+
+  /* Border Colors */
+  --color-border-default: #d0d7de;
+  --color-border-hover: #afb8c1;
+  --color-border-focus: #0969da;
+  --color-border-subtle: #eaeef2;
+
+  /* Interactive Colors */
+  --color-interactive-primary: #1f883d;
+  --color-interactive-primary-hover: #1a7f37;
+  --color-interactive-primary-active: #116329;
+  --color-interactive-secondary: #f6f8fa;
+  --color-interactive-secondary-hover: #eaeef2;
+  --color-interactive-secondary-active: #d0d7de;
+
+  /* Semantic Colors */
+  --color-success: #1a7f37;
+  --color-success-light: #dafbe1;
+  --color-success-dark: #116329;
+  --color-warning: #9a6700;
+  --color-warning-light: #fff8c5;
+  --color-warning-dark: #7d4e00;
+  --color-error: #cf222e;
+  --color-error-light: #ffebe9;
+  --color-error-dark: #a40e26;
+  --color-info: #0969da;
+  --color-info-light: #ddf4ff;
+  --color-info-dark: #0550ae;
+
+  /* Priority Colors */
+  --color-priority-p1: #cf222e;
+  --color-priority-p1-bg: #ffebe9;
+  --color-priority-p2: #bc4c00;
+  --color-priority-p2-bg: #fff1e5;
+  --color-priority-p3: #0969da;
+  --color-priority-p3-bg: #ddf4ff;
+  --color-priority-p4: #656d76;
+  --color-priority-p4-bg: #f6f8fa;
+
+  /* Focus Ring */
+  --color-focus-ring: rgba(9, 105, 218, 0.4);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 0 rgba(27, 31, 36, 0.04);
+  --shadow-md: 0 3px 6px rgba(140, 149, 159, 0.15);
+  --shadow-lg: 0 8px 24px rgba(140, 149, 159, 0.2);
+  --shadow-xl: 0 12px 28px rgba(140, 149, 159, 0.3);
+
+  /* Sidebar */
+  --color-sidebar-bg: #f6f8fa;
+  --color-sidebar-hover: #eaeef2;
+  --color-sidebar-active: #d0d7de;
+  --color-sidebar-text: #1f2328;
+  --color-sidebar-text-muted: #656d76;
+
+  /* Input/Form */
+  --color-input-bg: #ffffff;
+  --color-input-border: #d0d7de;
+  --color-input-border-hover: #afb8c1;
+  --color-input-border-focus: #0969da;
+  --color-input-placeholder: #6e7781;
+  --color-input-disabled-bg: #f6f8fa;
+
+  /* Tooltip */
+  --color-tooltip-bg: #1f2328;
+  --color-tooltip-text: #ffffff;
+
+  /* Accent Colors */
+  --color-accent-purple: #8250df;
+  --color-accent-purple-subtle: #fbefff;
+  --color-accent-indigo: #0969da;
+  --color-accent-indigo-subtle: #ddf4ff;
+  --color-accent-teal: #1b7c83;
+  --color-accent-teal-subtle: #ddf4ff;
+
+  /* Icon Colors */
+  --color-icon-success: #1a7f37;
+  --color-icon-error: #cf222e;
+  --color-icon-warning: #9a6700;
+  --color-icon-info: #0969da;
+  --color-icon-purple: #8250df;
+  --color-icon-orange: #bc4c00;
+  --color-icon-teal: #1b7c83;
+  --color-icon-yellow: #9a6700;
+  --color-icon-indigo: #0550ae;
+  --color-icon-pink: #bf3989;
+  --color-icon-cyan: #0969da;
+
+  /* Brand Colors Override */
+  --color-brand-50: #ddf4ff;
+  --color-brand-100: #b6e3ff;
+  --color-brand-200: #80ccff;
+  --color-brand-300: #54aeff;
+  --color-brand-400: #218bff;
+  --color-brand-500: #1f883d;
+  --color-brand-600: #1a7f37;
+  --color-brand-700: #116329;
+  --color-brand-800: #044f1e;
+  --color-brand-900: #033a16;
+}
+
+.theme-github-light {
+  color-scheme: light;
+}

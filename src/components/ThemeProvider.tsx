@@ -8,6 +8,9 @@ const themeClassMap: Record<ThemeName, string> = {
   dracula: 'theme-dracula',
   'solarized-light': 'theme-solarized-light',
   'solarized-dark': 'theme-solarized-dark',
+  'one-dark': 'theme-one-dark',
+  'github-light': 'theme-github-light',
+  'github-dark': 'theme-github-dark',
 }
 
 const THEME_TRANSITION_DURATION = 150

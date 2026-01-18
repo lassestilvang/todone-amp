@@ -1,0 +1,125 @@
+/* ==========================================================================
+   One Dark Theme
+   
+   A dark theme inspired by Atom's One Dark syntax theme.
+   https://atom.io/themes/one-dark-syntax
+   ========================================================================== */
+
+.theme-one-dark {
+  /* Surface Colors */
+  --color-surface-primary: #282c34;
+  --color-surface-secondary: #21252b;
+  --color-surface-tertiary: #2c313a;
+  --color-surface-elevated: #2c313a;
+  --color-surface-overlay: rgba(40, 44, 52, 0.9);
+
+  /* Text Colors */
+  --color-text-primary: #abb2bf;
+  --color-text-secondary: #9da5b4;
+  --color-text-tertiary: #5c6370;
+  --color-text-inverse: #282c34;
+  --color-text-disabled: #4b5263;
+
+  /* Border Colors */
+  --color-border-default: #3e4451;
+  --color-border-hover: #4b5263;
+  --color-border-focus: #61afef;
+  --color-border-subtle: #2c313a;
+
+  /* Interactive Colors */
+  --color-interactive-primary: #61afef;
+  --color-interactive-primary-hover: #528bce;
+  --color-interactive-primary-active: #4678a8;
+  --color-interactive-secondary: #2c313a;
+  --color-interactive-secondary-hover: #3e4451;
+  --color-interactive-secondary-active: #4b5263;
+
+  /* Semantic Colors */
+  --color-success: #98c379;
+  --color-success-light: #2a3625;
+  --color-success-dark: #a9d48a;
+  --color-warning: #e5c07b;
+  --color-warning-light: #3d3424;
+  --color-warning-dark: #f0d08c;
+  --color-error: #e06c75;
+  --color-error-light: #3d2427;
+  --color-error-dark: #eb7d86;
+  --color-info: #61afef;
+  --color-info-light: #253545;
+  --color-info-dark: #72c0ff;
+
+  /* Priority Colors */
+  --color-priority-p1: #e06c75;
+  --color-priority-p1-bg: #3d2427;
+  --color-priority-p2: #d19a66;
+  --color-priority-p2-bg: #3d2e24;
+  --color-priority-p3: #61afef;
+  --color-priority-p3-bg: #253545;
+  --color-priority-p4: #5c6370;
+  --color-priority-p4-bg: #2c313a;
+
+  /* Focus Ring */
+  --color-focus-ring: rgba(97, 175, 239, 0.5);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+
+  /* Sidebar */
+  --color-sidebar-bg: #21252b;
+  --color-sidebar-hover: #2c313a;
+  --color-sidebar-active: #3e4451;
+  --color-sidebar-text: #abb2bf;
+  --color-sidebar-text-muted: #5c6370;
+
+  /* Input/Form */
+  --color-input-bg: #21252b;
+  --color-input-border: #3e4451;
+  --color-input-border-hover: #4b5263;
+  --color-input-border-focus: #61afef;
+  --color-input-placeholder: #5c6370;
+  --color-input-disabled-bg: #282c34;
+
+  /* Tooltip */
+  --color-tooltip-bg: #3e4451;
+  --color-tooltip-text: #abb2bf;
+
+  /* Accent Colors */
+  --color-accent-purple: #c678dd;
+  --color-accent-purple-subtle: #3d2e42;
+  --color-accent-indigo: #61afef;
+  --color-accent-indigo-subtle: #253545;
+  --color-accent-teal: #56b6c2;
+  --color-accent-teal-subtle: #253540;
+
+  /* Icon Colors */
+  --color-icon-success: #98c379;
+  --color-icon-error: #e06c75;
+  --color-icon-warning: #e5c07b;
+  --color-icon-info: #61afef;
+  --color-icon-purple: #c678dd;
+  --color-icon-orange: #d19a66;
+  --color-icon-teal: #56b6c2;
+  --color-icon-yellow: #e5c07b;
+  --color-icon-indigo: #61afef;
+  --color-icon-pink: #c678dd;
+  --color-icon-cyan: #56b6c2;
+
+  /* Brand Colors Override */
+  --color-brand-50: #253545;
+  --color-brand-100: #2c313a;
+  --color-brand-200: #3e4451;
+  --color-brand-300: #528bce;
+  --color-brand-400: #61afef;
+  --color-brand-500: #61afef;
+  --color-brand-600: #72c0ff;
+  --color-brand-700: #83d1ff;
+  --color-brand-800: #2c313a;
+  --color-brand-900: #21252b;
+}
+
+.theme-one-dark {
+  color-scheme: dark;
+}

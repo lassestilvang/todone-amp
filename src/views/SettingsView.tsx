@@ -107,6 +107,24 @@ const COLOR_THEMES: ColorThemeConfig[] = [
     description: 'Warm, dark background',
     preview: { bg: '#002b36', surface: '#073642', text: '#839496', accent: '#268bd2', border: '#586e75' },
   },
+  {
+    id: 'one-dark',
+    name: 'One Dark',
+    description: 'Atom editor inspired',
+    preview: { bg: '#282c34', surface: '#21252b', text: '#abb2bf', accent: '#61afef', border: '#3e4451' },
+  },
+  {
+    id: 'github-light',
+    name: 'GitHub Light',
+    description: 'Clean and minimal',
+    preview: { bg: '#ffffff', surface: '#f6f8fa', text: '#1f2328', accent: '#1f883d', border: '#d0d7de' },
+  },
+  {
+    id: 'github-dark',
+    name: 'GitHub Dark',
+    description: 'Modern dark mode',
+    preview: { bg: '#0d1117', surface: '#161b22', text: '#e6edf3', accent: '#3fb950', border: '#30363d' },
+  },
 ]
 
 const ThemePreviewThumbnail: React.FC<{ theme: ColorThemeConfig }> = ({ theme }) => (

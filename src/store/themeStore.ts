@@ -2,7 +2,15 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 export type ThemeMode = 'light' | 'dark' | 'system'
-export type ThemeName = 'default' | 'nord' | 'dracula' | 'solarized-light' | 'solarized-dark'
+export type ThemeName =
+  | 'default'
+  | 'nord'
+  | 'dracula'
+  | 'solarized-light'
+  | 'solarized-dark'
+  | 'one-dark'
+  | 'github-light'
+  | 'github-dark'
 
 export interface ThemeState {
   mode: ThemeMode
