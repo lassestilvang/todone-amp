@@ -1,26 +1,126 @@
-.theme-dracula {
-  --color-bg-primary: #282a36;
-  --color-bg-secondary: #343746;
-  --color-bg-tertiary: #44475a;
-  --color-bg-hover: #6272a4;
+/* ==========================================================================
+   Dracula Theme
+   
+   A dark theme with vibrant colors based on the Dracula color scheme.
+   https://draculatheme.com/
+   ========================================================================== */
 
+.theme-dracula {
+  /* Surface Colors - Dracula Background */
+  --color-surface-primary: #282a36;
+  --color-surface-secondary: #343746;
+  --color-surface-tertiary: #44475a;
+  --color-surface-elevated: #343746;
+  --color-surface-overlay: rgba(40, 42, 54, 0.9);
+
+  /* Text Colors - Dracula Foreground */
   --color-text-primary: #f8f8f2;
   --color-text-secondary: #e0e0e0;
   --color-text-tertiary: #a0a0a0;
+  --color-text-inverse: #282a36;
+  --color-text-disabled: #6272a4;
 
-  --color-border: #44475a;
+  /* Border Colors */
+  --color-border-default: #44475a;
   --color-border-hover: #6272a4;
+  --color-border-focus: #bd93f9;
+  --color-border-subtle: #343746;
 
-  --color-accent: #bd93f9;
-  --color-accent-hover: #ff79c6;
+  /* Interactive Colors - Dracula Purple */
+  --color-interactive-primary: #bd93f9;
+  --color-interactive-primary-hover: #caa5fa;
+  --color-interactive-primary-active: #ff79c6;
+  --color-interactive-secondary: #44475a;
+  --color-interactive-secondary-hover: #6272a4;
+  --color-interactive-secondary-active: #7082b4;
 
+  /* Semantic Colors - Dracula Palette */
   --color-success: #50fa7b;
+  --color-success-light: #1a3d26;
+  --color-success-dark: #7fffa0;
   --color-warning: #f1fa8c;
+  --color-warning-light: #3d3d1a;
+  --color-warning-dark: #f5fba8;
   --color-error: #ff5555;
+  --color-error-light: #3d1a1a;
+  --color-error-dark: #ff7777;
   --color-info: #8be9fd;
+  --color-info-light: #1a3d3d;
+  --color-info-dark: #a8f0ff;
+
+  /* Priority Colors */
+  --color-priority-p1: #ff5555;
+  --color-priority-p1-bg: #3d1a1a;
+  --color-priority-p2: #ffb86c;
+  --color-priority-p2-bg: #3d2e1a;
+  --color-priority-p3: #8be9fd;
+  --color-priority-p3-bg: #1a3d3d;
+  --color-priority-p4: #6272a4;
+  --color-priority-p4-bg: #343746;
+
+  /* Focus Ring */
+  --color-focus-ring: rgba(189, 147, 249, 0.5);
+
+  /* Shadows - Deeper for dark theme */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.4), 0 8px 10px -6px rgba(0, 0, 0, 0.3);
+
+  /* Sidebar */
+  --color-sidebar-bg: #343746;
+  --color-sidebar-hover: #44475a;
+  --color-sidebar-active: #6272a4;
+  --color-sidebar-text: #f8f8f2;
+  --color-sidebar-text-muted: #a0a0a0;
+
+  /* Input/Form */
+  --color-input-bg: #343746;
+  --color-input-border: #44475a;
+  --color-input-border-hover: #6272a4;
+  --color-input-border-focus: #bd93f9;
+  --color-input-placeholder: #a0a0a0;
+  --color-input-disabled-bg: #282a36;
+
+  /* Tooltip */
+  --color-tooltip-bg: #6272a4;
+  --color-tooltip-text: #f8f8f2;
+
+  /* Accent Colors */
+  --color-accent-purple: #bd93f9;
+  --color-accent-purple-subtle: #3d2e4d;
+  --color-accent-indigo: #8be9fd;
+  --color-accent-indigo-subtle: #1a3d3d;
+  --color-accent-teal: #8be9fd;
+  --color-accent-teal-subtle: #1a3d3d;
+
+  /* Icon Colors */
+  --color-icon-success: #50fa7b;
+  --color-icon-error: #ff5555;
+  --color-icon-warning: #f1fa8c;
+  --color-icon-info: #8be9fd;
+  --color-icon-purple: #bd93f9;
+  --color-icon-orange: #ffb86c;
+  --color-icon-teal: #8be9fd;
+  --color-icon-yellow: #f1fa8c;
+  --color-icon-indigo: #8be9fd;
+  --color-icon-pink: #ff79c6;
+  --color-icon-cyan: #8be9fd;
+
+  /* Brand Colors Override */
+  --color-brand-50: #3d2e4d;
+  --color-brand-100: #44475a;
+  --color-brand-200: #6272a4;
+  --color-brand-300: #9880c9;
+  --color-brand-400: #bd93f9;
+  --color-brand-500: #caa5fa;
+  --color-brand-600: #ff79c6;
+  --color-brand-700: #ff92d0;
+  --color-brand-800: #44475a;
+  --color-brand-900: #343746;
 }
 
+/* Apply Dracula as dark mode base */
 .theme-dracula {
-  background-color: var(--color-bg-primary);
-  color: var(--color-text-primary);
+  color-scheme: dark;
 }

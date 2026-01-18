@@ -61,13 +61,68 @@ const THEME_MODES: { id: ThemeMode; name: string; icon: string }[] = [
   { id: 'system', name: 'System', icon: '⚙️' },
 ]
 
-const COLOR_THEMES: { id: ThemeName; name: string; description: string }[] = [
-  { id: 'default', name: 'Default', description: 'Standard Todone colors' },
-  { id: 'nord', name: 'Nord', description: 'Arctic, north-bluish colors' },
-  { id: 'dracula', name: 'Dracula', description: 'Dark theme with vibrant accents' },
-  { id: 'solarized-light', name: 'Solarized Light', description: 'Warm, light background' },
-  { id: 'solarized-dark', name: 'Solarized Dark', description: 'Warm, dark background' },
+interface ColorThemeConfig {
+  id: ThemeName
+  name: string
+  description: string
+  preview: {
+    bg: string
+    surface: string
+    text: string
+    accent: string
+    border: string
+  }
+}
+
+const COLOR_THEMES: ColorThemeConfig[] = [
+  {
+    id: 'default',
+    name: 'Default',
+    description: 'Standard Todone colors',
+    preview: { bg: '#ffffff', surface: '#f9fafb', text: '#111827', accent: '#22c55e', border: '#e5e7eb' },
+  },
+  {
+    id: 'nord',
+    name: 'Nord',
+    description: 'Arctic, north-bluish colors',
+    preview: { bg: '#2e3440', surface: '#3b4252', text: '#eceff4', accent: '#88c0d0', border: '#4c566a' },
+  },
+  {
+    id: 'dracula',
+    name: 'Dracula',
+    description: 'Dark theme with vibrant accents',
+    preview: { bg: '#282a36', surface: '#44475a', text: '#f8f8f2', accent: '#bd93f9', border: '#6272a4' },
+  },
+  {
+    id: 'solarized-light',
+    name: 'Solarized Light',
+    description: 'Warm, light background',
+    preview: { bg: '#fdf6e3', surface: '#eee8d5', text: '#657b83', accent: '#268bd2', border: '#93a1a1' },
+  },
+  {
+    id: 'solarized-dark',
+    name: 'Solarized Dark',
+    description: 'Warm, dark background',
+    preview: { bg: '#002b36', surface: '#073642', text: '#839496', accent: '#268bd2', border: '#586e75' },
+  },
 ]
+
+const ThemePreviewThumbnail: React.FC<{ theme: ColorThemeConfig }> = ({ theme }) => (
+  <div
+    className="w-16 h-12 rounded-md overflow-hidden border flex-shrink-0"
+    style={{ backgroundColor: theme.preview.bg, borderColor: theme.preview.border }}
+  >
+    <div className="h-3 flex items-center px-1 gap-0.5" style={{ backgroundColor: theme.preview.surface }}>
+      <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: theme.preview.accent }} />
+      <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: theme.preview.text, opacity: 0.3 }} />
+    </div>
+    <div className="p-1 space-y-0.5">
+      <div className="h-1 w-8 rounded-sm" style={{ backgroundColor: theme.preview.text }} />
+      <div className="h-1 w-6 rounded-sm" style={{ backgroundColor: theme.preview.text, opacity: 0.5 }} />
+      <div className="h-2 w-full rounded-sm" style={{ backgroundColor: theme.preview.accent, opacity: 0.2 }} />
+    </div>
+  </div>
+)
 
 const ACCENT_COLORS = [
   { name: 'Blue', value: 'blue-600', hex: '#2563eb' },
@@ -572,14 +627,17 @@ export const SettingsView: React.FC = () => {
                     key={theme.id}
                     onClick={() => handleColorThemeChange(theme.id)}
                     className={cn(
-                      'p-4 rounded-lg border-2 transition-all text-left',
+                      'p-3 rounded-lg border-2 transition-all text-left flex items-center gap-3',
                       colorTheme === theme.id
-                        ? 'border-blue-500 bg-blue-50 dark:bg-blue-900'
-                        : 'border-border hover:border-gray-300'
+                        ? 'border-brand-500 bg-brand-50 dark:bg-brand-900/30'
+                        : 'border-border hover:border-gray-300 dark:hover:border-gray-600'
                     )}
                   >
-                    <p className="text-sm font-medium text-content-primary">{theme.name}</p>
-                    <p className="text-xs text-content-secondary mt-1">{theme.description}</p>
+                    <ThemePreviewThumbnail theme={theme} />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-sm font-medium text-content-primary">{theme.name}</p>
+                      <p className="text-xs text-content-secondary mt-0.5">{theme.description}</p>
+                    </div>
                   </button>
                 ))}
               </div>

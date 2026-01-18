@@ -68,18 +68,18 @@ This phase focuses on implementing a robust, accessible theming system with dark
 | T6.3.2 | Add theme toggle to app header/navbar | High | ✅ |
 | T6.3.3 | Add theme toggle to mobile navigation | High | ✅ |
 | T6.3.4 | Create animated sun/moon icon transition | Low | ✅ |
-| T6.3.5 | Add keyboard shortcut for theme toggle (e.g., `Cmd+Shift+L`) | Low | ⬜ |
-| T6.3.6 | Show current theme indicator in UI | Medium | ⬜ |
+| T6.3.5 | Add keyboard shortcut for theme toggle (e.g., `Cmd+Shift+L`) | Low | ✅ |
+| T6.3.6 | Show current theme indicator in UI | Medium | ✅ |
 
 ### 4. 🎭 Color Theme Selection
 
 | ID | Task | Priority | Status |
 |----|------|----------|--------|
-| T6.4.1 | Create theme preview thumbnails for Settings | Medium | ⬜ |
-| T6.4.2 | Complete Nord theme implementation | Medium | ⬜ |
-| T6.4.3 | Complete Dracula theme implementation | Medium | ⬜ |
-| T6.4.4 | Complete Solarized Light theme implementation | Medium | ⬜ |
-| T6.4.5 | Complete Solarized Dark theme implementation | Medium | ⬜ |
+| T6.4.1 | Create theme preview thumbnails for Settings | Medium | ✅ |
+| T6.4.2 | Complete Nord theme implementation | Medium | ✅ |
+| T6.4.3 | Complete Dracula theme implementation | Medium | ✅ |
+| T6.4.4 | Complete Solarized Light theme implementation | Medium | ✅ |
+| T6.4.5 | Complete Solarized Dark theme implementation | Medium | ✅ |
 | T6.4.6 | Add theme preview in Settings before applying | Low | ⬜ |
 | T6.4.7 | Consider additional popular themes (One Dark, GitHub, etc.) | Low | ⬜ |
 
@@ -541,6 +541,10 @@ npm run storybook
 
 | Date | Change | Author |
 |------|--------|--------|
+| 2026-01-18 | T6.4.2-5: COMPLETED - Implemented complete theme definitions for Nord, Dracula, Solarized Light, and Solarized Dark. Each theme now defines all semantic tokens (surfaces, text, borders, interactive, semantic colors, priorities, focus, shadows, sidebar, inputs, tooltips, accents, icons, brand). Build successful. | Amp |
+| 2026-01-18 | T6.4.1: COMPLETED - Created ThemePreviewThumbnail component with visual mockup of each theme. Added preview colors (bg, surface, text, accent, border) to all COLOR_THEMES configs. Shows miniature UI preview with sidebar header, text lines, and accent color. All 39 SettingsView tests pass. | Amp |
+| 2026-01-18 | T6.3.6: COMPLETED - Added current theme indicator to Sidebar header. Shows "Auto" when in system mode, or "light"/"dark" for resolved mode. Hidden when sidebar is collapsed. Includes aria-live for accessibility and tooltip with full details. All tests pass. | Amp |
+| 2026-01-18 | T6.3.5: COMPLETED - Added keyboard shortcut Cmd/Ctrl+Shift+L to toggle between light and dark mode. Updated useKeyboardShortcuts.ts, added to DEFAULT_SHORTCUTS in keyboardStore.ts, added unit test. All tests pass. | Amp |
 | 2026-01-18 | T6.3.4: COMPLETED - Created AnimatedThemeIcon component with smooth sun/moon rotation and scale transitions (300ms duration). Sun rotates out clockwise while moon rotates in for dark mode, and vice versa. All 22 ThemeSwitcher tests pass. | Amp |
 | 2026-01-18 | T6.3.3: COMPLETED - Added ThemeSwitcher to MobileNav.tsx and MobileNavigation.tsx headers. All 1680 tests pass. | Amp |
 | 2026-01-18 | T6.3.2: COMPLETED - Added ThemeSwitcher to Sidebar header. Updated Sidebar.test.tsx to wrap with ThemeContext provider. All 1680 tests pass. | Amp |

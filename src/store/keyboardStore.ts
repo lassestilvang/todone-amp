@@ -164,4 +164,11 @@ export const DEFAULT_SHORTCUTS: KeyboardShortcut[] = [
     description: 'Open Daily Review',
     action: () => {},
   },
+  {
+    key: 'l',
+    ctrlCmd: true,
+    shift: true,
+    description: 'Toggle light/dark mode',
+    action: () => {},
+  },
 ]

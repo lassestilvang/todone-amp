@@ -6,6 +6,7 @@ import { useIsMobile } from '@/hooks/useIsMobile'
 import { StreakBadge } from './StreakDisplay'
 import { CreateProjectModal } from './CreateProjectModal'
 import { ThemeSwitcher } from './ThemeSwitcher'
+import { useTheme } from '@/hooks/useTheme'
 import { cn } from '@/utils/cn'
 import { Plus, Star, Inbox, Calendar, TrendingUp, Tag, Sliders, ChevronLeft, ChevronRight, Grid3X3, CalendarRange } from 'lucide-react'
 
@@ -18,6 +19,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) =
   const [showCreateProjectModal, setShowCreateProjectModal] = useState(false)
   const [isCollapsed, setIsCollapsed] = useState(false)
   const { isTablet } = useIsMobile()
+  const { mode, resolvedMode } = useTheme()
   const projects = useProjectStore((state) => state.projects)
   const selectedProjectId = useProjectStore((state) => state.selectedProjectId)
   const selectProject = useProjectStore((state) => state.selectProject)
@@ -52,7 +54,18 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentView, onViewChange }) =
           </div>
         )}
         <div className={cn('flex items-center gap-1', shouldShowCollapsed && 'flex-col')}>
-          <ThemeSwitcher variant="icon" size="sm" />
+          <div className="flex items-center gap-1">
+            <ThemeSwitcher variant="icon" size="sm" />
+            {!shouldShowCollapsed && (
+              <span
+                className="text-xs text-content-tertiary capitalize"
+                aria-live="polite"
+                title={`Theme: ${mode === 'system' ? `System (${resolvedMode})` : mode}`}
+              >
+                {mode === 'system' ? 'Auto' : resolvedMode}
+              </span>
+            )}
+          </div>
           {isTablet && (
             <button
               onClick={() => setIsCollapsed(!isCollapsed)}

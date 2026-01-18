@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useTaskStore } from '@/store/taskStore'
 import { useBulkActionStore } from '@/store/bulkActionStore'
 import { useDailyReviewStore } from '@/store/dailyReviewStore'
+import { useThemeStore } from '@/store/themeStore'
 
 interface ShortcutActions {
   onQuickAdd?: () => void
@@ -58,6 +59,14 @@ export function useKeyboardShortcuts(
         } else {
           reviewStore.startEveningReview()
         }
+      }
+
+      // Ctrl/Cmd + Shift + L: Toggle theme (light/dark)
+      if (isCtrlCmd && e.shiftKey && (e.key === 'l' || e.key === 'L')) {
+        e.preventDefault()
+        const themeStore = useThemeStore.getState()
+        const currentMode = themeStore.resolvedMode
+        themeStore.setMode(currentMode === 'dark' ? 'light' : 'dark')
       }
 
       // Escape: Close dialogs/deselect

@@ -1,26 +1,126 @@
-.theme-solarized-light {
-  --color-bg-primary: #fdf6e3;
-  --color-bg-secondary: #eee8d5;
-  --color-bg-tertiary: #ddd6c3;
-  --color-bg-hover: #ccc5b2;
+/* ==========================================================================
+   Solarized Light Theme
+   
+   A precision color scheme with low-contrast warm tones.
+   https://ethanschoonover.com/solarized/
+   ========================================================================== */
 
+.theme-solarized-light {
+  /* Surface Colors - Solarized Base */
+  --color-surface-primary: #fdf6e3;
+  --color-surface-secondary: #eee8d5;
+  --color-surface-tertiary: #ddd6c3;
+  --color-surface-elevated: #fdf6e3;
+  --color-surface-overlay: rgba(253, 246, 227, 0.9);
+
+  /* Text Colors - Solarized Content */
   --color-text-primary: #657b83;
   --color-text-secondary: #586e75;
   --color-text-tertiary: #93a1a1;
+  --color-text-inverse: #fdf6e3;
+  --color-text-disabled: #ccc5b2;
 
-  --color-border: #ccc5b2;
+  /* Border Colors */
+  --color-border-default: #ccc5b2;
   --color-border-hover: #93a1a1;
+  --color-border-focus: #268bd2;
+  --color-border-subtle: #eee8d5;
 
-  --color-accent: #268bd2;
-  --color-accent-hover: #2aa198;
+  /* Interactive Colors - Solarized Blue */
+  --color-interactive-primary: #268bd2;
+  --color-interactive-primary-hover: #2176a8;
+  --color-interactive-primary-active: #1c6290;
+  --color-interactive-secondary: #eee8d5;
+  --color-interactive-secondary-hover: #ddd6c3;
+  --color-interactive-secondary-active: #ccc5b2;
 
+  /* Semantic Colors - Solarized Accents */
   --color-success: #859900;
+  --color-success-light: #e8edcc;
+  --color-success-dark: #6d7d00;
   --color-warning: #b58900;
+  --color-warning-light: #f5eacc;
+  --color-warning-dark: #9a7400;
   --color-error: #dc322f;
+  --color-error-light: #f9ddd6;
+  --color-error-dark: #b82a28;
   --color-info: #268bd2;
+  --color-info-light: #d6ebf5;
+  --color-info-dark: #2176a8;
+
+  /* Priority Colors */
+  --color-priority-p1: #dc322f;
+  --color-priority-p1-bg: #f9ddd6;
+  --color-priority-p2: #cb4b16;
+  --color-priority-p2-bg: #f8e0d3;
+  --color-priority-p3: #268bd2;
+  --color-priority-p3-bg: #d6ebf5;
+  --color-priority-p4: #93a1a1;
+  --color-priority-p4-bg: #eee8d5;
+
+  /* Focus Ring */
+  --color-focus-ring: rgba(38, 139, 210, 0.5);
+
+  /* Shadows - Subtle for light theme */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.06);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.06);
+
+  /* Sidebar */
+  --color-sidebar-bg: #eee8d5;
+  --color-sidebar-hover: #ddd6c3;
+  --color-sidebar-active: #ccc5b2;
+  --color-sidebar-text: #657b83;
+  --color-sidebar-text-muted: #93a1a1;
+
+  /* Input/Form */
+  --color-input-bg: #fdf6e3;
+  --color-input-border: #ccc5b2;
+  --color-input-border-hover: #93a1a1;
+  --color-input-border-focus: #268bd2;
+  --color-input-placeholder: #93a1a1;
+  --color-input-disabled-bg: #eee8d5;
+
+  /* Tooltip */
+  --color-tooltip-bg: #586e75;
+  --color-tooltip-text: #fdf6e3;
+
+  /* Accent Colors */
+  --color-accent-purple: #6c71c4;
+  --color-accent-purple-subtle: #e8e8f0;
+  --color-accent-indigo: #268bd2;
+  --color-accent-indigo-subtle: #d6ebf5;
+  --color-accent-teal: #2aa198;
+  --color-accent-teal-subtle: #d6f0ee;
+
+  /* Icon Colors */
+  --color-icon-success: #859900;
+  --color-icon-error: #dc322f;
+  --color-icon-warning: #b58900;
+  --color-icon-info: #268bd2;
+  --color-icon-purple: #6c71c4;
+  --color-icon-orange: #cb4b16;
+  --color-icon-teal: #2aa198;
+  --color-icon-yellow: #b58900;
+  --color-icon-indigo: #268bd2;
+  --color-icon-pink: #d33682;
+  --color-icon-cyan: #2aa198;
+
+  /* Brand Colors Override */
+  --color-brand-50: #d6ebf5;
+  --color-brand-100: #c0dfef;
+  --color-brand-200: #99cfe6;
+  --color-brand-300: #66b8d9;
+  --color-brand-400: #3aa1cc;
+  --color-brand-500: #268bd2;
+  --color-brand-600: #2176a8;
+  --color-brand-700: #1c6290;
+  --color-brand-800: #eee8d5;
+  --color-brand-900: #fdf6e3;
 }
 
+/* Apply Solarized Light as light mode base */
 .theme-solarized-light {
-  background-color: var(--color-bg-primary);
-  color: var(--color-text-primary);
+  color-scheme: light;
 }
