@@ -11,6 +11,7 @@ const themeClassMap: Record<ThemeName, string> = {
   'one-dark': 'theme-one-dark',
   'github-light': 'theme-github-light',
   'github-dark': 'theme-github-dark',
+  'high-contrast': 'theme-high-contrast',
 }
 
 const THEME_TRANSITION_DURATION = 150

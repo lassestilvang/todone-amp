@@ -12,6 +12,7 @@ import {
 } from 'recharts'
 import { useAnalyticsStore } from '@/store/analyticsStore'
 import { cn } from '@/utils/cn'
+import { CHART_PRODUCTIVITY_COLORS } from '@/utils/chartColors'
 
 interface TeamAnalyticsProps {
   teamId?: string
@@ -130,8 +131,8 @@ export const TeamAnalytics: React.FC<TeamAnalyticsProps> = ({ teamId, className 
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="completed" fill="#10b981" name="Completed" />
-            <Bar dataKey="created" fill="#3b82f6" name="Created" />
+            <Bar dataKey="completed" fill={CHART_PRODUCTIVITY_COLORS.completed} name="Completed" />
+            <Bar dataKey="created" fill={CHART_PRODUCTIVITY_COLORS.created} name="Created" />
           </BarChart>
         </ResponsiveContainer>
       </div>

@@ -13,6 +13,7 @@ import {
 import { useAnalyticsStore } from '@/store/analyticsStore'
 import { useAuthStore } from '@/store/authStore'
 import { cn } from '@/utils/cn'
+import { CHART_SEMANTIC_COLORS } from '@/utils/chartColors'
 
 interface ComparisonAnalyticsProps {
   className?: string
@@ -188,7 +189,7 @@ export const ComparisonAnalytics: React.FC<ComparisonAnalyticsProps> = ({ classN
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="Completion Rate" fill="#10b981" />
+            <Bar dataKey="Completion Rate" fill={CHART_SEMANTIC_COLORS.success} />
           </BarChart>
         </ResponsiveContainer>
       </div>

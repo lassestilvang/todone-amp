@@ -92,9 +92,9 @@ This phase focuses on implementing a robust, accessible theming system with dark
 | T6.5.3 | Ensure focus ring visibility in all themes | High | ✅ |
 | T6.5.4 | Fix disabled state contrast | Medium | ✅ |
 | T6.5.5 | Ensure sufficient contrast for placeholder text | Medium | ✅ |
-| T6.5.6 | Add high-contrast mode option for accessibility | Low | ⬜ |
-| T6.5.7 | Test with color blindness simulation tools | Medium | ⬜ |
-| T6.5.8 | Ensure chart/graph colors are distinguishable | Medium | ⬜ |
+| T6.5.6 | Add high-contrast mode option for accessibility | Low | ✅ |
+| T6.5.7 | Test with color blindness simulation tools | Medium | ✅ |
+| T6.5.8 | Ensure chart/graph colors are distinguishable | Medium | ✅ |
 
 ### 6. ✨ Visual Polish & UX
 
@@ -541,6 +541,9 @@ npm run storybook
 
 | Date | Change | Author |
 |------|--------|--------|
+| 2026-01-19 | T6.5.8: COMPLETED - Created centralized accessible chart color system (`src/utils/chartColors.ts`). Defined colorblind-friendly palettes using blue/orange/teal/purple combinations that remain distinguishable across protanopia, deuteranopia, and tritanopia. Updated ProductivityChart, ComparisonAnalytics, and TeamAnalytics to use new color constants. Provides CHART_COLORS (8-color palette), CHART_PRODUCTIVITY_COLORS (completed/created), CHART_SEMANTIC_COLORS (success/warning/error), and CHART_GRADIENTS. All 1681 tests pass. | Amp |
+| 2026-01-19 | T6.5.7: COMPLETED - Created color blindness simulation audit script (`scripts/audit-colorblind.ts`). Tests protanopia, deuteranopia, tritanopia, and achromatopsia. Found 45 potential distinguishability issues but verified app already mitigates these through: (1) icons alongside status colors (CheckCircle, AlertCircle, AlertTriangle, XCircle), (2) text labels for priorities ("P1 - Urgent", "High", "Medium", etc.), (3) high-contrast theme available for users with color vision deficiency. No code changes needed - existing patterns follow best practices. | Amp |
+| 2026-01-19 | T6.5.6: COMPLETED - Added high-contrast theme for accessibility. Created `src/styles/themes/high-contrast.css` with WCAG AAA compliant colors (21:1 contrast ratio for text). Features pure black background, pure white text, bright saturated colors for semantic states (green success, yellow warning, red error, cyan info). Added 3px focus rings, underlined links, and enhanced active state indicators. Updated themeStore, ThemeProvider, and SettingsView. All 1681 tests pass. | Amp |
 | 2026-01-19 | T6.5.3: COMPLETED - Ensured focus ring visibility in all themes. Migrated 19 component files from hardcoded focus ring colors (focus:ring-blue-500, focus:ring-brand-500) to semantic `focus:ring-focus` token. Updated EnhancedSearchBar, RecurrenceSelector, DataExportImport, TaskItem, SectionSelector, QuickAddModal, TeamSettings, PomodoroTimer, CreateProjectModal, AdvancedFilterBuilder, FilterPanel, DailyReviewSettings, EmailTaskParser, TeamSelector, ProjectSelector, CommentItem, AssigneeSelector, BoardView, and index.css. All 1681 tests pass. | Amp |
 | 2026-01-18 | T6.4.7: COMPLETED - Added three new popular themes: One Dark (Atom editor inspired), GitHub Light (clean and minimal), GitHub Dark (modern dark mode). Created CSS files with full token definitions. Updated themeStore, ThemeProvider, and SettingsView. All tests pass. | Amp |
 | 2026-01-18 | T6.4.6: COMPLETED - Added theme preview functionality in Settings. Clicking a theme now previews it live with "Previewing" badge, and shows a confirmation bar with Apply/Cancel buttons. Reverts to original theme on cancel or when leaving the tab. Uses refs for cleanup effect to properly restore theme on unmount. All 39 SettingsView tests pass. | Amp |

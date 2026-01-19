@@ -11,6 +11,7 @@ export type ThemeName =
   | 'one-dark'
   | 'github-light'
   | 'github-dark'
+  | 'high-contrast'
 
 export interface ThemeState {
   mode: ThemeMode

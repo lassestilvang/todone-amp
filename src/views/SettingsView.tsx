@@ -125,6 +125,12 @@ const COLOR_THEMES: ColorThemeConfig[] = [
     description: 'Modern dark mode',
     preview: { bg: '#0d1117', surface: '#161b22', text: '#e6edf3', accent: '#3fb950', border: '#30363d' },
   },
+  {
+    id: 'high-contrast',
+    name: 'High Contrast',
+    description: 'Maximum contrast for accessibility',
+    preview: { bg: '#000000', surface: '#0a0a0a', text: '#ffffff', accent: '#00ff00', border: '#ffffff' },
+  },
 ]
 
 const ThemePreviewThumbnail: React.FC<{ theme: ColorThemeConfig }> = ({ theme }) => (

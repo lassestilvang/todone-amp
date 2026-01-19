@@ -1,0 +1,146 @@
+/* ==========================================================================
+   High Contrast Theme
+   
+   An accessibility-focused theme with maximum contrast ratios for users
+   with visual impairments. Meets WCAG AAA standards (7:1 contrast ratio).
+   ========================================================================== */
+
+.theme-high-contrast {
+  /* Surface Colors - Pure black and white for maximum contrast */
+  --color-surface-primary: #000000;
+  --color-surface-secondary: #0a0a0a;
+  --color-surface-tertiary: #1a1a1a;
+  --color-surface-elevated: #0a0a0a;
+  --color-surface-overlay: rgba(0, 0, 0, 0.9);
+
+  /* Text Colors - Pure white on black for 21:1 contrast */
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #e5e5e5;
+  --color-text-tertiary: #cccccc;
+  --color-text-inverse: #000000;
+  --color-text-disabled: #808080;
+
+  /* Border Colors - High visibility borders */
+  --color-border-default: #ffffff;
+  --color-border-hover: #ffff00;
+  --color-border-focus: #00ffff;
+  --color-border-subtle: #666666;
+
+  /* Interactive Colors - Bright, high-contrast colors */
+  --color-interactive-primary: #00ff00;
+  --color-interactive-primary-hover: #00cc00;
+  --color-interactive-primary-active: #00aa00;
+  --color-interactive-secondary: #333333;
+  --color-interactive-secondary-hover: #444444;
+  --color-interactive-secondary-active: #555555;
+
+  /* Semantic Colors - Bright, saturated colors for visibility */
+  --color-success: #00ff00;
+  --color-success-light: #003300;
+  --color-success-dark: #66ff66;
+  --color-warning: #ffff00;
+  --color-warning-light: #333300;
+  --color-warning-dark: #ffff66;
+  --color-error: #ff0000;
+  --color-error-light: #330000;
+  --color-error-dark: #ff6666;
+  --color-info: #00ffff;
+  --color-info-light: #003333;
+  --color-info-dark: #66ffff;
+
+  /* Priority Colors - Distinct, high-contrast priorities */
+  --color-priority-p1: #ff0000;
+  --color-priority-p1-bg: #330000;
+  --color-priority-p2: #ffaa00;
+  --color-priority-p2-bg: #332200;
+  --color-priority-p3: #00aaff;
+  --color-priority-p3-bg: #002233;
+  --color-priority-p4: #aaaaaa;
+  --color-priority-p4-bg: #222222;
+
+  /* Focus Ring - Highly visible cyan focus ring */
+  --color-focus-ring: rgba(0, 255, 255, 0.8);
+  --focus-ring-width: 3px;
+  --focus-ring-offset: 3px;
+
+  /* Shadows - Minimal shadows, rely on borders for depth */
+  --shadow-sm: 0 0 0 1px rgba(255, 255, 255, 0.2);
+  --shadow-md: 0 0 0 1px rgba(255, 255, 255, 0.3);
+  --shadow-lg: 0 0 0 2px rgba(255, 255, 255, 0.4);
+  --shadow-xl: 0 0 0 2px rgba(255, 255, 255, 0.5);
+
+  /* Sidebar */
+  --color-sidebar-bg: #0a0a0a;
+  --color-sidebar-hover: #1a1a1a;
+  --color-sidebar-active: #333333;
+  --color-sidebar-text: #ffffff;
+  --color-sidebar-text-muted: #cccccc;
+
+  /* Input/Form */
+  --color-input-bg: #000000;
+  --color-input-border: #ffffff;
+  --color-input-border-hover: #ffff00;
+  --color-input-border-focus: #00ffff;
+  --color-input-placeholder: #999999;
+  --color-input-disabled-bg: #1a1a1a;
+
+  /* Tooltip */
+  --color-tooltip-bg: #ffffff;
+  --color-tooltip-text: #000000;
+
+  /* Accent Colors */
+  --color-accent-purple: #ff00ff;
+  --color-accent-purple-subtle: #330033;
+  --color-accent-indigo: #6666ff;
+  --color-accent-indigo-subtle: #000033;
+  --color-accent-teal: #00ffff;
+  --color-accent-teal-subtle: #003333;
+
+  /* Icon Colors - Bright, saturated for visibility */
+  --color-icon-success: #00ff00;
+  --color-icon-error: #ff0000;
+  --color-icon-warning: #ffff00;
+  --color-icon-info: #00ffff;
+  --color-icon-purple: #ff00ff;
+  --color-icon-orange: #ffaa00;
+  --color-icon-teal: #00ffff;
+  --color-icon-yellow: #ffff00;
+  --color-icon-indigo: #6666ff;
+  --color-icon-pink: #ff66ff;
+  --color-icon-cyan: #00ffff;
+
+  /* Brand Colors Override - High contrast green */
+  --color-brand-50: #003300;
+  --color-brand-100: #004400;
+  --color-brand-200: #006600;
+  --color-brand-300: #00aa00;
+  --color-brand-400: #00cc00;
+  --color-brand-500: #00ff00;
+  --color-brand-600: #66ff66;
+  --color-brand-700: #99ff99;
+  --color-brand-800: #004400;
+  --color-brand-900: #003300;
+}
+
+.theme-high-contrast {
+  color-scheme: dark;
+}
+
+/* High contrast specific overrides for better visibility */
+.theme-high-contrast a {
+  text-decoration: underline;
+}
+
+.theme-high-contrast button:focus,
+.theme-high-contrast [role="button"]:focus,
+.theme-high-contrast input:focus,
+.theme-high-contrast select:focus,
+.theme-high-contrast textarea:focus {
+  outline: 3px solid #00ffff;
+  outline-offset: 2px;
+}
+
+.theme-high-contrast [aria-current="page"],
+.theme-high-contrast [aria-selected="true"] {
+  border-left: 4px solid #00ffff;
+}

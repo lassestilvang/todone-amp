@@ -21,13 +21,18 @@ import { useAnalyticsStore } from '@/store/analyticsStore'
 import { useAuthStore } from '@/store/authStore'
 import { useGamificationStore } from '@/store/gamificationStore'
 import { cn } from '@/utils/cn'
+import {
+  CHART_PRODUCTIVITY_COLORS,
+  CHART_GRADIENTS,
+  getChartColorArray,
+} from '@/utils/chartColors'
 
 interface ProductivityChartProps {
   granularity?: 'daily' | 'weekly' | 'monthly'
   className?: string
 }
 
-const COLORS = ['#10b981', '#f59e0b', '#ef4444', '#8b5cf6']
+const COLORS = getChartColorArray(4)
 
 export const ProductivityChart: React.FC<ProductivityChartProps> = ({
   granularity = 'weekly',
@@ -157,13 +162,13 @@ export const ProductivityChart: React.FC<ProductivityChartProps> = ({
           {selectedMetric === 'all' ? (
             <AreaChart data={chartData}>
               <defs>
-                <linearGradient id="colorCompleted" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#10b981" stopOpacity={0.8} />
-                  <stop offset="95%" stopColor="#10b981" stopOpacity={0.1} />
+                <linearGradient id={CHART_GRADIENTS.completed.id} x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor={CHART_GRADIENTS.completed.color} stopOpacity={CHART_GRADIENTS.completed.startOpacity} />
+                  <stop offset="95%" stopColor={CHART_GRADIENTS.completed.color} stopOpacity={CHART_GRADIENTS.completed.endOpacity} />
                 </linearGradient>
-                <linearGradient id="colorCreated" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.8} />
-                  <stop offset="95%" stopColor="#3b82f6" stopOpacity={0.1} />
+                <linearGradient id={CHART_GRADIENTS.created.id} x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor={CHART_GRADIENTS.created.color} stopOpacity={CHART_GRADIENTS.created.startOpacity} />
+                  <stop offset="95%" stopColor={CHART_GRADIENTS.created.color} stopOpacity={CHART_GRADIENTS.created.endOpacity} />
                 </linearGradient>
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
@@ -181,16 +186,16 @@ export const ProductivityChart: React.FC<ProductivityChartProps> = ({
               <Area
                 type="monotone"
                 dataKey="completed"
-                stroke="#10b981"
-                fill="url(#colorCompleted)"
+                stroke={CHART_PRODUCTIVITY_COLORS.completed}
+                fill={`url(#${CHART_GRADIENTS.completed.id})`}
                 name="Completed"
                 isAnimationActive
               />
               <Area
                 type="monotone"
                 dataKey="created"
-                stroke="#3b82f6"
-                fill="url(#colorCreated)"
+                stroke={CHART_PRODUCTIVITY_COLORS.created}
+                fill={`url(#${CHART_GRADIENTS.created.id})`}
                 name="Created"
                 isAnimationActive
               />
@@ -211,7 +216,7 @@ export const ProductivityChart: React.FC<ProductivityChartProps> = ({
               <Line
                 type="monotone"
                 dataKey="completed"
-                stroke="#10b981"
+                stroke={CHART_PRODUCTIVITY_COLORS.completed}
                 strokeWidth={2}
                 name="Completed"
                 isAnimationActive
@@ -233,7 +238,7 @@ export const ProductivityChart: React.FC<ProductivityChartProps> = ({
               <Line
                 type="monotone"
                 dataKey="created"
-                stroke="#3b82f6"
+                stroke={CHART_PRODUCTIVITY_COLORS.created}
                 strokeWidth={2}
                 name="Created"
                 isAnimationActive
@@ -253,8 +258,8 @@ export const ProductivityChart: React.FC<ProductivityChartProps> = ({
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="created" fill="#3b82f6" name="Created" />
-            <Bar dataKey="completed" fill="#10b981" name="Completed" />
+            <Bar dataKey="created" fill={CHART_PRODUCTIVITY_COLORS.created} name="Created" />
+            <Bar dataKey="completed" fill={CHART_PRODUCTIVITY_COLORS.completed} name="Completed" />
           </BarChart>
         </ResponsiveContainer>
       </div>
