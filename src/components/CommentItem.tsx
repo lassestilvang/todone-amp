@@ -156,7 +156,7 @@ export function CommentItem({ comment, className }: CommentItemProps) {
                   disabled={isLoading}
                   className={cn(
                     'flex items-center gap-1 text-xs px-2 py-1',
-                    'text-semantic-error hover:bg-red-50 rounded transition-colors',
+                    'text-semantic-error hover:bg-semantic-error-light-hover rounded transition-colors',
                   )}
                 >
                   <Trash2 size={12} />

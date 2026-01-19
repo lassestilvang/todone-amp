@@ -129,7 +129,7 @@ export function TeamMembersList({
 
                     <button
                       onClick={() => handleRemove(member.id)}
-                      className="p-1 text-semantic-error hover:bg-red-50 dark:hover:bg-red-900/30 rounded transition-colors"
+                      className="p-1 text-semantic-error hover:bg-semantic-error-light-hover rounded transition-colors"
                       title="Remove member"
                     >
                       <Trash2 size={16} />

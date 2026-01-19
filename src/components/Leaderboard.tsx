@@ -26,7 +26,7 @@ export const Leaderboard: React.FC<LeaderboardProps> = ({ limit = 10 }) => {
     return (
       <div className="space-y-2">
         {Array.from({ length: 5 }).map((_, i) => (
-          <div key={i} className="h-12 bg-interactive-secondary rounded-lg animate-pulse" />
+          <div key={i} className="h-12 bg-skeleton-base rounded-lg animate-pulse" />
         ))}
       </div>
     )

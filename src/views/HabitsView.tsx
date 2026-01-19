@@ -147,7 +147,7 @@ export const HabitsView: React.FC = () => {
                 </button>
                 <button
                   onClick={() => handleDelete(selectedHabit)}
-                  className="p-2 hover:bg-red-50 dark:hover:bg-red-900/20 text-red-500 rounded-lg transition-colors"
+                  className="p-2 hover:bg-semantic-error-light-hover text-semantic-error rounded-lg transition-colors"
                   title="Delete habit"
                 >
                   <Trash2 className="w-5 h-5" />

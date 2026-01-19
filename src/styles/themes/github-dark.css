@@ -62,10 +62,14 @@
   --color-focus-ring: rgba(88, 166, 255, 0.4);
 
   /* Shadows */
+  --shadow-none: 0 0 0 0 transparent;
   --shadow-sm: 0 0 transparent;
   --shadow-md: 0 3px 6px rgba(1, 4, 9, 0.4);
   --shadow-lg: 0 8px 24px rgba(1, 4, 9, 0.5);
   --shadow-xl: 0 12px 28px rgba(1, 4, 9, 0.6);
+  --shadow-2xl: 0 20px 40px rgba(1, 4, 9, 0.7);
+  --shadow-inner: inset 0 2px 4px 0 rgba(1, 4, 9, 0.3);
+  --shadow-glow: 0 0 20px rgba(88, 166, 255, 0.2);
 
   /* Sidebar */
   --color-sidebar-bg: #161b22;

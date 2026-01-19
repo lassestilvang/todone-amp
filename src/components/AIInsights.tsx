@@ -133,7 +133,7 @@ export const AIInsights: React.FC<AIInsightsProps> = ({ className = '' }) => {
         </div>
         <div className="space-y-2">
           {[...Array(3)].map((_, i) => (
-            <div key={i} className="h-12 bg-surface-tertiary rounded animate-pulse" />
+            <div key={i} className="h-12 bg-skeleton-base rounded animate-pulse" />
           ))}
         </div>
       </div>

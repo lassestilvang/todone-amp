@@ -110,3 +110,125 @@
 .slide-up {
   animation: slideUp 0.3s ease-out;
 }
+
+/* Skeleton shimmer animation - better visibility in dark mode */
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-wave {
+  background: linear-gradient(
+    90deg,
+    var(--color-interactive-secondary) 0%,
+    var(--color-skeleton-highlight) 50%,
+    var(--color-interactive-secondary) 100%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+}
+
+/* Skeleton color tokens for better dark mode visibility */
+:root {
+  --color-skeleton-base: #e5e7eb;
+  --color-skeleton-highlight: #f3f4f6;
+}
+
+.dark {
+  --color-skeleton-base: #374151;
+  --color-skeleton-highlight: #4b5563;
+}
+
+/* Theme change micro-interactions */
+@keyframes theme-pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Apply subtle pop effect to cards and buttons during theme transition */
+html.theme-transition .theme-pop-on-change {
+  animation: theme-pop 200ms ease-out;
+}
+
+/* Fade-through effect for icons during theme change */
+@keyframes theme-icon-fade {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+html.theme-transition [data-theme-reactive] {
+  animation: theme-icon-fade 150ms ease-out;
+}
+
+/* ==========================================================================
+   Custom Scrollbar Styling
+   Smooth, theme-aware scrollbars for webkit browsers
+   ========================================================================== */
+
+/* Webkit scrollbar styling (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-surface-secondary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border-default);
+  border-radius: 4px;
+  border: 2px solid var(--color-surface-secondary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-border-hover);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: var(--color-text-tertiary);
+}
+
+/* Thin scrollbar variant */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Firefox scrollbar styling */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border-default) var(--color-surface-secondary);
+}
+
+/* Smooth color transitions for scrollbars during theme change */
+html.theme-transition ::-webkit-scrollbar-track,
+html.theme-transition ::-webkit-scrollbar-thumb {
+  transition: background-color 150ms ease-out;
+}

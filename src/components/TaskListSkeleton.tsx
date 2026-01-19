@@ -28,30 +28,28 @@ export function TaskListSkeleton({
  * Single skeleton task item
  */
 function SkeletonTaskItem({ showAvatar }: { showAvatar?: boolean }) {
-  // showAvatar is used to maintain consistent structure
-  // Future enhancement: conditionally show avatar based on prop
   return (
     <div className="animate-pulse border-b border-border p-4">
       <div className="flex items-start gap-3">
         {/* Checkbox skeleton */}
         {showAvatar && (
-          <div className="mt-1 h-5 w-5 flex-shrink-0 rounded-sm bg-surface-tertiary" />
+          <div className="mt-1 h-5 w-5 flex-shrink-0 rounded-sm bg-skeleton-base" />
         )}
 
         {/* Content skeleton */}
         <div className="flex-1 space-y-2">
           {/* Title */}
-          <div className="h-4 w-3/4 rounded bg-surface-tertiary" />
+          <div className="h-4 w-3/4 rounded bg-skeleton-base" />
 
           {/* Subtitle/Details row */}
           <div className="flex gap-2">
-            <div className="h-3 w-24 rounded bg-interactive-secondary" />
-            <div className="h-3 w-20 rounded bg-interactive-secondary" />
+            <div className="h-3 w-24 rounded bg-skeleton-highlight" />
+            <div className="h-3 w-20 rounded bg-skeleton-highlight" />
           </div>
         </div>
 
         {/* Priority/Menu skeleton */}
-        <div className="h-5 w-8 flex-shrink-0 rounded bg-surface-tertiary" />
+        <div className="h-5 w-8 flex-shrink-0 rounded bg-skeleton-base" />
       </div>
     </div>
   )
@@ -64,12 +62,12 @@ export function TaskDetailSkeleton() {
   return (
     <div className="space-y-4 animate-pulse p-4">
       {/* Title */}
-      <div className="h-6 w-3/4 rounded bg-surface-tertiary" />
+      <div className="h-6 w-3/4 rounded bg-skeleton-base" />
 
       {/* Description placeholder */}
       <div className="space-y-2">
-        <div className="h-4 w-full rounded bg-interactive-secondary" />
-        <div className="h-4 w-5/6 rounded bg-interactive-secondary" />
+        <div className="h-4 w-full rounded bg-skeleton-highlight" />
+        <div className="h-4 w-5/6 rounded bg-skeleton-highlight" />
       </div>
 
       <div className="my-4 border-t border-border" />
@@ -78,8 +76,8 @@ export function TaskDetailSkeleton() {
       <div className="space-y-3">
         {Array.from({ length: 4 }).map((_, index) => (
           <div key={index} className="flex items-center gap-3">
-            <div className="h-4 w-20 rounded bg-interactive-secondary" />
-            <div className="h-8 flex-1 rounded bg-surface-tertiary" />
+            <div className="h-4 w-20 rounded bg-skeleton-highlight" />
+            <div className="h-8 flex-1 rounded bg-skeleton-base" />
           </div>
         ))}
       </div>
@@ -88,8 +86,8 @@ export function TaskDetailSkeleton() {
 
       {/* Action buttons */}
       <div className="flex gap-2">
-        <div className="h-10 flex-1 rounded-lg bg-surface-tertiary" />
-        <div className="h-10 flex-1 rounded-lg bg-interactive-secondary" />
+        <div className="h-10 flex-1 rounded-lg bg-skeleton-base" />
+        <div className="h-10 flex-1 rounded-lg bg-skeleton-highlight" />
       </div>
     </div>
   )
@@ -107,16 +105,16 @@ export function BoardViewSkeleton() {
           className="min-w-72 space-y-3 rounded-lg bg-surface-secondary p-4"
         >
           {/* Column header skeleton */}
-          <div className="h-6 w-1/2 rounded bg-surface-tertiary" />
+          <div className="h-6 w-1/2 rounded bg-skeleton-base" />
 
           {/* Card skeletons */}
           {Array.from({ length: 3 }).map((_, cardIndex) => (
             <div key={cardIndex} className="animate-pulse space-y-2 rounded-lg bg-surface-primary p-3 shadow-sm">
-              <div className="h-4 w-3/4 rounded bg-surface-tertiary" />
-              <div className="h-3 w-1/2 rounded bg-interactive-secondary" />
+              <div className="h-4 w-3/4 rounded bg-skeleton-base" />
+              <div className="h-3 w-1/2 rounded bg-skeleton-highlight" />
               <div className="flex gap-1">
-                <div className="h-2 w-8 rounded bg-interactive-secondary" />
-                <div className="h-2 w-8 rounded bg-interactive-secondary" />
+                <div className="h-2 w-8 rounded bg-skeleton-highlight" />
+                <div className="h-2 w-8 rounded bg-skeleton-highlight" />
               </div>
             </div>
           ))}
@@ -134,10 +132,10 @@ export function CalendarSkeleton() {
     <div className="space-y-4 animate-pulse p-4">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <div className="h-6 w-32 rounded bg-surface-tertiary" />
+        <div className="h-6 w-32 rounded bg-skeleton-base" />
         <div className="flex gap-2">
-          <div className="h-8 w-20 rounded bg-surface-tertiary" />
-          <div className="h-8 w-20 rounded bg-surface-tertiary" />
+          <div className="h-8 w-20 rounded bg-skeleton-base" />
+          <div className="h-8 w-20 rounded bg-skeleton-base" />
         </div>
       </div>
 
@@ -148,7 +146,7 @@ export function CalendarSkeleton() {
             {Array.from({ length: 7 }).map((_, colIndex) => (
               <div
                 key={colIndex}
-                className="aspect-square flex-1 rounded-lg bg-interactive-secondary"
+                className="aspect-square flex-1 rounded-lg bg-skeleton-highlight"
               />
             ))}
           </div>
@@ -167,16 +165,16 @@ export function AnalyticsSkeleton() {
       {/* Stats row */}
       <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
         {Array.from({ length: 4 }).map((_, index) => (
-          <div key={index} className="rounded-lg bg-interactive-secondary p-4">
-            <div className="h-4 w-20 rounded bg-surface-tertiary" />
-            <div className="mt-2 h-6 w-12 rounded bg-surface-tertiary" />
+          <div key={index} className="rounded-lg bg-skeleton-highlight p-4">
+            <div className="h-4 w-20 rounded bg-skeleton-base" />
+            <div className="mt-2 h-6 w-12 rounded bg-skeleton-base" />
           </div>
         ))}
       </div>
 
       {/* Chart placeholder */}
-      <div className="rounded-lg bg-surface-tertiary p-6">
-        <div className="h-64 w-full rounded bg-interactive-secondary" />
+      <div className="rounded-lg bg-skeleton-base p-6">
+        <div className="h-64 w-full rounded bg-skeleton-highlight" />
       </div>
     </div>
   )
@@ -191,14 +189,14 @@ export function CommentThreadSkeleton() {
       {Array.from({ length: 3 }).map((_, index) => (
         <div key={index} className="flex gap-3">
           {/* Avatar */}
-          <div className="h-8 w-8 flex-shrink-0 rounded-full bg-surface-tertiary" />
+          <div className="h-8 w-8 flex-shrink-0 rounded-full bg-skeleton-base" />
 
           {/* Comment content */}
           <div className="flex-1 space-y-2">
-            <div className="h-4 w-24 rounded bg-surface-tertiary" />
+            <div className="h-4 w-24 rounded bg-skeleton-base" />
             <div className="space-y-1">
-              <div className="h-3 w-full rounded bg-interactive-secondary" />
-              <div className="h-3 w-5/6 rounded bg-interactive-secondary" />
+              <div className="h-3 w-full rounded bg-skeleton-highlight" />
+              <div className="h-3 w-5/6 rounded bg-skeleton-highlight" />
             </div>
           </div>
         </div>
@@ -215,8 +213,8 @@ export function SearchResultsSkeleton() {
     <div className="space-y-3 animate-pulse">
       {Array.from({ length: 5 }).map((_, index) => (
         <div key={index} className="rounded-lg border border-border p-3">
-          <div className="h-4 w-3/4 rounded bg-surface-tertiary" />
-          <div className="mt-2 h-3 w-1/2 rounded bg-interactive-secondary" />
+          <div className="h-4 w-3/4 rounded bg-skeleton-base" />
+          <div className="mt-2 h-3 w-1/2 rounded bg-skeleton-highlight" />
         </div>
       ))}
     </div>

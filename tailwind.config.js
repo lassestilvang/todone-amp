@@ -58,12 +58,30 @@ export default {
         semantic: {
           success: 'var(--color-success)',
           'success-light': 'var(--color-success-light)',
+          'success-light-hover': 'var(--color-success-light-hover)',
+          'success-hover': 'var(--color-success-hover)',
           warning: 'var(--color-warning)',
           'warning-light': 'var(--color-warning-light)',
+          'warning-light-hover': 'var(--color-warning-light-hover)',
+          'warning-hover': 'var(--color-warning-hover)',
           error: 'var(--color-error)',
           'error-light': 'var(--color-error-light)',
+          'error-light-hover': 'var(--color-error-light-hover)',
+          'error-hover': 'var(--color-error-hover)',
           info: 'var(--color-info)',
           'info-light': 'var(--color-info-light)',
+          'info-light-hover': 'var(--color-info-light-hover)',
+          'info-hover': 'var(--color-info-hover)',
+        },
+        hover: {
+          subtle: 'var(--color-hover-subtle)',
+        },
+        active: {
+          subtle: 'var(--color-active-subtle)',
+        },
+        skeleton: {
+          base: 'var(--color-skeleton-base)',
+          highlight: 'var(--color-skeleton-highlight)',
         },
         sidebar: {
           bg: 'var(--color-sidebar-bg)',
@@ -107,10 +125,14 @@ export default {
         },
       },
       boxShadow: {
+        none: 'var(--shadow-none)',
         sm: 'var(--shadow-sm)',
         md: 'var(--shadow-md)',
         lg: 'var(--shadow-lg)',
         xl: 'var(--shadow-xl)',
+        '2xl': 'var(--shadow-2xl)',
+        inner: 'var(--shadow-inner)',
+        glow: 'var(--shadow-glow)',
       },
       ringColor: {
         focus: 'var(--color-focus-ring)',

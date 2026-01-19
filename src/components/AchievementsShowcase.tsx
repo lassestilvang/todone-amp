@@ -49,7 +49,7 @@ export const AchievementsShowcase: React.FC<AchievementsShowcaseProps> = ({
         {Array.from({ length: 6 }).map((_, i) => (
           <div
             key={i}
-            className={clsx('bg-interactive-secondary rounded-lg animate-pulse', {
+            className={clsx('bg-skeleton-base rounded-lg animate-pulse', {
               'h-24': size === 'small',
               'h-32': size === 'medium',
               'h-40': size === 'large',

@@ -71,7 +71,7 @@ export const BadgesDisplay: React.FC<BadgesDisplayProps> = ({
   }, [userStats, maxBadges])
 
   if (!userStats) {
-    return <div className="animate-pulse h-12 bg-interactive-secondary rounded" />
+    return <div className="animate-pulse h-12 bg-skeleton-base rounded" />
   }
 
   if (earnedBadges.length === 0) {

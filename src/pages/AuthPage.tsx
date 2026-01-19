@@ -38,8 +38,8 @@ export const AuthPage: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-brand-50 via-blue-50 to-green-50 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
+    <div className="min-h-screen bg-gradient-to-br from-brand-50 via-blue-50 to-green-50 dark:from-gray-900 dark:via-gray-900 dark:to-gray-800 bg-pattern-dots flex items-center justify-center p-4">
+      <div className="w-full max-w-md bg-gradient-radial">
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="w-16 h-16 rounded-xl bg-brand-600 flex items-center justify-center text-white font-bold text-3xl mx-auto mb-4 shadow-lg">

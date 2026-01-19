@@ -101,11 +101,13 @@ const IconVariant: React.FC<{
         'bg-surface-secondary hover:bg-surface-tertiary',
         'focus:outline-none focus:ring-2 focus:ring-focus',
         'text-content-secondary hover:text-content-primary',
+        'theme-pop-on-change',
         sizes.button,
         className
       )}
       aria-label={`Current theme: ${currentTheme?.label}. Click to cycle theme.`}
       title={`Theme: ${currentTheme?.label}`}
+      data-theme-reactive
     >
       <AnimatedThemeIcon mode={mode} resolvedMode={resolvedMode} className={sizes.icon} />
       {showLabel && <span className={sizes.text}>{currentTheme?.label}</span>}

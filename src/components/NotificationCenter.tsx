@@ -185,7 +185,7 @@ export function NotificationCenter({ isOpen, onClose, className }: NotificationC
                   </button>
                   <button
                     onClick={() => handleDelete(notification.id)}
-                    className="rounded p-1 text-content-tertiary hover:bg-red-100 hover:text-red-600 dark:hover:bg-red-900 dark:hover:text-red-400 transition-colors"
+                    className="rounded p-1 text-content-tertiary hover:bg-semantic-error-light-hover hover:text-semantic-error transition-colors"
                     title="Delete"
                   >
                     <Trash2 className="h-4 w-4" />
