@@ -89,7 +89,7 @@ This phase focuses on implementing a robust, accessible theming system with dark
 |----|------|----------|--------|
 | T6.5.1 | Audit all color combinations for WCAG AA contrast (4.5:1 text, 3:1 UI) | High | ✅ |
 | T6.5.2 | Fix priority colors (P1-P4) contrast in both modes | High | ✅ |
-| T6.5.3 | Ensure focus ring visibility in all themes | High | ⬜ |
+| T6.5.3 | Ensure focus ring visibility in all themes | High | ✅ |
 | T6.5.4 | Fix disabled state contrast | Medium | ✅ |
 | T6.5.5 | Ensure sufficient contrast for placeholder text | Medium | ✅ |
 | T6.5.6 | Add high-contrast mode option for accessibility | Low | ⬜ |
@@ -541,6 +541,7 @@ npm run storybook
 
 | Date | Change | Author |
 |------|--------|--------|
+| 2026-01-19 | T6.5.3: COMPLETED - Ensured focus ring visibility in all themes. Migrated 19 component files from hardcoded focus ring colors (focus:ring-blue-500, focus:ring-brand-500) to semantic `focus:ring-focus` token. Updated EnhancedSearchBar, RecurrenceSelector, DataExportImport, TaskItem, SectionSelector, QuickAddModal, TeamSettings, PomodoroTimer, CreateProjectModal, AdvancedFilterBuilder, FilterPanel, DailyReviewSettings, EmailTaskParser, TeamSelector, ProjectSelector, CommentItem, AssigneeSelector, BoardView, and index.css. All 1681 tests pass. | Amp |
 | 2026-01-18 | T6.4.7: COMPLETED - Added three new popular themes: One Dark (Atom editor inspired), GitHub Light (clean and minimal), GitHub Dark (modern dark mode). Created CSS files with full token definitions. Updated themeStore, ThemeProvider, and SettingsView. All tests pass. | Amp |
 | 2026-01-18 | T6.4.6: COMPLETED - Added theme preview functionality in Settings. Clicking a theme now previews it live with "Previewing" badge, and shows a confirmation bar with Apply/Cancel buttons. Reverts to original theme on cancel or when leaving the tab. Uses refs for cleanup effect to properly restore theme on unmount. All 39 SettingsView tests pass. | Amp |
 | 2026-01-18 | T6.5.1, T6.5.2, T6.5.4, T6.5.5: COMPLETED - Full WCAG AA contrast audit with automated script (`scripts/audit-contrast.ts`). Fixed 21 contrast issues across light/dark modes. Darkened text-tertiary, text-disabled, border-default, placeholder, priority colors (P1-P4), and semantic colors in light mode. Lightened border-default, text-disabled, placeholder, success, and error colors in dark mode. All 54 color combinations now pass 4.5:1 (text) or 3:1 (UI) requirements. All 1681 tests pass. | Amp |

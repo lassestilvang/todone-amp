@@ -49,7 +49,7 @@ export function TeamSelector({
         className={cn(
           'flex items-center justify-between gap-2 px-3 py-2 border border-border rounded-md',
           'text-sm font-medium text-content-secondary bg-surface-primary w-full',
-          'hover:bg-surface-tertiary focus:outline-none focus:ring-2 focus:ring-brand-500',
+          'hover:bg-surface-tertiary focus:outline-none focus:ring-2 focus:ring-focus',
           'disabled:opacity-50 disabled:cursor-not-allowed'
         )}
       >

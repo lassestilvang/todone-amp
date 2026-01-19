@@ -157,7 +157,7 @@ export function BoardView({ projectId }: BoardViewProps) {
             <select
               value={boardColumnType}
               onChange={(e) => setBoardColumnType(e.target.value as BoardColumnType)}
-              className="px-3 py-2 border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="px-3 py-2 border border-border rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-focus"
             >
               <option value="section">Section</option>
               <option value="priority">Priority</option>

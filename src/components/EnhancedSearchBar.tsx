@@ -119,7 +119,7 @@ export const EnhancedSearchBar: React.FC<EnhancedSearchBarProps> = ({
            onKeyDown={handleKeyDown}
            onFocus={() => setIsOpen(true)}
            placeholder={placeholder}
-           className="w-full rounded-lg border border-border bg-surface-primary py-2 pl-10 pr-20 text-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+           className="w-full rounded-lg border border-border bg-surface-primary py-2 pl-10 pr-20 text-sm focus:border-focus focus:outline-none focus:ring-2 focus:ring-focus"
          />
         <div className="absolute right-2 top-1/2 flex -translate-y-1/2 gap-1">
           {value && (

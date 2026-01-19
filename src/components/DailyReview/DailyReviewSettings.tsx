@@ -99,7 +99,7 @@ export function DailyReviewSettings({ isOpen, onClose, userId }: DailyReviewSett
                       'bg-surface-primary',
                       'border-border',
                       'text-content-primary',
-                      'focus:outline-none focus:ring-2 focus:ring-blue-500'
+                      'focus:outline-none focus:ring-2 focus:ring-focus'
                     )}
                   />
                 </div>
@@ -151,7 +151,7 @@ export function DailyReviewSettings({ isOpen, onClose, userId }: DailyReviewSett
                       'bg-surface-primary',
                       'border-border',
                       'text-content-primary',
-                      'focus:outline-none focus:ring-2 focus:ring-blue-500'
+                      'focus:outline-none focus:ring-2 focus:ring-focus'
                     )}
                   />
                 </div>

@@ -370,7 +370,7 @@ export function QuickAddModal() {
                 'w-full px-4 py-3 border-2 rounded-lg text-base',
                 'placeholder-gray-400 focus:outline-none',
                 'bg-surface-primary text-content-primary',
-                'border-border focus:border-brand-500 focus:ring-2 focus:ring-brand-200 dark:focus:ring-brand-800'
+                'border-border focus:border-brand-500 focus:ring-2 focus:ring-focus'
               )}
               autoFocus
             />

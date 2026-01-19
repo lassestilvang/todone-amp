@@ -108,7 +108,7 @@ export const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
           className={clsx(
             'p-4 rounded-full transition-colors',
             'bg-blue-500 hover:bg-blue-600 text-white',
-            'focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2',
+            'focus:outline-none focus:ring-2 focus:ring-focus focus:ring-offset-2',
             'dark:focus:ring-offset-gray-900'
           )}
           aria-label={!isActive ? 'Start' : isPaused ? 'Resume' : 'Pause'}

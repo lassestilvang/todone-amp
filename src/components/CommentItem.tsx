@@ -104,7 +104,7 @@ export function CommentItem({ comment, className }: CommentItemProps) {
               className={cn(
                 'w-full px-3 py-2 border border-border rounded-lg',
                 'text-sm placeholder-content-tertiary resize-none',
-                'focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent',
+                'focus:outline-none focus:ring-2 focus:ring-focus focus:border-transparent',
               )}
             />
             <div className="flex gap-2">

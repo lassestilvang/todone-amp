@@ -78,7 +78,7 @@ export function AssigneeSelector({
       className={cn(
         'flex items-center gap-2 px-3 py-2 rounded-lg border',
         'text-sm font-medium text-content-secondary bg-surface-primary w-full',
-        'hover:bg-surface-tertiary focus:outline-none focus:ring-2 focus:ring-brand-500',
+        'hover:bg-surface-tertiary focus:outline-none focus:ring-2 focus:ring-focus',
         'disabled:opacity-50 disabled:cursor-not-allowed transition-colors',
         'justify-between',
         isOpen && 'ring-2 ring-brand-500'
@@ -101,7 +101,7 @@ export function AssigneeSelector({
               onChange={(e) => setSearchQuery(e.target.value)}
               className={cn(
                 'w-full px-2 py-1.5 text-sm border border-border rounded',
-                'focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent'
+                'focus:outline-none focus:ring-2 focus:ring-focus focus:border-transparent'
               )}
             />
           </div>

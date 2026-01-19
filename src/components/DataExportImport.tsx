@@ -390,7 +390,7 @@ export function DataExportImport() {
                     value={templateName}
                     onChange={(e) => setTemplateName(e.target.value)}
                     placeholder="Enter a name for the new project"
-                    className="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent outline-none"
+                    className="w-full px-3 py-2 border border-border rounded-lg focus:ring-2 focus:ring-focus focus:border-transparent outline-none"
                   />
                 </label>
 

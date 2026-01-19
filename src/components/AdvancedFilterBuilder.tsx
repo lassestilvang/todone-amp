@@ -102,7 +102,7 @@ export function AdvancedFilterBuilder({
               className={cn(
                 'w-full px-3 py-2 border border-border rounded-lg',
                 'text-sm font-mono placeholder-content-tertiary',
-                'focus:outline-none focus:ring-2 focus:ring-brand-500'
+                'focus:outline-none focus:ring-2 focus:ring-focus'
               )}
             />
           </div>

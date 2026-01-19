@@ -131,7 +131,7 @@ export function RecurrenceSelector({ value, onChange }: RecurrenceSelectorProps)
 
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-3 py-2 text-left text-sm border border-border rounded-lg hover:border-hover focus:outline-none focus:ring-2 focus:ring-brand-500 flex items-center justify-between"
+        className="w-full px-3 py-2 text-left text-sm border border-border rounded-lg hover:border-hover focus:outline-none focus:ring-2 focus:ring-focus flex items-center justify-between"
       >
         <span className="text-content-primary">
           {value ? formatRecurrencePattern(value) : 'No recurrence'}
@@ -174,7 +174,7 @@ export function RecurrenceSelector({ value, onChange }: RecurrenceSelectorProps)
             <select
               value={selectedFreq}
               onChange={(e) => setSelectedFreq(e.target.value as RecurrenceFrequency)}
-              className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-focus"
             >
               {frequencies.map((freq) => (
                 <option key={freq.value} value={freq.value}>
@@ -195,7 +195,7 @@ export function RecurrenceSelector({ value, onChange }: RecurrenceSelectorProps)
               max="365"
               value={interval}
               onChange={(e) => setInterval(Math.max(1, parseInt(e.target.value) || 1))}
-              className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+              className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-focus"
             />
             <p className="text-xs text-content-tertiary mt-1">
               {selectedFreq === 'daily' && `every ${interval} day${interval > 1 ? 's' : ''}`}
@@ -242,7 +242,7 @@ export function RecurrenceSelector({ value, onChange }: RecurrenceSelectorProps)
                 max="31"
                 value={dayOfMonth}
                 onChange={(e) => setDayOfMonth(Math.max(1, Math.min(31, parseInt(e.target.value) || 1)))}
-                className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+                className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-focus"
               />
             </div>
           )}

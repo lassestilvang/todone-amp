@@ -55,7 +55,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, onToggle, onSelect, is
         }}
         className={cn(
           'w-5 h-5 rounded border-2 cursor-pointer transition-all',
-          'focus:outline-none focus:ring-2 focus:ring-brand-500',
+          'focus:outline-none focus:ring-2 focus:ring-focus',
           task.completed ? 'bg-brand-600 border-brand-600' : 'border-border'
         )}
       />

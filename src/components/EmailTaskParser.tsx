@@ -113,7 +113,7 @@ export const EmailTaskParser: React.FC<EmailTaskParserProps> = ({ className = ''
             value={email.subject}
             onChange={(e) => setEmail({ ...email, subject: e.target.value })}
             placeholder="e.g., Fix critical bug - P1"
-            className="w-full px-3 py-2 rounded-lg border border-border bg-surface-primary text-content-primary placeholder-content-tertiary focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full px-3 py-2 rounded-lg border border-border bg-surface-primary text-content-primary placeholder-content-tertiary focus:outline-none focus:ring-2 focus:ring-focus"
             disabled={loading}
           />
         </div>
@@ -128,7 +128,7 @@ export const EmailTaskParser: React.FC<EmailTaskParserProps> = ({ className = ''
             onChange={(e) => setEmail({ ...email, body: e.target.value })}
             placeholder="Paste email content here. AI will extract due dates, priorities, and labels..."
             rows={5}
-            className="w-full px-3 py-2 rounded-lg border border-border bg-surface-primary text-content-primary placeholder-content-tertiary focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
+            className="w-full px-3 py-2 rounded-lg border border-border bg-surface-primary text-content-primary placeholder-content-tertiary focus:outline-none focus:ring-2 focus:ring-focus resize-none"
             disabled={loading}
           />
         </div>

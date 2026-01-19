@@ -139,7 +139,7 @@ export function FilterPanel({ isOpen, onClose, onAdvancedQueryChange }: FilterPa
                   value={filterName}
                   onChange={(e) => setFilterName(e.target.value)}
                   placeholder="e.g., Urgent Tasks"
-                  className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-brand-500"
+                  className="w-full px-3 py-2 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-focus"
                 />
               </div>
 
