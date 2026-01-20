@@ -77,7 +77,7 @@ export const VirtualTaskList: React.FC<VirtualTaskListProps> = ({
   return (
     <div
       ref={containerRef}
-      className="relative overflow-y-auto"
+      className="relative overflow-y-auto contain-paint gpu-accelerated"
       style={{ 
         height: maxHeight ? 'auto' : containerHeightActual,
         maxHeight: maxHeight,

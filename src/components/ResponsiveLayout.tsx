@@ -21,14 +21,14 @@ export const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({
 }) => {
   return (
     <div className={cn('flex h-screen bg-surface-primary bg-pattern-dots', className)}>
-      {/* Desktop Sidebar */}
-      {sidebar && <div className="hidden md:block">{sidebar}</div>}
+      {/* Desktop Sidebar - isolated layout for performance */}
+      {sidebar && <aside className="hidden md:block contain-layout">{sidebar}</aside>}
 
       {/* Mobile Navigation */}
-      {mobileNav && <div>{mobileNav}</div>}
+      {mobileNav && <nav className="contain-layout">{mobileNav}</nav>}
 
-      {/* Main Content */}
-      <main className={cn('flex-1 flex flex-col overflow-hidden', 'pb-16 md:pb-0')}>
+      {/* Main Content - paint containment for scroll performance */}
+      <main className={cn('flex-1 flex flex-col overflow-hidden contain-paint', 'pb-16 md:pb-0')}>
         {children}
       </main>
     </div>

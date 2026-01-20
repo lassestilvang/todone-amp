@@ -51,6 +51,127 @@
   }
 }
 
+/* ==========================================================================
+   Mobile Performance Optimizations
+   
+   CSS containment, GPU acceleration hints, and layout isolation
+   for improved performance on mobile devices.
+   ========================================================================== */
+
+@layer utilities {
+  /* Layout containment for major sections - isolates layout calculations */
+  .contain-layout {
+    contain: layout;
+  }
+
+  /* Paint containment - element won't affect painting outside its bounds */
+  .contain-paint {
+    contain: paint;
+  }
+
+  /* Full containment for isolated components (layout + paint + style) */
+  .contain-strict {
+    contain: strict;
+  }
+
+  /* Content containment - skip rendering of off-screen content */
+  .contain-content {
+    contain: content;
+  }
+
+  /* Content visibility optimization for long lists and off-screen sections */
+  .content-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 500px;
+  }
+
+  /* Hint browser about upcoming animations for GPU layer promotion */
+  .will-change-transform {
+    will-change: transform;
+  }
+
+  .will-change-opacity {
+    will-change: opacity;
+  }
+
+  .will-change-colors {
+    will-change: background-color, border-color, color;
+  }
+
+  /* GPU-accelerated transforms for smooth animations */
+  .gpu-accelerated {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  /* Force compositing layer for critical animated elements */
+  .force-layer {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Mobile-specific performance optimizations */
+@media (max-width: 768px) {
+  /* Reduce complexity of decorative patterns on mobile for performance */
+  .bg-pattern-dots,
+  .bg-pattern-grid {
+    background-size: 32px 32px; /* Larger pattern = fewer calculations */
+  }
+
+  /* Simplify gradients on mobile */
+  .bg-gradient-radial {
+    background: none; /* Skip expensive radial gradient on mobile */
+  }
+
+  /* Disable noise texture on mobile (expensive) */
+  .bg-noise::before {
+    display: none;
+  }
+
+  /* Optimize scrolling performance */
+  .overflow-y-auto,
+  .overflow-y-scroll,
+  .overflow-x-auto,
+  .overflow-x-scroll {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+  }
+
+  /* Apply containment to major layout sections on mobile */
+  main,
+  aside,
+  nav,
+  header,
+  footer {
+    contain: layout style;
+  }
+
+  /* Reduce shadow complexity on mobile */
+  .shadow-xl,
+  .shadow-2xl {
+    box-shadow: var(--shadow-lg);
+  }
+
+  /* Skip glow effects on mobile (expensive blur) */
+  .shadow-glow {
+    box-shadow: var(--shadow-md);
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Disable hover animations on touch devices */
+  .hover\:scale-105:hover,
+  .hover\:scale-102:hover {
+    transform: none;
+  }
+
+  /* Faster theme transition on touch devices */
+  :root {
+    --theme-transition-duration: 100ms;
+  }
+}
+
 @layer components {
   .btn-primary {
     @apply px-4 py-2 bg-brand-600 text-white rounded-md font-medium hover:bg-brand-700 active:bg-brand-800 transition-colors;
