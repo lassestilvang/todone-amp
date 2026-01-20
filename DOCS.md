@@ -22,6 +22,7 @@ Complete documentation for the Todone task management application (Phase 4 Compl
 - **[Phase 4 Checklist](./docs/PHASE_4_CHECKLIST.md)** - All 60 planned features with status
 
 ### Technical Details
+- **[Theming Architecture](./docs/THEMING_ARCHITECTURE.md)** - Theming system, color tokens, adding themes
 - **[Session Summary](./docs/SESSION_SUMMARY.md)** - This session's accomplishments
 - **[Week 4 Completion Report](./docs/WEEK_4_COMPLETION_REPORT.md)** - Final week metrics
 - **[Phase 4 Week Summaries](./docs/)** - Week 1-4 detailed progress
@@ -44,6 +45,7 @@ Complete documentation for the Todone task management application (Phase 4 Compl
     ├── PHASE_4_README.md
     ├── DEVELOPER_QUICK_REFERENCE.md
     ├── OPTIONAL_ENHANCEMENTS_ROADMAP.md
+    ├── THEMING_ARCHITECTURE.md   # Theming system guide
     ├── SESSION_SUMMARY.md
     ├── WEEK_4_COMPLETION_REPORT.md
     ├── FINAL_VERIFICATION.md
@@ -90,6 +92,12 @@ Complete documentation for the Todone task management application (Phase 4 Compl
 3. Review: Similar existing component
 4. Follow: Code patterns and conventions
 
+### Customize Theming
+1. Read: [Theming Architecture](./docs/THEMING_ARCHITECTURE.md) - Full guide
+2. Understand: Semantic color tokens
+3. Follow: Adding a new theme steps
+4. Test: In Storybook across all variants
+
 ---
 
 ## 📊 Project Status
@@ -114,10 +122,11 @@ Complete documentation for the Todone task management application (Phase 4 Compl
 | [PHASE_4_COMPLETION_STATUS.md](./docs/PHASE_4_COMPLETION_STATUS.md) | 12 KB | Status | 15 min |
 | [DEVELOPER_QUICK_REFERENCE.md](./docs/DEVELOPER_QUICK_REFERENCE.md) | 14 KB | Development | 20 min |
 | [PHASE_4_README.md](./docs/PHASE_4_README.md) | 10 KB | Architecture | 15 min |
+| [THEMING_ARCHITECTURE.md](./docs/THEMING_ARCHITECTURE.md) | 10 KB | Theming | 15 min |
 | [OPTIONAL_ENHANCEMENTS_ROADMAP.md](./docs/OPTIONAL_ENHANCEMENTS_ROADMAP.md) | 15 KB | Future | 30 min |
 | [SESSION_SUMMARY.md](./docs/SESSION_SUMMARY.md) | 12 KB | Session work | 15 min |
 
-**Total**: ~80 KB of comprehensive documentation
+**Total**: ~90 KB of comprehensive documentation
 
 ---
 
@@ -161,6 +170,9 @@ Complete documentation for the Todone task management application (Phase 4 Compl
 
 **...check code standards?**
 → [AGENTS.md](./AGENTS.md)
+
+**...add or customize themes?**
+→ [THEMING_ARCHITECTURE.md](./docs/THEMING_ARCHITECTURE.md)
 
 **...understand a specific system?**
 → [DOCUMENTATION_INDEX.md](./docs/DOCUMENTATION_INDEX.md) - Use index
