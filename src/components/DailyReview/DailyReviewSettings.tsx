@@ -57,7 +57,7 @@ export function DailyReviewSettings({ isOpen, onClose, userId }: DailyReviewSett
             <div className="space-y-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-yellow-100 dark:bg-yellow-900/30 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-lg bg-accent-yellow-subtle flex items-center justify-center">
                     <Sun className="w-5 h-5 text-icon-yellow" />
                   </div>
                   <div>
@@ -72,7 +72,7 @@ export function DailyReviewSettings({ isOpen, onClose, userId }: DailyReviewSett
                   className={cn(
                     'relative w-11 h-6 rounded-full transition-colors',
                     settings.morningReviewEnabled
-                      ? 'bg-blue-500'
+                      ? 'bg-interactive-primary'
                       : 'bg-interactive-secondary'
                   )}
                 >
@@ -109,7 +109,7 @@ export function DailyReviewSettings({ isOpen, onClose, userId }: DailyReviewSett
             <div className="border-t border-border pt-4 space-y-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-indigo-100 dark:bg-indigo-900/30 flex items-center justify-center">
+                  <div className="w-10 h-10 rounded-lg bg-accent-indigo-subtle flex items-center justify-center">
                     <Moon className="w-5 h-5 text-icon-indigo" />
                   </div>
                   <div>
@@ -124,7 +124,7 @@ export function DailyReviewSettings({ isOpen, onClose, userId }: DailyReviewSett
                   className={cn(
                     'relative w-11 h-6 rounded-full transition-colors',
                     settings.eveningReviewEnabled
-                      ? 'bg-blue-500'
+                      ? 'bg-interactive-primary'
                       : 'bg-interactive-secondary'
                   )}
                 >
@@ -175,7 +175,7 @@ export function DailyReviewSettings({ isOpen, onClose, userId }: DailyReviewSett
                   onClick={() => handleToggle('autoPrompt')}
                   className={cn(
                     'relative w-11 h-6 rounded-full transition-colors',
-                    settings.autoPrompt ? 'bg-blue-500' : 'bg-interactive-secondary'
+                    settings.autoPrompt ? 'bg-interactive-primary' : 'bg-interactive-secondary'
                   )}
                 >
                   <span

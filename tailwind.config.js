@@ -110,6 +110,10 @@ export default {
           'indigo-subtle': 'var(--color-accent-indigo-subtle)',
           teal: 'var(--color-accent-teal)',
           'teal-subtle': 'var(--color-accent-teal-subtle)',
+          yellow: 'var(--color-accent-yellow)',
+          'yellow-subtle': 'var(--color-accent-yellow-subtle)',
+          orange: 'var(--color-accent-orange)',
+          'orange-subtle': 'var(--color-accent-orange-subtle)',
         },
         icon: {
           success: 'var(--color-icon-success)',

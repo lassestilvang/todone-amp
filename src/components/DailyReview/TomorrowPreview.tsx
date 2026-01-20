@@ -78,7 +78,7 @@ export function TomorrowPreview({ onNext }: TomorrowPreviewProps) {
       ) : (
         <>
           <div className="mb-4 p-3 rounded-lg bg-priority-p2-subtle border border-priority-p2-border">
-            <div className="flex items-center gap-2 text-sm text-orange-700 dark:text-orange-300">
+            <div className="flex items-center gap-2 text-sm text-accent-orange">
               <Sunrise className="w-4 h-4" />
               <span>{tomorrowTasks.length} task{tomorrowTasks.length !== 1 ? 's' : ''} scheduled</span>
             </div>

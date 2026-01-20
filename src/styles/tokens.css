@@ -139,6 +139,10 @@
   --color-accent-indigo-subtle: #e0e7ff;
   --color-accent-teal: #14b8a6;
   --color-accent-teal-subtle: #ccfbf1;
+  --color-accent-yellow: #eab308;
+  --color-accent-yellow-subtle: #fef9c3;
+  --color-accent-orange: #f97316;
+  --color-accent-orange-subtle: #ffedd5;
 
   /* ========================================================================
      Icon Colors - For consistent icon styling across themes
@@ -265,6 +269,10 @@
   --color-accent-indigo-subtle: rgba(99, 102, 241, 0.2);
   --color-accent-teal: #2dd4bf;
   --color-accent-teal-subtle: rgba(20, 184, 166, 0.2);
+  --color-accent-yellow: #facc15;
+  --color-accent-yellow-subtle: rgba(234, 179, 8, 0.2);
+  --color-accent-orange: #fb923c;
+  --color-accent-orange-subtle: rgba(249, 115, 22, 0.2);
 
   /* Icon Colors - Adjusted for dark mode visibility */
   --color-icon-success: #4ade80;
