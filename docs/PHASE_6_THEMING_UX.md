@@ -114,7 +114,7 @@ This phase focuses on implementing a robust, accessible theming system with dark
 | ID | Task | Priority | Status |
 |----|------|----------|--------|
 | T6.7.1 | Ensure mobile touch targets have proper contrast | High | ✅ |
-| T6.7.2 | Test theme switching on mobile devices | High | ⬜ |
+| T6.7.2 | Test theme switching on mobile devices | High | ✅ |
 | T6.7.3 | Optimize theme CSS for mobile performance | Medium | ⬜ |
 | T6.7.4 | Ensure bottom sheet/drawer dark mode compatibility | Medium | ⬜ |
 | T6.7.5 | Test PWA theme-color meta tag updates | Medium | ⬜ |
@@ -541,6 +541,7 @@ npm run storybook
 
 | Date | Change | Author |
 |------|--------|--------|
+| 2026-01-20 | T6.7.2: COMPLETED - Created E2E tests for theme switching on mobile devices. Added `e2e/theme-mobile.spec.ts` with 9 tests covering: theme switcher visibility on mobile, cycling through themes, theme persistence after reload, visual updates on theme change, accessibility (aria-label, keyboard navigation), touch interactions with hasTouch context, tablet viewport testing, and system preference detection (light/dark). Uses custom fixture for mobile authentication that waits for main element. All 9 E2E tests pass on Chromium. | Amp |
 | 2026-01-20 | T6.7.1: COMPLETED - Ensured mobile touch targets have proper contrast. Updated 7 mobile components: MobileNav, MobileNavigation, MobileQuickAddModal, MobileTaskDetail, MobileInboxView, MobileBoardView, BottomSheet. Added min-h-[44px]/min-h-[48px] for WCAG-compliant touch targets. Added dark mode variants for active/selected states using semantic tokens (brand-400/500/600, bg-brand-900/30). Added active states for touch feedback. Migrated hardcoded colors to semantic tokens (priority colors, success/info/warning states). Build successful. | Amp |
 | 2026-01-20 | T6.6.8: COMPLETED - Polished empty states with theme-aware illustrations. Enhanced `EmptyStates.tsx` with decorative elements: added `DecorativeRings` (blurred background circles) and `FloatingDots` (animated pulsing dots) components. Created accent color variants (brand/purple/indigo/teal) with appropriate backgrounds, icon colors, and ring styles that adapt to light/dark modes. Each empty state variant uses a contextually appropriate accent color. Added hover:scale-105 interaction to icons. Build successful. | Amp |
 | 2026-01-20 | T6.6.7: COMPLETED - Implemented dynamic favicon based on theme. Created `/public/favicon.svg` with CSS media query for automatic light/dark switching. Added separate `/icons/favicon-light.svg` (green bg, white checkmark) and `/icons/favicon-dark.svg` (lighter green bg, dark checkmark) variants. Created `useDynamicFavicon` hook that updates favicon and theme-color meta tag when theme changes, respecting system preference in 'system' mode. Integrated hook in App.tsx. Build successful. | Amp |
