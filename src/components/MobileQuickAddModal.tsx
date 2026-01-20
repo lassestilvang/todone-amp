@@ -70,10 +70,10 @@ export const MobileQuickAddModal: React.FC<MobileQuickAddModalProps> = ({
             placeholder="e.g., Finish project proposal..."
             className={cn(
               'w-full px-4 py-3 rounded-lg border-2 resize-none',
-              'text-base focus:outline-none',
+              'text-base focus:outline-none focus:ring-2 focus:ring-focus',
               'bg-surface-primary',
               'border-border',
-              'focus:border-blue-500 dark:focus:border-blue-400',
+              'focus:border-brand-500 dark:focus:border-brand-400',
               'text-content-primary placeholder-content-tertiary',
               'h-24'
             )}
@@ -103,10 +103,10 @@ export const MobileQuickAddModal: React.FC<MobileQuickAddModalProps> = ({
                 key={p.id}
                 onClick={() => setPriority(p.id)}
                 className={cn(
-                  'py-3 rounded-lg font-medium transition-all',
+                  'py-3 min-h-[48px] rounded-lg font-medium transition-all',
                   priority === p.id
-                    ? `${p.color} ring-2 ring-offset-2 ring-offset-surface-primary`
-                    : `${p.color} opacity-60 hover:opacity-80`
+                    ? `${p.color} ring-2 ring-offset-2 ring-offset-surface-primary ring-content-primary`
+                    : `${p.color} opacity-70 hover:opacity-90 active:opacity-100`
                 )}
               >
                 {p.label}
@@ -126,11 +126,11 @@ export const MobileQuickAddModal: React.FC<MobileQuickAddModalProps> = ({
             value={dueDate}
             onChange={(e) => setDueDate(e.target.value)}
             className={cn(
-              'w-full px-4 py-3 rounded-lg border-2',
-              'text-base focus:outline-none',
+              'w-full px-4 py-3 min-h-[48px] rounded-lg border-2',
+              'text-base focus:outline-none focus:ring-2 focus:ring-focus',
               'bg-surface-primary',
               'border-border',
-              'focus:border-blue-500 dark:focus:border-blue-400',
+              'focus:border-brand-500 dark:focus:border-brand-400',
               'text-content-primary'
             )}
           />
@@ -142,9 +142,9 @@ export const MobileQuickAddModal: React.FC<MobileQuickAddModalProps> = ({
             onClick={onClose}
             disabled={isLoading}
             className={cn(
-              'flex-1 py-3 rounded-lg font-medium transition-colors',
+              'flex-1 py-3 min-h-[48px] rounded-lg font-medium transition-colors',
               'bg-interactive-secondary text-content-primary',
-              'hover:bg-surface-tertiary',
+              'hover:bg-surface-tertiary active:bg-surface-tertiary',
               'disabled:opacity-50 disabled:cursor-not-allowed'
             )}
           >
@@ -154,8 +154,8 @@ export const MobileQuickAddModal: React.FC<MobileQuickAddModalProps> = ({
             onClick={handleSubmit}
             disabled={isLoading}
             className={cn(
-              'flex-1 py-3 rounded-lg font-medium transition-colors',
-              'bg-brand-600 hover:bg-brand-700 text-white',
+              'flex-1 py-3 min-h-[48px] rounded-lg font-medium transition-colors',
+              'bg-brand-600 hover:bg-brand-700 active:bg-brand-800 text-white',
               'disabled:bg-brand-400 disabled:cursor-not-allowed',
               'flex items-center justify-center gap-2'
             )}

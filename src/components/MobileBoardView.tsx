@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState, useMemo } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { useTaskStore } from '@/store/taskStore'
+import { cn } from '@/utils/cn'
 import type { Task } from '@/types'
 
 export interface MobileBoardViewProps {
@@ -42,7 +43,7 @@ export const MobileBoardView: React.FC<MobileBoardViewProps> = ({
       id: 'in-progress',
       name: 'In Progress',
       tasks: [], // Can be populated if you add status field to tasks
-      color: 'bg-blue-50 dark:bg-blue-900/30',
+      color: 'bg-semantic-info-light',
     },
     {
       id: 'done',
@@ -55,7 +56,7 @@ export const MobileBoardView: React.FC<MobileBoardViewProps> = ({
         })
         .sort((a, b) => (b.completedAt?.getTime() || 0) - (a.completedAt?.getTime() || 0))
         .slice(0, 10), // Show only recent completed tasks
-      color: 'bg-green-50 dark:bg-green-900/30',
+      color: 'bg-semantic-success-light',
     },
   ], [tasks, projectId, sectionId])
 
@@ -96,20 +97,20 @@ export const MobileBoardView: React.FC<MobileBoardViewProps> = ({
       {canScrollLeft && (
         <button
           onClick={() => scroll('left')}
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-gradient-to-r from-surface-primary to-transparent"
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-10 p-2 min-w-[44px] min-h-[44px] flex items-center justify-center bg-gradient-to-r from-surface-primary to-transparent active:opacity-80"
           aria-label="Scroll left"
         >
-          <ChevronLeft className="w-5 h-5 text-content-secondary" />
+          <ChevronLeft className="w-6 h-6 text-content-secondary" />
         </button>
       )}
 
       {canScrollRight && (
         <button
           onClick={() => scroll('right')}
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 bg-gradient-to-l from-surface-primary to-transparent"
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-10 p-2 min-w-[44px] min-h-[44px] flex items-center justify-center bg-gradient-to-l from-surface-primary to-transparent active:opacity-80"
           aria-label="Scroll right"
         >
-          <ChevronRight className="w-5 h-5 text-content-secondary" />
+          <ChevronRight className="w-6 h-6 text-content-secondary" />
         </button>
       )}
 
@@ -153,7 +154,13 @@ export const MobileBoardView: React.FC<MobileBoardViewProps> = ({
                     </p>
                     {task.priority && (
                       <div className="mt-2 flex items-center gap-2">
-                        <span className="text-xs font-semibold px-2 py-0.5 rounded bg-opacity-20 bg-blue-500 text-blue-700 dark:text-blue-300">
+                        <span className={cn(
+                          'text-xs font-semibold px-2 py-0.5 rounded',
+                          task.priority === 'p1' && 'bg-priority-p1-bg text-priority-p1',
+                          task.priority === 'p2' && 'bg-priority-p2-bg text-priority-p2',
+                          task.priority === 'p3' && 'bg-priority-p3-bg text-priority-p3',
+                          task.priority === 'p4' && 'bg-priority-p4-bg text-priority-p4'
+                        )}>
                           {task.priority.toUpperCase()}
                         </span>
                       </div>

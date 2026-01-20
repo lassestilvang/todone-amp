@@ -86,7 +86,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
             <h2 className="text-lg font-semibold text-content-primary">{title}</h2>
             <button
               onClick={onClose}
-              className="p-1 text-content-tertiary hover:text-content-secondary rounded-lg hover:bg-surface-tertiary"
+              className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-content-tertiary hover:text-content-secondary rounded-lg hover:bg-surface-tertiary active:bg-surface-tertiary transition-colors"
               aria-label="Close"
             >
               <X size={24} />

@@ -44,7 +44,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
           <ThemeSwitcher variant="icon" size="sm" />
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="p-2 hover:bg-surface-tertiary rounded-lg transition-colors"
+            className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center hover:bg-surface-tertiary active:bg-surface-tertiary rounded-lg transition-colors"
             aria-label="Toggle menu"
           >
             {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -74,10 +74,10 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
               key={id}
               onClick={() => handleViewChange(id)}
               className={cn(
-                'w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium transition-colors',
+                'w-full flex items-center gap-3 px-4 py-3 min-h-[48px] rounded-lg text-sm font-medium transition-colors',
                 currentView === id
-                  ? 'bg-brand-100 text-brand-700'
-                  : 'text-content-secondary hover:bg-surface-tertiary'
+                  ? 'bg-brand-100 dark:bg-brand-900/30 text-brand-700 dark:text-brand-300'
+                  : 'text-content-secondary hover:bg-surface-tertiary active:bg-surface-tertiary'
               )}
             >
               <Icon className="w-5 h-5" />
@@ -90,7 +90,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
           {user && (
             <button
               onClick={onOpenSettings}
-              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-content-secondary hover:bg-surface-tertiary transition-colors"
+              className="w-full flex items-center gap-3 px-4 py-3 min-h-[48px] rounded-lg text-sm font-medium text-content-secondary hover:bg-surface-tertiary active:bg-surface-tertiary transition-colors"
             >
               <Settings className="w-5 h-5" />
               Profile
@@ -106,10 +106,10 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
             key={id}
             onClick={() => handleViewChange(id)}
             className={cn(
-              'flex-1 flex items-center justify-center py-3 transition-colors',
+              'flex-1 flex items-center justify-center py-3 min-h-[48px] transition-colors',
               currentView === id
-                ? 'text-brand-600 border-t-2 border-brand-600'
-                : 'text-content-secondary hover:text-content-primary'
+                ? 'text-brand-600 dark:text-brand-400 border-t-2 border-brand-600 dark:border-brand-400'
+                : 'text-content-secondary hover:text-content-primary active:bg-surface-tertiary'
             )}
             aria-label={`Navigate to ${id}`}
           >

@@ -72,11 +72,13 @@ export const MobileTaskDetail: React.FC<MobileTaskDetailProps> = ({
   const getPriorityColor = (priority?: string) => {
     switch (priority) {
       case 'p1':
-        return 'text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20'
+        return 'text-priority-p1 bg-priority-p1-bg'
       case 'p2':
-        return 'text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-900/20'
+        return 'text-priority-p2 bg-priority-p2-bg'
       case 'p3':
-        return 'text-yellow-600 dark:text-yellow-400 bg-yellow-50 dark:bg-yellow-900/20'
+        return 'text-priority-p3 bg-priority-p3-bg'
+      case 'p4':
+        return 'text-priority-p4 bg-priority-p4-bg'
       default:
         return 'text-content-secondary bg-surface-secondary'
     }
@@ -98,8 +100,8 @@ export const MobileTaskDetail: React.FC<MobileTaskDetailProps> = ({
             className={cn(
               'p-4 rounded-lg border-l-4',
               task.completed
-                ? 'bg-green-50 dark:bg-green-900/20 border-green-500 line-through text-content-tertiary'
-                : 'bg-blue-50 dark:bg-blue-900/20 border-blue-500'
+                ? 'bg-semantic-success-light border-semantic-success line-through text-content-tertiary'
+                : 'bg-semantic-info-light border-semantic-info'
             )}
           >
             <h2 className="text-lg font-bold text-content-primary break-words">
@@ -156,7 +158,7 @@ export const MobileTaskDetail: React.FC<MobileTaskDetailProps> = ({
                 {task.labels.map((label) => (
                   <span
                     key={label}
-                    className="px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded text-xs font-medium"
+                    className="px-2 py-1 bg-accent-purple-subtle text-accent-purple rounded text-xs font-medium"
                   >
                     {label}
                   </span>
@@ -174,8 +176,8 @@ export const MobileTaskDetail: React.FC<MobileTaskDetailProps> = ({
               className={cn(
                 'inline-block px-3 py-1 rounded-full text-sm font-medium',
                 task.completed
-                  ? 'bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300'
-                  : 'bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-300'
+                  ? 'bg-semantic-success-light text-semantic-success'
+                  : 'bg-semantic-warning-light text-semantic-warning'
               )}
             >
               {task.completed ? 'Completed' : 'Active'}
@@ -192,13 +194,13 @@ export const MobileTaskDetail: React.FC<MobileTaskDetailProps> = ({
           <div className="flex gap-2 pt-4">
             <button
               onClick={() => toggleTask(task.id)}
-              className="flex-1 px-4 py-3 bg-blue-600 dark:bg-blue-700 text-white rounded-lg font-medium hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors"
+              className="flex-1 px-4 py-3 min-h-[48px] bg-brand-600 dark:bg-brand-500 text-white rounded-lg font-medium hover:bg-brand-700 dark:hover:bg-brand-600 active:bg-brand-800 transition-colors"
             >
               {task.completed ? 'Undo' : 'Complete'}
             </button>
             <button
               onClick={onClose}
-              className="flex-1 px-4 py-3 bg-interactive-secondary text-content-primary rounded-lg font-medium hover:bg-surface-tertiary transition-colors"
+              className="flex-1 px-4 py-3 min-h-[48px] bg-interactive-secondary text-content-primary rounded-lg font-medium hover:bg-surface-tertiary active:bg-surface-tertiary transition-colors"
             >
               Close
             </button>

@@ -49,11 +49,13 @@ export const MobileInboxView: React.FC<MobileInboxViewProps> = ({
   const getPriorityColor = (priority: Priority) => {
     switch (priority) {
       case 'p1':
-        return 'border-l-4 border-red-500 bg-red-50 dark:bg-red-900/20'
+        return 'border-l-4 border-priority-p1 bg-priority-p1-bg'
       case 'p2':
-        return 'border-l-4 border-orange-500 bg-orange-50 dark:bg-orange-900/20'
+        return 'border-l-4 border-priority-p2 bg-priority-p2-bg'
       case 'p3':
-        return 'border-l-4 border-yellow-500 bg-yellow-50 dark:bg-yellow-900/20'
+        return 'border-l-4 border-priority-p3 bg-priority-p3-bg'
+      case 'p4':
+        return 'border-l-4 border-priority-p4 bg-priority-p4-bg'
       default:
         return 'border-l-4 border-border'
     }
@@ -75,14 +77,15 @@ export const MobileInboxView: React.FC<MobileInboxViewProps> = ({
       <div className="px-4 py-3 border-b border-border flex items-center justify-between gap-2">
         <div className="flex items-center gap-2">
           <span className="text-lg font-bold text-content-primary">Inbox</span>
-          <span className="text-xs bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200 px-2 py-1 rounded-full font-medium">
+          <span className="text-xs bg-semantic-info-light text-semantic-info px-2 py-1 rounded-full font-medium">
             {activeTasks.length}
           </span>
         </div>
 
         <button
           onClick={onCreateTask}
-          className="p-2 hover:bg-surface-tertiary rounded-lg transition-colors"
+          className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center hover:bg-surface-tertiary active:bg-surface-tertiary rounded-lg transition-colors"
+          aria-label="Create task"
         >
           <Plus className="w-6 h-6 text-content-primary" />
         </button>
@@ -95,10 +98,10 @@ export const MobileInboxView: React.FC<MobileInboxViewProps> = ({
             key={f}
             onClick={() => setFilter(f)}
             className={cn(
-              'px-3 py-1.5 rounded-full text-sm font-medium transition-colors',
+              'px-3 py-2 min-h-[40px] rounded-full text-sm font-medium transition-colors',
               filter === f
-                ? 'bg-blue-500 text-white'
-                : 'bg-surface-tertiary text-content-secondary'
+                ? 'bg-brand-500 dark:bg-brand-600 text-white'
+                : 'bg-surface-tertiary text-content-secondary active:bg-surface-secondary'
             )}
           >
             {f === 'all' ? 'All' : f === 'active' ? 'Active' : 'Done'}
@@ -142,11 +145,12 @@ export const MobileInboxView: React.FC<MobileInboxViewProps> = ({
                           toggleTask(task.id)
                         }}
                         className={cn(
-                          'mt-0.5 w-6 h-6 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors',
+                          'mt-0.5 w-7 h-7 min-w-[28px] rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-colors',
                           task.completed
-                            ? 'bg-green-500 border-green-500'
-                            : 'border-border hover:border-blue-500'
+                            ? 'bg-semantic-success border-semantic-success'
+                            : 'border-border hover:border-brand-500 active:border-brand-600'
                         )}
+                        aria-label={task.completed ? 'Mark incomplete' : 'Mark complete'}
                       >
                         {task.completed && <span className="text-white text-sm">✓</span>}
                       </button>

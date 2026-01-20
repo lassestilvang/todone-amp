@@ -113,7 +113,7 @@ This phase focuses on implementing a robust, accessible theming system with dark
 
 | ID | Task | Priority | Status |
 |----|------|----------|--------|
-| T6.7.1 | Ensure mobile touch targets have proper contrast | High | ⬜ |
+| T6.7.1 | Ensure mobile touch targets have proper contrast | High | ✅ |
 | T6.7.2 | Test theme switching on mobile devices | High | ⬜ |
 | T6.7.3 | Optimize theme CSS for mobile performance | Medium | ⬜ |
 | T6.7.4 | Ensure bottom sheet/drawer dark mode compatibility | Medium | ⬜ |
@@ -541,6 +541,7 @@ npm run storybook
 
 | Date | Change | Author |
 |------|--------|--------|
+| 2026-01-20 | T6.7.1: COMPLETED - Ensured mobile touch targets have proper contrast. Updated 7 mobile components: MobileNav, MobileNavigation, MobileQuickAddModal, MobileTaskDetail, MobileInboxView, MobileBoardView, BottomSheet. Added min-h-[44px]/min-h-[48px] for WCAG-compliant touch targets. Added dark mode variants for active/selected states using semantic tokens (brand-400/500/600, bg-brand-900/30). Added active states for touch feedback. Migrated hardcoded colors to semantic tokens (priority colors, success/info/warning states). Build successful. | Amp |
 | 2026-01-20 | T6.6.8: COMPLETED - Polished empty states with theme-aware illustrations. Enhanced `EmptyStates.tsx` with decorative elements: added `DecorativeRings` (blurred background circles) and `FloatingDots` (animated pulsing dots) components. Created accent color variants (brand/purple/indigo/teal) with appropriate backgrounds, icon colors, and ring styles that adapt to light/dark modes. Each empty state variant uses a contextually appropriate accent color. Added hover:scale-105 interaction to icons. Build successful. | Amp |
 | 2026-01-20 | T6.6.7: COMPLETED - Implemented dynamic favicon based on theme. Created `/public/favicon.svg` with CSS media query for automatic light/dark switching. Added separate `/icons/favicon-light.svg` (green bg, white checkmark) and `/icons/favicon-dark.svg` (lighter green bg, dark checkmark) variants. Created `useDynamicFavicon` hook that updates favicon and theme-color meta tag when theme changes, respecting system preference in 'system' mode. Integrated hook in App.tsx. Build successful. | Amp |
 | 2026-01-19 | T6.6.6: COMPLETED - Added smooth, theme-aware scrollbar styling. Created custom scrollbar CSS in index.css using CSS variables for webkit browsers (Chrome, Safari, Edge) and Firefox. Scrollbar track uses `surface-secondary`, thumb uses `border-default` with hover/active states. Added `.scrollbar-thin` variant (6px) and `.scrollbar-hide` utility. Scrollbars transition smoothly during theme changes via `html.theme-transition` selector. Build successful. | Amp |
