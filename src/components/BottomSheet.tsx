@@ -57,16 +57,17 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
     <>
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+        className="fixed inset-0 bg-surface-overlay z-40 md:hidden backdrop-blur-sm"
         onClick={onClose}
+        aria-hidden="true"
       />
 
       {/* Bottom Sheet */}
       <div
         className={cn(
-          'fixed bottom-0 left-0 right-0 z-50 bg-surface-primary rounded-t-2xl',
+          'fixed bottom-0 left-0 right-0 z-50 bg-surface-primary rounded-t-2xl shadow-elevated',
           'md:hidden',
-          'transition-transform duration-300',
+          'transition-transform duration-300 border-t border-border-subtle',
           'max-h-[90vh] flex flex-col',
           fullHeight && 'h-screen',
           className
@@ -106,16 +107,18 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
         )}
       >
         <div
-          className="hidden md:block absolute inset-0 bg-black bg-opacity-40"
+          className="hidden md:block absolute inset-0 bg-surface-overlay backdrop-blur-sm"
           onClick={onClose}
+          aria-hidden="true"
         />
-        <div className="hidden md:block relative bg-surface-primary rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="hidden md:block relative bg-surface-primary rounded-lg shadow-elevated max-w-2xl w-full max-h-[90vh] overflow-y-auto border border-border-subtle">
           {title && (
             <div className="flex items-center justify-between px-6 py-4 border-b border-border">
               <h2 className="text-lg font-semibold text-content-primary">{title}</h2>
               <button
                 onClick={onClose}
-                className="p-1 text-content-tertiary hover:text-content-secondary"
+                className="p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-content-tertiary hover:text-content-secondary rounded-lg hover:bg-surface-tertiary active:bg-surface-tertiary transition-colors"
+                aria-label="Close"
               >
                 <X size={24} />
               </button>

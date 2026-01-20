@@ -33,6 +33,7 @@ export default {
           secondary: 'var(--color-surface-secondary)',
           tertiary: 'var(--color-surface-tertiary)',
           elevated: 'var(--color-surface-elevated)',
+          overlay: 'var(--color-surface-overlay)',
         },
         content: {
           primary: 'var(--color-text-primary)',
@@ -133,6 +134,7 @@ export default {
         '2xl': 'var(--shadow-2xl)',
         inner: 'var(--shadow-inner)',
         glow: 'var(--shadow-glow)',
+        elevated: 'var(--shadow-elevated)',
       },
       ringColor: {
         focus: 'var(--color-focus-ring)',

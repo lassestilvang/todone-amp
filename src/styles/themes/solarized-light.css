@@ -70,6 +70,7 @@
   --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
   --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.04);
   --shadow-glow: 0 0 15px rgba(38, 139, 210, 0.2);
+  --shadow-elevated: 0 10px 40px -10px rgba(0, 0, 0, 0.15), 0 4px 20px -5px rgba(0, 0, 0, 0.1);
 
   /* Sidebar */
   --color-sidebar-bg: #eee8d5;

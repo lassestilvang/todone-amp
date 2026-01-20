@@ -116,19 +116,19 @@ This phase focuses on implementing a robust, accessible theming system with dark
 | T6.7.1 | Ensure mobile touch targets have proper contrast | High | ✅ |
 | T6.7.2 | Test theme switching on mobile devices | High | ✅ |
 | T6.7.3 | Optimize theme CSS for mobile performance | Medium | ✅ |
-| T6.7.4 | Ensure bottom sheet/drawer dark mode compatibility | Medium | ⬜ |
-| T6.7.5 | Test PWA theme-color meta tag updates | Medium | ⬜ |
+| T6.7.4 | Ensure bottom sheet/drawer dark mode compatibility | Medium | ✅ |
+| T6.7.5 | Test PWA theme-color meta tag updates | Medium | ✅ |
 
 ### 8. 🧪 Testing & Quality Assurance
 
 | ID | Task | Priority | Status |
 |----|------|----------|--------|
-| T6.8.1 | Add Storybook stories for all theme variants | High | ⬜ |
+| T6.8.1 | Add Storybook stories for all theme variants | High | ✅ |
 | T6.8.2 | Create visual regression tests for theme changes | Medium | ⬜ |
-| T6.8.3 | Add E2E tests for theme switching functionality | High | ⬜ |
-| T6.8.4 | Test theme persistence across sessions | High | ⬜ |
-| T6.8.5 | Test system preference change detection | Medium | ⬜ |
-| T6.8.6 | Add unit tests for theme store edge cases | Medium | ⬜ |
+| T6.8.3 | Add E2E tests for theme switching functionality | High | ✅ |
+| T6.8.4 | Test theme persistence across sessions | High | ✅ |
+| T6.8.5 | Test system preference change detection | Medium | ✅ |
+| T6.8.6 | Add unit tests for theme store edge cases | Medium | ✅ |
 | T6.8.7 | Manual testing on different OS dark mode settings | Medium | ⬜ |
 
 ### 9. 📖 Documentation
@@ -541,6 +541,11 @@ npm run storybook
 
 | Date | Change | Author |
 |------|--------|--------|
+| 2026-01-20 | T6.8.6: COMPLETED - Added unit tests for theme store edge cases. Expanded `themeStore.test.ts` from 10 to 29 tests. Added edge case tests: rapid mode/theme changes, maintaining theme when mode changes (and vice versa), setting same mode/theme multiple times, system preference detection (light/dark), switching from system to explicit mode. Added comprehensive tests for all 9 theme variants and all 3 modes. All 29 unit tests pass. | Amp |
+| 2026-01-20 | T6.8.3-5: COMPLETED - Created comprehensive E2E tests for theme functionality. Added `e2e/theme.spec.ts` with 14 tests covering: theme switcher visibility, switching to dark/light mode, cycling through themes, background/text color changes, sidebar adaptation, button visibility, accessibility labels, keyboard navigation, smooth transitions, system preference (dark/light), and manual override of system preference. Tests verify theme persistence across sessions (T6.8.4) and system preference detection with dynamic changes (T6.8.5). All 14 E2E tests pass on Chromium. | Amp |
+| 2026-01-20 | T6.8.1: COMPLETED - Added Storybook stories for all theme variants. Enhanced `.storybook/preview.tsx` with theme toolbar selector supporting 10 themes (Default, Default Dark, Nord, Dracula, Solarized Light/Dark, One Dark, GitHub Light/Dark, High Contrast). Created `ThemeShowcase.stories.tsx` with comprehensive component display including: Typography, Surfaces, Buttons, Inputs, Cards, Badges, Priority colors, Semantic colors, Icons, Shadows, Loading states, Sidebar preview, Focus states, and Accent colors. Theme switcher appears in Storybook toolbar with sun/moon indicators. Build successful. | Amp |
+| 2026-01-20 | T6.7.5: COMPLETED - Created E2E tests for PWA theme-color meta tag updates. Added `e2e/theme-pwa.spec.ts` with 8 tests covering: theme-color meta tag existence, updates when switching to dark/light mode, persistence after page reload, favicon updates with theme, respecting system dark/light preference, and theme-color updates when system preference changes dynamically. All tests verify the existing `useDynamicFavicon` hook implementation works correctly. All 8 E2E tests pass on Chromium. | Amp |
+| 2026-01-20 | T6.7.4: COMPLETED - Ensured bottom sheet/drawer dark mode compatibility. Updated `BottomSheet.tsx` to use semantic tokens: `bg-surface-overlay` for backdrop with `backdrop-blur-sm`, `shadow-elevated` for sheet elevation, `border-border-subtle` for subtle top border. Added proper aria-hidden to backdrop overlays. Enhanced desktop modal close button with WCAG-compliant min 44px touch target and proper hover/active states. Added `surface.overlay` and `shadow.elevated` to Tailwind config. Added `--shadow-elevated` token to all 8 theme files with light/dark variants. Build successful. | Amp |
 | 2026-01-20 | T6.7.3: COMPLETED - Optimized theme CSS for mobile performance. Added CSS containment utilities (`contain-layout`, `contain-paint`, `contain-strict`, `contain-content`) and content-visibility (`content-auto`) for off-screen optimization. Added GPU acceleration hints (`will-change-*`, `gpu-accelerated`, `force-layer`). Implemented mobile-specific optimizations: simplified patterns/gradients, disabled noise texture, optimized scrolling with `-webkit-overflow-scrolling` and `overscroll-behavior`, reduced shadow complexity. Added touch device optimizations with faster theme transitions (100ms). Applied containment to ResponsiveLayout and VirtualTaskList. Created `src/utils/lazyThemeLoader.ts` for theme preloading. Build successful. | Amp |
 | 2026-01-20 | T6.7.2: COMPLETED - Created E2E tests for theme switching on mobile devices. Added `e2e/theme-mobile.spec.ts` with 9 tests covering: theme switcher visibility on mobile, cycling through themes, theme persistence after reload, visual updates on theme change, accessibility (aria-label, keyboard navigation), touch interactions with hasTouch context, tablet viewport testing, and system preference detection (light/dark). Uses custom fixture for mobile authentication that waits for main element. All 9 E2E tests pass on Chromium. | Amp |
 | 2026-01-20 | T6.7.1: COMPLETED - Ensured mobile touch targets have proper contrast. Updated 7 mobile components: MobileNav, MobileNavigation, MobileQuickAddModal, MobileTaskDetail, MobileInboxView, MobileBoardView, BottomSheet. Added min-h-[44px]/min-h-[48px] for WCAG-compliant touch targets. Added dark mode variants for active/selected states using semantic tokens (brand-400/500/600, bg-brand-900/30). Added active states for touch feedback. Migrated hardcoded colors to semantic tokens (priority colors, success/info/warning states). Build successful. | Amp |
