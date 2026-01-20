@@ -28,6 +28,7 @@ import { UndoNotification } from '@/components/UndoNotification'
 import { AchievementNotificationCenter } from '@/components/AchievementNotificationCenter'
 import { DragDropContextProvider } from '@/components/DragDropContext'
 import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts'
+import { useDynamicFavicon } from '@/hooks/useDynamicFavicon'
 import { FocusModeWidget } from '@/components/FocusMode'
 import { DailyReviewModal } from '@/components/DailyReview'
 
@@ -48,6 +49,7 @@ function App() {
   const setSelectedView = useViewStore((state) => state.setSelectedView)
 
   useKeyboardShortcuts(null)
+  useDynamicFavicon()
 
   // Initialize on mount - runs once, loadUser is a stable Zustand action
   useEffect(() => {

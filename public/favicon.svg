@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <style>
+    .bg { fill: #10b981; }
+    .check { stroke: white; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #4ade80; }
+      .check { stroke: #111827; }
+    }
+  </style>
+  <rect class="bg" width="32" height="32" rx="6"/>
+  <path class="check" d="M 8.5,15 L 13.5,21 L 23.5,10" stroke-width="3.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

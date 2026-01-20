@@ -106,7 +106,7 @@ This phase focuses on implementing a robust, accessible theming system with dark
 | T6.6.4 | Improve loading skeleton styles for dark mode | Medium | ✅ |
 | T6.6.5 | Add micro-interactions for theme changes | Low | ✅ |
 | T6.6.6 | Ensure smooth scrollbar styling in both modes | Low | ✅ |
-| T6.6.7 | Update favicon/app icon based on theme | Low | ⬜ |
+| T6.6.7 | Update favicon/app icon based on theme | Low | ✅ |
 | T6.6.8 | Polish empty states with theme-aware illustrations | Low | ⬜ |
 
 ### 7. 📱 Responsive Theme Considerations
@@ -541,6 +541,7 @@ npm run storybook
 
 | Date | Change | Author |
 |------|--------|--------|
+| 2026-01-20 | T6.6.7: COMPLETED - Implemented dynamic favicon based on theme. Created `/public/favicon.svg` with CSS media query for automatic light/dark switching. Added separate `/icons/favicon-light.svg` (green bg, white checkmark) and `/icons/favicon-dark.svg` (lighter green bg, dark checkmark) variants. Created `useDynamicFavicon` hook that updates favicon and theme-color meta tag when theme changes, respecting system preference in 'system' mode. Integrated hook in App.tsx. Build successful. | Amp |
 | 2026-01-19 | T6.6.6: COMPLETED - Added smooth, theme-aware scrollbar styling. Created custom scrollbar CSS in index.css using CSS variables for webkit browsers (Chrome, Safari, Edge) and Firefox. Scrollbar track uses `surface-secondary`, thumb uses `border-default` with hover/active states. Added `.scrollbar-thin` variant (6px) and `.scrollbar-hide` utility. Scrollbars transition smoothly during theme changes via `html.theme-transition` selector. Build successful. | Amp |
 | 2026-01-19 | T6.6.5: COMPLETED - Added micro-interactions for theme changes. Created `theme-pop` keyframe animation (subtle 1.02x scale) and `theme-icon-fade` animation in index.css. Added `.theme-pop-on-change` class and `[data-theme-reactive]` attribute for elements that should animate during theme transitions. Applied to ThemeSwitcher button. Animations only trigger when `html.theme-transition` class is present, respecting the existing transition system. Build successful. | Amp |
 | 2026-01-19 | T6.6.4: COMPLETED - Improved loading skeleton styles for dark mode. Created dedicated skeleton color tokens (`skeleton-base`, `skeleton-highlight`) in index.css and Tailwind config. Added shimmer animation (`skeleton-wave`) with smooth gradient effect. Updated Skeleton UI component to use `bg-skeleton-base`. Migrated TaskListSkeleton (all 7 skeleton variants), TaskList, AIInsights, Leaderboard, BadgesDisplay, and AchievementsShowcase to use new skeleton tokens. Colors now have proper contrast in dark mode (#374151 base, #4b5563 highlight). Build successful. | Amp |
