@@ -2,6 +2,11 @@ import { useEffect, useRef, ReactNode } from 'react'
 import { useThemeStore, ThemeName } from '@/store/themeStore'
 import { ThemeContext, ThemeContextValue } from '@/contexts/ThemeContext'
 
+/**
+ * Maps theme names to their corresponding CSS class names.
+ * The 'default' theme uses no additional class (empty string).
+ * @internal
+ */
 const themeClassMap: Record<ThemeName, string> = {
   default: '',
   nord: 'theme-nord',
@@ -14,12 +19,48 @@ const themeClassMap: Record<ThemeName, string> = {
   'high-contrast': 'theme-high-contrast',
 }
 
+/**
+ * Duration of theme transition animation in milliseconds.
+ * Matches the CSS variable `--theme-transition-duration`.
+ * @internal
+ */
 const THEME_TRANSITION_DURATION = 150
 
+/**
+ * Props for the ThemeProvider component.
+ */
 interface ThemeProviderProps {
+  /** Child components that will have access to theme context */
   children: ReactNode
 }
 
+/**
+ * Theme provider component that manages theme state and DOM updates.
+ *
+ * This component:
+ * - Initializes the theme store on mount
+ * - Syncs theme state with the DOM (adds/removes CSS classes on `<html>`)
+ * - Provides theme context to all child components
+ * - Manages smooth theme transition animations
+ *
+ * Must wrap the application root. Only one ThemeProvider should exist.
+ *
+ * @example
+ * ```tsx
+ * import { ThemeProvider } from '@/components/ThemeProvider'
+ *
+ * function App() {
+ *   return (
+ *     <ThemeProvider>
+ *       <YourApp />
+ *     </ThemeProvider>
+ *   )
+ * }
+ * ```
+ *
+ * @see useTheme - Hook to access theme context from child components
+ * @see ThemeContext - The underlying React context
+ */
 export function ThemeProvider({ children }: ThemeProviderProps) {
   const { mode, theme, resolvedMode, setMode, setTheme, initialize } = useThemeStore()
   const isInitialMount = useRef(true)
