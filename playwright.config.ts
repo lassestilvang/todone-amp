@@ -9,6 +9,17 @@ export default defineConfig({
   reporter: process.env.CI ? 'github' : 'html',
   timeout: 30000,
 
+  snapshotDir: './e2e/__snapshots__',
+  snapshotPathTemplate: '{snapshotDir}/{testFilePath}/{projectName}/{arg}{ext}',
+
+  expect: {
+    toHaveScreenshot: {
+      maxDiffPixelRatio: 0.05,
+      threshold: 0.2,
+      animations: 'disabled',
+    },
+  },
+
   use: {
     baseURL: process.env.CI ? 'http://localhost:4173' : 'http://localhost:3000',
     trace: 'on-first-retry',

@@ -124,7 +124,7 @@ This phase focuses on implementing a robust, accessible theming system with dark
 | ID | Task | Priority | Status |
 |----|------|----------|--------|
 | T6.8.1 | Add Storybook stories for all theme variants | High | ✅ |
-| T6.8.2 | Create visual regression tests for theme changes | Medium | ⬜ |
+| T6.8.2 | Create visual regression tests for theme changes | Medium | ✅ |
 | T6.8.3 | Add E2E tests for theme switching functionality | High | ✅ |
 | T6.8.4 | Test theme persistence across sessions | High | ✅ |
 | T6.8.5 | Test system preference change detection | Medium | ✅ |
@@ -541,6 +541,7 @@ npm run storybook
 
 | Date | Change | Author |
 |------|--------|--------|
+| 2026-01-20 | T6.8.2: COMPLETED - Created visual regression tests for theme changes. Added `e2e/theme-visual.spec.ts` with 20 tests covering: main layout (light/dark), sidebar (light/dark), theme switcher button (light/dark), button hover states, navigation items, empty inbox states, settings page, focus ring visibility, responsive mobile layouts (375x667), and tablet layouts (768x1024). Updated `playwright.config.ts` with snapshot configuration (snapshotDir, snapshotPathTemplate, toHaveScreenshot options). Baseline screenshots stored in `e2e/__snapshots__/theme-visual.spec.ts/chromium/`. All 20 visual regression tests pass on Chromium. | Amp |
 | 2026-01-20 | T6.8.6: COMPLETED - Added unit tests for theme store edge cases. Expanded `themeStore.test.ts` from 10 to 29 tests. Added edge case tests: rapid mode/theme changes, maintaining theme when mode changes (and vice versa), setting same mode/theme multiple times, system preference detection (light/dark), switching from system to explicit mode. Added comprehensive tests for all 9 theme variants and all 3 modes. All 29 unit tests pass. | Amp |
 | 2026-01-20 | T6.8.3-5: COMPLETED - Created comprehensive E2E tests for theme functionality. Added `e2e/theme.spec.ts` with 14 tests covering: theme switcher visibility, switching to dark/light mode, cycling through themes, background/text color changes, sidebar adaptation, button visibility, accessibility labels, keyboard navigation, smooth transitions, system preference (dark/light), and manual override of system preference. Tests verify theme persistence across sessions (T6.8.4) and system preference detection with dynamic changes (T6.8.5). All 14 E2E tests pass on Chromium. | Amp |
 | 2026-01-20 | T6.8.1: COMPLETED - Added Storybook stories for all theme variants. Enhanced `.storybook/preview.tsx` with theme toolbar selector supporting 10 themes (Default, Default Dark, Nord, Dracula, Solarized Light/Dark, One Dark, GitHub Light/Dark, High Contrast). Created `ThemeShowcase.stories.tsx` with comprehensive component display including: Typography, Surfaces, Buttons, Inputs, Cards, Badges, Priority colors, Semantic colors, Icons, Shadows, Loading states, Sidebar preview, Focus states, and Accent colors. Theme switcher appears in Storybook toolbar with sun/moon indicators. Build successful. | Amp |
