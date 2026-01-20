@@ -24,11 +24,11 @@ export const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({
       {/* Desktop Sidebar - isolated layout for performance */}
       {sidebar && <aside className="hidden md:block contain-layout">{sidebar}</aside>}
 
-      {/* Mobile Navigation */}
-      {mobileNav && <nav className="contain-layout">{mobileNav}</nav>}
+      {/* Mobile Navigation - no contain on parent since children use fixed positioning */}
+      {mobileNav && <>{mobileNav}</>}
 
       {/* Main Content - paint containment for scroll performance */}
-      <main className={cn('flex-1 flex flex-col overflow-hidden contain-paint', 'pb-16 md:pb-0')}>
+      <main className={cn('flex-1 flex flex-col overflow-hidden md:contain-paint', 'pt-16 pb-16 md:pt-0 md:pb-0')}>
         {children}
       </main>
     </div>

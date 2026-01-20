@@ -118,8 +118,7 @@ export const MobileNavigation: React.FC<MobileNavigationProps> = ({
         ))}
       </div>
 
-      {/* Add padding to main content for mobile */}
-      <div className="md:hidden h-16" />
+
     </>
   )
 }
