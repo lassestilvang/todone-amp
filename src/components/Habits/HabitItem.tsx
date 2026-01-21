@@ -82,7 +82,7 @@ export const HabitItem: React.FC<HabitItemProps> = ({ habit, onClick }) => {
               className={clsx(
                 'w-8 h-8 rounded-full flex items-center justify-center transition-colors',
                 isCompleted
-                  ? 'bg-green-500 text-white'
+                  ? 'bg-semantic-success text-content-inverse'
                   : isDueToday
                     ? 'bg-surface-secondary hover:bg-surface-tertiary text-content-secondary'
                     : 'bg-surface-secondary text-content-tertiary cursor-not-allowed'
@@ -98,9 +98,9 @@ export const HabitItem: React.FC<HabitItemProps> = ({ habit, onClick }) => {
             className={clsx(
               'w-8 h-8 rounded-full flex items-center justify-center transition-colors border-2',
               isCompleted
-                ? 'bg-green-500 border-green-500 text-white'
+                ? 'bg-semantic-success border-semantic-success text-content-inverse'
                 : isDueToday
-                  ? 'border-border hover:border-brand-500'
+                  ? 'border-border hover:border-interactive-primary'
                   : 'border-border cursor-not-allowed'
             )}
           >

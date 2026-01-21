@@ -47,7 +47,7 @@ export const HabitList: React.FC<HabitListProps> = ({ habits, onSelectHabit }) =
             className={clsx(
               'px-3 py-1.5 text-sm font-medium rounded-lg transition-colors',
               filter === key
-                ? 'bg-brand-100 dark:bg-brand-900 text-brand-700 dark:text-brand-300'
+                ? 'bg-interactive-secondary text-interactive-primary'
                 : 'text-content-secondary hover:bg-surface-tertiary'
             )}
           >

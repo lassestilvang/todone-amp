@@ -37,7 +37,7 @@ export const HabitStats: React.FC<HabitStatsProps> = ({ habit }) => {
       value: currentStreak,
       unit: currentStreak === 1 ? 'day' : 'days',
       color: 'text-icon-orange',
-      bgColor: 'bg-orange-50 dark:bg-orange-900/20',
+      bgColor: 'bg-accent-orange-subtle',
     },
     {
       icon: Trophy,
@@ -45,7 +45,7 @@ export const HabitStats: React.FC<HabitStatsProps> = ({ habit }) => {
       value: bestStreak,
       unit: bestStreak === 1 ? 'day' : 'days',
       color: 'text-icon-yellow',
-      bgColor: 'bg-yellow-50 dark:bg-yellow-900/20',
+      bgColor: 'bg-accent-yellow-subtle',
     },
     {
       icon: Target,
@@ -53,7 +53,7 @@ export const HabitStats: React.FC<HabitStatsProps> = ({ habit }) => {
       value: totalCompletions,
       unit: '',
       color: 'text-icon-success',
-      bgColor: 'bg-green-50 dark:bg-green-900/20',
+      bgColor: 'bg-semantic-success-light',
     },
     {
       icon: Calendar,
@@ -61,7 +61,7 @@ export const HabitStats: React.FC<HabitStatsProps> = ({ habit }) => {
       value: avgPerWeek,
       unit: '',
       color: 'text-icon-info',
-      bgColor: 'bg-blue-50 dark:bg-blue-900/20',
+      bgColor: 'bg-semantic-info-light',
     },
   ]
 
@@ -86,7 +86,7 @@ export const HabitStats: React.FC<HabitStatsProps> = ({ habit }) => {
 
       <div>
         <div className="flex items-center gap-2 mb-3">
-          <TrendingUp className="w-4 h-4 text-brand-600" />
+          <TrendingUp className="w-4 h-4 text-interactive-primary" />
           <span className="text-sm font-medium text-content-secondary">
             Completion Rate
           </span>
@@ -109,10 +109,10 @@ interface CompletionRateBarProps {
 
 const CompletionRateBar: React.FC<CompletionRateBarProps> = ({ label, rate }) => {
   const getColor = (rate: number): string => {
-    if (rate >= 80) return 'bg-green-500'
-    if (rate >= 60) return 'bg-yellow-500'
-    if (rate >= 40) return 'bg-orange-500'
-    return 'bg-red-500'
+    if (rate >= 80) return 'bg-semantic-success'
+    if (rate >= 60) return 'bg-semantic-warning'
+    if (rate >= 40) return 'bg-accent-orange'
+    return 'bg-semantic-error'
   }
 
   return (

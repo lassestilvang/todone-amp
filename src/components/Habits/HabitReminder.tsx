@@ -25,11 +25,11 @@ export const HabitReminder: React.FC<HabitReminderProps> = ({ reminderTime, onCh
           <div
             className={clsx(
               'p-2 rounded-lg',
-              isEnabled ? 'bg-brand-100 dark:bg-brand-900' : 'bg-surface-secondary'
+              isEnabled ? 'bg-interactive-secondary' : 'bg-surface-secondary'
             )}
           >
             {isEnabled ? (
-              <Bell className="w-5 h-5 text-brand-600 dark:text-brand-400" />
+              <Bell className="w-5 h-5 text-interactive-primary" />
             ) : (
               <BellOff className="w-5 h-5 text-content-tertiary" />
             )}
@@ -46,7 +46,7 @@ export const HabitReminder: React.FC<HabitReminderProps> = ({ reminderTime, onCh
           onClick={handleToggle}
           className={clsx(
             'relative inline-flex h-6 w-11 items-center rounded-full transition-colors',
-            isEnabled ? 'bg-brand-600' : 'bg-surface-tertiary'
+            isEnabled ? 'bg-interactive-primary' : 'bg-surface-tertiary'
           )}
         >
           <span

@@ -172,7 +172,7 @@ export const HabitForm: React.FC<HabitFormProps> = ({ habit, onSubmit, onClose, 
                         }}
                         className={clsx(
                           'w-10 h-10 text-xl rounded-lg hover:bg-surface-tertiary transition-colors',
-                          icon === emoji && 'bg-brand-100 dark:bg-brand-900'
+                          icon === emoji && 'bg-interactive-secondary'
                         )}
                       >
                         {emoji}
@@ -195,7 +195,7 @@ export const HabitForm: React.FC<HabitFormProps> = ({ habit, onSubmit, onClose, 
                     onClick={() => setColor(c)}
                     className={clsx(
                       'w-6 h-6 rounded-full transition-transform',
-                      color === c && 'ring-2 ring-offset-2 ring-gray-400 scale-110'
+                      color === c && 'ring-2 ring-offset-2 ring-border scale-110'
                     )}
                     style={{ backgroundColor: c }}
                   />
@@ -217,7 +217,7 @@ export const HabitForm: React.FC<HabitFormProps> = ({ habit, onSubmit, onClose, 
                   className={clsx(
                     'px-4 py-2 rounded-lg text-sm font-medium transition-colors capitalize',
                     frequency === freq
-                      ? 'bg-brand-600 text-white'
+                      ? 'bg-interactive-primary text-content-inverse'
                       : 'bg-surface-secondary text-content-secondary hover:bg-surface-tertiary'
                   )}
                 >
@@ -241,7 +241,7 @@ export const HabitForm: React.FC<HabitFormProps> = ({ habit, onSubmit, onClose, 
                     className={clsx(
                       'flex-1 py-2 text-sm font-medium rounded-lg transition-colors',
                       customDays.includes(index)
-                        ? 'bg-brand-600 text-white'
+                        ? 'bg-interactive-primary text-content-inverse'
                         : 'bg-surface-secondary text-content-secondary hover:bg-surface-tertiary'
                     )}
                   >
@@ -291,7 +291,7 @@ export const HabitForm: React.FC<HabitFormProps> = ({ habit, onSubmit, onClose, 
             </button>
             <button
               type="submit"
-              className="px-4 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition-colors"
+              className="px-4 py-2 bg-interactive-primary text-content-inverse rounded-lg hover:bg-interactive-primary-hover transition-colors"
             >
               {habit ? 'Save Changes' : 'Create Habit'}
             </button>
