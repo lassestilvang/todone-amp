@@ -90,7 +90,7 @@ Phase 7 focuses on production readiness, performance optimization, completing re
 |----|------|----------|--------|
 | T7.2.1 | Run Lighthouse audit and document baseline scores | High | ✅ |
 | T7.2.2 | Implement Web Vitals monitoring (LCP, FID, CLS) | High | ✅ |
-| T7.2.3 | Optimize bundle size - analyze and reduce | High | 🔵 |
+| T7.2.3 | Optimize bundle size - analyze and reduce | High | ✅ |
 | T7.2.4 | Add route-based code splitting | Medium | 🔵 |
 | T7.2.5 | Implement service worker caching strategy | Medium | 🔵 |
 | T7.2.6 | Load testing with 1000+ tasks | Medium | 🔵 |
@@ -380,6 +380,7 @@ interface TeamAchievement {
 | 2026-01-21 | T7.1.6: Completed final audit - migrated 40+ additional files to semantic tokens | Amp |
 | 2026-01-21 | T7.2.1: Lighthouse audit completed - Performance: 100, Accessibility: 96, Best Practices: 100, SEO: 91 | Amp |
 | 2026-01-21 | T7.2.2: Implemented Web Vitals monitoring (CLS, FID, LCP, FCP, TTFB, INP) with dev console logging | Amp |
+| 2026-01-21 | T7.2.3: Bundle optimization - lazy loaded RichTextEditor (112KB gzipped deferred), added bundle visualizer | Amp |
 
 ---
 
@@ -387,7 +388,7 @@ interface TeamAchievement {
 
 1. ~~**Immediate**: Run Lighthouse audit to establish baseline (T7.2.1)~~ ✅ Complete - see [LIGHTHOUSE_BASELINE.md](./LIGHTHOUSE_BASELINE.md)
 2. ~~**Immediate**: Implement Web Vitals monitoring (T7.2.2)~~ ✅ Complete - see `src/utils/webVitals.ts`
-3. **Next**: Optimize bundle size - analyze and reduce (T7.2.3)
+3. ~~**Next**: Optimize bundle size - analyze and reduce (T7.2.3)~~ ✅ Complete - see [BUNDLE_OPTIMIZATION.md](./BUNDLE_OPTIMIZATION.md)
 4. **Decision Point**: Determine if deploying as local-only or multi-user (affects auth priority)
 5. **AI Features**: Evaluate local vs API approach based on privacy requirements
 

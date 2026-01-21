@@ -21,7 +21,7 @@ import { ActivityFeed } from '@/components/ActivityFeed'
 import { RecurrenceExceptionManager } from '@/components/RecurrenceExceptionManager'
 import { RecurrenceInstancesList } from '@/components/RecurrenceInstancesList'
 import { RecurrenceCalendarView } from '@/components/RecurrenceCalendarView'
-import { RichTextEditor } from '@/components/RichTextEditor'
+import { RichTextEditorLazy } from '@/components/RichTextEditorLazy'
 
 export function TaskDetailPanel() {
   const {
@@ -184,7 +184,7 @@ export function TaskDetailPanel() {
             {/* Description */}
             <div>
               <label className="block text-sm font-medium text-content-secondary mb-2">Description</label>
-              <RichTextEditor
+              <RichTextEditorLazy
                 value={selectedTask.description || ''}
                 onChange={(html) => {
                   updateSelectedTask({ description: html })
