@@ -224,9 +224,9 @@ function MonthView({ currentDate, tasksByDate, onTaskClick }: MonthViewProps) {
                         className={cn(
                           'w-full text-xs p-1 rounded text-left hover:opacity-80 transition-opacity line-clamp-1 font-medium',
                           {
-                            'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200': task.priority === 'p1',
-                            'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200': task.priority === 'p2',
-                            'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200': task.priority === 'p3',
+                            'bg-priority-p1-bg text-priority-p1': task.priority === 'p1',
+                            'bg-priority-p2-bg text-priority-p2': task.priority === 'p2',
+                            'bg-priority-p3-bg text-priority-p3': task.priority === 'p3',
                             'bg-surface-tertiary text-content-primary': !task.priority || task.priority === 'p4',
                           }
                         )}
@@ -309,10 +309,10 @@ function WeekView({ currentDate, tasksByDate, onTaskClick }: WeekViewProps) {
         {/* Current time indicator */}
         {currentTime !== null && (
           <div
-            className="absolute left-0 right-0 h-1 bg-red-500 z-20 pointer-events-none"
+            className="absolute left-0 right-0 h-1 bg-error z-20 pointer-events-none"
             style={{ top: `${currentTime}px` }}
           >
-            <div className="absolute -left-2 -top-1.5 w-4 h-4 bg-red-500 rounded-full border-2 border-white shadow-md" />
+            <div className="absolute -left-2 -top-1.5 w-4 h-4 bg-error rounded-full border-2 border-surface-primary shadow-md" />
           </div>
         )}
 
@@ -352,9 +352,9 @@ function WeekView({ currentDate, tasksByDate, onTaskClick }: WeekViewProps) {
                             className={cn(
                               'w-full text-xs p-1 rounded text-left hover:opacity-80 transition-opacity line-clamp-1 font-medium',
                               {
-                                'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200': task.priority === 'p1',
-                                'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200': task.priority === 'p2',
-                                'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200': task.priority === 'p3',
+                                'bg-priority-p1-bg text-priority-p1': task.priority === 'p1',
+                                'bg-priority-p2-bg text-priority-p2': task.priority === 'p2',
+                                'bg-priority-p3-bg text-priority-p3': task.priority === 'p3',
                                 'bg-surface-tertiary text-content-primary': !task.priority || task.priority === 'p4',
                               }
                             )}

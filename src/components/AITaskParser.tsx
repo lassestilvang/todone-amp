@@ -34,53 +34,53 @@ const FIELD_CONFIG: Record<
   dueDate: {
     icon: Calendar,
     label: 'Due',
-    colorClass: 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-800',
+    colorClass: 'bg-info-light text-info border-info-light',
   },
   dueTime: {
     icon: Clock,
     label: 'Time',
-    colorClass: 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-800',
+    colorClass: 'bg-info-light text-info border-info-light',
   },
   priority: {
     icon: Flag,
     label: 'Priority',
-    colorClass: 'bg-orange-100 text-orange-800 border-orange-200 dark:bg-orange-900/30 dark:text-orange-300 dark:border-orange-800',
+    colorClass: 'bg-warning-light text-warning border-warning-light',
   },
   project: {
     icon: FolderOpen,
     label: 'Project',
-    colorClass: 'bg-purple-100 text-purple-800 border-purple-200 dark:bg-purple-900/30 dark:text-purple-300 dark:border-purple-800',
+    colorClass: 'bg-accent-purple-subtle text-accent-purple border-accent-purple',
   },
   labels: {
     icon: Tag,
     label: 'Labels',
-    colorClass: 'bg-green-100 text-green-800 border-green-200 dark:bg-green-900/30 dark:text-green-300 dark:border-green-800',
+    colorClass: 'bg-success-light text-success border-success-light',
   },
   location: {
     icon: MapPin,
     label: 'Location',
-    colorClass: 'bg-red-100 text-red-800 border-red-200 dark:bg-red-900/30 dark:text-red-300 dark:border-red-800',
+    colorClass: 'bg-error-light text-error border-error-light',
   },
   duration: {
     icon: Timer,
     label: 'Duration',
-    colorClass: 'bg-cyan-100 text-cyan-800 border-cyan-200 dark:bg-cyan-900/30 dark:text-cyan-300 dark:border-cyan-800',
+    colorClass: 'bg-accent-teal-subtle text-accent-teal border-accent-teal',
   },
   recurrence: {
     icon: Repeat,
     label: 'Repeats',
-    colorClass: 'bg-indigo-100 text-indigo-800 border-indigo-200 dark:bg-indigo-900/30 dark:text-indigo-300 dark:border-indigo-800',
+    colorClass: 'bg-accent-indigo-subtle text-accent-indigo border-accent-indigo',
   },
 }
 
 function getPriorityColor(priority: string): string {
   switch (priority) {
     case 'p1':
-      return 'bg-red-100 text-red-800 border-red-200 dark:bg-red-900/30 dark:text-red-300 dark:border-red-800'
+      return 'bg-error-light text-error border-error-light'
     case 'p2':
-      return 'bg-orange-100 text-orange-800 border-orange-200 dark:bg-orange-900/30 dark:text-orange-300 dark:border-orange-800'
+      return 'bg-warning-light text-warning border-warning-light'
     case 'p3':
-      return 'bg-blue-100 text-blue-800 border-blue-200 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-800'
+      return 'bg-info-light text-info border-info-light'
     case 'p4':
       return 'bg-surface-tertiary text-content-primary border-border'
     default:
@@ -238,7 +238,7 @@ export function AIParsePreview({ input, parsed, isValid }: AIParsePreviewProps) 
       <AITaskParser parsed={parsed} showConfidence />
 
       {!isValid && parsed.title && (
-        <div className="text-xs text-amber-600 dark:text-amber-400 flex items-center gap-1">
+        <div className="text-xs text-warning flex items-center gap-1">
           <Sparkles size={12} />
           <span>
             Tip: Add dates like "tomorrow" or "Friday", priorities like "p1" or "!!!", projects with

@@ -71,7 +71,7 @@ export function TeamMembersList({
               className={cn(
                 'flex items-center justify-between p-3 rounded-lg border',
                 'hover:bg-surface-tertiary transition-colors',
-                selectedMember === member.id ? 'bg-brand-50 border-brand-200' : 'border-border'
+                selectedMember === member.id ? 'bg-accent-indigo-subtle border-accent-indigo' : 'border-border'
               )}
               onClick={() => setSelectedMember(member.id)}
             >

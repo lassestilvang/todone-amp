@@ -88,7 +88,7 @@ export const KarmaWidget: React.FC = () => {
   const isMaxLevel = userStats.karmaLevel === 'enlightened'
 
   return (
-    <div className="p-4 rounded-lg bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900 dark:to-indigo-900 border border-blue-200 dark:border-blue-700">
+    <div className="p-4 rounded-lg bg-accent-indigo-subtle border border-accent-indigo">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
@@ -115,7 +115,7 @@ export const KarmaWidget: React.FC = () => {
               {levelProgress.pointsNeeded} points to level up
             </span>
           )}
-          {isMaxLevel && <span className="text-xs text-yellow-600 dark:text-yellow-400 font-semibold">Max Level</span>}
+          {isMaxLevel && <span className="text-xs text-accent-yellow font-semibold">Max Level</span>}
         </div>
 
         {/* Progress Bar */}
@@ -123,9 +123,7 @@ export const KarmaWidget: React.FC = () => {
           <div
             className={clsx(
               'h-full transition-all duration-500 rounded-full',
-              isMaxLevel
-                ? 'bg-gradient-to-r from-yellow-400 to-yellow-600'
-                : 'bg-gradient-to-r from-blue-500 to-indigo-500'
+              isMaxLevel ? 'bg-accent-yellow' : 'bg-accent-indigo'
             )}
             style={{ width: `${levelProgress.progressPercentage}%` }}
           />
@@ -142,7 +140,7 @@ export const KarmaWidget: React.FC = () => {
       <div className="mb-4">
         <div className="w-full h-2 bg-interactive-secondary rounded-full overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-blue-500 to-indigo-500 transition-all duration-300"
+            className="h-full bg-accent-indigo transition-all duration-300"
             style={{ width: `${Math.min((userStats.karma % 500) / 5, 100)}%` }}
           />
         </div>

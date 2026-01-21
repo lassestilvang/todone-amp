@@ -80,7 +80,7 @@ export const WeeklyGoalProgress: React.FC<WeeklyGoalProgressProps> = ({ classNam
             <div
               className={cn(
                 'h-full transition-all duration-300',
-                isGoalMet ? 'bg-purple-500' : 'bg-indigo-500'
+                isGoalMet ? 'bg-accent-purple' : 'bg-accent-indigo'
               )}
               style={{ width: `${Math.min(progressPercentage, 100)}%` }}
             />
@@ -117,9 +117,7 @@ export const WeeklyGoalProgress: React.FC<WeeklyGoalProgressProps> = ({ classNam
             <div
               className={cn(
                 'h-full transition-all duration-300',
-                isGoalMet
-                  ? 'bg-gradient-to-r from-purple-400 to-purple-500'
-                  : 'bg-gradient-to-r from-indigo-400 to-indigo-500'
+                isGoalMet ? 'bg-accent-purple' : 'bg-accent-indigo'
               )}
               style={{ width: `${Math.min(progressPercentage, 100)}%` }}
             />
@@ -142,7 +140,7 @@ export const WeeklyGoalProgress: React.FC<WeeklyGoalProgressProps> = ({ classNam
                 className={cn(
                   'h-10 w-full rounded-md flex items-center justify-center text-xs font-semibold transition-all',
                   dayProgress.completed > 0
-                    ? 'bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-200'
+                    ? 'bg-accent-purple-subtle text-accent-purple'
                     : 'bg-surface-tertiary text-content-tertiary'
                 )}
               >
@@ -159,8 +157,8 @@ export const WeeklyGoalProgress: React.FC<WeeklyGoalProgressProps> = ({ classNam
         className={cn(
           'rounded-md p-2 text-center text-sm',
           isGoalMet
-            ? 'bg-green-50 text-green-800 dark:bg-green-900 dark:text-green-200'
-            : 'bg-indigo-50 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200'
+            ? 'bg-success-light text-success'
+            : 'bg-accent-indigo-subtle text-accent-indigo'
         )}
       >
         {isGoalMet ? (

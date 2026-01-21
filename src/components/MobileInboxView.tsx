@@ -208,12 +208,12 @@ export const MobileInboxView: React.FC<MobileInboxViewProps> = ({
                     onClick={() => handleTaskClick(task)}
                     className={cn(
                       'p-4 transition-colors cursor-pointer',
-                      'bg-green-50 dark:bg-green-900/20 border-l-4 border-green-500',
-                      'hover:bg-green-100 dark:hover:bg-green-900/30 active:opacity-75'
+                      'bg-success-light border-l-4 border-success',
+                      'hover:bg-success-light-hover active:opacity-75'
                     )}
                   >
                     <div className="flex items-start gap-3">
-                      <div className="mt-0.5 w-6 h-6 rounded-full border-2 border-green-500 bg-green-500 flex items-center justify-center flex-shrink-0">
+                      <div className="mt-0.5 w-6 h-6 rounded-full border-2 border-success bg-success flex items-center justify-center flex-shrink-0">
                         <span className="text-white text-sm">✓</span>
                       </div>
 

@@ -15,7 +15,7 @@ interface NotificationCenterProps {
 
 const notificationIcons: Record<string, React.ReactNode> = {
   task_assigned: <AlertCircle className="h-5 w-5 text-semantic-info" />,
-  task_shared: <Share2 className="h-5 w-5 text-purple-500 dark:text-purple-400" />,
+  task_shared: <Share2 className="h-5 w-5 text-accent-purple" />,
   reminder: <Clock className="h-5 w-5 text-semantic-warning" />,
   comment: <MessageCircle className="h-5 w-5 text-semantic-success" />,
   system: <Bell className="h-5 w-5 text-content-tertiary" />,

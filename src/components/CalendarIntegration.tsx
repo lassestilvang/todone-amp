@@ -91,7 +91,7 @@ export const CalendarIntegration: React.FC<CalendarIntegrationProps> = ({
   }
 
   return (
-    <div className="flex flex-col gap-4 rounded-lg border border-brand-200 bg-brand-50 p-4">
+    <div className="flex flex-col gap-4 rounded-lg border border-accent-indigo bg-accent-indigo-subtle p-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Calendar className="h-5 w-5 text-brand-500" />
@@ -126,7 +126,7 @@ export const CalendarIntegration: React.FC<CalendarIntegrationProps> = ({
 
       {/* Settings Panel */}
       {showSettings && (
-        <div className="flex flex-col gap-3 border-t border-brand-200 pt-4">
+        <div className="flex flex-col gap-3 border-t border-border pt-4">
           <label className="flex items-center gap-2">
             <input
               type="checkbox"
@@ -179,7 +179,7 @@ export const CalendarIntegration: React.FC<CalendarIntegrationProps> = ({
       )}
 
       {/* Sync status */}
-      <div className="flex items-center justify-between border-t border-brand-200 pt-3">
+      <div className="flex items-center justify-between border-t border-border pt-3">
         <span className="text-xs text-content-secondary">
           Last synced: {integration.lastSyncAt ? new Date(integration.lastSyncAt).toLocaleString() : 'Never'}
         </span>

@@ -46,14 +46,14 @@ export const LevelProgressBar: React.FC<LevelProgressBarProps> = ({ className, c
 
   const levelColors: Record<string, string> = {
     beginner: 'bg-surface-tertiary',
-    novice: 'bg-blue-400',
-    intermediate: 'bg-cyan-400',
-    advanced: 'bg-green-400',
-    professional: 'bg-yellow-400',
-    expert: 'bg-orange-400',
-    master: 'bg-red-400',
-    grandmaster: 'bg-purple-400',
-    enlightened: 'bg-pink-400',
+    novice: 'bg-info',
+    intermediate: 'bg-accent-teal',
+    advanced: 'bg-success',
+    professional: 'bg-accent-yellow',
+    expert: 'bg-accent-orange',
+    master: 'bg-error',
+    grandmaster: 'bg-accent-purple',
+    enlightened: 'bg-icon-pink',
   }
 
   const levelEmojis: Record<string, string> = {
@@ -134,9 +134,9 @@ export const LevelProgressBar: React.FC<LevelProgressBarProps> = ({ className, c
 
       {/* Max Level Message */}
       {currentLevel === 'enlightened' && (
-        <div className="rounded-md bg-purple-50 p-2 text-center dark:bg-purple-900">
-          <p className="text-xs font-medium text-purple-900 dark:text-purple-200">You've reached the highest level!</p>
-          <p className="text-xs text-purple-700 dark:text-purple-300">Continue earning karma to unlock achievements</p>
+        <div className="rounded-md bg-accent-purple-subtle p-2 text-center">
+          <p className="text-xs font-medium text-accent-purple">You've reached the highest level!</p>
+          <p className="text-xs text-accent-purple">Continue earning karma to unlock achievements</p>
         </div>
       )}
     </div>

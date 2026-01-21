@@ -232,11 +232,7 @@ export function ShareProjectModal({
             <button
               onClick={handleShareWithTeam}
               disabled={isSharing}
-              className="w-full rounded px-3 py-2 text-sm font-medium transition"
-              style={{
-                backgroundColor: isSharing ? '#d1d5db' : '#8b5cf6',
-                color: isSharing ? '#6b7280' : 'white',
-              }}
+              className={`w-full rounded px-3 py-2 text-sm font-medium transition ${isSharing ? 'bg-interactive-secondary text-content-tertiary' : 'bg-accent-purple text-white hover:opacity-90'}`}
             >
               {isSharing ? 'Sharing...' : 'Share with Team'}
             </button>
@@ -248,11 +244,7 @@ export function ShareProjectModal({
           <h3 className="text-sm font-medium text-content-secondary">Public Link</h3>
           <button
             onClick={handleGenerateLink}
-            className="w-full rounded px-3 py-2 text-sm font-medium transition"
-            style={{
-              backgroundColor: '#10b981',
-              color: 'white',
-            }}
+            className="w-full rounded px-3 py-2 text-sm font-medium transition bg-success text-white hover:opacity-90"
           >
             Generate Share Link
           </button>

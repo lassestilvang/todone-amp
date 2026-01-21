@@ -19,7 +19,7 @@ const BADGE_DEFINITIONS: Badge[] = [
     id: 'daily-login',
     name: 'Daily Visitor',
     icon: <Calendar className="w-5 h-5" />,
-    color: 'bg-blue-100 dark:bg-blue-900',
+    color: 'bg-info-light',
     criteria: () => true, // Placeholder - would need lastLoginDate tracking
     description: 'Log in every day for a week',
   },
@@ -27,7 +27,7 @@ const BADGE_DEFINITIONS: Badge[] = [
     id: 'weekly-warrior',
     name: 'Weekly Warrior',
     icon: <Zap className="w-5 h-5" />,
-    color: 'bg-yellow-100 dark:bg-yellow-900',
+    color: 'bg-accent-yellow-subtle',
     criteria: (stats) => stats?.totalCompleted >= 15,
     description: 'Complete 15+ tasks in a week',
   },
@@ -35,7 +35,7 @@ const BADGE_DEFINITIONS: Badge[] = [
     id: 'monthly-master',
     name: 'Monthly Master',
     icon: <Trophy className="w-5 h-5" />,
-    color: 'bg-purple-100 dark:bg-purple-900',
+    color: 'bg-accent-purple-subtle',
     criteria: (stats) => stats?.totalCompleted >= 60,
     description: 'Complete 60+ tasks in a month',
   },
@@ -43,7 +43,7 @@ const BADGE_DEFINITIONS: Badge[] = [
     id: 'streak-champion',
     name: 'Streak Champion',
     icon: <Target className="w-5 h-5" />,
-    color: 'bg-red-100 dark:bg-red-900',
+    color: 'bg-error-light',
     criteria: (stats) => stats?.currentStreak >= 7,
     description: 'Maintain a 7-day completion streak',
   },
@@ -97,14 +97,14 @@ export const BadgesDisplay: React.FC<BadgesDisplayProps> = ({
         <div
           key={badge.id}
           className={clsx(
-            'relative p-3 rounded-lg border-2 border-amber-300 dark:border-amber-600',
+            'relative p-3 rounded-lg border-2 border-accent-yellow',
             badge.color,
             'transition-all hover:shadow-md cursor-pointer',
             'flex flex-col items-center justify-center text-center'
           )}
           title={showTooltip ? badge.description : undefined}
         >
-          <div className="text-yellow-600 dark:text-yellow-400 mb-1">{badge.icon}</div>
+          <div className="text-accent-yellow mb-1">{badge.icon}</div>
           <div className="text-xs font-bold text-content-primary line-clamp-2">
             {badge.name}
           </div>

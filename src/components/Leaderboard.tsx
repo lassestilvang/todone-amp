@@ -11,7 +11,7 @@ export interface LeaderboardProps {
 const MEDAL_ICONS = [Trophy, Medal, Medal]
 const MEDAL_COLORS = [
   'text-icon-yellow',
-  'text-gray-400',
+  'text-content-tertiary',
   'text-icon-orange',
 ]
 
@@ -54,7 +54,7 @@ export const Leaderboard: React.FC<LeaderboardProps> = ({ limit = 10 }) => {
             className={clsx(
               'flex items-center gap-3 p-3 rounded-lg transition-all',
               isTop3
-                ? 'bg-gradient-to-r from-yellow-50 to-amber-50 dark:from-yellow-900 dark:to-amber-900 border border-yellow-200 dark:border-yellow-700'
+                ? 'bg-accent-yellow-subtle border border-accent-yellow'
                 : 'bg-surface-secondary border border-border hover:bg-surface-tertiary'
             )}
           >

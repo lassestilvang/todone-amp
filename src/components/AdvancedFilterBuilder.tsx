@@ -206,7 +206,7 @@ function FilterQuickButton({ label, onClick }: FilterQuickButtonProps) {
       onClick={onClick}
       className={cn(
         'w-full px-3 py-2 text-left text-sm border border-border rounded-lg',
-        'hover:border-brand-500 hover:bg-brand-50 transition-colors',
+        'hover:border-brand-500 hover:bg-brand-100 dark:hover:bg-brand-900/30 transition-colors',
         'font-medium text-content-secondary flex items-center justify-between'
       )}
     >

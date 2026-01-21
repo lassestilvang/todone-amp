@@ -29,9 +29,9 @@ const IssueCard: React.FC<{
   showDetails: boolean;
 }> = ({ issue, showDetails }) => {
   const bgClasses = {
-    error: 'bg-red-50 border-red-200',
-    warning: 'bg-yellow-50 border-yellow-200',
-    info: 'bg-blue-50 border-blue-200',
+    error: 'bg-error-light border-error',
+    warning: 'bg-warning-light border-warning',
+    info: 'bg-info-light border-info',
   };
 
   return (
@@ -105,7 +105,7 @@ export const AccessibilityAuditor: React.FC<AccessibilityAuditorProps> = ({
           <button
             onClick={runAudit}
             disabled={isRunning}
-            className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 text-sm font-medium transition-colors"
+            className="px-4 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 disabled:opacity-50 text-sm font-medium transition-colors"
             aria-label="Run accessibility audit"
           >
             {isRunning ? 'Running...' : 'Run Audit'}
@@ -113,15 +113,15 @@ export const AccessibilityAuditor: React.FC<AccessibilityAuditorProps> = ({
         </div>
 
         <div className="grid grid-cols-3 gap-4 mb-6">
-          <div className="text-center p-3 bg-red-50 rounded-lg border border-red-200">
+          <div className="text-center p-3 bg-error-light rounded-lg border border-error">
             <div className="text-2xl font-bold text-semantic-error">{errorCount}</div>
             <div className="text-sm text-semantic-error">Errors</div>
           </div>
-          <div className="text-center p-3 bg-yellow-50 rounded-lg border border-yellow-200">
+          <div className="text-center p-3 bg-warning-light rounded-lg border border-warning">
             <div className="text-2xl font-bold text-semantic-warning">{warningCount}</div>
             <div className="text-sm text-semantic-warning">Warnings</div>
           </div>
-          <div className="text-center p-3 bg-blue-50 rounded-lg border border-blue-200">
+          <div className="text-center p-3 bg-info-light rounded-lg border border-info">
             <div className="text-2xl font-bold text-semantic-info">{infoCount}</div>
             <div className="text-sm text-semantic-info">Info</div>
           </div>

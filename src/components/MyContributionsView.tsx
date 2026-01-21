@@ -50,7 +50,7 @@ export function MyContributionsView({ projectId, className }: MyContributionsVie
       <div className="rounded border border-border bg-surface-primary p-4">
         <div className="mb-4 flex items-center justify-between">
           <h3 className="font-medium text-content-primary">My Contributions</h3>
-          <span className="rounded bg-blue-100 px-2 py-1 text-xs font-medium text-blue-700 dark:bg-blue-900 dark:text-blue-300">
+          <span className="rounded bg-info-light px-2 py-1 text-xs font-medium text-info">
             {completedCount}/{totalCount} completed
           </span>
         </div>
@@ -63,7 +63,7 @@ export function MyContributionsView({ projectId, className }: MyContributionsVie
           </div>
           <div className="mt-1 h-2 w-full overflow-hidden rounded-full bg-interactive-secondary">
             <div
-              className="h-full bg-blue-500 transition-all duration-300"
+              className="h-full bg-info transition-all duration-300"
               style={{ width: `${completionRate}%` }}
             />
           </div>
@@ -95,11 +95,9 @@ export function MyContributionsView({ projectId, className }: MyContributionsVie
               {task.priority && (
                 <span
                   className={cn('rounded px-2 py-0.5 text-xs font-medium', {
-                    'bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300': task.priority === 'p1',
-                    'bg-orange-100 text-orange-700 dark:bg-orange-900 dark:text-orange-300':
-                      task.priority === 'p2',
-                    'bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300':
-                      task.priority === 'p3',
+                    'bg-priority-p1-bg text-priority-p1': task.priority === 'p1',
+                    'bg-priority-p2-bg text-priority-p2': task.priority === 'p2',
+                    'bg-priority-p3-bg text-priority-p3': task.priority === 'p3',
                     'bg-surface-tertiary text-content-secondary': task.priority === 'p4',
                   })}
                 >

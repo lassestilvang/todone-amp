@@ -71,7 +71,7 @@ export const IntegrationManager: React.FC = () => {
             key={integration.id}
             className={`flex flex-col gap-3 rounded-lg border p-4 ${
               integration.isConnected
-                ? 'border-brand-200 bg-brand-50'
+                ? 'border-accent-indigo bg-accent-indigo-subtle'
                 : 'border-border bg-surface-primary'
             }`}
           >
