@@ -53,11 +53,11 @@ export const TaskSuggestions: React.FC<TaskSuggestionsProps> = ({
     <div className="absolute top-full left-0 right-0 mt-2 z-50 bg-surface-primary border border-border rounded-lg shadow-xl overflow-hidden">
       {/* Ambiguity Warning */}
       {showAmbiguityWarning && (
-        <div className="p-3 bg-yellow-50 dark:bg-yellow-900 border-b border-yellow-200 dark:border-yellow-700 flex items-start gap-2">
+        <div className="p-3 bg-semantic-warning-light border-b border-semantic-warning flex items-start gap-2">
           <AlertCircle className="w-4 h-4 text-icon-warning flex-shrink-0 mt-0.5" />
           <div>
-            <p className="text-sm font-medium text-yellow-800 dark:text-yellow-100">Input looks ambiguous</p>
-            <p className="text-xs text-yellow-700 dark:text-yellow-200">
+            <p className="text-sm font-medium text-semantic-warning">Input looks ambiguous</p>
+            <p className="text-xs text-semantic-warning">
               Check the suggestions below or clarify your task description
             </p>
           </div>
@@ -98,11 +98,11 @@ export const TaskSuggestions: React.FC<TaskSuggestionsProps> = ({
                 {suggestion.suggestedTask.priority && (
                   <span
                     className={clsx('text-xs font-semibold px-2 py-1 rounded', {
-                      'bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-200':
+                      'bg-priority-p1-bg text-priority-p1':
                         suggestion.suggestedTask.priority === 'p1',
-                      'bg-orange-100 text-orange-700 dark:bg-orange-900 dark:text-orange-200':
+                      'bg-priority-p2-bg text-priority-p2':
                         suggestion.suggestedTask.priority === 'p2',
-                      'bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-200':
+                      'bg-priority-p3-bg text-priority-p3':
                         suggestion.suggestedTask.priority === 'p3',
                       'bg-surface-tertiary text-content-secondary':
                         suggestion.suggestedTask.priority === 'p4',
@@ -138,7 +138,7 @@ export const TaskSuggestions: React.FC<TaskSuggestionsProps> = ({
                   } as ParsedTaskSuggestion)
                   onClose?.()
                 }}
-                className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-blue-500 hover:bg-blue-600 text-white font-medium text-sm transition-colors"
+                className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-interactive-primary hover:bg-interactive-primary-hover text-white font-medium text-sm transition-colors"
               >
                 <Check className="w-4 h-4" />
                 Use This
@@ -150,7 +150,7 @@ export const TaskSuggestions: React.FC<TaskSuggestionsProps> = ({
 
       {/* Similar Tasks Warning */}
       {!loading && similarTasks.length > 0 && (
-        <div className="p-3 bg-blue-50 dark:bg-blue-900 border-t border-blue-200 dark:border-blue-700">
+        <div className="p-3 bg-semantic-info-light border-t border-semantic-info">
           <p className="text-xs font-semibold text-semantic-info mb-2">
             Similar Tasks Found
           </p>
@@ -169,7 +169,7 @@ export const TaskSuggestions: React.FC<TaskSuggestionsProps> = ({
 
       {/* Error Message */}
       {error && (
-        <div className="flex items-center gap-2 p-3 bg-red-50 dark:bg-red-900 border-t border-red-200 dark:border-red-700 text-red-700 dark:text-red-200">
+        <div className="flex items-center gap-2 p-3 bg-semantic-error-light border-t border-semantic-error text-semantic-error">
           <AlertCircle className="w-4 h-4 flex-shrink-0" />
           <span className="text-sm">{error}</span>
         </div>

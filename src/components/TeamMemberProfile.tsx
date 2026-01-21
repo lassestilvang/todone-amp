@@ -47,11 +47,11 @@ export const TeamMemberProfile: React.FC<TeamMemberProfileProps> = ({
   const getRoleColor = (role: string): string => {
     switch (role) {
       case 'owner':
-        return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+        return 'bg-priority-p1-bg text-priority-p1'
       case 'admin':
-        return 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200'
+        return 'bg-accent-purple-subtle text-accent-purple'
       default:
-        return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
+        return 'bg-semantic-info-light text-semantic-info'
     }
   }
 
@@ -78,7 +78,7 @@ export const TeamMemberProfile: React.FC<TeamMemberProfileProps> = ({
           <div
             className={cn(
               'absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-surface-primary',
-              metrics?.status === 'active' ? 'bg-green-500' : 'bg-content-tertiary'
+              metrics?.status === 'active' ? 'bg-semantic-success' : 'bg-content-tertiary'
             )}
           />
         </div>
@@ -120,7 +120,7 @@ export const TeamMemberProfile: React.FC<TeamMemberProfileProps> = ({
               <span
                 className={cn(
                   'h-2 w-2 rounded-full',
-                  metrics?.status === 'active' ? 'bg-green-500' : 'bg-content-tertiary'
+                  metrics?.status === 'active' ? 'bg-semantic-success' : 'bg-content-tertiary'
                 )}
               />
             </div>
@@ -153,15 +153,15 @@ export const TeamMemberProfile: React.FC<TeamMemberProfileProps> = ({
       {metrics && (
         <div className="space-y-2 border-t border-border pt-4">
           <div className="grid grid-cols-3 gap-2">
-            <div className="rounded-md bg-blue-50 p-2 dark:bg-blue-900">
+            <div className="rounded-md bg-semantic-info-light p-2">
               <p className="text-xs text-content-secondary">Assigned</p>
               <p className="mt-1 text-lg font-bold text-semantic-info">{metrics.tasksAssigned}</p>
             </div>
-            <div className="rounded-md bg-green-50 p-2 dark:bg-green-900">
+            <div className="rounded-md bg-semantic-success-light p-2">
               <p className="text-xs text-content-secondary">Completed</p>
               <p className="mt-1 text-lg font-bold text-icon-success">{metrics.tasksCompleted}</p>
             </div>
-            <div className="rounded-md bg-orange-50 p-2 dark:bg-orange-900">
+            <div className="rounded-md bg-accent-orange-subtle p-2">
               <p className="text-xs text-content-secondary">Overdue</p>
               <p className="mt-1 text-lg font-bold text-icon-orange">{metrics.tasksOverdue}</p>
             </div>
@@ -178,11 +178,11 @@ export const TeamMemberProfile: React.FC<TeamMemberProfileProps> = ({
           </div>
 
           {metrics.status === 'active' && (
-            <div className="rounded-md bg-green-50 p-2 dark:bg-green-900">
+            <div className="rounded-md bg-semantic-success-light p-2">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Zap className="h-4 w-4 text-icon-success" />
-                  <span className="text-xs text-green-700 dark:text-green-300">Active {lastActiveText}</span>
+                  <span className="text-xs text-semantic-success">Active {lastActiveText}</span>
                 </div>
               </div>
             </div>

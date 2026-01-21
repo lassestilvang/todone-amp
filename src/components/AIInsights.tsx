@@ -165,29 +165,29 @@ export const AIInsights: React.FC<AIInsightsProps> = ({ className = '' }) => {
             key={insight.id}
             className={`p-3 rounded-lg border-l-4 ${
               insight.type === 'warning'
-                ? 'bg-yellow-50 dark:bg-yellow-900 border-yellow-500'
+                ? 'bg-semantic-warning-light border-semantic-warning'
                 : insight.type === 'opportunity'
-                  ? 'bg-green-50 dark:bg-green-900 border-green-500'
-                  : 'bg-blue-50 dark:bg-blue-900 border-blue-500'
+                  ? 'bg-semantic-success-light border-semantic-success'
+                  : 'bg-semantic-info-light border-semantic-info'
             }`}
           >
             <div className="flex items-start gap-2">
               {insight.type === 'warning' ? (
-                <AlertCircle className="w-4 h-4 text-yellow-600 dark:text-yellow-400 flex-shrink-0 mt-0.5" />
+                <AlertCircle className="w-4 h-4 text-semantic-warning flex-shrink-0 mt-0.5" />
               ) : insight.type === 'opportunity' ? (
-                <Zap className="w-4 h-4 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
+                <Zap className="w-4 h-4 text-semantic-success flex-shrink-0 mt-0.5" />
               ) : (
-                <TrendingUp className="w-4 h-4 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-0.5" />
+                <TrendingUp className="w-4 h-4 text-semantic-info flex-shrink-0 mt-0.5" />
               )}
 
               <div className="flex-1">
                 <p
                   className={`text-sm font-semibold ${
                     insight.type === 'warning'
-                      ? 'text-yellow-800 dark:text-yellow-100'
+                      ? 'text-semantic-warning'
                       : insight.type === 'opportunity'
-                        ? 'text-green-800 dark:text-green-100'
-                        : 'text-blue-800 dark:text-blue-100'
+                        ? 'text-semantic-success'
+                        : 'text-semantic-info'
                   }`}
                 >
                   {insight.title}
@@ -195,10 +195,10 @@ export const AIInsights: React.FC<AIInsightsProps> = ({ className = '' }) => {
                 <p
                   className={`text-xs mt-1 ${
                     insight.type === 'warning'
-                      ? 'text-yellow-700 dark:text-yellow-200'
+                      ? 'text-semantic-warning'
                       : insight.type === 'opportunity'
-                        ? 'text-green-700 dark:text-green-200'
-                        : 'text-blue-700 dark:text-blue-200'
+                        ? 'text-semantic-success'
+                        : 'text-semantic-info'
                   }`}
                 >
                   {insight.description}
@@ -209,10 +209,10 @@ export const AIInsights: React.FC<AIInsightsProps> = ({ className = '' }) => {
                     onClick={insight.action.onClick}
                     className={`mt-2 text-xs font-medium px-2 py-1 rounded transition-colors ${
                       insight.type === 'warning'
-                        ? 'text-yellow-700 dark:text-yellow-300 hover:bg-yellow-200 dark:hover:bg-yellow-800'
+                        ? 'text-semantic-warning hover:bg-semantic-warning-light'
                         : insight.type === 'opportunity'
-                          ? 'text-green-700 dark:text-green-300 hover:bg-green-200 dark:hover:bg-green-800'
-                          : 'text-blue-700 dark:text-blue-300 hover:bg-blue-200 dark:hover:bg-blue-800'
+                          ? 'text-semantic-success hover:bg-semantic-success-light'
+                          : 'text-semantic-info hover:bg-semantic-info-light'
                     }`}
                   >
                     {insight.action.label} →

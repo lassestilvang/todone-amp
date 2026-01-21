@@ -34,7 +34,9 @@ export const CalendarEventDisplay: React.FC<CalendarEventDisplayProps> = ({
       <div
         className={cn(
           'flex items-center gap-2 rounded-lg border px-3 py-2 text-sm',
-          event.service === 'google' ? 'border-blue-200 bg-blue-50' : 'border-cyan-200 bg-cyan-50',
+          event.service === 'google'
+            ? 'border-semantic-info bg-semantic-info-light'
+            : 'border-accent-teal bg-accent-teal-subtle',
           className
         )}
       >

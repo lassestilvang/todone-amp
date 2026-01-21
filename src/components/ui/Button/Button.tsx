@@ -17,7 +17,7 @@ const variants = {
     'bg-interactive-secondary text-content-primary hover:bg-interactive-secondary-hover active:bg-interactive-secondary-active',
   ghost: 'text-content-secondary hover:bg-surface-tertiary active:bg-interactive-secondary',
   danger:
-    'bg-semantic-error text-content-inverse hover:bg-red-700 active:bg-red-800 dark:hover:bg-red-600 dark:active:bg-red-500',
+    'bg-semantic-error text-content-inverse hover:bg-semantic-error-hover active:bg-semantic-error-hover',
 }
 
 const sizes = {

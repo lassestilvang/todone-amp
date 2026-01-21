@@ -50,9 +50,9 @@ export function CollaborationIndicators({
               return (
                 <span
                   key={`viewing-${userId}`}
-                  className="inline-flex items-center gap-1 rounded-full bg-blue-100 px-2 py-1 text-xs text-blue-700 dark:bg-blue-900 dark:text-blue-200"
+                  className="inline-flex items-center gap-1 rounded-full bg-semantic-info-light px-2 py-1 text-xs text-semantic-info"
                 >
-                  <span className="h-2 w-2 rounded-full bg-blue-500"></span>
+                  <span className="h-2 w-2 rounded-full bg-semantic-info"></span>
                   {member?.name || 'Unknown'}
                 </span>
               )
@@ -71,9 +71,9 @@ export function CollaborationIndicators({
               return (
                 <span
                   key={`editing-${userId}`}
-                  className="inline-flex items-center gap-1 rounded-full bg-green-100 px-2 py-1 text-xs text-green-700 dark:bg-green-900 dark:text-green-200"
+                  className="inline-flex items-center gap-1 rounded-full bg-semantic-success-light px-2 py-1 text-xs text-semantic-success"
                 >
-                  <span className="h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
+                  <span className="h-2 w-2 rounded-full bg-semantic-success animate-pulse"></span>
                   {member?.name || 'Unknown'}
                 </span>
               )
@@ -99,10 +99,10 @@ export function CollaborationIndicators({
                     <span
                       className={`inline-block rounded px-2 py-0.5 font-medium ${
                         share.role === 'owner'
-                          ? 'bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-200'
+                          ? 'bg-accent-purple-subtle text-accent-purple'
                           : share.role === 'admin'
-                            ? 'bg-orange-100 text-orange-700 dark:bg-orange-900 dark:text-orange-200'
-                            : 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-200'
+                            ? 'bg-accent-orange-subtle text-accent-orange'
+                            : 'bg-semantic-info-light text-semantic-info'
                       }`}
                     >
                       {share.role.charAt(0).toUpperCase() + share.role.slice(1)}

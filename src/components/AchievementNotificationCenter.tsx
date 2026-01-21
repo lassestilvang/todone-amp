@@ -73,17 +73,11 @@ export const AchievementNotificationCenter: React.FC = () => {
           {/* Content */}
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1">
-              <Trophy className="w-4 h-4 text-amber-700 dark:text-amber-100 flex-shrink-0" />
-              <p className="font-bold text-amber-900 dark:text-amber-50">
-                Achievement Unlocked
-              </p>
+              <Trophy className="w-4 h-4 text-accent-yellow flex-shrink-0" />
+              <p className="font-bold text-accent-yellow">Achievement Unlocked</p>
             </div>
-            <p className="text-sm text-amber-800 dark:text-amber-100 line-clamp-2">
-              {notification.name}
-            </p>
-            <p className="text-xs text-amber-700 dark:text-amber-200 mt-1">
-              +{notification.points} Karma Points
-            </p>
+            <p className="text-sm text-accent-yellow line-clamp-2">{notification.name}</p>
+            <p className="text-xs text-accent-yellow mt-1">+{notification.points} Karma Points</p>
           </div>
 
           {/* Close Button */}
@@ -91,8 +85,8 @@ export const AchievementNotificationCenter: React.FC = () => {
             onClick={() => removeNotification(notification.key)}
             className={cn(
               'flex-shrink-0 p-1 rounded',
-              'text-amber-700 dark:text-amber-100',
-              'hover:bg-amber-500/20 dark:hover:bg-amber-500/30',
+              'text-accent-yellow',
+              'hover:bg-accent-yellow/20',
               'transition-colors'
             )}
           >

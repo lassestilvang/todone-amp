@@ -50,11 +50,11 @@ export const KarmaHistoryChart: React.FC<KarmaHistoryChartProps> = ({ days = 30 
   const karmaRange = maxKarma - minKarma || 1
 
   return (
-    <div className="p-4 rounded-lg bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900 dark:to-indigo-900 border border-blue-200 dark:border-blue-700">
+    <div className="p-4 rounded-lg bg-semantic-info-light border border-semantic-info">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <TrendingUp className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+          <TrendingUp className="w-5 h-5 text-semantic-info" />
           <h3 className="font-semibold text-content-primary">Karma Progress</h3>
         </div>
         <span className="text-xs font-medium text-content-secondary">
@@ -115,7 +115,7 @@ export const KarmaHistoryChart: React.FC<KarmaHistoryChartProps> = ({ days = 30 
         </div>
         <div className="p-2 bg-surface-primary rounded">
           <div className="text-content-secondary">Total Gain</div>
-          <div className="font-bold text-green-600 dark:text-green-400">
+          <div className="font-bold text-semantic-success">
             +{Math.round(userStats.karma)}
           </div>
         </div>

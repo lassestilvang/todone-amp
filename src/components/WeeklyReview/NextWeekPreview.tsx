@@ -42,9 +42,9 @@ export const NextWeekPreview: React.FC<NextWeekPreviewProps> = ({ tasks }) => {
       ) : (
         <>
           {highPriorityCount > 0 && (
-            <div className="flex items-center gap-2 mb-4 p-3 bg-amber-50 dark:bg-amber-900/20 rounded-lg border border-amber-200 dark:border-amber-800/30">
-              <AlertCircle className="w-4 h-4 text-amber-600 dark:text-amber-400" />
-              <span className="text-sm text-amber-700 dark:text-amber-300">
+            <div className="flex items-center gap-2 mb-4 p-3 bg-semantic-warning-light rounded-lg border border-semantic-warning/30">
+              <AlertCircle className="w-4 h-4 text-semantic-warning" />
+              <span className="text-sm text-semantic-warning">
                 {highPriorityCount} high priority task{highPriorityCount > 1 ? 's' : ''} next week
               </span>
             </div>

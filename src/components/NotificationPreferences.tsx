@@ -144,7 +144,7 @@ export function NotificationPreferences({ isOpen, onClose }: NotificationPrefere
           <div className="rounded-lg bg-surface-secondary p-4">
             <label className="flex cursor-pointer items-center justify-between">
               <div className="flex items-center gap-3">
-                <Smartphone className="h-5 w-5 text-purple-500 dark:text-purple-400" />
+                <Smartphone className="h-5 w-5 text-accent-purple" />
                 <div>
                   <p className="font-medium text-content-primary">
                     Push Notifications

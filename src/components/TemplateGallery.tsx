@@ -64,7 +64,7 @@ export function TemplateGallery({ onSelectTemplate, className }: TemplateGallery
             className={cn(
               'rounded px-3 py-2 text-sm transition',
               viewFavoritesOnly
-                ? 'bg-amber-500 text-white'
+                ? 'bg-accent-yellow text-white'
                 : 'bg-interactive-secondary text-content-secondary'
             )}
           >
@@ -123,7 +123,7 @@ export function TemplateGallery({ onSelectTemplate, className }: TemplateGallery
                   </p>
                 </div>
                 {template.isPrebuilt && (
-                  <span className="whitespace-nowrap rounded bg-blue-100 px-2 py-0.5 text-xs font-medium text-blue-700 dark:bg-blue-900 dark:text-blue-300">
+                  <span className="whitespace-nowrap rounded bg-semantic-info-light px-2 py-0.5 text-xs font-medium text-semantic-info">
                     Built-in
                   </span>
                 )}

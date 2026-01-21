@@ -35,8 +35,8 @@ export const AchievementNotification: React.FC<AchievementNotificationProps> = (
     <div
       className={clsx(
         'fixed bottom-4 right-4 max-w-sm p-4 rounded-lg shadow-lg',
-        'bg-gradient-to-r from-amber-50 to-yellow-50 dark:from-amber-900 dark:to-yellow-900',
-        'border border-amber-200 dark:border-amber-700',
+        'bg-accent-yellow-subtle',
+        'border border-accent-yellow',
         'animate-in slide-in-from-bottom-5 duration-300'
       )}
       role="status"
@@ -51,12 +51,12 @@ export const AchievementNotification: React.FC<AchievementNotificationProps> = (
           {/* Content */}
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1">
-              <Award className="w-4 h-4 text-amber-600 dark:text-amber-400 flex-shrink-0" />
+              <Award className="w-4 h-4 text-accent-yellow flex-shrink-0" />
               <h3 className="font-bold text-content-primary truncate">{name}</h3>
               </div>
               <p className="text-sm text-content-secondary mb-2">{description}</p>
             <div className="flex items-center gap-1">
-              <span className="text-xs font-semibold text-amber-600 dark:text-amber-400">
+              <span className="text-xs font-semibold text-accent-yellow">
                 +{points} Karma
               </span>
             </div>
@@ -77,9 +77,9 @@ export const AchievementNotification: React.FC<AchievementNotificationProps> = (
       </div>
 
       {/* Progress bar */}
-      <div className="mt-3 h-1 bg-amber-200 dark:bg-amber-800 rounded-full overflow-hidden">
+      <div className="mt-3 h-1 bg-accent-yellow/30 rounded-full overflow-hidden">
         <div
-          className="h-full bg-gradient-to-r from-amber-400 to-yellow-400 dark:from-amber-500 dark:to-yellow-500 animate-shrink"
+          className="h-full bg-accent-yellow animate-shrink"
           style={{
             animation: 'shrink 5s linear forwards',
           }}

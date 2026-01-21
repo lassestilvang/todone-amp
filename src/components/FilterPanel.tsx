@@ -120,7 +120,7 @@ export function FilterPanel({ isOpen, onClose, onAdvancedQueryChange }: FilterPa
                 onClick={() => setShowAdvancedBuilder(true)}
                 className="w-full px-4 py-2 flex items-center gap-2 text-content-secondary hover:bg-surface-tertiary rounded transition-colors font-medium text-sm"
               >
-                <Zap size={16} className="text-amber-500" />
+                <Zap size={16} className="text-accent-yellow" />
                 Advanced Syntax
               </button>
             </div>
@@ -363,8 +363,8 @@ export function FilterPanel({ isOpen, onClose, onAdvancedQueryChange }: FilterPa
                     className={cn(
                       'p-1 rounded transition-colors',
                       filter.isFavorite
-                        ? 'text-amber-500 hover:bg-amber-50'
-                        : 'text-content-tertiary hover:text-amber-500 hover:bg-surface-tertiary'
+                        ? 'text-accent-yellow hover:bg-accent-yellow-subtle'
+                        : 'text-content-tertiary hover:text-accent-yellow hover:bg-surface-tertiary'
                     )}
                   >
                     <Star size={16} fill={filter.isFavorite ? 'currentColor' : 'none'} />
@@ -452,7 +452,7 @@ export function FilterPanel({ isOpen, onClose, onAdvancedQueryChange }: FilterPa
                       activeFilterId === filter.id && 'bg-brand-50'
                     )}
                   >
-                    <Star size={14} className="text-amber-500" fill="currentColor" />
+                    <Star size={14} className="text-accent-yellow" fill="currentColor" />
                     <span className="font-medium text-content-primary">{filter.name}</span>
                   </div>
                 ))}

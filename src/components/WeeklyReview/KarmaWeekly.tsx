@@ -20,7 +20,7 @@ export const KarmaWeekly: React.FC<KarmaWeeklyProps> = ({ metrics }) => {
       <div className="flex items-center justify-between">
         <div>
           <p className="text-4xl font-bold">+{karmaEarned}</p>
-          <p className="text-purple-100 text-sm mt-1">points this week</p>
+          <p className="text-white/70 text-sm mt-1">points this week</p>
         </div>
 
         <div className="flex flex-col gap-3">
@@ -28,7 +28,7 @@ export const KarmaWeekly: React.FC<KarmaWeeklyProps> = ({ metrics }) => {
             <Flame className={cn('w-5 h-5', streakStatus.current > 0 ? 'text-icon-orange' : 'text-white/60')} />
             <div>
               <p className="text-sm font-medium">{streakStatus.current} day streak</p>
-              <p className="text-xs text-purple-100">current</p>
+              <p className="text-xs text-white/70">current</p>
             </div>
           </div>
 
@@ -36,7 +36,7 @@ export const KarmaWeekly: React.FC<KarmaWeeklyProps> = ({ metrics }) => {
             <Trophy className="w-5 h-5 text-icon-yellow" />
             <div>
               <p className="text-sm font-medium">{streakStatus.best} days</p>
-              <p className="text-xs text-purple-100">best streak</p>
+              <p className="text-xs text-white/70">best streak</p>
             </div>
           </div>
         </div>

@@ -25,7 +25,7 @@ export const SlippedTasks: React.FC<SlippedTasksProps> = ({ tasks }) => {
     <div className="bg-surface-primary rounded-xl p-6 border border-border">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <AlertTriangle className="w-5 h-5 text-amber-500" />
+          <AlertTriangle className="w-5 h-5 text-semantic-warning" />
           <h3 className="text-lg font-semibold text-content-primary">Slipped Tasks</h3>
         </div>
         <span className="text-sm text-content-tertiary">{tasks.length} tasks</span>
@@ -33,8 +33,8 @@ export const SlippedTasks: React.FC<SlippedTasksProps> = ({ tasks }) => {
 
       {tasks.length === 0 ? (
         <div className="text-center py-8">
-          <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-3">
-            <Clock className="w-6 h-6 text-green-600 dark:text-green-400" />
+          <div className="w-12 h-12 bg-semantic-success-light rounded-full flex items-center justify-center mx-auto mb-3">
+            <Clock className="w-6 h-6 text-semantic-success" />
           </div>
           <p className="text-content-tertiary">No slipped tasks this week</p>
           <p className="text-sm text-content-tertiary mt-1">Great job staying on track!</p>
@@ -44,14 +44,14 @@ export const SlippedTasks: React.FC<SlippedTasksProps> = ({ tasks }) => {
           {sortedTasks.map((task) => (
             <div
               key={task.id}
-              className="flex items-center gap-3 p-3 rounded-lg bg-amber-50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-800/30"
+              className="flex items-center gap-3 p-3 rounded-lg bg-semantic-warning-light border border-semantic-warning/30"
             >
               <div className="flex-1 min-w-0">
                 <p className="text-content-primary font-medium truncate">{task.content}</p>
                 {task.dueDate && (
                   <div className="flex items-center gap-1 mt-1">
-                    <Clock className="w-3 h-3 text-amber-600 dark:text-amber-400" />
-                    <span className="text-xs text-amber-600 dark:text-amber-400">
+                    <Clock className="w-3 h-3 text-semantic-warning" />
+                    <span className="text-xs text-semantic-warning">
                       Due {formatDate(task.dueDate)}
                     </span>
                   </div>

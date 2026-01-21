@@ -34,14 +34,14 @@ export function BoardColumn({
   const { getSubtasks } = useTaskStore()
 
   const colorClasses: Record<string, string> = {
-    red: 'border-t-red-500 bg-red-50 dark:bg-red-900/20',
-    orange: 'border-t-orange-500 bg-orange-50 dark:bg-orange-900/20',
-    blue: 'border-t-blue-500 bg-blue-50 dark:bg-blue-900/20',
-    green: 'border-t-green-500 bg-green-50 dark:bg-green-900/20',
-    purple: 'border-t-purple-500 bg-purple-50 dark:bg-purple-900/20',
+    red: 'border-t-priority-p1 bg-priority-p1-bg',
+    orange: 'border-t-accent-orange bg-accent-orange-subtle',
+    blue: 'border-t-semantic-info bg-semantic-info-light',
+    green: 'border-t-semantic-success bg-semantic-success-light',
+    purple: 'border-t-accent-purple bg-accent-purple-subtle',
     pink: 'border-t-pink-500 bg-pink-50 dark:bg-pink-900/20',
-    indigo: 'border-t-indigo-500 bg-indigo-50 dark:bg-indigo-900/20',
-    yellow: 'border-t-yellow-500 bg-yellow-50 dark:bg-yellow-900/20',
+    indigo: 'border-t-accent-indigo bg-accent-indigo-subtle',
+    yellow: 'border-t-accent-yellow bg-accent-yellow-subtle',
     gray: 'border-t-content-tertiary bg-surface-secondary',
   }
 

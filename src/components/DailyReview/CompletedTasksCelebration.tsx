@@ -69,7 +69,7 @@ export function CompletedTasksCelebration({ onNext }: CompletedTasksCelebrationP
         <div
           className={cn(
             'relative w-24 h-24 mb-6 rounded-full flex items-center justify-center',
-            completedToday >= 5 ? 'bg-yellow-100 dark:bg-yellow-900/30' : 'bg-blue-100 dark:bg-blue-900/30'
+            completedToday >= 5 ? 'bg-accent-yellow-subtle' : 'bg-semantic-info-light'
           )}
         >
           <Trophy
@@ -98,8 +98,8 @@ export function CompletedTasksCelebration({ onNext }: CompletedTasksCelebrationP
             <p className="text-3xl font-bold text-content-primary">{completedToday}</p>
             <p className="text-xs text-content-tertiary mt-1">Tasks Completed</p>
           </div>
-          <div className="text-center p-4 rounded-lg bg-purple-100 dark:bg-purple-900/30">
-            <p className="text-3xl font-bold text-purple-600 dark:text-purple-400">+{karmaEarned}</p>
+          <div className="text-center p-4 rounded-lg bg-accent-purple-subtle">
+            <p className="text-3xl font-bold text-accent-purple">+{karmaEarned}</p>
             <p className="text-xs text-content-tertiary mt-1">Karma Earned</p>
           </div>
         </div>

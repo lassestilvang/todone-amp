@@ -146,7 +146,7 @@ export const ProductivityChart: React.FC<ProductivityChartProps> = ({
             className={cn(
               'px-3 py-2 text-sm font-medium border-b-2 transition-colors',
               selectedMetric === metric
-                ? 'border-blue-500 text-blue-600 dark:text-blue-400'
+                ? 'border-interactive-primary text-interactive-primary'
                 : 'border-transparent text-content-secondary hover:text-content-primary'
             )}
           >

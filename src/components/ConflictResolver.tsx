@@ -40,17 +40,17 @@ export function ConflictResolver({
   }
 
   return (
-    <div className={cn('space-y-3 rounded border border-red-200 bg-red-50 p-4 dark:border-red-900 dark:bg-red-900/20', className)}>
+    <div className={cn('space-y-3 rounded border border-semantic-error bg-semantic-error-light p-4', className)}>
       <div className="flex items-center gap-2">
         <span className="text-lg">⚠️</span>
-        <h3 className="font-medium text-red-900 dark:text-red-200">
+        <h3 className="font-medium text-semantic-error">
           {conflicts.length} {conflicts.length === 1 ? 'Conflict' : 'Conflicts'} Detected
         </h3>
       </div>
 
       <div className="space-y-3">
         {conflicts.map((conflict) => (
-          <div key={conflict.id} className="rounded border border-red-300 bg-surface-primary p-3 dark:border-red-800">
+          <div key={conflict.id} className="rounded border border-semantic-error bg-surface-primary p-3">
             {/* Conflict header */}
             <div className="mb-3">
               <p className="font-medium text-content-primary">
@@ -64,8 +64,8 @@ export function ConflictResolver({
             {/* Conflict comparison */}
             <div className="mb-3 grid gap-2 sm:grid-cols-2">
               {/* Local version */}
-              <div className="rounded border border-blue-200 bg-blue-50 p-2 dark:border-blue-900 dark:bg-blue-900/30">
-                <p className="mb-2 text-xs font-medium text-blue-900 dark:text-blue-200">Your Changes</p>
+              <div className="rounded border border-semantic-info bg-semantic-info-light p-2">
+                <p className="mb-2 text-xs font-medium text-semantic-info">Your Changes</p>
                 <div className="space-y-1 text-xs text-content-secondary">
                   <p>
                     <span className="font-medium">Content:</span> {conflict.localVersion.content.substring(0, 40)}...
@@ -80,8 +80,8 @@ export function ConflictResolver({
               </div>
 
               {/* Remote version */}
-              <div className="rounded border border-orange-200 bg-orange-50 p-2 dark:border-orange-900 dark:bg-orange-900/30">
-                <p className="mb-2 text-xs font-medium text-orange-900 dark:text-orange-200">Team Changes</p>
+              <div className="rounded border border-accent-orange bg-accent-orange-subtle p-2">
+                <p className="mb-2 text-xs font-medium text-accent-orange">Team Changes</p>
                 <div className="space-y-1 text-xs text-content-secondary">
                   <p>
                     <span className="font-medium">Content:</span> {conflict.remoteVersion.content.substring(0, 40)}...
@@ -110,8 +110,8 @@ export function ConflictResolver({
                         ? resolution === 'local'
                           ? 'bg-interactive-primary text-content-inverse hover:bg-interactive-primary-hover'
                           : resolution === 'remote'
-                            ? 'bg-orange-500 text-white dark:bg-orange-600'
-                            : 'bg-purple-500 text-white dark:bg-purple-600'
+                            ? 'bg-accent-orange text-white'
+                            : 'bg-accent-purple text-white'
                         : 'border border-border text-content-secondary hover:border-border'
                     )}
                   >
@@ -127,7 +127,7 @@ export function ConflictResolver({
             <button
               onClick={() => handleResolve(conflict.id)}
               disabled={resolving === conflict.id}
-              className="w-full rounded bg-red-600 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-red-700 disabled:opacity-50 dark:bg-red-700 dark:hover:bg-red-600"
+              className="w-full rounded bg-semantic-error px-3 py-1.5 text-xs font-medium text-white transition hover:bg-semantic-error-hover disabled:opacity-50"
             >
               {resolving === conflict.id ? 'Resolving...' : 'Resolve Conflict'}
             </button>

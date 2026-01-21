@@ -49,7 +49,7 @@ export function SharedProjectAssignedFilter({ projectId, className }: SharedProj
       <div className="rounded border border-border bg-surface-primary p-4">
         <div className="mb-4 flex items-center justify-between">
           <h3 className="font-medium text-content-primary">Assigned to Me</h3>
-          <span className="rounded bg-green-100 px-2 py-1 text-xs font-medium text-green-700 dark:bg-green-900 dark:text-green-300">
+          <span className="rounded bg-semantic-success-light px-2 py-1 text-xs font-medium text-semantic-success">
             {activeTasks.length} active
           </span>
         </div>
@@ -83,14 +83,10 @@ export function SharedProjectAssignedFilter({ projectId, className }: SharedProj
                   {task.priority && (
                     <span
                       className={cn('rounded px-2 py-0.5 text-xs font-medium', {
-                        'bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300':
-                          task.priority === 'p1',
-                        'bg-orange-100 text-orange-700 dark:bg-orange-900 dark:text-orange-300':
-                          task.priority === 'p2',
-                        'bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300':
-                          task.priority === 'p3',
-                        'bg-surface-tertiary text-content-secondary':
-                          task.priority === 'p4',
+                        'bg-priority-p1-bg text-priority-p1': task.priority === 'p1',
+                        'bg-priority-p2-bg text-priority-p2': task.priority === 'p2',
+                        'bg-priority-p3-bg text-priority-p3': task.priority === 'p3',
+                        'bg-surface-tertiary text-content-secondary': task.priority === 'p4',
                       })}
                     >
                       {task.priority.toUpperCase()}

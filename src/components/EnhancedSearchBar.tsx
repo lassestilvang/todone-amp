@@ -153,7 +153,7 @@ export const EnhancedSearchBar: React.FC<EnhancedSearchBarProps> = ({
               className={cn(
                 'w-full border-b border-border px-4 py-2 text-left text-sm last:border-b-0 transition',
                 index === selectedIndex
-                  ? 'bg-blue-50 text-blue-900 dark:bg-blue-900 dark:text-blue-100'
+                  ? 'bg-semantic-info-light text-semantic-info'
                   : 'text-content-secondary hover:bg-surface-tertiary'
               )}
             >
@@ -171,13 +171,13 @@ export const EnhancedSearchBar: React.FC<EnhancedSearchBarProps> = ({
             value={saveLabel}
             onChange={(e) => setSaveLabel(e.target.value)}
             placeholder="Label for this query"
-            className="mb-2 w-full rounded border border-border px-2 py-1 text-sm focus:border-blue-500 focus:outline-none"
+            className="mb-2 w-full rounded border border-border px-2 py-1 text-sm focus:border-border-focus focus:outline-none"
             autoFocus
           />
           <div className="flex gap-2">
             <button
               onClick={handleSave}
-              className="flex-1 rounded bg-blue-600 px-2 py-1 text-sm text-white hover:bg-blue-700"
+              className="flex-1 rounded bg-interactive-primary px-2 py-1 text-sm text-white hover:bg-interactive-primary-hover"
             >
               Save
             </button>

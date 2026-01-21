@@ -58,16 +58,14 @@ export const AchievementDetailModal: React.FC<AchievementDetailModalProps> = ({
             {/* Status Badge */}
             <div className="flex items-center justify-center gap-2 mb-2">
               {isUnlocked ? (
-                <Trophy className="w-5 h-5 text-amber-500" />
+                <Trophy className="w-5 h-5 text-accent-yellow" />
               ) : (
                 <Lock className="w-5 h-5 text-content-tertiary" />
               )}
               <span
                 className={cn(
                   'text-sm font-semibold',
-                  isUnlocked
-                    ? 'text-amber-600 dark:text-amber-400'
-                    : 'text-content-tertiary'
+                  isUnlocked ? 'text-accent-yellow' : 'text-content-tertiary'
                 )}
               >
                 {isUnlocked ? 'Unlocked' : 'Locked'}

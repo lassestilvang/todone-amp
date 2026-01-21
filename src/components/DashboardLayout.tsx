@@ -33,7 +33,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
           <p className="text-content-secondary">No dashboard layout found. Create one to get started.</p>
           <button
             onClick={() => dashboardStore.createLayout(userId, 'My Dashboard')}
-            className="mt-4 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+            className="mt-4 rounded-lg bg-interactive-primary px-4 py-2 text-sm font-medium text-white hover:bg-interactive-primary-hover"
           >
             Create Dashboard
           </button>
@@ -72,7 +72,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
           {dashboardStore.editMode ? (
             <button
               onClick={() => dashboardStore.setEditMode(false)}
-              className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700"
+              className="rounded-lg bg-interactive-primary px-4 py-2 text-sm font-medium text-white hover:bg-interactive-primary-hover"
             >
               Done Editing
             </button>
@@ -168,7 +168,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
                     minimized: false,
                   })
                 }
-                className="rounded-lg bg-blue-600 px-3 py-2 text-sm font-medium text-white hover:bg-blue-700"
+                className="rounded-lg bg-interactive-primary px-3 py-2 text-sm font-medium text-white hover:bg-interactive-primary-hover"
               >
                 + {widget.label}
               </button>

@@ -124,7 +124,7 @@ export function ReminderSelector({ taskId, onReminderAdded, className }: Reminde
                   className={cn(
                     'rounded px-2 py-1.5 text-xs font-medium transition-colors',
                     selectedType === type
-                      ? 'bg-blue-600 text-white'
+                      ? 'bg-interactive-primary text-white'
                       : 'bg-surface-primary text-content-secondary hover:bg-surface-tertiary'
                   )}
                 >
@@ -148,7 +148,7 @@ export function ReminderSelector({ taskId, onReminderAdded, className }: Reminde
                     className={cn(
                       'rounded px-2 py-1 text-xs font-medium',
                       minutesBefore === minutes
-                        ? 'bg-blue-600 text-white'
+                        ? 'bg-interactive-primary text-white'
                         : 'bg-surface-primary text-content-secondary hover:bg-interactive-secondary'
                     )}
                   >
@@ -183,7 +183,7 @@ export function ReminderSelector({ taskId, onReminderAdded, className }: Reminde
           <div className="flex gap-2">
             <button
               onClick={handleAdd}
-              className="flex-1 rounded bg-blue-600 px-2 py-1.5 text-xs font-medium text-white hover:bg-blue-700"
+              className="flex-1 rounded bg-interactive-primary px-2 py-1.5 text-xs font-medium text-white hover:bg-interactive-primary-hover"
             >
               Add
             </button>

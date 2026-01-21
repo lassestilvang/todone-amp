@@ -86,7 +86,7 @@ export function RecurrenceInstancesList({ task, className }: RecurrenceInstances
               className={cn(
                 'flex items-center gap-3 p-3 rounded-lg border transition-colors',
                 instance.completed
-                  ? 'bg-green-50 border-green-200 dark:bg-green-900/30 dark:border-green-800'
+                  ? 'bg-semantic-success-light border-semantic-success'
                   : 'bg-surface-primary border-border hover:bg-surface-tertiary',
               )}
             >

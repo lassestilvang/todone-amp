@@ -51,7 +51,7 @@ export const DailyGoalProgress: React.FC<DailyGoalProgressProps> = ({ className,
             <div
               className={cn(
                 'h-full transition-all duration-300',
-                isGoalMet ? 'bg-green-500' : 'bg-blue-500'
+                isGoalMet ? 'bg-semantic-success' : 'bg-interactive-primary'
               )}
               style={{ width: `${Math.min(progressPercentage, 100)}%` }}
             />
@@ -88,7 +88,7 @@ export const DailyGoalProgress: React.FC<DailyGoalProgressProps> = ({ className,
             <div
               className={cn(
                 'h-full transition-all duration-300',
-                isGoalMet ? 'bg-gradient-to-r from-green-400 to-green-500' : 'bg-gradient-to-r from-blue-400 to-blue-500'
+                isGoalMet ? 'bg-semantic-success' : 'bg-interactive-primary'
               )}
               style={{ width: `${Math.min(progressPercentage, 100)}%` }}
             />
@@ -106,8 +106,8 @@ export const DailyGoalProgress: React.FC<DailyGoalProgressProps> = ({ className,
         className={cn(
           'rounded-md p-2 text-center text-sm',
           isGoalMet
-            ? 'bg-green-50 text-green-800 dark:bg-green-900 dark:text-green-200'
-            : 'bg-blue-50 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
+            ? 'bg-semantic-success-light text-semantic-success'
+            : 'bg-semantic-info-light text-semantic-info'
         )}
       >
         {isGoalMet ? (
@@ -123,9 +123,9 @@ export const DailyGoalProgress: React.FC<DailyGoalProgressProps> = ({ className,
 
       {/* Motivation */}
       {dailyGoal > 0 && !isGoalMet && (
-        <div className="flex items-center gap-2 rounded-md bg-amber-50 p-2 dark:bg-amber-900">
-          <TrendingUp className="h-4 w-4 text-amber-600 dark:text-amber-400" />
-          <p className="text-xs text-amber-700 dark:text-amber-200">
+        <div className="flex items-center gap-2 rounded-md bg-accent-yellow-subtle p-2">
+          <TrendingUp className="h-4 w-4 text-accent-yellow" />
+          <p className="text-xs text-accent-yellow">
             {progressPercentage > 0 ? `You're ${Math.round(progressPercentage)}% there!` : 'Start completing tasks to progress!'}
           </p>
         </div>

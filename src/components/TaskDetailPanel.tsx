@@ -350,7 +350,7 @@ export function TaskDetailPanel() {
 
             {/* Unsaved Changes Indicator */}
             {hasUnsavedChanges && (
-              <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-md">
+              <div className="p-3 bg-semantic-warning-light border border-semantic-warning rounded-md">
                 <p className="text-sm text-semantic-warning">You have unsaved changes</p>
               </div>
             )}
@@ -388,7 +388,7 @@ export function TaskDetailPanel() {
                 onClick={() => setShowDeleteConfirm(!showDeleteConfirm)}
                 className={cn(
                   'p-2 text-icon-error hover:bg-semantic-error-light rounded-md transition-colors',
-                  showDeleteConfirm && 'bg-red-50'
+                  showDeleteConfirm && 'bg-semantic-error-light'
                 )}
                 title="Delete task"
               >

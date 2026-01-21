@@ -101,7 +101,7 @@ export const ComparisonAnalytics: React.FC<ComparisonAnalyticsProps> = ({ classN
           className={cn(
             'rounded-lg px-4 py-2 text-sm font-medium transition',
             periodType === 'week'
-              ? 'bg-blue-600 text-white'
+              ? 'bg-interactive-primary text-white'
               : 'border border-border text-content-secondary hover:bg-surface-tertiary'
           )}
         >
@@ -112,7 +112,7 @@ export const ComparisonAnalytics: React.FC<ComparisonAnalyticsProps> = ({ classN
           className={cn(
             'rounded-lg px-4 py-2 text-sm font-medium transition',
             periodType === 'month'
-              ? 'bg-blue-600 text-white'
+              ? 'bg-interactive-primary text-white'
               : 'border border-border text-content-secondary hover:bg-surface-tertiary'
           )}
         >
@@ -150,8 +150,8 @@ export const ComparisonAnalytics: React.FC<ComparisonAnalyticsProps> = ({ classN
         className={cn(
           'rounded-lg border p-4',
           isImprovement
-            ? 'border-green-200 bg-green-50 dark:border-green-800 dark:bg-green-900/30'
-            : 'border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-900/30'
+            ? 'border-semantic-success bg-semantic-success-light'
+            : 'border-semantic-error bg-semantic-error-light'
         )}
       >
         <div className="flex items-center gap-3">

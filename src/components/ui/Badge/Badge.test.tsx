@@ -24,25 +24,25 @@ describe('Badge', () => {
     it('applies success variant styles', () => {
       render(<Badge variant="success">Success</Badge>)
       const badge = screen.getByText('Success')
-      expect(badge).toHaveClass('bg-green-100', 'text-green-700')
+      expect(badge).toHaveClass('bg-semantic-success-light', 'text-semantic-success')
     })
 
     it('applies warning variant styles', () => {
       render(<Badge variant="warning">Warning</Badge>)
       const badge = screen.getByText('Warning')
-      expect(badge).toHaveClass('bg-yellow-100', 'text-yellow-700')
+      expect(badge).toHaveClass('bg-semantic-warning-light', 'text-semantic-warning')
     })
 
     it('applies error variant styles', () => {
       render(<Badge variant="error">Error</Badge>)
       const badge = screen.getByText('Error')
-      expect(badge).toHaveClass('bg-red-100', 'text-red-700')
+      expect(badge).toHaveClass('bg-semantic-error-light', 'text-semantic-error')
     })
 
     it('applies info variant styles', () => {
       render(<Badge variant="info">Info</Badge>)
       const badge = screen.getByText('Info')
-      expect(badge).toHaveClass('bg-blue-100', 'text-blue-700')
+      expect(badge).toHaveClass('bg-semantic-info-light', 'text-semantic-info')
     })
   })
 

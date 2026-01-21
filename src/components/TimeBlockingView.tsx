@@ -146,7 +146,7 @@ export function TimeBlockingView({ selectedDate }: TimeBlockingViewProps) {
                 key={`block-${block.hour}`}
                 className={cn(
                   'h-16 px-2 py-1 border-b border-surface-tertiary relative',
-                  block.isCurrentHour && 'bg-blue-50 border-b-2 border-blue-200'
+                  block.isCurrentHour && 'bg-semantic-info-light border-b-2 border-semantic-info'
                 )}
               >
                 {block.tasks.length > 0 ? (

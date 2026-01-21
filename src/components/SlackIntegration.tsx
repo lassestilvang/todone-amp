@@ -60,7 +60,7 @@ export const SlackIntegration: React.FC<SlackIntegrationPanelProps> = ({ classNa
       </div>
 
       {error && (
-        <div className="flex gap-2 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700 dark:border-red-800 dark:bg-red-900/30 dark:text-red-300">
+        <div className="flex gap-2 rounded-lg border border-semantic-error bg-semantic-error-light p-3 text-sm text-semantic-error">
           <AlertCircle className="h-5 w-5 flex-shrink-0" />
           <p>{error}</p>
         </div>
@@ -70,7 +70,7 @@ export const SlackIntegration: React.FC<SlackIntegrationPanelProps> = ({ classNa
         // Connect Section
         <div className="rounded-lg border border-border p-4">
           <div className="text-center">
-            <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-blue-50 dark:bg-blue-900/30">
+            <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-semantic-info-light">
               <MessageSquare className="h-6 w-6 text-icon-info" />
             </div>
             <h3 className="font-medium text-content-primary">Connect Slack</h3>
@@ -80,7 +80,7 @@ export const SlackIntegration: React.FC<SlackIntegrationPanelProps> = ({ classNa
             <button
               onClick={handleConnect}
               disabled={isLoading}
-              className="mt-4 inline-flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-2 font-medium text-white hover:bg-blue-700 disabled:opacity-50"
+              className="mt-4 inline-flex items-center gap-2 rounded-lg bg-interactive-primary px-6 py-2 font-medium text-white hover:bg-interactive-primary-hover disabled:opacity-50"
             >
               {isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
               Connect to Slack
@@ -103,7 +103,7 @@ export const SlackIntegration: React.FC<SlackIntegrationPanelProps> = ({ classNa
               </div>
               <button
                 onClick={handleDisconnect}
-                className="rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm font-medium text-red-700 hover:bg-red-100 dark:border-red-800 dark:bg-red-900/30 dark:text-red-300 dark:hover:bg-red-900/50"
+                className="rounded-lg border border-semantic-error bg-semantic-error-light px-3 py-2 text-sm font-medium text-semantic-error hover:opacity-80"
               >
                 <Trash2 className="h-4 w-4" />
               </button>

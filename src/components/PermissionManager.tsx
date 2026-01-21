@@ -75,7 +75,7 @@ export function PermissionManager({
               className={cn(
                 'flex items-start gap-3 rounded border p-2 transition disabled:opacity-50',
                 share.role === perm.value
-                  ? 'border-blue-500 bg-blue-50 dark:border-blue-400 dark:bg-blue-900'
+                  ? 'border-semantic-info bg-semantic-info-light'
                   : 'border-border hover:border-border'
               )}
             >

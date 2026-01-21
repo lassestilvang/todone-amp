@@ -107,7 +107,7 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({ teamId }) => {
                   <span
                     className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ${
                       member.status === 'active'
-                        ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+                        ? 'bg-semantic-success-light text-semantic-success'
                         : 'bg-surface-tertiary text-content-secondary'
                     }`}
                   >
@@ -149,10 +149,10 @@ export const TeamDashboard: React.FC<TeamDashboardProps> = ({ teamId }) => {
 
       {/* At-Risk Tasks */}
       {atRiskMembers.length > 0 && (
-        <div className="flex flex-col gap-4 rounded-lg border border-red-200 bg-red-50 p-4 dark:border-red-800 dark:bg-red-900/30">
+        <div className="flex flex-col gap-4 rounded-lg border border-semantic-error bg-semantic-error-light p-4">
           <div className="flex items-center gap-2">
             <AlertCircle className="h-5 w-5 text-icon-error" />
-            <h3 className="font-semibold text-red-900 dark:text-red-200">At-Risk Members</h3>
+            <h3 className="font-semibold text-semantic-error">At-Risk Members</h3>
           </div>
 
           <div className="flex flex-col gap-2">

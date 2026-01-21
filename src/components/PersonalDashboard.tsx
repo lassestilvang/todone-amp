@@ -98,7 +98,7 @@ export const PersonalDashboard: React.FC<PersonalDashboardProps> = ({ userId, cl
           </div>
           <div className="mt-4 h-2 bg-interactive-secondary rounded-full overflow-hidden">
             <div
-              className="h-full bg-blue-500 transition-all"
+              className="h-full bg-interactive-primary transition-all"
               style={{
                 width: `${todaysTasks.length > 0 ? (todaysCompleted / todaysTasks.length) * 100 : 0}%`,
               }}
@@ -159,7 +159,7 @@ export const PersonalDashboard: React.FC<PersonalDashboardProps> = ({ userId, cl
             {atRiskTasks.slice(0, 5).map((task) => (
               <div
                 key={task.id}
-                className="flex items-start gap-3 rounded-lg border border-orange-200 bg-orange-50 p-3"
+                className="flex items-start gap-3 rounded-lg border border-semantic-warning bg-semantic-warning-light p-3"
               >
                 <Clock className="h-4 w-4 text-semantic-warning mt-0.5 flex-shrink-0" />
                 <div className="flex-1 min-w-0">
@@ -174,10 +174,10 @@ export const PersonalDashboard: React.FC<PersonalDashboardProps> = ({ userId, cl
                   className={cn(
                     'flex-shrink-0 text-xs font-medium px-2 py-1 rounded',
                     task.priority === 'p1'
-                      ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+                      ? 'bg-priority-p1-bg text-priority-p1'
                       : task.priority === 'p2'
-                        ? 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200'
-                        : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200'
+                        ? 'bg-priority-p2-bg text-priority-p2'
+                        : 'bg-priority-p3-bg text-priority-p3'
                   )}
                 >
                   {task.priority || 'p3'}

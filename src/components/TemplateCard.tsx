@@ -106,7 +106,7 @@ export function TemplateCard({
               className={cn(
                 'flex-1 rounded px-2 py-1 text-xs transition',
                 isFav
-                  ? 'bg-amber-100 text-amber-700 dark:bg-amber-900 dark:text-amber-300'
+                  ? 'bg-accent-yellow-subtle text-accent-yellow'
                   : 'bg-surface-tertiary text-content-secondary hover:bg-interactive-secondary'
               )}
             >

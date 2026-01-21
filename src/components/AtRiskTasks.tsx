@@ -9,10 +9,10 @@ interface AtRiskTasksProps {
 }
 
 const PRIORITY_COLORS: Record<string, string> = {
-  p1: 'bg-red-50 border-red-200 text-red-700 dark:bg-red-900/30 dark:border-red-800 dark:text-red-300',
-  p2: 'bg-orange-50 border-orange-200 text-orange-700 dark:bg-orange-900/30 dark:border-orange-800 dark:text-orange-300',
-  p3: 'bg-yellow-50 border-yellow-200 text-yellow-700 dark:bg-yellow-900/30 dark:border-yellow-800 dark:text-yellow-300',
-  p4: 'bg-blue-50 border-blue-200 text-blue-700 dark:bg-blue-900/30 dark:border-blue-800 dark:text-blue-300',
+  p1: 'bg-priority-p1-bg border-priority-p1 text-priority-p1',
+  p2: 'bg-priority-p2-bg border-priority-p2 text-priority-p2',
+  p3: 'bg-priority-p3-bg border-priority-p3 text-priority-p3',
+  p4: 'bg-priority-p4-bg border-priority-p4 text-priority-p4',
 }
 
 export const AtRiskTasks: React.FC<AtRiskTasksProps> = ({ className }) => {
@@ -42,7 +42,7 @@ export const AtRiskTasks: React.FC<AtRiskTasksProps> = ({ className }) => {
     return (
       <div className={cn('rounded-lg border border-border p-6 text-center', className)}>
         <div className="flex justify-center">
-          <div className="rounded-lg bg-green-50 dark:bg-green-900/30 p-3">
+          <div className="rounded-lg bg-semantic-success-light p-3">
             <Clock className="h-6 w-6 text-icon-success" />
           </div>
         </div>
@@ -66,8 +66,8 @@ export const AtRiskTasks: React.FC<AtRiskTasksProps> = ({ className }) => {
             className={cn(
               'rounded-lg border p-3',
               task.daysOverdue > 0
-                ? 'border-red-200 bg-red-50 dark:border-red-800 dark:bg-red-900/30'
-                : 'border-yellow-200 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-900/30'
+                ? 'border-semantic-error bg-semantic-error-light'
+                : 'border-semantic-warning bg-semantic-warning-light'
             )}
           >
             <div className="flex items-start justify-between gap-3">
@@ -93,8 +93,8 @@ export const AtRiskTasks: React.FC<AtRiskTasksProps> = ({ className }) => {
                 className={cn(
                   'rounded-full px-3 py-1 text-xs font-medium',
                   task.daysOverdue > 0
-                    ? 'bg-red-200 text-red-700 dark:bg-red-800 dark:text-red-200'
-                    : 'bg-yellow-200 text-yellow-700 dark:bg-yellow-800 dark:text-yellow-200'
+                    ? 'bg-semantic-error-light text-semantic-error'
+                    : 'bg-semantic-warning-light text-semantic-warning'
                 )}
               >
                 {task.daysOverdue > 0 ? '🚨 Overdue' : '⚠️ Soon'}

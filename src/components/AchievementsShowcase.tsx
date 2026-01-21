@@ -83,8 +83,7 @@ export const AchievementsShowcase: React.FC<AchievementsShowcaseProps> = ({
             className={clsx(
               'relative p-3 rounded-lg border-2 transition-all hover:shadow-lg cursor-pointer',
               {
-                'border-amber-300 dark:border-amber-600 bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-amber-900 dark:to-yellow-900':
-                  achievement.unlocked,
+                'border-accent-yellow bg-accent-yellow-subtle': achievement.unlocked,
                 'border-border bg-surface-tertiary opacity-50':
                   !achievement.unlocked,
               }
@@ -111,7 +110,7 @@ export const AchievementsShowcase: React.FC<AchievementsShowcaseProps> = ({
               {/* Name */}
               <h4
                 className={clsx('text-xs font-bold text-center line-clamp-2', {
-                  'text-amber-900 dark:text-amber-100': achievement.unlocked,
+                  'text-accent-yellow': achievement.unlocked,
                   'text-content-secondary': !achievement.unlocked,
                 })}
               >
@@ -120,9 +119,7 @@ export const AchievementsShowcase: React.FC<AchievementsShowcaseProps> = ({
 
               {/* Points */}
               {achievement.unlocked && (
-                <p className="text-xs text-amber-700 dark:text-amber-200 mt-1">
-                  +{achievement.points} pts
-                </p>
+                <p className="text-xs text-accent-yellow mt-1">+{achievement.points} pts</p>
               )}
 
               {/* Unlock Hint */}
@@ -169,25 +166,25 @@ export const AchievementStats: React.FC = () => {
   const progressPercent = Math.round((unlockedCount / totalAchievements) * 100)
 
   return (
-    <div className="p-4 rounded-lg bg-blue-50 dark:bg-blue-900 border border-blue-200 dark:border-blue-700">
+    <div className="p-4 rounded-lg bg-semantic-info-light border border-semantic-info/30">
       <div className="flex items-center justify-between mb-2">
-        <h3 className="font-semibold text-blue-900 dark:text-blue-100 flex items-center gap-2">
+        <h3 className="font-semibold text-semantic-info flex items-center gap-2">
           <Award className="w-5 h-5" />
           Achievement Progress
         </h3>
-        <span className="text-sm font-bold text-blue-700 dark:text-blue-300">
+        <span className="text-sm font-bold text-semantic-info">
           {unlockedCount} / {totalAchievements}
         </span>
       </div>
 
-      <div className="w-full h-3 bg-blue-200 dark:bg-blue-800 rounded-full overflow-hidden">
+      <div className="w-full h-3 bg-semantic-info/20 rounded-full overflow-hidden">
         <div
-          className="h-full bg-gradient-to-r from-blue-500 to-indigo-500 transition-all duration-300"
+          className="h-full bg-gradient-to-r from-semantic-info to-brand-500 transition-all duration-300"
           style={{ width: `${progressPercent}%` }}
         />
       </div>
 
-      <p className="text-xs text-blue-700 dark:text-blue-300 mt-2">
+      <p className="text-xs text-semantic-info mt-2">
         {progressPercent}% complete - Keep going to unlock more achievements!
       </p>
     </div>

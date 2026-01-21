@@ -34,7 +34,7 @@ export const StreakDisplay: React.FC<StreakDisplayProps> = ({
     <div className="space-y-4">
       {/* Current Streak */}
       <div className={clsx('rounded-lg border-2 p-4 text-center', {
-        'border-orange-300 dark:border-orange-600 bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-900 dark:to-red-900':
+        'border-accent-orange bg-accent-orange-subtle':
           isBurning,
         'border-border bg-surface-secondary':
           !isBurning,
@@ -48,7 +48,7 @@ export const StreakDisplay: React.FC<StreakDisplayProps> = ({
             })}
           />
           <h3 className={clsx('font-semibold', {
-            'text-orange-900 dark:text-orange-100': isBurning,
+            'text-accent-orange': isBurning,
             'text-content-secondary': !isBurning,
           })}>
             {isBurning ? 'You\'re on fire!' : 'Start your streak'}
@@ -56,14 +56,14 @@ export const StreakDisplay: React.FC<StreakDisplayProps> = ({
         </div>
 
         <div className={clsx('text-4xl font-bold transition-all', {
-          'text-orange-600 dark:text-orange-300': isBurning,
+          'text-accent-orange': isBurning,
           'text-content-tertiary': !isBurning,
         })}>
           {currentStreak}
         </div>
 
         <p className={clsx('text-sm mt-2', {
-          'text-orange-700 dark:text-orange-200': isBurning,
+          'text-accent-orange': isBurning,
           'text-content-secondary': !isBurning,
         })}>
           {currentStreak === 1
@@ -80,19 +80,19 @@ export const StreakDisplay: React.FC<StreakDisplayProps> = ({
 
       {/* Best Streak */}
       {showBest && (
-        <div className="flex items-center gap-3 p-3 rounded-lg bg-purple-50 dark:bg-purple-900 border border-purple-200 dark:border-purple-700">
-          <Calendar className="w-5 h-5 text-purple-600 dark:text-purple-300 flex-shrink-0" />
+        <div className="flex items-center gap-3 p-3 rounded-lg bg-accent-purple-subtle border border-accent-purple">
+          <Calendar className="w-5 h-5 text-accent-purple flex-shrink-0" />
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-purple-900 dark:text-purple-100">
+            <p className="text-sm font-medium text-accent-purple">
               Personal best
             </p>
-            <p className="text-xs text-purple-700 dark:text-purple-300">
+            <p className="text-xs text-accent-purple">
               {longestStreak === 1
                 ? '1 day'
                 : `${longestStreak} days`}
             </p>
           </div>
-          <div className="text-2xl font-bold text-purple-600 dark:text-purple-300">
+          <div className="text-2xl font-bold text-accent-purple">
             {longestStreak}
           </div>
         </div>
@@ -119,7 +119,7 @@ export const StreakBadge: React.FC<{ inline?: boolean }> = ({ inline = false }) 
   return (
     <div
       className={clsx(
-        'flex items-center gap-1 px-2 py-1 rounded-full bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-200',
+        'flex items-center gap-1 px-2 py-1 rounded-full bg-accent-orange-subtle text-accent-orange',
         { 'text-xs': inline }
       )}
     >

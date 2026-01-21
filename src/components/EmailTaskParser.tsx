@@ -135,17 +135,17 @@ export const EmailTaskParser: React.FC<EmailTaskParserProps> = ({ className = ''
 
         {/* Error Message */}
         {parseError && (
-          <div className="flex items-start gap-2 p-3 rounded-lg bg-red-50 dark:bg-red-900 border border-red-200 dark:border-red-700">
+          <div className="flex items-start gap-2 p-3 rounded-lg bg-semantic-error-light border border-semantic-error">
             <AlertCircle className="w-4 h-4 text-semantic-error flex-shrink-0 mt-0.5" />
-            <p className="text-sm text-red-700 dark:text-red-200">{parseError}</p>
+            <p className="text-sm text-semantic-error">{parseError}</p>
           </div>
         )}
 
         {/* Success Message */}
         {success && (
-          <div className="flex items-start gap-2 p-3 rounded-lg bg-green-50 dark:bg-green-900 border border-green-200 dark:border-green-700">
+          <div className="flex items-start gap-2 p-3 rounded-lg bg-semantic-success-light border border-semantic-success">
             <CheckCircle2 className="w-4 h-4 text-semantic-success flex-shrink-0 mt-0.5" />
-            <p className="text-sm text-green-700 dark:text-green-200">Task created successfully!</p>
+            <p className="text-sm text-semantic-success">Task created successfully!</p>
           </div>
         )}
 
@@ -157,7 +157,7 @@ export const EmailTaskParser: React.FC<EmailTaskParserProps> = ({ className = ''
             'w-full px-4 py-2 rounded-lg font-medium transition-colors flex items-center justify-center gap-2',
             loading || !email.subject.trim()
               ? 'bg-surface-tertiary text-content-tertiary cursor-not-allowed'
-              : 'bg-blue-600 hover:bg-blue-700 text-white'
+              : 'bg-interactive-primary hover:bg-interactive-primary-hover text-white'
           )}
         >
           <Send className="w-4 h-4" />
@@ -165,9 +165,9 @@ export const EmailTaskParser: React.FC<EmailTaskParserProps> = ({ className = ''
         </button>
 
         {/* Info Box */}
-        <div className="p-3 rounded-lg bg-blue-50 dark:bg-blue-900 border border-blue-200 dark:border-blue-700">
-          <p className="text-xs text-blue-800 dark:text-blue-100 font-medium mb-1">AI will automatically:</p>
-          <ul className="text-xs text-blue-700 dark:text-blue-200 space-y-0.5">
+        <div className="p-3 rounded-lg bg-semantic-info-light border border-semantic-info">
+          <p className="text-xs text-semantic-info font-medium mb-1">AI will automatically:</p>
+          <ul className="text-xs text-semantic-info space-y-0.5">
             <li>• Extract priority (urgent, high, low, etc.)</li>
             <li>• Parse due dates (tomorrow, next week, etc.)</li>
             <li>• Suggest matching project</li>

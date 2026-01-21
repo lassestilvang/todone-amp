@@ -51,7 +51,7 @@ export const ReportGenerator: React.FC<ReportGeneratorProps> = ({ className }) =
         </div>
 
         {error && (
-          <div className="mb-4 flex gap-2 rounded-lg border border-red-200 bg-red-50 p-3 text-sm text-red-700 dark:border-red-800 dark:bg-red-900/30 dark:text-red-300">
+          <div className="mb-4 flex gap-2 rounded-lg border border-semantic-error bg-semantic-error-light p-3 text-sm text-semantic-error">
             <AlertCircle className="h-5 w-5 flex-shrink-0" />
             <p>{error}</p>
           </div>
@@ -111,7 +111,7 @@ export const ReportGenerator: React.FC<ReportGeneratorProps> = ({ className }) =
           <button
             onClick={handleGenerateReport}
             disabled={isLoading}
-            className="w-full flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-2 font-medium text-white hover:bg-blue-700 disabled:opacity-50"
+            className="w-full flex items-center justify-center gap-2 rounded-lg bg-interactive-primary px-4 py-2 font-medium text-white hover:bg-interactive-primary-hover disabled:opacity-50"
           >
             {isLoading ? (
               <Loader2 className="h-4 w-4 animate-spin" />

@@ -114,7 +114,7 @@ export const IntegrationSettings: React.FC<IntegrationSettingsProps> = ({
         })}
       </div>
 
-      <div className="rounded-lg border border-blue-200 bg-blue-50 p-4">
+      <div className="rounded-lg border border-semantic-info bg-semantic-info-light p-4">
         <h3 className="font-medium text-semantic-info">Coming Soon</h3>
         <p className="mt-1 text-sm text-semantic-info">
           More integrations like Asana, Monday.com, Zapier, and custom webhooks

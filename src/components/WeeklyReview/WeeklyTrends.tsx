@@ -66,7 +66,7 @@ export const WeeklyTrends: React.FC<WeeklyTrendsProps> = ({ metrics }) => {
             </div>
             <div className="flex flex-col items-center">
               <div
-                className="w-12 bg-green-500 rounded-t-lg transition-all duration-500"
+                className="w-12 bg-semantic-success rounded-t-lg transition-all duration-500"
                 style={{ height: `${metrics.completionRate}%`, minHeight: '8px' }}
               />
               <span className="text-xs text-content-tertiary mt-2">This Week</span>

@@ -208,7 +208,7 @@ describe('FloatingActionButton', () => {
     fireEvent.click(mainButton);
     
     const deleteButton = screen.getByLabelText('Delete');
-    expect(deleteButton).toHaveClass('text-semantic-error', 'bg-red-50');
+    expect(deleteButton).toHaveClass('text-semantic-error', 'bg-semantic-error-light');
   });
 
   it('applies theme classes correctly', () => {

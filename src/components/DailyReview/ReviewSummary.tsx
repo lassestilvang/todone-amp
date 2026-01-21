@@ -41,7 +41,7 @@ export function ReviewSummary({ onComplete, type }: ReviewSummaryProps) {
         <div
           className={cn(
             'w-20 h-20 mb-6 rounded-full flex items-center justify-center',
-            isMorning ? 'bg-yellow-100 dark:bg-yellow-900/30' : 'bg-indigo-100 dark:bg-indigo-900/30'
+            isMorning ? 'bg-accent-yellow-subtle' : 'bg-accent-indigo-subtle'
           )}
         >
           {isMorning ? (
@@ -53,30 +53,24 @@ export function ReviewSummary({ onComplete, type }: ReviewSummaryProps) {
 
         <div className="w-full space-y-3 mb-6">
           {isMorning && intention && (
-            <div className="p-4 rounded-lg bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-800">
+            <div className="p-4 rounded-lg bg-accent-purple-subtle border border-accent-purple">
               <div className="flex items-start gap-3">
                 <Target className="w-5 h-5 text-icon-purple flex-shrink-0 mt-0.5" />
                 <div>
-                  <p className="text-sm font-medium text-purple-700 dark:text-purple-300">
-                    Today's Intention
-                  </p>
-                  <p className="text-sm text-purple-600 dark:text-purple-400 mt-1">{intention}</p>
+                  <p className="text-sm font-medium text-accent-purple">Today's Intention</p>
+                  <p className="text-sm text-accent-purple mt-1">{intention}</p>
                 </div>
               </div>
             </div>
           )}
 
           {!isMorning && reflection && (
-            <div className="p-4 rounded-lg bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-800">
+            <div className="p-4 rounded-lg bg-accent-indigo-subtle border border-accent-indigo">
               <div className="flex items-start gap-3">
                 <BookOpen className="w-5 h-5 text-icon-indigo flex-shrink-0 mt-0.5" />
                 <div>
-                  <p className="text-sm font-medium text-indigo-700 dark:text-indigo-300">
-                    Your Reflection
-                  </p>
-                  <p className="text-sm text-indigo-600 dark:text-indigo-400 mt-1 whitespace-pre-wrap">
-                    {reflection}
-                  </p>
+                  <p className="text-sm font-medium text-accent-indigo">Your Reflection</p>
+                  <p className="text-sm text-accent-indigo mt-1 whitespace-pre-wrap">{reflection}</p>
                 </div>
               </div>
             </div>
@@ -93,25 +87,21 @@ export function ReviewSummary({ onComplete, type }: ReviewSummaryProps) {
             )}
 
             {rescheduledTaskIds.length > 0 && (
-              <div className="p-3 rounded-lg bg-blue-50 dark:bg-blue-900/20 text-center">
+              <div className="p-3 rounded-lg bg-semantic-info-light text-center">
                 <div className="flex items-center justify-center gap-1 mb-1">
                   <RefreshCw className="w-4 h-4 text-icon-info" />
                 </div>
-                <p className="text-2xl font-bold text-blue-600 dark:text-blue-400">
-                  {rescheduledTaskIds.length}
-                </p>
+                <p className="text-2xl font-bold text-semantic-info">{rescheduledTaskIds.length}</p>
                 <p className="text-xs text-content-tertiary">Rescheduled</p>
               </div>
             )}
 
             {!isMorning && (
-              <div className="p-3 rounded-lg bg-green-50 dark:bg-green-900/20 text-center">
+              <div className="p-3 rounded-lg bg-semantic-success-light text-center">
                 <div className="flex items-center justify-center gap-1 mb-1">
                   <CheckCircle className="w-4 h-4 text-icon-success" />
                 </div>
-                <p className="text-2xl font-bold text-green-600 dark:text-green-400">
-                  {completedCount}
-                </p>
+                <p className="text-2xl font-bold text-semantic-success">{completedCount}</p>
                 <p className="text-xs text-content-tertiary">Completed Today</p>
               </div>
             )}

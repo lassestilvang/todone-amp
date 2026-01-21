@@ -30,7 +30,7 @@ export const OfflineIndicator: React.FC<OfflineIndicatorProps> = ({
       className={cn(
         'fixed left-4 right-4 sm:left-6 sm:max-w-sm',
         position === 'top' ? 'top-20 sm:top-6' : 'bottom-4 sm:bottom-6',
-        'bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg p-3 sm:p-4',
+        'bg-semantic-error-light border border-semantic-error rounded-lg p-3 sm:p-4',
         'flex items-start gap-3',
         'z-30',
         'animate-in slide-in-from-bottom-5 duration-300',
@@ -39,8 +39,8 @@ export const OfflineIndicator: React.FC<OfflineIndicatorProps> = ({
     >
       <WifiOff className="w-5 h-5 text-icon-error flex-shrink-0 mt-0.5" />
       <div className="flex-1 min-w-0">
-        <h3 className="text-sm font-semibold text-red-900 dark:text-red-100">You're offline</h3>
-        <p className="text-xs text-red-700 dark:text-red-300 mt-1">
+        <h3 className="text-sm font-semibold text-semantic-error">You're offline</h3>
+        <p className="text-xs text-semantic-error mt-1">
           {pendingOperations.length > 0
             ? isSyncing
               ? 'Syncing your changes...'
@@ -49,7 +49,7 @@ export const OfflineIndicator: React.FC<OfflineIndicatorProps> = ({
         </p>
       </div>
       <div className="flex-shrink-0">
-        <div className="w-2 h-2 bg-red-600 dark:bg-red-400 rounded-full animate-pulse" />
+        <div className="w-2 h-2 bg-semantic-error rounded-full animate-pulse" />
       </div>
     </div>
   )

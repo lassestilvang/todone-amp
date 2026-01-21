@@ -98,7 +98,7 @@ const FeatureNudgeCard: React.FC<FeatureNudgeCardProps> = ({ nudge, onDismiss })
           {nudge.icon ? (
             <div className="text-semantic-info">{nudge.icon}</div>
           ) : (
-            <Lightbulb size={20} className="text-amber-500 flex-shrink-0" />
+            <Lightbulb size={20} className="text-accent-yellow flex-shrink-0" />
           )}
         </div>
 

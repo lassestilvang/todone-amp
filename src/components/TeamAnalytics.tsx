@@ -160,7 +160,7 @@ export const TeamAnalytics: React.FC<TeamAnalyticsProps> = ({ teamId, className 
                       )}
                       <span className="font-medium text-content-primary">{stat.name}</span>
                       {stat.userId === topPerformer.userId && (
-                        <span className="ml-2 rounded-full bg-yellow-100 px-2 py-1 text-xs font-medium text-yellow-700 dark:bg-yellow-900 dark:text-yellow-200">
+                        <span className="ml-2 rounded-full bg-semantic-warning-light px-2 py-1 text-xs font-medium text-semantic-warning">
                           🏆 Top
                         </span>
                       )}
@@ -172,7 +172,7 @@ export const TeamAnalytics: React.FC<TeamAnalyticsProps> = ({ teamId, className 
                     <div className="flex items-center gap-2">
                       <div className="w-24 rounded-full bg-interactive-secondary h-2">
                         <div
-                          className="bg-green-500 h-2 rounded-full"
+                          className="bg-semantic-success h-2 rounded-full"
                           style={{
                             width: `${Math.min(100, stat.completionRate)}%`,
                           }}

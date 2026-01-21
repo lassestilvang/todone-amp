@@ -146,7 +146,7 @@ export function RecurrenceCalendarView({
 
               {/* Exception Indicator */}
               {isCurrentMonth && instance?.isException && (
-                <div className="absolute top-1 right-1 w-1.5 h-1.5 bg-orange-500 rounded-full" />
+                <div className="absolute top-1 right-1 w-1.5 h-1.5 bg-accent-orange rounded-full" />
               )}
             </button>
           )

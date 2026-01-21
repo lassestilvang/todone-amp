@@ -138,8 +138,8 @@ export function DailyReviewModal({ userId }: DailyReviewModalProps) {
                 className={cn(
                   'w-10 h-10 rounded-lg flex items-center justify-center',
                   isMorning
-                    ? 'bg-yellow-100 dark:bg-yellow-900/30'
-                    : 'bg-indigo-100 dark:bg-indigo-900/30'
+                    ? 'bg-accent-yellow-subtle'
+                    : 'bg-accent-indigo-subtle'
                 )}
               >
                 {isMorning ? (
@@ -187,8 +187,8 @@ export function DailyReviewModal({ userId }: DailyReviewModalProps) {
                     'h-1 flex-1 rounded-full transition-colors',
                     index <= currentIndex
                       ? isMorning
-                        ? 'bg-yellow-500'
-                        : 'bg-indigo-500'
+                        ? 'bg-accent-yellow'
+                        : 'bg-accent-indigo'
                       : 'bg-interactive-secondary'
                   )}
                 />

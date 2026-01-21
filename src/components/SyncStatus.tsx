@@ -18,15 +18,15 @@ export const SyncStatus: React.FC<SyncStatusProps> = ({ className = '', showDeta
     return (
       <div
         className={clsx(
-          'flex items-center gap-2 px-3 py-2 rounded-lg bg-yellow-50 dark:bg-yellow-900 border border-yellow-200 dark:border-yellow-700',
+          'flex items-center gap-2 px-3 py-2 rounded-lg bg-semantic-warning-light border border-semantic-warning',
           className
         )}
       >
         <WifiOff className="w-4 h-4 text-icon-warning flex-shrink-0" />
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium text-yellow-800 dark:text-yellow-100">Offline Mode</p>
+          <p className="text-sm font-medium text-semantic-warning">Offline Mode</p>
           {showDetails && pendingCount > 0 && (
-            <p className="text-xs text-yellow-700 dark:text-yellow-200">
+            <p className="text-xs text-semantic-warning">
               {pendingCount} change{pendingCount === 1 ? '' : 's'} waiting to sync
             </p>
           )}
@@ -40,15 +40,15 @@ export const SyncStatus: React.FC<SyncStatusProps> = ({ className = '', showDeta
     return (
       <div
         className={clsx(
-          'flex items-center gap-2 px-3 py-2 rounded-lg bg-blue-50 dark:bg-blue-900 border border-blue-200 dark:border-blue-700',
+          'flex items-center gap-2 px-3 py-2 rounded-lg bg-semantic-info-light border border-semantic-info',
           className
         )}
       >
         <RefreshCw className="w-4 h-4 text-icon-info flex-shrink-0 animate-spin" />
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium text-blue-800 dark:text-blue-100">Syncing Changes</p>
+          <p className="text-sm font-medium text-semantic-info">Syncing Changes</p>
           {showDetails && pendingCount > 0 && (
-            <p className="text-xs text-blue-700 dark:text-blue-200">
+            <p className="text-xs text-semantic-info">
               {pendingCount} item{pendingCount === 1 ? '' : 's'} syncing...
             </p>
           )}
@@ -62,16 +62,16 @@ export const SyncStatus: React.FC<SyncStatusProps> = ({ className = '', showDeta
     return (
       <div
         className={clsx(
-          'flex items-center justify-between gap-2 px-3 py-2 rounded-lg bg-red-50 dark:bg-red-900 border border-red-200 dark:border-red-700',
+          'flex items-center justify-between gap-2 px-3 py-2 rounded-lg bg-semantic-error-light border border-semantic-error',
           className
         )}
       >
         <div className="flex items-center gap-2 flex-1 min-w-0">
           <AlertCircle className="w-4 h-4 text-icon-error flex-shrink-0" />
           <div className="flex-1 min-w-0">
-            <p className="text-sm font-medium text-red-800 dark:text-red-100">Sync Failed</p>
+            <p className="text-sm font-medium text-semantic-error">Sync Failed</p>
             {showDetails && (
-              <p className="text-xs text-red-700 dark:text-red-200">
+              <p className="text-xs text-semantic-error">
                 {pendingCount} item{pendingCount === 1 ? '' : 's'} failed to sync
               </p>
             )}
@@ -79,7 +79,7 @@ export const SyncStatus: React.FC<SyncStatusProps> = ({ className = '', showDeta
         </div>
         <button
           onClick={() => retryFailedOperations()}
-          className="flex-shrink-0 px-2 py-1 text-xs font-medium text-red-700 dark:text-red-300 hover:bg-red-200 dark:hover:bg-red-800 rounded transition-colors"
+          className="flex-shrink-0 px-2 py-1 text-xs font-medium text-semantic-error hover:bg-semantic-error-hover rounded transition-colors"
         >
           Retry
         </button>
@@ -93,15 +93,15 @@ export const SyncStatus: React.FC<SyncStatusProps> = ({ className = '', showDeta
     return (
       <div
         className={clsx(
-          'flex items-center gap-2 px-3 py-2 rounded-lg bg-green-50 dark:bg-green-900 border border-green-200 dark:border-green-700',
+          'flex items-center gap-2 px-3 py-2 rounded-lg bg-semantic-success-light border border-semantic-success',
           className
         )}
       >
-        <CheckCircle2 className="w-4 h-4 text-green-600 dark:text-green-400 flex-shrink-0" />
+        <CheckCircle2 className="w-4 h-4 text-semantic-success flex-shrink-0" />
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium text-green-800 dark:text-green-100">All Synced</p>
+          <p className="text-sm font-medium text-semantic-success">All Synced</p>
           {showDetails && (
-            <p className="text-xs text-green-700 dark:text-green-200">Last synced {timeAgo}</p>
+            <p className="text-xs text-semantic-success">Last synced {timeAgo}</p>
           )}
         </div>
       </div>
