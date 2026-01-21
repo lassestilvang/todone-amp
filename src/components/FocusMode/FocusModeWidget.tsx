@@ -157,7 +157,7 @@ export function FocusModeWidget({ userId, linkedTaskId }: FocusModeWidgetProps) 
             <span
               className={clsx(
                 'font-mono text-lg font-semibold',
-                isActive && !isPaused && 'text-blue-600 dark:text-blue-400'
+                isActive && !isPaused && 'text-semantic-info'
               )}
             >
               {formattedTime}

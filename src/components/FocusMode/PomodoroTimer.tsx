@@ -11,16 +11,16 @@ const SESSION_LABELS: Record<string, string> = {
 
 const SESSION_COLORS: Record<string, { stroke: string; text: string }> = {
   focus: {
-    stroke: 'stroke-blue-500',
-    text: 'text-blue-600 dark:text-blue-400',
+    stroke: 'stroke-semantic-info',
+    text: 'text-semantic-info',
   },
   'short-break': {
-    stroke: 'stroke-green-500',
-    text: 'text-green-600 dark:text-green-400',
+    stroke: 'stroke-semantic-success',
+    text: 'text-semantic-success',
   },
   'long-break': {
-    stroke: 'stroke-purple-500',
-    text: 'text-purple-600 dark:text-purple-400',
+    stroke: 'stroke-accent-purple',
+    text: 'text-accent-purple',
   },
 }
 
@@ -107,9 +107,8 @@ export const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
           onClick={handlePlayPause}
           className={clsx(
             'p-4 rounded-full transition-colors',
-            'bg-blue-500 hover:bg-blue-600 text-white',
-            'focus:outline-none focus:ring-2 focus:ring-focus focus:ring-offset-2',
-            'dark:focus:ring-offset-gray-900'
+            'bg-interactive-primary hover:bg-interactive-primary-hover text-white',
+            'focus:outline-none focus:ring-2 focus:ring-focus focus:ring-offset-2'
           )}
           aria-label={!isActive ? 'Start' : isPaused ? 'Resume' : 'Pause'}
         >
@@ -122,8 +121,7 @@ export const PomodoroTimer: React.FC<PomodoroTimerProps> = ({
             className={clsx(
               'p-4 rounded-full transition-colors',
               'bg-interactive-secondary hover:bg-surface-tertiary text-content-secondary',
-              'focus:outline-none focus:ring-2 focus:ring-focus focus:ring-offset-2',
-              'dark:focus:ring-offset-gray-900'
+              'focus:outline-none focus:ring-2 focus:ring-focus focus:ring-offset-2'
             )}
             aria-label="Stop"
           >

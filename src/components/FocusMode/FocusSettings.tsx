@@ -57,7 +57,7 @@ export function FocusSettings({ isOpen, onClose }: FocusSettingsProps) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end bg-black bg-opacity-50 md:items-center">
+    <div className="fixed inset-0 z-50 flex items-end bg-surface-overlay md:items-center">
       <div className="w-full max-w-md rounded-t-lg bg-surface-primary p-6 shadow-xl md:mx-auto md:rounded-2xl">
         <div className="mb-6 flex items-center justify-between">
           <h2 className="text-xl font-semibold text-content-primary">
@@ -109,7 +109,7 @@ export function FocusSettings({ isOpen, onClose }: FocusSettingsProps) {
           {/* Session Settings */}
           <div className="rounded-lg bg-surface-secondary p-4">
             <div className="mb-4 flex items-center gap-3">
-              <Coffee className="h-5 w-5 text-amber-500" />
+              <Coffee className="h-5 w-5 text-icon-warning" />
               <p className="font-medium text-content-primary">Session Settings</p>
             </div>
             <Input

@@ -60,7 +60,7 @@ export const BreakReminder: React.FC<BreakReminderProps> = ({
           <div
             className={clsx(
               'inline-flex items-center justify-center w-16 h-16 mb-4 rounded-full',
-              'bg-gradient-to-br from-green-400 to-emerald-500',
+              'bg-semantic-success',
               'text-white'
             )}
           >
@@ -88,8 +88,7 @@ export const BreakReminder: React.FC<BreakReminderProps> = ({
               onClick={onStartBreak}
               className={clsx(
                 'flex items-center justify-center gap-2 w-full py-3 px-4 rounded-lg',
-                'bg-gradient-to-r from-green-500 to-emerald-500',
-                'hover:from-green-600 hover:to-emerald-600',
+                'bg-semantic-success hover:bg-semantic-success-hover',
                 'text-white font-semibold',
                 'transition-all duration-200',
                 'shadow-lg hover:shadow-xl'

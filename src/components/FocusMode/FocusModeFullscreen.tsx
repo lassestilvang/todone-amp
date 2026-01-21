@@ -70,13 +70,13 @@ export const FocusModeFullscreen: React.FC<FocusModeFullscreenProps> = ({
     <div
       className={clsx(
         'fixed inset-0 z-50 flex flex-col items-center justify-center',
-        'bg-gray-900 text-white'
+        'bg-surface-primary text-content-primary'
       )}
     >
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-blue-500/10 animate-pulse-slow" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-semantic-info/10 animate-pulse-slow" />
         <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-purple-500/10 animate-pulse-slow"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full bg-accent-purple/10 animate-pulse-slow"
           style={{ animationDelay: '1s' }}
         />
       </div>
@@ -85,8 +85,8 @@ export const FocusModeFullscreen: React.FC<FocusModeFullscreenProps> = ({
         onClick={onExit}
         className={clsx(
           'absolute top-6 right-6 p-3 rounded-full transition-colors',
-          'bg-white/10 hover:bg-white/20',
-          'focus:outline-none focus:ring-2 focus:ring-white/50'
+          'bg-surface-tertiary/50 hover:bg-surface-tertiary',
+          'focus:outline-none focus:ring-2 focus:ring-focus'
         )}
         aria-label="Exit fullscreen"
       >
@@ -96,8 +96,8 @@ export const FocusModeFullscreen: React.FC<FocusModeFullscreenProps> = ({
       <div className="relative z-10 flex flex-col items-center gap-8">
         {taskTitle && (
           <div className="text-center">
-            <p className="text-sm text-gray-400 uppercase tracking-wider mb-1">Current Task</p>
-            <h2 className="text-xl font-medium text-gray-200 max-w-md truncate">{taskTitle}</h2>
+            <p className="text-sm text-content-tertiary uppercase tracking-wider mb-1">Current Task</p>
+            <h2 className="text-xl font-medium text-content-secondary max-w-md truncate">{taskTitle}</h2>
           </div>
         )}
 
@@ -105,17 +105,17 @@ export const FocusModeFullscreen: React.FC<FocusModeFullscreenProps> = ({
           <span className={clsx('text-8xl font-bold tracking-tight', sessionColor)}>
             {formattedTime}
           </span>
-          <span className="text-lg text-gray-400 mt-2 capitalize">
+          <span className="text-lg text-content-tertiary mt-2 capitalize">
             {sessionType.replace('-', ' ')}
           </span>
         </div>
 
-        <div className="w-64 h-2 bg-white/10 rounded-full overflow-hidden">
+        <div className="w-64 h-2 bg-surface-tertiary/50 rounded-full overflow-hidden">
           <div
             className={clsx('h-full transition-all duration-300 rounded-full', {
-              'bg-blue-500': sessionType === 'focus',
-              'bg-green-500': sessionType === 'short-break',
-              'bg-purple-500': sessionType === 'long-break',
+              'bg-semantic-info': sessionType === 'focus',
+              'bg-semantic-success': sessionType === 'short-break',
+              'bg-accent-purple': sessionType === 'long-break',
             })}
             style={{ width: `${progress * 100}%` }}
           />
@@ -126,8 +126,8 @@ export const FocusModeFullscreen: React.FC<FocusModeFullscreenProps> = ({
             onClick={handlePlayPause}
             className={clsx(
               'p-5 rounded-full transition-colors',
-              'bg-white/10 hover:bg-white/20',
-              'focus:outline-none focus:ring-2 focus:ring-white/50'
+              'bg-surface-tertiary/50 hover:bg-surface-tertiary',
+              'focus:outline-none focus:ring-2 focus:ring-focus'
             )}
             aria-label={!isActive ? 'Start' : isPaused ? 'Resume' : 'Pause'}
           >
@@ -143,10 +143,10 @@ export const FocusModeFullscreen: React.FC<FocusModeFullscreenProps> = ({
               onClick={handleStop}
               className={clsx(
                 'p-5 rounded-full transition-colors',
-                'bg-white/10 hover:bg-white/20',
-                'focus:outline-none focus:ring-2 focus:ring-white/50'
-              )}
-              aria-label="Stop"
+                'bg-surface-tertiary/50 hover:bg-surface-tertiary',
+                'focus:outline-none focus:ring-2 focus:ring-focus'
+                )}
+                aria-label="Stop"
             >
               <Square className="w-8 h-8" />
             </button>
@@ -156,8 +156,8 @@ export const FocusModeFullscreen: React.FC<FocusModeFullscreenProps> = ({
             onClick={onExit}
             className={clsx(
               'p-5 rounded-full transition-colors',
-              'bg-white/10 hover:bg-white/20',
-              'focus:outline-none focus:ring-2 focus:ring-white/50'
+              'bg-surface-tertiary/50 hover:bg-surface-tertiary',
+              'focus:outline-none focus:ring-2 focus:ring-focus'
             )}
             aria-label="Exit"
           >
@@ -165,13 +165,13 @@ export const FocusModeFullscreen: React.FC<FocusModeFullscreenProps> = ({
           </button>
         </div>
 
-        <div className="flex items-center gap-2 text-gray-400">
+        <div className="flex items-center gap-2 text-content-tertiary">
           {[...Array(4)].map((_, i) => (
             <div
               key={i}
               className={clsx('w-3 h-3 rounded-full transition-colors', {
-                'bg-blue-500': i < sessionCount,
-                'bg-white/20': i >= sessionCount,
+                'bg-semantic-info': i < sessionCount,
+                'bg-surface-tertiary': i >= sessionCount,
               })}
             />
           ))}
@@ -179,12 +179,12 @@ export const FocusModeFullscreen: React.FC<FocusModeFullscreenProps> = ({
         </div>
       </div>
 
-      <div className="absolute bottom-8 flex items-center gap-6 text-sm text-gray-500">
+      <div className="absolute bottom-8 flex items-center gap-6 text-sm text-content-tertiary">
         <span>
-          <kbd className="px-2 py-1 bg-white/10 rounded text-gray-400">Space</kbd> Pause/Play
+          <kbd className="px-2 py-1 bg-surface-tertiary/50 rounded text-content-tertiary">Space</kbd> Pause/Play
         </span>
         <span>
-          <kbd className="px-2 py-1 bg-white/10 rounded text-gray-400">Esc</kbd> Exit
+          <kbd className="px-2 py-1 bg-surface-tertiary/50 rounded text-content-tertiary">Esc</kbd> Exit
         </span>
       </div>
 

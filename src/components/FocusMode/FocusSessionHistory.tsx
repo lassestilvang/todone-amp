@@ -12,15 +12,15 @@ interface FocusSessionHistoryProps {
 const SESSION_TYPE_BADGES: Record<string, { label: string; className: string }> = {
   focus: {
     label: 'Focus',
-    className: 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300',
+    className: 'bg-semantic-info-light text-semantic-info',
   },
   'short-break': {
     label: 'Short Break',
-    className: 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300',
+    className: 'bg-semantic-success-light text-semantic-success',
   },
   'long-break': {
     label: 'Long Break',
-    className: 'bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300',
+    className: 'bg-accent-purple-subtle text-accent-purple',
   },
 }
 
@@ -64,7 +64,7 @@ export const FocusSessionHistory: React.FC<FocusSessionHistoryProps> = ({ userId
   if (loading) {
     return (
       <div className="flex items-center justify-center p-8">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500" />
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-semantic-info" />
       </div>
     )
   }
@@ -126,7 +126,7 @@ export const FocusSessionHistory: React.FC<FocusSessionHistoryProps> = ({ userId
                     className={clsx(
                       'w-full max-w-8 rounded-t transition-all',
                       day.focusMinutes > 0
-                        ? 'bg-blue-500 dark:bg-blue-400'
+                        ? 'bg-semantic-info'
                         : 'bg-interactive-secondary'
                     )}
                     style={{ height: `${Math.max(height, 4)}%` }}
@@ -178,7 +178,7 @@ export const FocusSessionHistory: React.FC<FocusSessionHistoryProps> = ({ userId
                   <div className="flex items-center gap-4 text-sm text-content-secondary">
                     <span className="whitespace-nowrap">{formatDuration(duration)}</span>
                     {session.type === 'focus' && session.interruptions > 0 && (
-                      <span className="flex items-center gap-1 text-amber-600 dark:text-amber-400">
+                      <span className="flex items-center gap-1 text-semantic-warning">
                         <AlertCircle className="h-3 w-3" />
                         {session.interruptions}
                       </span>
