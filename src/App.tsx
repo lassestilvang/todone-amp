@@ -24,6 +24,7 @@ import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts'
 import { useDynamicFavicon } from '@/hooks/useDynamicFavicon'
 import { FocusModeWidget } from '@/components/FocusMode'
 import { DailyReviewModal } from '@/components/DailyReview'
+import { UpdatePrompt } from '@/components/UpdatePrompt'
 
 // Lazy-loaded view components for code splitting
 const InboxView = lazy(() => import('@/views/InboxView').then((m) => ({ default: m.InboxView })))
@@ -177,6 +178,7 @@ function App() {
         <AchievementNotificationCenter />
         {user && <FocusModeWidget userId={user.id} />}
         {user && <DailyReviewModal userId={user.id} />}
+        <UpdatePrompt />
       </DragDropContextProvider>
     </ThemeProvider>
   )

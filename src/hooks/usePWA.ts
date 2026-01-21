@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useRegisterSW } from 'virtual:pwa-register/react'
 import { logger } from '@/utils/logger'
 
 interface InstallPromptEvent extends Event {
@@ -10,6 +11,8 @@ interface PWAState {
   isOnline: boolean
   isInstallable: boolean
   isInstalled: boolean
+  needsRefresh: boolean
+  isUpdating: boolean
 }
 
 /**
@@ -21,23 +24,34 @@ export const usePWA = () => {
     isOnline: typeof navigator !== 'undefined' ? navigator.onLine : true,
     isInstallable: false,
     isInstalled: false,
+    needsRefresh: false,
+    isUpdating: false,
   })
   const [installPrompt, setInstallPrompt] = useState<InstallPromptEvent | null>(null)
 
-  // Register service worker
+  const {
+    needRefresh: [needRefresh, setNeedRefresh],
+    updateServiceWorker,
+  } = useRegisterSW({
+    onRegistered(registration) {
+      logger.info('[PWA] Service worker registered:', registration)
+    },
+    onRegisterError(error) {
+      logger.error('[PWA] Service worker registration failed:', error)
+    },
+    onNeedRefresh() {
+      logger.info('[PWA] New content available, refresh needed')
+      setState((prev) => ({ ...prev, needsRefresh: true }))
+    },
+    onOfflineReady() {
+      logger.info('[PWA] App ready to work offline')
+    },
+  })
+
+  // Sync needRefresh state
   useEffect(() => {
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js', {
-        scope: '/',
-      })
-        .then((registration) => {
-          logger.info('[PWA] Service worker registered:', registration)
-        })
-        .catch((error) => {
-          logger.warn('[PWA] Service worker registration failed:', error)
-        })
-    }
-  }, [])
+    setState((prev) => ({ ...prev, needsRefresh: needRefresh }))
+  }, [needRefresh])
 
   // Listen for online/offline events
   useEffect(() => {
@@ -108,9 +122,26 @@ export const usePWA = () => {
     }
   }
 
+  const refresh = async () => {
+    setState((prev) => ({ ...prev, isUpdating: true }))
+    try {
+      await updateServiceWorker(true)
+      setNeedRefresh(false)
+    } finally {
+      setState((prev) => ({ ...prev, isUpdating: false, needsRefresh: false }))
+    }
+  }
+
+  const dismissRefresh = () => {
+    setNeedRefresh(false)
+    setState((prev) => ({ ...prev, needsRefresh: false }))
+  }
+
   return {
     ...state,
     installPrompt,
     install,
+    refresh,
+    dismissRefresh,
   }
 }
