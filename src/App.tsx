@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, lazy, Suspense } from 'react'
 import { useAuthStore } from '@/store/authStore'
 import { useTaskStore } from '@/store/taskStore'
 import { useProjectStore } from '@/store/projectStore'
@@ -13,13 +13,6 @@ import { Sidebar } from '@/components/Sidebar'
 import { SkipNav } from '@/components/SkipNav'
 import { ResponsiveLayout } from '@/components/ResponsiveLayout'
 import { MobileNavigation } from '@/components/MobileNavigation'
-import { InboxView } from '@/views/InboxView'
-import { TodayView } from '@/views/TodayView'
-import { UpcomingView } from '@/views/UpcomingView'
-import { EisenhowerView } from '@/views/EisenhowerView'
-import { WeeklyReviewView } from '@/views/WeeklyReviewView'
-import { BoardView } from '@/components/BoardView'
-import { CalendarView } from '@/components/CalendarView'
 import { AuthPage } from '@/pages/AuthPage'
 import { TaskDetailPanel } from '@/components/TaskDetailPanel'
 import { QuickAddModal } from '@/components/QuickAddModal'
@@ -31,6 +24,34 @@ import { useKeyboardShortcuts } from '@/hooks/useKeyboardShortcuts'
 import { useDynamicFavicon } from '@/hooks/useDynamicFavicon'
 import { FocusModeWidget } from '@/components/FocusMode'
 import { DailyReviewModal } from '@/components/DailyReview'
+
+// Lazy-loaded view components for code splitting
+const InboxView = lazy(() => import('@/views/InboxView').then((m) => ({ default: m.InboxView })))
+const TodayView = lazy(() => import('@/views/TodayView').then((m) => ({ default: m.TodayView })))
+const UpcomingView = lazy(() =>
+  import('@/views/UpcomingView').then((m) => ({ default: m.UpcomingView }))
+)
+const EisenhowerView = lazy(() =>
+  import('@/views/EisenhowerView').then((m) => ({ default: m.EisenhowerView }))
+)
+const WeeklyReviewView = lazy(() =>
+  import('@/views/WeeklyReviewView').then((m) => ({ default: m.WeeklyReviewView }))
+)
+const BoardView = lazy(() =>
+  import('@/components/BoardView').then((m) => ({ default: m.BoardView }))
+)
+const CalendarView = lazy(() =>
+  import('@/components/CalendarView').then((m) => ({ default: m.CalendarView }))
+)
+
+// Loading fallback component for lazy-loaded views
+function ViewLoadingFallback() {
+  return (
+    <div className="flex items-center justify-center h-full">
+      <div className="animate-pulse text-text-secondary">Loading view...</div>
+    </div>
+  )
+}
 
 type ViewIdType = string
 
@@ -146,7 +167,7 @@ function App() {
           }
         >
           <main id="main-content" className="flex-1 flex flex-col overflow-hidden" tabIndex={-1}>
-            {renderView()}
+            <Suspense fallback={<ViewLoadingFallback />}>{renderView()}</Suspense>
           </main>
         </ResponsiveLayout>
         <TaskDetailPanel />
