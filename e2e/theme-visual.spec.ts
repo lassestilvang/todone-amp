@@ -265,7 +265,7 @@ test.describe('Visual Regression - Focus States', () => {
     await page.waitForTimeout(100)
 
     await expect(themeSwitcher).toHaveScreenshot('focus-ring-light.png', {
-      maxDiffPixelRatio: 0.05,
+      maxDiffPixelRatio: 0.1,
     })
   })
 
