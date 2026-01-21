@@ -89,7 +89,7 @@ Phase 7 focuses on production readiness, performance optimization, completing re
 | ID | Task | Priority | Status |
 |----|------|----------|--------|
 | T7.2.1 | Run Lighthouse audit and document baseline scores | High | ✅ |
-| T7.2.2 | Implement Web Vitals monitoring (LCP, FID, CLS) | High | 🔵 |
+| T7.2.2 | Implement Web Vitals monitoring (LCP, FID, CLS) | High | ✅ |
 | T7.2.3 | Optimize bundle size - analyze and reduce | High | 🔵 |
 | T7.2.4 | Add route-based code splitting | Medium | 🔵 |
 | T7.2.5 | Implement service worker caching strategy | Medium | 🔵 |
@@ -379,15 +379,17 @@ interface TeamAchievement {
 | 2026-01-21 | T7.1.5: Migrated remaining misc components (23 files) to semantic tokens | Amp |
 | 2026-01-21 | T7.1.6: Completed final audit - migrated 40+ additional files to semantic tokens | Amp |
 | 2026-01-21 | T7.2.1: Lighthouse audit completed - Performance: 100, Accessibility: 96, Best Practices: 100, SEO: 91 | Amp |
+| 2026-01-21 | T7.2.2: Implemented Web Vitals monitoring (CLS, FID, LCP, FCP, TTFB, INP) with dev console logging | Amp |
 
 ---
 
 ## Next Steps
 
 1. ~~**Immediate**: Run Lighthouse audit to establish baseline (T7.2.1)~~ ✅ Complete - see [LIGHTHOUSE_BASELINE.md](./LIGHTHOUSE_BASELINE.md)
-2. **Immediate**: Implement Web Vitals monitoring (T7.2.2)
-3. **Decision Point**: Determine if deploying as local-only or multi-user (affects auth priority)
-4. **AI Features**: Evaluate local vs API approach based on privacy requirements
+2. ~~**Immediate**: Implement Web Vitals monitoring (T7.2.2)~~ ✅ Complete - see `src/utils/webVitals.ts`
+3. **Next**: Optimize bundle size - analyze and reduce (T7.2.3)
+4. **Decision Point**: Determine if deploying as local-only or multi-user (affects auth priority)
+5. **AI Features**: Evaluate local vs API approach based on privacy requirements
 
 ---
 

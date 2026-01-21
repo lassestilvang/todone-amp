@@ -32,10 +32,15 @@
     "react-dom": "^18.3.1",
     "recharts": "^2.15.4",
     "tailwind-merge": "^2.6.0",
+    "web-vitals": "^3.5.2",
     "zustand": "^4.5.7"
   },
   "devDependencies": {
     "@playwright/test": "^1.57.0",
+    "@storybook/addon-a11y": "^10.1.11",
+    "@storybook/addon-docs": "^10.1.11",
+    "@storybook/addon-onboarding": "^10.1.11",
+    "@storybook/react-vite": "^10.1.11",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^14.3.1",
     "@testing-library/user-event": "^14.6.1",
@@ -49,19 +54,15 @@
     "eslint": "^8.57.1",
     "eslint-plugin-react-hooks": "^4.6.2",
     "eslint-plugin-react-refresh": "^0.4.26",
+    "eslint-plugin-storybook": "^10.1.11",
     "jsdom": "^23.2.0",
     "postcss": "^8.5.6",
     "prettier": "^3.7.4",
+    "storybook": "^10.1.11",
     "tailwindcss": "^3.4.19",
     "terser": "^5.44.1",
     "typescript": "^5.9.3",
     "vite": "^5.4.21",
-    "vitest": "^1.6.1",
-    "storybook": "^10.1.11",
-    "@storybook/react-vite": "^10.1.11",
-    "@storybook/addon-a11y": "^10.1.11",
-    "@storybook/addon-docs": "^10.1.11",
-    "@storybook/addon-onboarding": "^10.1.11",
-    "eslint-plugin-storybook": "^10.1.11"
+    "vitest": "^1.6.1"
   }
 }
