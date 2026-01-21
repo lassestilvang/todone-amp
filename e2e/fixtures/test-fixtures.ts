@@ -1,4 +1,4 @@
-import { test as base, expect } from '@playwright/test'
+import { test as base, expect, Page } from '@playwright/test'
 
 interface TestUser {
   id: string
@@ -7,7 +7,7 @@ interface TestUser {
 }
 
 interface TodoneFixtures {
-  authenticatedPage: ReturnType<typeof base['page']>
+  authenticatedPage: Page
   testUser: TestUser
 }
 
@@ -41,7 +41,7 @@ export const test = base.extend<TodoneFixtures>({
 
 export { expect }
 
-export async function clearIndexedDB(page: ReturnType<typeof base['page']>) {
+export async function clearIndexedDB(page: Page) {
   await page.evaluate(async () => {
     const databases = await indexedDB.databases()
     for (const db of databases) {
@@ -52,7 +52,7 @@ export async function clearIndexedDB(page: ReturnType<typeof base['page']>) {
   })
 }
 
-export async function waitForAppReady(page: ReturnType<typeof base['page']>) {
+export async function waitForAppReady(page: Page) {
   await page.waitForLoadState('networkidle')
   await page.waitForSelector('[data-testid="sidebar"], #sidebar', { timeout: 10000 })
 }
