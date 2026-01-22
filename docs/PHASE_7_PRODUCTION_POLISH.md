@@ -95,7 +95,7 @@ Phase 7 focuses on production readiness, performance optimization, completing re
 | T7.2.5 | Implement service worker caching strategy | Medium | ✅ |
 | T7.2.6 | Load testing with 1000+ tasks | Medium | ✅ |
 | T7.2.7 | Optimize IndexedDB queries for large datasets | Medium | ✅ |
-| T7.2.8 | Add performance budgets to CI pipeline | Low | 🔵 |
+| T7.2.8 | Add performance budgets to CI pipeline | Low | ✅ |
 
 **Target Metrics:**
 - LCP < 2.5s
@@ -385,6 +385,7 @@ interface TeamAchievement {
 | 2026-01-21 | T7.2.5: Implemented Workbox service worker with vite-plugin-pwa, precaching (44 entries), runtime caching (stale-while-revalidate), and UpdatePrompt component for auto-updates | Amp |
 | 2026-01-21 | T7.2.6: Load testing complete - 1000 tasks render in 1224ms, 5000 tasks in 3409ms, 60fps scroll, 92ms toggle latency | Amp |
 | 2026-01-22 | T7.2.7: IndexedDB query optimization - added optimized query utilities, compound indexes, 10x faster queries | Amp |
+| 2026-01-22 | T7.2.8: Added performance budgets to CI - Lighthouse CI with Core Web Vitals assertions, bundle size checks | Amp |
 
 ---
 
@@ -397,8 +398,9 @@ interface TeamAchievement {
 5. ~~**Next**: Implement service worker caching strategy (T7.2.5)~~ ✅ Complete - see [SERVICE_WORKER_CACHING.md](./SERVICE_WORKER_CACHING.md)
 6. ~~**Next**: Load testing with 1000+ tasks (T7.2.6)~~ ✅ Complete - see [LOAD_TESTING.md](./LOAD_TESTING.md)
 7. ~~**Next**: Optimize IndexedDB queries for large datasets (T7.2.7)~~ ✅ Complete - see [INDEXEDDB_OPTIMIZATION.md](./INDEXEDDB_OPTIMIZATION.md)
-8. **Next**: Add performance budgets to CI pipeline (T7.2.8)
-9. **Decision Point**: Determine if deploying as local-only or multi-user (affects auth priority)
+8. ~~**Next**: Add performance budgets to CI pipeline (T7.2.8)~~ ✅ Complete - see [PERFORMANCE_BUDGETS.md](./PERFORMANCE_BUDGETS.md)
+9. **Next**: Design backend authentication architecture (T7.3.1)
+10. **Decision Point**: Determine if deploying as local-only or multi-user (affects auth priority)
 10. **AI Features**: Evaluate local vs API approach based on privacy requirements
 
 ---

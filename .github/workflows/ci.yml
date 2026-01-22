@@ -1,0 +1,128 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint-and-typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run ESLint
+        run: npm run lint
+
+      - name: Run TypeScript type check
+        run: npm run type-check
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: npm run test
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          retention-days: 1
+
+  performance-budget:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Lighthouse CI
+        run: npm install -g @lhci/cli@0.14.x
+
+      - name: Run Lighthouse CI
+        run: lhci autorun
+        env:
+          LHCI_GITHUB_APP_TOKEN: ${{ secrets.LHCI_GITHUB_APP_TOKEN }}
+
+      - name: Check bundle size budget
+        run: |
+          echo "Checking bundle size budgets..."
+          
+          # Get sizes of main chunks
+          MAIN_JS=$(find dist/assets -name "index-*.js" -exec stat -c%s {} \; 2>/dev/null || find dist/assets -name "index-*.js" -exec stat -f%z {} \;)
+          MAIN_CSS=$(find dist/assets -name "index-*.css" -exec stat -c%s {} \; 2>/dev/null || find dist/assets -name "index-*.css" -exec stat -f%z {} \;)
+          
+          # Calculate total JS size (all .js files)
+          TOTAL_JS=$(find dist/assets -name "*.js" -exec cat {} \; | wc -c)
+          
+          # Convert to KB
+          TOTAL_JS_KB=$((TOTAL_JS / 1024))
+          
+          echo "Total JS bundle size: ${TOTAL_JS_KB}KB"
+          
+          # Budget: 1500KB uncompressed (roughly 500KB gzipped)
+          MAX_JS_KB=1500
+          
+          if [ "$TOTAL_JS_KB" -gt "$MAX_JS_KB" ]; then
+            echo "❌ BUDGET EXCEEDED: JS bundle is ${TOTAL_JS_KB}KB (max: ${MAX_JS_KB}KB)"
+            exit 1
+          else
+            echo "✅ JS bundle size within budget: ${TOTAL_JS_KB}KB / ${MAX_JS_KB}KB"
+          fi
+
+      - name: Upload Lighthouse report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse-report
+          path: .lighthouseci/
+          retention-days: 7

@@ -17,6 +17,8 @@ Always make sure to update the AGENTS.md file with any new agents or changes to 
 - **Type check**: `npm run type-check` (TypeScript)
 - **Storybook**: `npm run storybook` (Component docs on port 6006)
 - **Build Storybook**: `npm run build-storybook` (Static build)
+- **Performance Budget**: `npm run perf:budget` (Build + Lighthouse CI)
+- **Lighthouse**: `npm run lighthouse` (Lighthouse CI on built dist)
 
 ## Architecture
 
