@@ -125,6 +125,8 @@ curl -fsSL https://bun.com/install | bash
 bun --version
 ```
 
+✅ **Done:** Bun v1.3.6 already installed
+
 ### 1.2 Generate Bun Lockfile
 
 ```bash
@@ -133,6 +135,8 @@ bun install
 ```
 
 This creates `bun.lock`. Keep both lockfiles during transition if needed.
+
+✅ **Done:** `bun install` completed in 1.98s (109 packages)
 
 ### 1.3 Update .gitignore
 
@@ -143,11 +147,15 @@ Add to `.gitignore`:
 .bun
 ```
 
+✅ **Done**
+
 ### 1.4 Remove npm Lockfile (after validation)
 
 ```bash
 rm package-lock.json
 ```
+
+⏳ **Pending:** Will remove after Phase 2 validation
 
 ### 1.5 Update package.json Scripts
 
@@ -176,6 +184,11 @@ rm package-lock.json
 ```
 
 **Note:** `bunx --bun` uses Bun runtime for the executed package. Plain `bunx` uses Node.js runtime.
+
+✅ **Done:** Scripts updated and validated:
+- `bun run type-check` ✅
+- `bun run lint` ✅  
+- `bun run build` ✅ (6.23s)
 
 ---
 
