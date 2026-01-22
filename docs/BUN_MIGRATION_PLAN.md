@@ -46,7 +46,7 @@
 | `npx`                    | `bunx`          |
 | `vitest`                 | `bun test`      |
 | `node` runtime           | `bun` runtime   |
-| `package-lock.json`      | `bun.lockb`     |
+| `package-lock.json`      | `bun.lock`      |
 
 ### What Stays the Same
 
@@ -104,10 +104,12 @@
 
 ## Pre-Migration Checklist
 
-- [ ] Ensure all tests pass with current setup: `npm test`
-- [ ] Ensure build succeeds: `npm run build`
-- [ ] Ensure E2E tests pass: `npm run test:e2e:chromium`
-- [ ] Backup `package-lock.json` (will be replaced)
+- [x] Ensure all tests pass with current setup: `npm test` ✅ 114 files, 1957 tests passed (29.99s)
+- [x] Ensure build succeeds: `npm run build` ✅ Built in 5.69s
+- [x] Ensure E2E tests pass: `npm run test:e2e:chromium` ✅ 71 passed (18.3s)
+- [x] Backup `package-lock.json` (will be replaced) ✅ Saved as `package-lock.json.backup`
+
+> **Fixed:** E2E test `tasks.spec.ts:31` was missing `await expect(quickAddInput).toBeVisible()` and used a selector that conflicted with NLP date parsing.
 
 ---
 
@@ -130,14 +132,14 @@ bun --version
 bun install
 ```
 
-This creates `bun.lockb` (binary lockfile). Keep both lockfiles during transition if needed.
+This creates `bun.lock`. Keep both lockfiles during transition if needed.
 
 ### 1.3 Update .gitignore
 
 Add to `.gitignore`:
 
 ```gitignore
-# Bun (keep bun.lockb committed)
+# Bun (keep bun.lock committed)
 .bun
 ```
 
@@ -518,7 +520,7 @@ In Vercel Dashboard → Project → Settings → General:
 
 ### 4.3 Important Notes for Vercel + Bun
 
-1. **Bun as Package Manager**: Vercel auto-detects `bun.lockb` and uses Bun for installs
+1. **Bun as Package Manager**: Vercel auto-detects `bun.lock` and uses Bun for installs
 2. **Build runs with Bun**: The build command runs in Bun runtime
 3. **No Server Functions**: This is a static SPA, so no need for Bun runtime functions
 4. **If using Vercel Functions later**: Add `bunVersion: "1.x"` to `vercel.json`:
@@ -631,7 +633,7 @@ If issues arise, rollback is straightforward:
 git checkout main -- package-lock.json
 
 # 2. Remove bun files
-rm bun.lockb bunfig.toml
+rm bun.lock bunfig.toml
 
 # 3. Restore vitest imports (git restore or manual)
 git checkout main -- src/test/setup.ts
@@ -688,7 +690,7 @@ GitHub Actions caching with Bun:
   uses: actions/cache@v4
   with:
     path: ~/.bun/install/cache
-    key: bun-${{ runner.os }}-${{ hashFiles('bun.lockb') }}
+    key: bun-${{ runner.os }}-${{ hashFiles('bun.lock') }}
     restore-keys: |
       bun-${{ runner.os }}-
 ```
@@ -715,7 +717,7 @@ GitHub Actions caching with Bun:
 
 ### Deleted Files
 
-- [ ] `package-lock.json` - Replaced by bun.lockb
+- [ ] `package-lock.json` - Replaced by bun.lock
 - [ ] `vitest.config.ts` - No longer needed (config in bunfig.toml)
 
 ---

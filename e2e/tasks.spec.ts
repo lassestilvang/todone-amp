@@ -28,10 +28,11 @@ test.describe('Task Management', () => {
     await page.keyboard.press('Meta+k')
 
     const quickAddInput = page.locator('input[placeholder*="task"], input[type="text"]').first()
-    await quickAddInput.fill('Task due tomorrow')
+    await expect(quickAddInput).toBeVisible({ timeout: 5000 })
+    await quickAddInput.fill('DueDateTask tomorrow')
     await page.keyboard.press('Enter')
 
-    await expect(page.getByText('Task due')).toBeVisible({ timeout: 5000 })
+    await expect(page.locator('p', { hasText: 'DueDateTask' })).toBeVisible({ timeout: 5000 })
   })
 
   test('can complete a task', async ({ authenticatedPage: page }) => {
