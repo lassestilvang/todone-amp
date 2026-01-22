@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import type { Priority } from '@/types'
+import { suggestDueDate, type DueDateSuggestion } from '@/services/ai'
 
 export interface ParsedTask {
   content: string
@@ -43,6 +44,7 @@ interface AIActions {
   detectAmbiguity: (text: string) => boolean
   getSimilarTasks: (text: string, existingTasks: Array<{ id: string; content: string }>) => Array<{ taskId: string; similarity: number }>
   clearSuggestions: () => void
+  getSmartDueDateSuggestion: (text: string) => DueDateSuggestion | null
 }
 
 // Common date patterns and keywords
@@ -318,5 +320,9 @@ export const useAIStore = create<AIState & AIActions>((set, get) => ({
 
   clearSuggestions: () => {
     set({ suggestions: [], lastParsedText: null, error: null })
+  },
+
+  getSmartDueDateSuggestion: (text: string): DueDateSuggestion | null => {
+    return suggestDueDate({ taskContent: text })
   },
 }))
