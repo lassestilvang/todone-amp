@@ -110,7 +110,7 @@ Phase 7 focuses on production readiness, performance optimization, completing re
 
 | ID | Task | Priority | Status |
 |----|------|----------|--------|
-| T7.3.1 | Design backend authentication architecture | High | 🔵 |
+| T7.3.1 | Design backend authentication architecture | High | ✅ |
 | T7.3.2 | Implement password hashing (bcrypt/argon2) | High | 🔵 |
 | T7.3.3 | Add secure session management with JWT | High | 🔵 |
 | T7.3.4 | Implement refresh token rotation | High | 🔵 |
@@ -386,6 +386,7 @@ interface TeamAchievement {
 | 2026-01-21 | T7.2.6: Load testing complete - 1000 tasks render in 1224ms, 5000 tasks in 3409ms, 60fps scroll, 92ms toggle latency | Amp |
 | 2026-01-22 | T7.2.7: IndexedDB query optimization - added optimized query utilities, compound indexes, 10x faster queries | Amp |
 | 2026-01-22 | T7.2.8: Added performance budgets to CI - Lighthouse CI with Core Web Vitals assertions, bundle size checks | Amp |
+| 2026-01-22 | T7.3.1: Designed backend authentication architecture - JWT + refresh tokens, Argon2id, rate limiting | Amp |
 
 ---
 
@@ -399,9 +400,10 @@ interface TeamAchievement {
 6. ~~**Next**: Load testing with 1000+ tasks (T7.2.6)~~ ✅ Complete - see [LOAD_TESTING.md](./LOAD_TESTING.md)
 7. ~~**Next**: Optimize IndexedDB queries for large datasets (T7.2.7)~~ ✅ Complete - see [INDEXEDDB_OPTIMIZATION.md](./INDEXEDDB_OPTIMIZATION.md)
 8. ~~**Next**: Add performance budgets to CI pipeline (T7.2.8)~~ ✅ Complete - see [PERFORMANCE_BUDGETS.md](./PERFORMANCE_BUDGETS.md)
-9. **Next**: Design backend authentication architecture (T7.3.1)
-10. **Decision Point**: Determine if deploying as local-only or multi-user (affects auth priority)
-10. **AI Features**: Evaluate local vs API approach based on privacy requirements
+9. ~~**Next**: Design backend authentication architecture (T7.3.1)~~ ✅ Complete - see [BACKEND_AUTH_ARCHITECTURE.md](./BACKEND_AUTH_ARCHITECTURE.md)
+10. **Next**: Implement password hashing module (T7.3.2)
+11. **Decision Point**: Determine if deploying as local-only or multi-user (affects auth priority)
+12. **AI Features**: Evaluate local vs API approach based on privacy requirements
 
 ---
 
