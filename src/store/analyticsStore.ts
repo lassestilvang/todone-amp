@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { db } from '@/db/database'
+import { getTasksInDateRange, getOverdueTasks } from '@/db/queries'
 import { logger } from '@/utils/logger'
 
 export interface CompletionStats {
@@ -119,7 +120,8 @@ export const useAnalyticsStore = create<AnalyticsState>((set, get) => ({
   setError: (error) => set({ error }),
 
   // Personal Analytics: completion rate, total tasks, average daily tasks
-  getPersonalAnalytics: async (_userId, dateRange) => {
+  // Optimized: Uses indexed query instead of loading all tasks
+  getPersonalAnalytics: async (userId, dateRange) => {
     try {
       set({ isLoading: true, error: null })
 
@@ -129,12 +131,8 @@ export const useAnalyticsStore = create<AnalyticsState>((set, get) => ({
       const start = dateRange?.start || thirtyDaysAgo
       const end = dateRange?.end || now
 
-      const userTasks = await db.tasks.toArray()
-      const tasksInRange = userTasks.filter((task) => {
-        const createdAt = task.createdAt
-        return createdAt >= start && createdAt <= end
-      })
-
+      // Use optimized indexed query instead of loading all tasks
+      const tasksInRange = await getTasksInDateRange(userId, { start, end })
       const completedTasks = tasksInRange.filter((task) => task.completed)
       const daysDiff = Math.max(
         1,
@@ -210,6 +208,7 @@ export const useAnalyticsStore = create<AnalyticsState>((set, get) => ({
   },
 
   // Productivity Timeline: daily/weekly/monthly granularity
+  // Optimized: Uses indexed query by userId instead of loading all tasks
   getProductivityTimeline: async (userId, granularity, dateRange) => {
     try {
       set({ isLoading: true, error: null })
@@ -220,40 +219,39 @@ export const useAnalyticsStore = create<AnalyticsState>((set, get) => ({
       const start = dateRange?.start || ninetyDaysAgo
       const end = dateRange?.end || now
 
-      const allTasks = await db.tasks.toArray()
-      const userTasks = allTasks.filter((task) => task.createdBy === userId)
+      // Use optimized indexed query
+      const userTasks = await getTasksInDateRange(userId, { start, end })
 
       const dataMap = new Map<string, ProductivityData>()
 
+      // Tasks are already filtered by date range from the query
       userTasks.forEach((task) => {
         const createdAt = new Date(task.createdAt)
-        if (createdAt >= start && createdAt <= end) {
-          let dateKey = ''
+        let dateKey = ''
 
-          if (granularity === 'daily') {
-            dateKey = createdAt.toISOString().split('T')[0]
-          } else if (granularity === 'weekly') {
-            const weekStart = new Date(createdAt)
-            weekStart.setDate(weekStart.getDate() - weekStart.getDay())
-            dateKey = weekStart.toISOString().split('T')[0]
-          } else if (granularity === 'monthly') {
-            dateKey = createdAt.toISOString().slice(0, 7)
-          }
+        if (granularity === 'daily') {
+          dateKey = createdAt.toISOString().split('T')[0]
+        } else if (granularity === 'weekly') {
+          const weekStart = new Date(createdAt)
+          weekStart.setDate(weekStart.getDate() - weekStart.getDay())
+          dateKey = weekStart.toISOString().split('T')[0]
+        } else if (granularity === 'monthly') {
+          dateKey = createdAt.toISOString().slice(0, 7)
+        }
 
-          if (!dataMap.has(dateKey)) {
-            dataMap.set(dateKey, {
-              date: new Date(dateKey),
-              tasksCompleted: 0,
-              tasksCreated: 0,
-              averagePriority: 'p3',
-            })
-          }
+        if (!dataMap.has(dateKey)) {
+          dataMap.set(dateKey, {
+            date: new Date(dateKey),
+            tasksCompleted: 0,
+            tasksCreated: 0,
+            averagePriority: 'p3',
+          })
+        }
 
-          const data = dataMap.get(dateKey)!
-          data.tasksCreated += 1
-          if (task.completed) {
-            data.tasksCompleted += 1
-          }
+        const data = dataMap.get(dateKey)!
+        data.tasksCreated += 1
+        if (task.completed) {
+          data.tasksCompleted += 1
         }
       })
 
@@ -268,41 +266,62 @@ export const useAnalyticsStore = create<AnalyticsState>((set, get) => ({
   },
 
   // At-Risk Tasks: overdue tasks, approaching deadlines
+  // Optimized: Uses indexed query for overdue tasks
   getAtRiskTasks: async (userId) => {
     try {
       set({ isLoading: true, error: null })
 
       const now = new Date()
-      const allTasks = await db.tasks.toArray()
 
-      const userTasks = allTasks.filter(
-        (task) =>
-          task.createdBy === userId || (task.assigneeIds && task.assigneeIds.includes(userId))
-      )
+      // Use optimized indexed query for overdue tasks
+      const overdueTasks = await getOverdueTasks(userId)
+
+      // Also get tasks due in the next 3 days
+      const threeDaysFromNow = new Date(now.getTime() + 3 * 24 * 60 * 60 * 1000)
+      const upcomingTasks = await db.tasks
+        .where('dueDate')
+        .between(now, threeDaysFromNow, true, true)
+        .filter(
+          (task) =>
+            !task.completed &&
+            (task.createdBy === userId || (task.assigneeIds?.includes(userId) ?? false))
+        )
+        .toArray()
 
       const atRisk: AtRiskTask[] = []
 
-      userTasks.forEach((task) => {
-        if (!task.completed && task.dueDate) {
+      // Process overdue tasks
+      for (const task of overdueTasks) {
+        if (task.dueDate) {
           const dueDate = new Date(task.dueDate)
-          const daysUntilDue = Math.floor(
-            (dueDate.getTime() - now.getTime()) / (24 * 60 * 60 * 1000)
+          const daysOverdue = Math.abs(
+            Math.floor((dueDate.getTime() - now.getTime()) / (24 * 60 * 60 * 1000))
           )
-
-          if (daysUntilDue < 3) {
-            const daysOverdue = daysUntilDue < 0 ? Math.abs(daysUntilDue) : 0
-
-            atRisk.push({
-              id: task.id,
-              content: task.content,
-              dueDate,
-              priority: task.priority || 'p3',
-              assigneeIds: task.assigneeIds,
-              daysOverdue,
-            })
-          }
+          atRisk.push({
+            id: task.id,
+            content: task.content,
+            dueDate,
+            priority: task.priority || 'p3',
+            assigneeIds: task.assigneeIds,
+            daysOverdue,
+          })
         }
-      })
+      }
+
+      // Process upcoming tasks (due within 3 days)
+      for (const task of upcomingTasks) {
+        if (task.dueDate) {
+          const dueDate = new Date(task.dueDate)
+          atRisk.push({
+            id: task.id,
+            content: task.content,
+            dueDate,
+            priority: task.priority || 'p3',
+            assigneeIds: task.assigneeIds,
+            daysOverdue: 0,
+          })
+        }
+      }
 
       set({
         atRiskTasks: atRisk.sort((a, b) => b.daysOverdue - a.daysOverdue),
@@ -314,21 +333,16 @@ export const useAnalyticsStore = create<AnalyticsState>((set, get) => ({
   },
 
   // Comparison Analytics: this week vs last week, this month vs last month
+  // Optimized: Uses indexed queries for each period
   getComparisonAnalytics: async (userId, period1, period2) => {
     try {
       set({ isLoading: true, error: null })
 
-      const allTasks = await db.tasks.toArray()
-
-      const getTasks = (start: Date, end: Date) => {
-        return allTasks.filter((task) => {
-          const createdAt = task.createdAt
-          return createdAt >= start && createdAt <= end && task.createdBy === userId
-        })
-      }
-
-      const tasks1 = getTasks(period1.start, period1.end)
-      const tasks2 = getTasks(period2.start, period2.end)
+      // Use optimized indexed queries for each period
+      const [tasks1, tasks2] = await Promise.all([
+        getTasksInDateRange(userId, period1),
+        getTasksInDateRange(userId, period2),
+      ])
 
       const completed1 = tasks1.filter((t) => t.completed).length
       const completed2 = tasks2.filter((t) => t.completed).length

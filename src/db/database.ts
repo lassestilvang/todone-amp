@@ -66,11 +66,51 @@ export class TodoneDB extends Dexie {
 
   constructor() {
     super('TodoneDB')
+
+    // Version 6: Original schema
     this.version(6).stores({
       users: 'id, email',
       projects: 'id, ownerId, teamId, parentProjectId, syncStatus, [ownerId+createdAt], [teamId+createdAt]',
       sections: 'id, projectId, syncStatus, [projectId+order]',
       tasks: 'id, projectId, sectionId, parentTaskId, syncStatus, [projectId+order], [sectionId+order], completed, dueDate, createdBy',
+      labels: 'id, ownerId, syncStatus, [ownerId+name]',
+      comments: 'id, taskId, userId, [taskId+createdAt], [taskId+userId]',
+      activities: 'id, taskId, userId, [taskId+timestamp], [userId+timestamp], [taskId+action]',
+      filters: 'id, ownerId, [ownerId+createdAt]',
+      projectShares: 'id, projectId, userId, [projectId+userId]',
+      reminders: 'id, taskId, notified, [taskId+remindAt]',
+      notifications: 'id, userId, read, archived, [userId+read], [userId+createdAt]',
+      syncQueue: 'id, entityType, synced, [synced+timestamp]',
+      teams: 'id, ownerId, [ownerId+createdAt]',
+      teamMembers: 'id, teamId, userId, [teamId+userId]',
+      recurrenceInstances: 'id, taskId, baseTaskId, dueDate, [taskId+dueDate], [baseTaskId+dueDate], completed',
+      templates: 'id, category, isPrebuilt, ownerId, [ownerId+createdAt], [category+isPrebuilt]',
+      userTemplates: 'id, userId, templateId, isFavorite, [userId+templateId], [userId+isFavorite]',
+      calendarIntegrations: 'id, userId, service, [userId+service]',
+      calendarEvents: 'id, service, taskId, externalId, [taskId+externalId], [service+syncedAt]',
+      syncHistory: 'id, taskId, externalEventId, service, [taskId+service], [syncedAt+status]',
+      userIntegrations: 'id, userId, service, isConnected, [userId+service], [userId+isConnected]',
+      userStats: 'userId, [userId+karma], [karma]',
+      achievements: 'id, [createdAt]',
+      userAchievements: 'id, userId, achievementId, [userId+achievementId], [userId+unlockedAt]',
+      focusSessions: 'id, userId, taskId, startTime, type, completed, [userId+startTime], [taskId+startTime]',
+      focusSettings: 'userId',
+      dailyReviews: 'id, userId, date, type, [userId+date], [userId+type+date]',
+      dailyReviewSettings: 'userId',
+      habits: 'id, userId, frequency, archivedAt, [userId+createdAt], [userId+archivedAt]',
+      habitCompletions: 'id, habitId, date, [habitId+date], [habitId+completedAt]',
+    })
+
+    // Version 7: Enhanced indexes for large dataset optimization
+    // Adds compound indexes for common query patterns:
+    // - [createdBy+createdAt] for user analytics with date ranges
+    // - [completed+dueDate] for overdue/upcoming task queries
+    // - [projectId+completed] for project progress calculations
+    this.version(7).stores({
+      users: 'id, email',
+      projects: 'id, ownerId, teamId, parentProjectId, syncStatus, [ownerId+createdAt], [teamId+createdAt]',
+      sections: 'id, projectId, syncStatus, [projectId+order]',
+      tasks: 'id, projectId, sectionId, parentTaskId, syncStatus, [projectId+order], [sectionId+order], completed, dueDate, createdBy, [createdBy+createdAt], [completed+dueDate], [projectId+completed], priority',
       labels: 'id, ownerId, syncStatus, [ownerId+name]',
       comments: 'id, taskId, userId, [taskId+createdAt], [taskId+userId]',
       activities: 'id, taskId, userId, [taskId+timestamp], [userId+timestamp], [taskId+action]',
