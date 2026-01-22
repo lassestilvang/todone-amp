@@ -26,7 +26,8 @@ describe('taskParser', () => {
     it('parses simple task title', () => {
       const result = parseTaskInput('Buy groceries', mockContext)
       expect(result.title).toBe('Buy groceries')
-      expect(result.parsedFields.length).toBe(0)
+      // May detect action type (buy) and estimated duration
+      expect(result.actionType).toBe('buy')
     })
 
     it('parses task with date', () => {

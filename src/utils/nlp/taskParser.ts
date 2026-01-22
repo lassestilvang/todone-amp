@@ -1,10 +1,15 @@
 import type { Priority, RecurrencePattern } from '@/types'
 import { extractDateTime, removeDateTimeFromText } from './dateExtractor'
 import { extractEntities, removeEntitiesFromText } from './entityExtractor'
+import { normalizeInput } from './normalizer'
+import { extractUrgency, removeUrgencyFromText } from './urgencyExtractor'
+import { extractAction, type ActionType } from './actionExtractor'
+import { detectMultiPart } from './multiPartDetector'
 
 export interface ParsedTaskIntent {
   title: string
   originalText: string
+  normalizedText: string
   dueDate?: Date
   dueTime?: string
   priority?: Priority
@@ -17,6 +22,15 @@ export interface ParsedTaskIntent {
   location?: string
   confidence: number
   parsedFields: ParsedField[]
+
+  // New fields from improvements
+  actionType?: ActionType
+  estimatedDuration?: number
+  estimatedDurationConfidence?: number
+  isMultiPart?: boolean
+  suggestedSubtasks?: string[]
+  implicitPriority?: Priority
+  implicitPriorityConfidence?: number
 }
 
 export interface ParsedField {
@@ -35,6 +49,7 @@ export function parseTaskInput(text: string, context: ParserContext): ParsedTask
   const result: ParsedTaskIntent = {
     title: '',
     originalText: text,
+    normalizedText: '',
     labelIds: [],
     labelNames: [],
     confidence: 0,
@@ -45,13 +60,49 @@ export function parseTaskInput(text: string, context: ParserContext): ParsedTask
     return result
   }
 
-  let workingText = text.trim()
+  // Step 1: Normalize input (expand abbreviations, clean up text)
+  const normalized = normalizeInput(text)
+  result.normalizedText = normalized.normalizedText
+  let workingText = normalized.normalizedText
+
   let totalConfidence = 0
   let fieldCount = 0
 
-  // Extract date and time
+  // Track what we've matched to avoid over-removal
+  const matchedSpans: Array<{ start: number; end: number; type: string }> = []
+
+  // Step 2: Extract urgency/deadline phrases first
+  const urgency = extractUrgency(workingText)
+  if (urgency.hasUrgency) {
+    if (urgency.deadline && !result.dueDate) {
+      result.dueDate = urgency.deadline
+      result.parsedFields.push({
+        field: 'dueDate',
+        value: urgency.deadline.toLocaleDateString(),
+        matchedText: urgency.matchedPhrase,
+        confidence: urgency.confidence,
+      })
+      totalConfidence += urgency.confidence
+      fieldCount++
+    }
+
+    if (urgency.implicitPriority) {
+      result.implicitPriority = urgency.implicitPriority
+      result.implicitPriorityConfidence = urgency.confidence
+      result.parsedFields.push({
+        field: 'implicitPriority',
+        value: urgency.implicitPriority,
+        matchedText: urgency.matchedPhrase,
+        confidence: urgency.confidence,
+      })
+    }
+
+    matchedSpans.push(...urgency.spans)
+  }
+
+  // Step 3: Extract date and time
   const dateTime = extractDateTime(workingText)
-  if (dateTime.hasDate) {
+  if (dateTime.hasDate && !result.dueDate) {
     result.dueDate = dateTime.date
     result.parsedFields.push({
       field: 'dueDate',
@@ -70,13 +121,13 @@ export function parseTaskInput(text: string, context: ParserContext): ParsedTask
       matchedText: dateTime.matchedText,
       confidence: dateTime.confidence,
     })
-    if (!dateTime.hasDate) {
+    if (!dateTime.hasDate && !urgency.deadline) {
       totalConfidence += dateTime.confidence
       fieldCount++
     }
   }
 
-  // Extract entities (priority, project, labels, etc.)
+  // Step 4: Extract entities (priority, project, labels, etc.)
   const entities = extractEntities(workingText, context.projects, context.labels)
 
   if (entities.priority) {
@@ -89,6 +140,9 @@ export function parseTaskInput(text: string, context: ParserContext): ParsedTask
     })
     totalConfidence += 0.95
     fieldCount++
+  } else if (result.implicitPriority && !entities.priority) {
+    // Use implicit priority if no explicit priority was found
+    result.priority = result.implicitPriority
   }
 
   if (entities.projectName) {
@@ -166,16 +220,50 @@ export function parseTaskInput(text: string, context: ParserContext): ParsedTask
     fieldCount++
   }
 
-  // Clean up the text to get the title
+  // Step 5: Extract action type for duration estimation
+  const action = extractAction(workingText)
+  if (action.hasAction) {
+    result.actionType = action.actionType
+    result.parsedFields.push({
+      field: 'actionType',
+      value: action.actionType,
+      matchedText: action.actionVerb,
+      confidence: 0.7,
+    })
+
+    // Add estimated duration if no explicit duration was set
+    if (!result.duration && action.estimatedDuration) {
+      result.estimatedDuration = action.estimatedDuration
+      result.estimatedDurationConfidence = action.durationConfidence
+      result.parsedFields.push({
+        field: 'estimatedDuration',
+        value: `~${action.estimatedDuration} min`,
+        matchedText: action.actionVerb,
+        confidence: action.durationConfidence,
+      })
+    }
+  }
+
+  // Step 6: Detect multi-part tasks
+  const multiPart = detectMultiPart(text)
+  if (multiPart.isMultiPart) {
+    result.isMultiPart = true
+    result.suggestedSubtasks = multiPart.suggestedSplit
+    result.parsedFields.push({
+      field: 'multiPart',
+      value: `${multiPart.suggestedSplit?.length || 0} subtasks`,
+      matchedText: '',
+      confidence: multiPart.confidence,
+    })
+  }
+
+  // Step 7: Clean up the text to get the title
+  workingText = removeUrgencyFromText(workingText)
   workingText = removeDateTimeFromText(workingText)
   workingText = removeEntitiesFromText(workingText)
 
-  // Additional cleanup
-  workingText = workingText
-    .replace(/\s+/g, ' ')
-    .replace(/^\s*[-–—]\s*/, '')
-    .replace(/\s*[-–—]\s*$/, '')
-    .trim()
+  // Additional cleanup for better titles
+  workingText = cleanupTitle(workingText)
 
   result.title = workingText || text.trim()
 
@@ -187,6 +275,31 @@ export function parseTaskInput(text: string, context: ParserContext): ParsedTask
   }
 
   return result
+}
+
+/**
+ * Clean up extracted title - preserve context words like "about", "regarding"
+ */
+function cleanupTitle(text: string): string {
+  let result = text
+
+  // Remove leftover punctuation at start/end
+  result = result.replace(/^[\s,\-–—:;.]+/, '')
+  result = result.replace(/[\s,\-–—:;.]+$/, '')
+
+  // Collapse multiple spaces
+  result = result.replace(/\s+/g, ' ')
+
+  // Don't strip away context words - keep "about X", "regarding X", "re X"
+  // Just clean up orphaned prepositions at the end
+  result = result.replace(/\s+(about|regarding|re|for|with|to|from)\s*$/, '')
+
+  // Capitalize first letter if needed
+  if (result.length > 0 && /^[a-z]/.test(result)) {
+    result = result.charAt(0).toUpperCase() + result.slice(1)
+  }
+
+  return result.trim()
 }
 
 export function formatParsedTask(parsed: ParsedTaskIntent): string {
