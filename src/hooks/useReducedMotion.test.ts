@@ -7,7 +7,7 @@ describe('useReducedMotion Hook', () => {
     Object.defineProperty(globalThis.window, 'matchMedia', {
       writable: true,
       configurable: true,
-      value: mock((_query: string) => ({
+      value: mock(() => ({
         matches,
         media: '(prefers-reduced-motion: reduce)',
         onchange: null,
@@ -44,7 +44,7 @@ describe('useReducedMotion Hook', () => {
     Object.defineProperty(globalThis.window, 'matchMedia', {
       writable: true,
       configurable: true,
-      value: mock((_query: string) => ({
+      value: mock(() => ({
         matches: false,
         media: '(prefers-reduced-motion: reduce)',
         onchange: null,

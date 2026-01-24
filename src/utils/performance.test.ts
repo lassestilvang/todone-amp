@@ -24,7 +24,8 @@ describe('Performance Utilities', () => {
     })
 
     it('should pass arguments to debounced function', async () => {
-      const callback = mock((..._args: unknown[]) => {})
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unused-vars
+      const callback = mock((..._args: any[]) => {})
       const debounced = debounce(callback, 50)
 
       debounced(1, 2, 3)

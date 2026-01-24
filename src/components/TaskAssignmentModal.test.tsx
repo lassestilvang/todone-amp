@@ -53,7 +53,7 @@ const mockTask: Task = {
 describe('TaskAssignmentModal', () => {
   beforeEach(() => {
     
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any, no-extra-semi
     ;(authStore.useAuthStore as any).mockReturnValue({
       user: mockUser,
     })

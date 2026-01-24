@@ -335,6 +335,13 @@ Also remove from `vitest.config.ts` (file can be deleted).
 
 ## Phase 3: CI/CD Updates
 
+**Status:** ✅ Complete
+
+- Updated `.github/workflows/ci.yml` to use `oven-sh/setup-bun@v2`
+- Updated `.github/workflows/e2e.yml` to use `oven-sh/setup-bun@v2`
+- Added Bun dependency caching with `actions/cache@v4`
+- All commands now use `bun install --frozen-lockfile`, `bun test`, `bun run build`, etc.
+
 ### 3.1 Update `.github/workflows/ci.yml`
 
 ```yaml
