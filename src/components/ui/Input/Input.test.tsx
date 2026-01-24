@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, mock } from 'bun:test'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Input } from './Input'
@@ -62,7 +62,7 @@ describe('Input Component', () => {
 
     it('should handle blur events', async () => {
       const user = userEvent.setup()
-      const handleBlur = vi.fn()
+      const handleBlur = mock()
       render(<Input onBlur={handleBlur} placeholder="Blur me" />)
       const input = screen.getByPlaceholderText('Blur me')
 
@@ -73,7 +73,7 @@ describe('Input Component', () => {
 
     it('should handle change events', async () => {
       const user = userEvent.setup()
-      const handleChange = vi.fn()
+      const handleChange = mock()
       render(<Input onChange={handleChange} placeholder="Change me" />)
       const input = screen.getByPlaceholderText('Change me')
 

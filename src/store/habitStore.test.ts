@@ -1,33 +1,33 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, it, expect, beforeEach, mock } from 'bun:test'
 import { useHabitStore, isHabitDueOnDate } from './habitStore'
 import type { Habit, HabitCompletion } from '@/types'
 
-vi.mock('@/db/database', () => ({
+mock.module('@/db/database', () => ({
   db: {
     habits: {
-      where: vi.fn().mockReturnThis(),
-      equals: vi.fn().mockReturnThis(),
-      toArray: vi.fn().mockResolvedValue([]),
-      add: vi.fn().mockResolvedValue(undefined),
-      put: vi.fn().mockResolvedValue(undefined),
-      delete: vi.fn().mockResolvedValue(undefined),
+      where: mock(function (this: unknown) { return this }),
+      equals: mock(function (this: unknown) { return this }),
+      toArray: mock(() => Promise.resolve([])),
+      add: mock(() => Promise.resolve(undefined)),
+      put: mock(() => Promise.resolve(undefined)),
+      delete: mock(() => Promise.resolve(undefined)),
     },
     habitCompletions: {
-      where: vi.fn().mockReturnThis(),
-      equals: vi.fn().mockReturnThis(),
-      anyOf: vi.fn().mockReturnThis(),
-      toArray: vi.fn().mockResolvedValue([]),
-      add: vi.fn().mockResolvedValue(undefined),
-      put: vi.fn().mockResolvedValue(undefined),
-      delete: vi.fn().mockResolvedValue(undefined),
+      where: mock(function (this: unknown) { return this }),
+      equals: mock(function (this: unknown) { return this }),
+      anyOf: mock(function (this: unknown) { return this }),
+      toArray: mock(() => Promise.resolve([])),
+      add: mock(() => Promise.resolve(undefined)),
+      put: mock(() => Promise.resolve(undefined)),
+      delete: mock(() => Promise.resolve(undefined)),
     },
   },
 }))
 
-vi.mock('./gamificationStore', () => ({
+mock.module('./gamificationStore', () => ({
   useGamificationStore: {
     getState: () => ({
-      addKarma: vi.fn().mockResolvedValue(undefined),
+      addKarma: mock(() => Promise.resolve(undefined)),
     }),
   },
 }))

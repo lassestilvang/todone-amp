@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, it, expect, beforeEach, mock } from 'bun:test'
 import {
   generatePKCEChallenge,
   storePKCEVerifier,
@@ -24,7 +24,7 @@ describe('OAuth Utilities', () => {
   beforeEach(() => {
     sessionStorage.clear()
     localStorage.clear()
-    vi.clearAllMocks()
+    // Bun auto-clears mocks
   })
 
   describe('generatePKCEChallenge', () => {
@@ -108,7 +108,8 @@ describe('OAuth Utilities', () => {
         config: OAuthProviders.google,
       }
 
-      global.fetch = vi.fn(() =>
+      // @ts-expect-error - Bun fetch mock
+      global.fetch = mock(() =>
         Promise.resolve({
           ok: true,
           json: () =>
@@ -136,7 +137,8 @@ describe('OAuth Utilities', () => {
         config: OAuthProviders.google,
       }
 
-      global.fetch = vi.fn(() =>
+      // @ts-expect-error - Bun fetch mock
+      global.fetch = mock(() =>
         Promise.resolve({
           ok: false,
           json: () =>
@@ -160,7 +162,8 @@ describe('OAuth Utilities', () => {
         config: OAuthProviders.google,
       }
 
-      global.fetch = vi.fn(() =>
+      // @ts-expect-error - Bun fetch mock
+      global.fetch = mock(() =>
         Promise.resolve({
           ok: true,
           json: () =>
@@ -186,7 +189,8 @@ describe('OAuth Utilities', () => {
         config: OAuthProviders.google,
       }
 
-      global.fetch = vi.fn(() =>
+      // @ts-expect-error - Bun fetch mock
+      global.fetch = mock(() =>
         Promise.resolve({
           ok: false,
         } as Response)
@@ -205,7 +209,8 @@ describe('OAuth Utilities', () => {
         config: OAuthProviders.google,
       }
 
-      global.fetch = vi.fn(() =>
+      // @ts-expect-error - Bun fetch mock
+      global.fetch = mock(() =>
         Promise.resolve({
           ok: true,
         } as Response)
@@ -296,11 +301,11 @@ describe('OAuth Utilities', () => {
 
   describe('OAuth Callback Handling', () => {
     it('should extract code from callback URL', () => {
-      window.history.pushState(
-        {},
-        '',
-        '/auth/callback?code=test-code&state=test-state'
-      )
+      // Set location search directly for happy-dom compatibility
+      Object.defineProperty(window, 'location', {
+        value: { ...window.location, search: '?code=test-code&state=test-state' },
+        writable: true,
+      })
 
       const { code, state, error } = handleOAuthCallback()
 
@@ -310,7 +315,10 @@ describe('OAuth Utilities', () => {
     })
 
     it('should extract error from callback URL', () => {
-      window.history.pushState({}, '', '/auth/callback?error=access_denied')
+      Object.defineProperty(window, 'location', {
+        value: { ...window.location, search: '?error=access_denied' },
+        writable: true,
+      })
 
       const { code, state, error } = handleOAuthCallback()
 
@@ -389,7 +397,8 @@ describe('OAuth Utilities', () => {
         config: OAuthProviders.google,
       }
 
-      global.fetch = vi.fn(() =>
+      // @ts-expect-error - Bun fetch mock
+      global.fetch = mock(() =>
         Promise.resolve({
           ok: true,
           json: () =>

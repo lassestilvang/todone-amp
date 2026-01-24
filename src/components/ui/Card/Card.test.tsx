@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react'
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, mock } from 'bun:test'
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from './Card'
 
 describe('Card', () => {
@@ -80,21 +80,21 @@ describe('Card', () => {
 
   describe('click handler', () => {
     it('renders as button when onClick is provided', () => {
-      const handleClick = vi.fn()
+      const handleClick = mock()
       render(<Card onClick={handleClick}>Clickable</Card>)
       const card = screen.getByRole('button')
       expect(card.tagName).toBe('BUTTON')
     })
 
     it('calls onClick when clicked', () => {
-      const handleClick = vi.fn()
+      const handleClick = mock()
       render(<Card onClick={handleClick}>Clickable</Card>)
       fireEvent.click(screen.getByRole('button'))
       expect(handleClick).toHaveBeenCalledTimes(1)
     })
 
     it('applies button-specific styles when clickable', () => {
-      const handleClick = vi.fn()
+      const handleClick = mock()
       render(<Card onClick={handleClick}>Clickable</Card>)
       expect(screen.getByRole('button')).toHaveClass('w-full', 'text-left')
     })

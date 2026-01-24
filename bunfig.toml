@@ -1,0 +1,24 @@
+[test]
+# Preload test setup - happydom must be first to set up globals before testing-library
+preload = ["./src/test/happydom.ts", "./src/test/setup.ts"]
+
+# Timeout per test (ms)
+timeout = 10000
+
+# Test file patterns
+root = "./src"
+
+# Coverage (optional - enable when needed)
+# coverage = true
+# coverageReporter = ["text", "lcov"]
+# coverageDir = "./coverage"
+
+# Coverage exclude patterns (commented out due to bunfig format issues)
+# [test.coverage]
+# exclude = [
+#   "**/node_modules/**",
+#   "**/*.test.{ts,tsx}",
+#   "**/*.spec.{ts,tsx}",
+#   "**/test/**",
+#   "**/__tests__/**"
+# ]

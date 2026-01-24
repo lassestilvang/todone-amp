@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react'
+import { describe, it, expect, mock } from 'bun:test'
 import { SkipNav } from './SkipNav'
 
 describe('SkipNav Component', () => {
@@ -33,7 +34,7 @@ describe('SkipNav Component', () => {
     const skipLink = screen.getByText('Skip to main content') as HTMLAnchorElement
 
     // Mock scrollIntoView
-    mainElement.scrollIntoView = vi.fn()
+    mainElement.scrollIntoView = mock()
 
     skipLink.click()
 
@@ -56,7 +57,7 @@ describe('SkipNav Component', () => {
     const sidebarElement = container.querySelector('#sidebar') as HTMLElement
     const skipLink = screen.getByText('Skip to sidebar navigation') as HTMLAnchorElement
 
-    sidebarElement.scrollIntoView = vi.fn()
+    sidebarElement.scrollIntoView = mock()
 
     skipLink.click()
 
@@ -77,7 +78,7 @@ describe('SkipNav Component', () => {
     const searchElement = container.querySelector('#search-bar') as HTMLElement
     const skipLink = screen.getByText('Skip to search') as HTMLAnchorElement
 
-    searchElement.scrollIntoView = vi.fn()
+    searchElement.scrollIntoView = mock()
 
     skipLink.click()
 

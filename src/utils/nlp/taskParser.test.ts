@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
+import { describe, it, expect, beforeEach, afterEach, setSystemTime } from 'bun:test'
 import { parseTaskInput, formatParsedTask, getSuggestions } from './taskParser'
 
 describe('taskParser', () => {
@@ -14,12 +14,11 @@ describe('taskParser', () => {
   }
 
   beforeEach(() => {
-    vi.useFakeTimers()
-    vi.setSystemTime(new Date('2026-01-12T10:00:00'))
+    setSystemTime(new Date('2026-01-12T10:00:00'))
   })
 
   afterEach(() => {
-    vi.useRealTimers()
+    setSystemTime()
   })
 
   describe('parseTaskInput', () => {

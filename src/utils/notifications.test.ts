@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
+import { describe, it, expect, mock, beforeEach, afterEach, setSystemTime } from 'bun:test'
 import {
   isBrowserNotificationSupported,
   areBrowserNotificationsPermitted,
@@ -13,12 +13,11 @@ describe('Notification Utilities', () => {
     // Mock window.Notification
     global.Notification = {
       permission: 'granted',
-      requestPermission: vi.fn().mockResolvedValue('granted'),
+      requestPermission: mock(() => Promise.resolve('granted')),
     } as unknown as typeof Notification
   })
 
   afterEach(() => {
-    vi.clearAllMocks()
   })
 
   describe('isBrowserNotificationSupported', () => {
@@ -28,8 +27,8 @@ describe('Notification Utilities', () => {
 
     it('should return false when Notification is not in window', () => {
       const original = global.Notification
-      // @ts-expect-error test
-      delete global.Notification
+      // @ts-expect-error test - use undefined assignment instead of delete
+      global.Notification = undefined
       expect(isBrowserNotificationSupported()).toBe(false)
       global.Notification = original
     })
@@ -43,7 +42,7 @@ describe('Notification Utilities', () => {
     it('should return false when permission is denied', () => {
       global.Notification = {
         permission: 'denied',
-        requestPermission: vi.fn(),
+        requestPermission: mock(() => {}),
       } as unknown as typeof Notification
       expect(areBrowserNotificationsPermitted()).toBe(false)
     })
@@ -51,7 +50,7 @@ describe('Notification Utilities', () => {
     it('should return false when permission is default', () => {
       global.Notification = {
         permission: 'default',
-        requestPermission: vi.fn(),
+        requestPermission: mock(() => {}),
       } as unknown as typeof Notification
       expect(areBrowserNotificationsPermitted()).toBe(false)
     })
@@ -61,7 +60,7 @@ describe('Notification Utilities', () => {
     it('should request permission', async () => {
       global.Notification = {
         permission: 'default',
-        requestPermission: vi.fn().mockResolvedValue('granted'),
+        requestPermission: mock(() => Promise.resolve('granted')),
       } as unknown as typeof Notification
       const result = await requestNotificationPermission()
       expect(result).toBe('granted')
@@ -70,7 +69,7 @@ describe('Notification Utilities', () => {
     it('should return current permission if already requested', async () => {
       global.Notification = {
         permission: 'denied',
-        requestPermission: vi.fn(),
+        requestPermission: mock(() => {}),
       } as unknown as typeof Notification
       const result = await requestNotificationPermission()
       expect(result).toBe('denied')
@@ -81,7 +80,7 @@ describe('Notification Utilities', () => {
     it('should not send if notifications not permitted', () => {
       global.Notification = {
         permission: 'denied',
-        requestPermission: vi.fn(),
+        requestPermission: mock(() => {}),
       } as unknown as typeof Notification
       const result = sendBrowserNotification({
         title: 'Test',
@@ -105,10 +104,10 @@ describe('Notification Utilities', () => {
     it('should attempt to play sound', () => {
       const mockAudio = {
         volume: 0,
-        play: vi.fn().mockResolvedValue(undefined),
+        play: mock(() => Promise.resolve(undefined)),
       }
 
-      global.Audio = vi.fn().mockReturnValue(mockAudio) as unknown as typeof Audio
+      global.Audio = mock(() => mockAudio) as unknown as typeof Audio
 
       playNotificationSound()
 
@@ -142,12 +141,11 @@ describe('Notification Utilities', () => {
       const mockDate = new Date()
       mockDate.setHours(23, 0, 0, 0)
 
-      vi.useFakeTimers()
-      vi.setSystemTime(mockDate)
+      setSystemTime(mockDate)
 
       expect(isQuietHour('22:00', '08:00')).toBe(true)
 
-      vi.useRealTimers()
+      setSystemTime()
     })
   })
 })

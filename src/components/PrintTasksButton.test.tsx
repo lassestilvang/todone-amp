@@ -1,12 +1,12 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, it, expect, beforeEach, mock} from 'bun:test'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { PrintTasksButton } from './PrintTasksButton'
 import { Task } from '@/types'
 import * as printUtils from '@/utils/printUtils'
 
-vi.mock('@/utils/printUtils', () => ({
-  printTasks: vi.fn(),
-  exportTasksAsHTML: vi.fn(),
+mock.module('@/utils/printUtils', () => ({
+  printTasks: mock(),
+  exportTasksAsHTML: mock(),
 }))
 
 describe('PrintTasksButton', () => {

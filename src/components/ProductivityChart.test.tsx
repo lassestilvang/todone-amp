@@ -1,29 +1,33 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, mock, beforeEach } from 'bun:test'
 import { render } from '@testing-library/react'
 import { ProductivityChart } from '@/components/ProductivityChart'
-import { useAuthStore } from '@/store/authStore'
-import { useTaskStore } from '@/store/taskStore'
 
-vi.mock('@/store/authStore')
-vi.mock('@/store/taskStore')
+const mockUseAuthStore = mock(() => ({
+  userId: 'test-user',
+  user: {
+    settings: {
+      dailyGoal: 5,
+      weeklyGoal: 25,
+      daysOff: [],
+      enableKarma: true,
+    },
+  },
+}))
+
+const mockUseTaskStore = mock(() => ({
+  tasks: [],
+}))
+
+mock.module('@/store/authStore', () => ({
+  useAuthStore: mockUseAuthStore,
+}))
+
+mock.module('@/store/taskStore', () => ({
+  useTaskStore: mockUseTaskStore,
+}))
 
 describe('ProductivityChart', () => {
   beforeEach(() => {
-    vi.mocked(useAuthStore).mockReturnValue({
-      userId: 'test-user',
-      user: {
-        settings: {
-          dailyGoal: 5,
-          weeklyGoal: 25,
-          daysOff: [],
-          enableKarma: true,
-        },
-      },
-    } as unknown as ReturnType<typeof useAuthStore>)
-
-    vi.mocked(useTaskStore).mockReturnValue({
-      tasks: [],
-    } as unknown as ReturnType<typeof useTaskStore>)
   })
 
   it('renders without crashing', () => {
@@ -38,10 +42,6 @@ describe('ProductivityChart', () => {
   })
 
   it('handles empty task list', () => {
-    vi.mocked(useTaskStore).mockReturnValue({
-      tasks: [],
-    } as unknown as ReturnType<typeof useTaskStore>)
-
     expect(() => {
       render(<ProductivityChart />)
     }).not.toThrow()

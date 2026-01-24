@@ -1,37 +1,35 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, mock, beforeEach } from 'bun:test'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { NotificationPreferences } from './NotificationPreferences'
-import { useAuthStore } from '@/store/authStore'
 
-// Mock the auth store
-vi.mock('@/store/authStore')
+const mockUpdateUser = mock()
 
-describe('NotificationPreferences', () => {
-  const mockUpdateUser = vi.fn()
-
-  beforeEach(() => {
-    vi.clearAllMocks()
-    vi.mocked(useAuthStore).mockReturnValue({
-      user: {
-        id: '1',
-        name: 'Test User',
-        email: 'test@example.com',
-        settings: {
-          notificationPreferences: {
-            enableBrowserNotifications: true,
-            enableEmailNotifications: true,
-            enablePushNotifications: false,
-            enableSoundNotifications: true,
-            quietHours: {
-              enabled: true,
-              startTime: '22:00',
-              endTime: '08:00',
-            },
+mock.module('@/store/authStore', () => ({
+  useAuthStore: () => ({
+    user: {
+      id: '1',
+      name: 'Test User',
+      email: 'test@example.com',
+      settings: {
+        notificationPreferences: {
+          enableBrowserNotifications: true,
+          enableEmailNotifications: true,
+          enablePushNotifications: false,
+          enableSoundNotifications: true,
+          quietHours: {
+            enabled: true,
+            startTime: '22:00',
+            endTime: '08:00',
           },
         },
       },
-      updateUser: mockUpdateUser,
-    } as ReturnType<typeof useAuthStore>)
+    },
+    updateUser: mockUpdateUser,
+  }),
+}))
+
+describe('NotificationPreferences', () => {
+  beforeEach(() => {
   })
 
   it('should not render when closed', () => {
@@ -77,7 +75,7 @@ describe('NotificationPreferences', () => {
   })
 
   it('should close when close button is clicked', () => {
-    const onClose = vi.fn()
+    const onClose = mock()
     render(<NotificationPreferences isOpen={true} onClose={onClose} />)
 
     const closeButton = screen.getByRole('button', { name: '' })
@@ -87,7 +85,7 @@ describe('NotificationPreferences', () => {
   })
 
   it('should close when cancel button is clicked', () => {
-    const onClose = vi.fn()
+    const onClose = mock()
     render(<NotificationPreferences isOpen={true} onClose={onClose} />)
 
     const cancelButton = screen.getByText('Cancel')

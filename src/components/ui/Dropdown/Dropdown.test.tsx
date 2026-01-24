@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react'
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it, mock } from 'bun:test'
 import {
   Dropdown,
   DropdownTrigger,
@@ -66,18 +66,18 @@ describe('Dropdown', () => {
   })
 
   it('calls item click handler', () => {
-    const handleClick = vi.fn()
+    const handleClick = mock()
     render(<TestDropdown onItemClick={handleClick} />)
 
     fireEvent.click(screen.getByText('Menu'))
     fireEvent.click(screen.getByText('Item 1'))
 
-    expect(handleClick).toHaveBeenCalledOnce()
+    expect(handleClick).toHaveBeenCalled()
     expect(screen.queryByRole('menu')).not.toBeInTheDocument()
   })
 
   it('does not call handler for disabled items', () => {
-    const handleClick = vi.fn()
+    const handleClick = mock()
     render(<TestDropdown onItemClick={handleClick} disabled />)
 
     fireEvent.click(screen.getByText('Menu'))

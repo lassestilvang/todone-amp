@@ -1,3 +1,4 @@
+import { describe, it, expect, mock } from 'bun:test'
 import {
   prefersReducedMotion,
   onReducedMotionChange,
@@ -15,17 +16,17 @@ describe('Reduced Motion Utilities', () => {
 
     Object.defineProperty(window, 'matchMedia', {
       writable: true,
-      value: vi.fn().mockImplementation((query: string) => ({
+      value: mock((query: string) => ({
         matches,
         media: query,
         onchange: null,
-        addListener: vi.fn((listener: (e: MediaQueryListEvent) => void) => listeners.push(listener)),
-        removeListener: vi.fn(),
-        addEventListener: vi.fn((_: string, listener: (e: MediaQueryListEvent) => void) =>
+        addListener: mock((listener: (e: MediaQueryListEvent) => void) => listeners.push(listener)),
+        removeListener: mock(() => {}),
+        addEventListener: mock((_: string, listener: (e: MediaQueryListEvent) => void) =>
           listeners.push(listener)
         ),
-        removeEventListener: vi.fn(),
-        dispatchEvent: vi.fn(),
+        removeEventListener: mock(() => {}),
+        dispatchEvent: mock(() => {}),
       })),
     })
 
@@ -131,7 +132,7 @@ describe('Reduced Motion Utilities', () => {
 
     it('should call callback on preference change', () => {
       const listeners = mockMatchMedia(false)
-      const callback = vi.fn()
+      const callback = mock(() => {})
       onReducedMotionChange(callback)
 
       // Simulate preference change
@@ -157,25 +158,25 @@ describe('Reduced Motion Utilities', () => {
       mockMatchMedia(false)
       const element = document.createElement('div')
 
-      const mockAnimation: Partial<Animation> = {}
-
-      element.animate = vi.fn().mockReturnValue({
-        ...mockAnimation,
-        onfinish: null as FrameRequestCallback | null,
-      } as unknown as Animation)
-
-      // Create animation promise
-      const animatePromise = safeAnimate(element, [{ opacity: '0' }, { opacity: '1' }], {
-        duration: 300,
-      })
-
-      // Trigger animation finish
-      const animation = element.animate([{ opacity: '0' }, { opacity: '1' }], { duration: 300 })
-      if (animation.onfinish) {
-        animation.onfinish({} as AnimationPlaybackEvent)
+      // Create a mock animation that resolves onfinish immediately
+      const mockAnimationObj = {
+        onfinish: null as ((event: AnimationPlaybackEvent) => void) | null,
+        finished: Promise.resolve(undefined as unknown as Animation),
       }
 
-      await animatePromise
+      element.animate = mock(() => {
+        // Schedule onfinish to be called after a microtask
+        setTimeout(() => {
+          if (mockAnimationObj.onfinish) {
+            mockAnimationObj.onfinish({} as AnimationPlaybackEvent)
+          }
+        }, 0)
+        return mockAnimationObj as unknown as Animation
+      })
+
+      await safeAnimate(element, [{ opacity: '0' }, { opacity: '1' }], {
+        duration: 300,
+      })
       expect(element.animate).toHaveBeenCalled()
     })
   })

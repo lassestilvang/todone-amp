@@ -2,7 +2,7 @@
  * User Journey Integration Tests
  * Tests main user flows and critical paths through the application
  */
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect, beforeEach } from 'bun:test'
 
 describe('User Journey: Core Application Features', () => {
   beforeEach(() => {

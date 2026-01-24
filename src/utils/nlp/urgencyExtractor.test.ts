@@ -1,14 +1,13 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
+import { describe, it, expect, beforeEach, afterEach, setSystemTime } from 'bun:test'
 import { extractUrgency, removeUrgencyFromText } from './urgencyExtractor'
 
 describe('urgencyExtractor', () => {
   beforeEach(() => {
-    vi.useFakeTimers()
-    vi.setSystemTime(new Date('2026-01-22T10:00:00'))
+    setSystemTime(new Date('2026-01-22T10:00:00'))
   })
 
   afterEach(() => {
-    vi.useRealTimers()
+    setSystemTime()
   })
 
   describe('extractUrgency', () => {

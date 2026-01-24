@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, mock, spyOn } from 'bun:test'
 import { lazyWithDelay, preloadComponent, lazyLoadPatterns } from './lazyLoadUtils'
 import * as loggerModule from './logger'
 
@@ -17,7 +17,7 @@ describe('lazyLoadUtils', () => {
   })
 
   it('lazyWithDelay should return a function', () => {
-    const mockImport = vi.fn(() =>
+    const mockImport = mock(() =>
       Promise.resolve({ default: () => null })
     )
     const delayedImport = lazyWithDelay(mockImport, 500)
@@ -25,24 +25,21 @@ describe('lazyLoadUtils', () => {
   })
 
   it('lazyWithDelay should delay import resolution', async () => {
-    vi.useFakeTimers()
-    const mockImport = vi.fn(() =>
+    const mockImport = mock(() =>
       Promise.resolve({ default: () => null })
     )
-    const delayedImport = lazyWithDelay(mockImport, 500)
+    const delayedImport = lazyWithDelay(mockImport, 100)
 
     const promise = delayedImport()
     expect(mockImport).not.toHaveBeenCalled()
 
-    vi.advanceTimersByTime(500)
+    await new Promise((resolve) => setTimeout(resolve, 150))
     await promise
     expect(mockImport).toHaveBeenCalled()
-
-    vi.useRealTimers()
   })
 
   it('preloadComponent should handle successful imports', async () => {
-    const mockImport = vi.fn(() =>
+    const mockImport = mock(() =>
       Promise.resolve({ default: () => null })
     )
     await preloadComponent(mockImport)
@@ -50,10 +47,10 @@ describe('lazyLoadUtils', () => {
   })
 
   it('preloadComponent should handle import errors gracefully', async () => {
-    const mockImport = vi.fn(() =>
+    const mockImport = mock(() =>
       Promise.reject(new Error('Import failed'))
     )
-    const loggerSpy = vi.spyOn(loggerModule.logger, 'warn').mockImplementation(() => {})
+    const loggerSpy = spyOn(loggerModule.logger, 'warn').mockImplementation(() => {})
 
     await preloadComponent(mockImport)
 

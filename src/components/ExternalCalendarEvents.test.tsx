@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, mock } from 'bun:test';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { ExternalCalendarEvents } from './ExternalCalendarEvents';
 
@@ -104,7 +104,7 @@ describe('ExternalCalendarEvents', () => {
   });
 
   it('calls onEventClick when event is clicked', () => {
-    const onEventClick = vi.fn();
+    const onEventClick = mock();
     render(
       <ExternalCalendarEvents
         events={mockEvents}
@@ -220,7 +220,7 @@ describe('ExternalCalendarEvents', () => {
   });
 
   it('supports keyboard navigation', () => {
-    const onEventClick = vi.fn();
+    const onEventClick = mock();
     render(
       <ExternalCalendarEvents
         events={mockEvents}

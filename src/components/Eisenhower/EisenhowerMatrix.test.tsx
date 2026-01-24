@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect } from 'bun:test'
 import { getQuadrant } from '@/utils/eisenhower'
 import type { Task } from '@/types'
 

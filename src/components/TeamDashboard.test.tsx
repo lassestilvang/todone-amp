@@ -1,9 +1,9 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, mock } from 'bun:test'
 import { render, screen } from '@testing-library/react'
 import { TeamDashboard } from './TeamDashboard'
 
 // Mock the teamStore
-vi.mock('@/store/teamStore', () => ({
+mock.module('@/store/teamStore', () => ({
   useTeamStore: () => ({
     teams: [{ id: 'team1', name: 'Test Team' }],
   }),

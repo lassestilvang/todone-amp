@@ -1,13 +1,13 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, it, expect, beforeEach, mock } from 'bun:test'
 import { useSyncStore } from './syncStore'
 
 // Mock the database module
-vi.mock('@/db/database', () => ({
+mock.module('@/db/database', () => ({
   db: {
     syncQueue: {
-      toArray: vi.fn().mockResolvedValue([]),
-      add: vi.fn().mockResolvedValue(undefined),
-      update: vi.fn().mockResolvedValue(undefined),
+      toArray: mock(() => Promise.resolve([])),
+      add: mock(() => Promise.resolve(undefined)),
+      update: mock(() => Promise.resolve(undefined)),
     },
   },
 }))
@@ -22,8 +22,6 @@ describe('SyncStore', () => {
       lastSyncAt: undefined,
       error: null,
     })
-    // Reset mocks
-    vi.clearAllMocks()
   })
 
   describe('initialization', () => {

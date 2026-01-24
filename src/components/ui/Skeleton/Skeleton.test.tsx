@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it } from 'bun:test'
 import { Skeleton, SkeletonText, SkeletonAvatar } from './Skeleton'
 
 describe('Skeleton', () => {
@@ -48,7 +48,8 @@ describe('Skeleton', () => {
 
     it('applies custom height as string', () => {
       const { container } = render(<Skeleton height="2rem" />)
-      expect(container.firstChild).toHaveStyle({ height: '2rem' })
+      const element = container.firstChild as HTMLElement
+      expect(element.style.height).toBe('2rem')
     })
   })
 

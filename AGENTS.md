@@ -6,19 +6,19 @@ Always make sure to update the AGENTS.md file with any new agents or changes to 
 
 ## Build & Commands
 
-- **Dev**: `npm run dev` (Vite dev server)
-- **Build**: `npm run build` (TypeScript + Vite)
-- **Test**: `npm run test` (Vitest)
-- **Single test**: `npm run test -- path/to/test.ts`
-- **E2E Test**: `npm run test:e2e` (Playwright, all browsers)
-- **E2E Test UI**: `npm run test:e2e:ui` (Playwright interactive UI)
-- **E2E Chromium**: `npm run test:e2e:chromium` (Playwright, Chromium only)
-- **Lint**: `npm run lint` (ESLint, zero warnings)
-- **Type check**: `npm run type-check` (TypeScript)
-- **Storybook**: `npm run storybook` (Component docs on port 6006)
-- **Build Storybook**: `npm run build-storybook` (Static build)
-- **Performance Budget**: `npm run perf:budget` (Build + Lighthouse CI)
-- **Lighthouse**: `npm run lighthouse` (Lighthouse CI on built dist)
+- **Dev**: `bun run dev` (Vite dev server with Bun runtime)
+- **Build**: `bun run build` (TypeScript + Vite)
+- **Test**: `bun test` (Bun test runner)
+- **Single test**: `bun test ./path/to/test.ts`
+- **E2E Test**: `bun run test:e2e` (Playwright, all browsers)
+- **E2E Test UI**: `bun run test:e2e:ui` (Playwright interactive UI)
+- **E2E Chromium**: `bun run test:e2e:chromium` (Playwright, Chromium only)
+- **Lint**: `bun run lint` (ESLint, zero warnings)
+- **Type check**: `bun run type-check` (TypeScript)
+- **Storybook**: `bun run storybook` (Component docs on port 6006)
+- **Build Storybook**: `bun run build-storybook` (Static build)
+- **Performance Budget**: `bun run perf:budget` (Build + Lighthouse CI)
+- **Lighthouse**: `bun run lighthouse` (Lighthouse CI on built dist)
 
 ## Architecture
 

@@ -1,12 +1,11 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, mock, beforeEach } from 'bun:test'
 import { render } from '@testing-library/react'
 import { PullToRefresh } from '@/components/PullToRefresh'
 
 describe('PullToRefresh', () => {
-  const mockOnRefresh = vi.fn()
+  const mockOnRefresh = mock()
 
   beforeEach(() => {
-    mockOnRefresh.mockClear()
   })
 
   it('should render children', () => {

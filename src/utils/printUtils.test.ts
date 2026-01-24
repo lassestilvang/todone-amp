@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, it, expect, beforeEach, mock, spyOn } from 'bun:test'
 import {
   formatTasksForPrint,
   generateProductivityReport,
@@ -199,14 +199,14 @@ describe('Print Utilities', () => {
     it('should open print window and write content', () => {
       const mockPrintWindow = {
         document: {
-          write: vi.fn(),
-          close: vi.fn(),
+          write: mock(() => {}),
+          close: mock(() => {}),
         },
-        print: vi.fn(),
-        close: vi.fn(),
+        print: mock(() => {}),
+        close: mock(() => {}),
       }
 
-      vi.spyOn(window, 'open').mockReturnValue(mockPrintWindow as unknown as Window | null)
+      spyOn(window, 'open').mockReturnValue(mockPrintWindow as unknown as Window | null)
 
       const content = '<html><body>Test</body></html>'
       printContent(content)
@@ -218,8 +218,8 @@ describe('Print Utilities', () => {
     })
 
     it('should handle print window being blocked', () => {
-      vi.spyOn(window, 'open').mockReturnValue(null)
-      const loggerSpy = vi.spyOn(loggerModule.logger, 'error').mockImplementation(() => {})
+      spyOn(window, 'open').mockReturnValue(null)
+      const loggerSpy = spyOn(loggerModule.logger, 'error').mockImplementation(() => {})
 
       printContent('<html><body>Test</body></html>')
 

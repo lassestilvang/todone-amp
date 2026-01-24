@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, it, expect, beforeEach, mock } from 'bun:test'
 import { useThemeStore } from './themeStore'
 
 describe('themeStore', () => {
@@ -27,15 +27,15 @@ describe('themeStore', () => {
     it('should set mode to system and resolve based on preference', () => {
       Object.defineProperty(window, 'matchMedia', {
         writable: true,
-        value: vi.fn().mockImplementation((query) => ({
+        value: mock((query: string) => ({
           matches: query === '(prefers-color-scheme: dark)',
           media: query,
           onchange: null,
-          addListener: vi.fn(),
-          removeListener: vi.fn(),
-          addEventListener: vi.fn(),
-          removeEventListener: vi.fn(),
-          dispatchEvent: vi.fn(),
+          addListener: mock(() => {}),
+          removeListener: mock(() => {}),
+          addEventListener: mock(() => {}),
+          removeEventListener: mock(() => {}),
+          dispatchEvent: mock(() => {}),
         })),
       })
 
@@ -71,15 +71,15 @@ describe('themeStore', () => {
     it('should resolve mode on initialize', () => {
       Object.defineProperty(window, 'matchMedia', {
         writable: true,
-        value: vi.fn().mockImplementation((query) => ({
+        value: mock((query: string) => ({
           matches: query === '(prefers-color-scheme: dark)',
           media: query,
           onchange: null,
-          addListener: vi.fn(),
-          removeListener: vi.fn(),
-          addEventListener: vi.fn(),
-          removeEventListener: vi.fn(),
-          dispatchEvent: vi.fn(),
+          addListener: mock(() => {}),
+          removeListener: mock(() => {}),
+          addEventListener: mock(() => {}),
+          removeEventListener: mock(() => {}),
+          dispatchEvent: mock(() => {}),
         })),
       })
 
@@ -89,18 +89,18 @@ describe('themeStore', () => {
     })
 
     it('should set up media query listener in system mode', () => {
-      const addEventListenerMock = vi.fn()
+      const addEventListenerMock = mock(() => {})
       Object.defineProperty(window, 'matchMedia', {
         writable: true,
-        value: vi.fn().mockImplementation((query) => ({
+        value: mock((query: string) => ({
           matches: false,
           media: query,
           onchange: null,
-          addListener: vi.fn(),
-          removeListener: vi.fn(),
+          addListener: mock(() => {}),
+          removeListener: mock(() => {}),
           addEventListener: addEventListenerMock,
-          removeEventListener: vi.fn(),
-          dispatchEvent: vi.fn(),
+          removeEventListener: mock(() => {}),
+          dispatchEvent: mock(() => {}),
         })),
       })
 
@@ -166,15 +166,15 @@ describe('themeStore', () => {
     it('should resolve light mode when system prefers light', () => {
       Object.defineProperty(window, 'matchMedia', {
         writable: true,
-        value: vi.fn().mockImplementation((query) => ({
+        value: mock((query: string) => ({
           matches: query === '(prefers-color-scheme: light)',
           media: query,
           onchange: null,
-          addListener: vi.fn(),
-          removeListener: vi.fn(),
-          addEventListener: vi.fn(),
-          removeEventListener: vi.fn(),
-          dispatchEvent: vi.fn(),
+          addListener: mock(() => {}),
+          removeListener: mock(() => {}),
+          addEventListener: mock(() => {}),
+          removeEventListener: mock(() => {}),
+          dispatchEvent: mock(() => {}),
         })),
       })
 
@@ -185,15 +185,15 @@ describe('themeStore', () => {
     it('should preserve resolved mode when switching from system to explicit', () => {
       Object.defineProperty(window, 'matchMedia', {
         writable: true,
-        value: vi.fn().mockImplementation((query) => ({
+        value: mock((query: string) => ({
           matches: query === '(prefers-color-scheme: dark)',
           media: query,
           onchange: null,
-          addListener: vi.fn(),
-          removeListener: vi.fn(),
-          addEventListener: vi.fn(),
-          removeEventListener: vi.fn(),
-          dispatchEvent: vi.fn(),
+          addListener: mock(() => {}),
+          removeListener: mock(() => {}),
+          addEventListener: mock(() => {}),
+          removeEventListener: mock(() => {}),
+          dispatchEvent: mock(() => {}),
         })),
       })
 
@@ -233,15 +233,15 @@ describe('themeStore', () => {
       it(`should set mode to ${mode}`, () => {
         Object.defineProperty(window, 'matchMedia', {
           writable: true,
-          value: vi.fn().mockImplementation((query) => ({
+          value: mock((query: string) => ({
             matches: mode === 'system' ? query === '(prefers-color-scheme: dark)' : false,
             media: query,
             onchange: null,
-            addListener: vi.fn(),
-            removeListener: vi.fn(),
-            addEventListener: vi.fn(),
-            removeEventListener: vi.fn(),
-            dispatchEvent: vi.fn(),
+            addListener: mock(() => {}),
+            removeListener: mock(() => {}),
+            addEventListener: mock(() => {}),
+            removeEventListener: mock(() => {}),
+            dispatchEvent: mock(() => {}),
           })),
         })
 

@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, mock, beforeEach } from 'bun:test'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { TodayView } from './TodayView'
@@ -48,39 +48,39 @@ const mockTasks: Task[] = [
   },
 ]
 
-vi.mock('@/store/taskStore', () => ({
-  useTaskStore: vi.fn((selector) => {
+mock.module('@/store/taskStore', () => ({
+  useTaskStore: mock((selector) => {
     const state = {
       getFilteredTasks: () => mockTasks,
-      toggleTask: vi.fn(),
-      selectTask: vi.fn(),
+      toggleTask: mock(),
+      selectTask: mock(),
       selectedTaskId: null,
-      loadTasks: vi.fn(),
+      loadTasks: mock(),
     }
     return typeof selector === 'function' ? selector(state) : state
   }),
 }))
 
-vi.mock('@/store/filterStore', () => ({
-  useFilterStore: vi.fn((selector) => {
+mock.module('@/store/filterStore', () => ({
+  useFilterStore: mock((selector) => {
     const state = {
-      applyFilterQuery: vi.fn((_query, tasks) => tasks),
+      applyFilterQuery: mock((_query, tasks) => tasks),
     }
     return typeof selector === 'function' ? selector(state) : state
   }),
 }))
 
-vi.mock('@/store/quickAddStore', () => ({
-  useQuickAddStore: vi.fn((selector) => {
+mock.module('@/store/quickAddStore', () => ({
+  useQuickAddStore: mock((selector) => {
     const state = {
-      openQuickAdd: vi.fn(),
+      openQuickAdd: mock(),
     }
     return typeof selector === 'function' ? selector(state) : state
   }),
 }))
 
-vi.mock('@/store/authStore', () => ({
-  useAuthStore: vi.fn((selector) => {
+mock.module('@/store/authStore', () => ({
+  useAuthStore: mock((selector) => {
     const state = {
       user: { id: 'user1', name: 'Test User', email: 'test@example.com' },
     }
@@ -88,17 +88,17 @@ vi.mock('@/store/authStore', () => ({
   }),
 }))
 
-vi.mock('@/store/integrationStore', () => ({
-  useIntegrationStore: vi.fn((selector) => {
+mock.module('@/store/integrationStore', () => ({
+  useIntegrationStore: mock((selector) => {
     const state = {
       calendarEvents: [],
-      getCalendarEvents: vi.fn(),
+      getCalendarEvents: mock(),
     }
     return typeof selector === 'function' ? selector(state) : state
   }),
 }))
 
-vi.mock('@/components/VirtualTaskList', () => ({
+mock.module('@/components/VirtualTaskList', () => ({
   VirtualTaskList: ({ tasks, emptyMessage }: { tasks: Task[]; emptyMessage?: string }) => (
     <div data-testid="virtual-task-list">
       {tasks.length === 0 ? (
@@ -110,20 +110,20 @@ vi.mock('@/components/VirtualTaskList', () => ({
   ),
 }))
 
-vi.mock('@/components/ViewSwitcher', () => ({
+mock.module('@/components/ViewSwitcher', () => ({
   ViewSwitcher: () => <div data-testid="view-switcher">View Switcher</div>,
 }))
 
-vi.mock('@/components/FilterPanel', () => ({
+mock.module('@/components/FilterPanel', () => ({
   FilterPanel: ({ isOpen }: { isOpen: boolean }) =>
     isOpen ? <div data-testid="filter-panel">Filter Panel</div> : null,
 }))
 
-vi.mock('@/components/ExternalCalendarEvents', () => ({
+mock.module('@/components/ExternalCalendarEvents', () => ({
   ExternalCalendarEvents: () => <div data-testid="calendar-events">Calendar Events</div>,
 }))
 
-vi.mock('@/utils/date', () => ({
+mock.module('@/utils/date', () => ({
   isTaskDueToday: (date?: Date) => {
     if (!date) return false
     const today = new Date()
@@ -143,7 +143,7 @@ vi.mock('@/utils/date', () => ({
 
 describe('TodayView Component', () => {
   beforeEach(() => {
-    vi.clearAllMocks()
+    
   })
 
   describe('rendering', () => {

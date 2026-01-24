@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, mock, beforeEach } from 'bun:test'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { TaskDetailPanel } from './TaskDetailPanel'
@@ -19,36 +19,36 @@ const mockTask: Task = {
   dueDate: new Date(Date.now() + 24 * 60 * 60 * 1000),
 }
 
-vi.mock('@/store/taskDetailStore', () => ({
-  useTaskDetailStore: vi.fn((selector) => {
+mock.module('@/store/taskDetailStore', () => ({
+  useTaskDetailStore: mock((selector: (state: unknown) => unknown) => {
     const state = {
       isOpen: true,
       selectedTask: mockTask,
       hasUnsavedChanges: false,
-      closeTaskDetail: vi.fn(),
-      updateSelectedTask: vi.fn(),
-      setHasUnsavedChanges: vi.fn(),
+      closeTaskDetail: mock(),
+      updateSelectedTask: mock(),
+      setHasUnsavedChanges: mock(),
     }
     return typeof selector === 'function' ? selector(state) : state
   }),
 }))
 
-vi.mock('@/store/taskStore', () => ({
-  useTaskStore: vi.fn((selector) => {
+mock.module('@/store/taskStore', () => ({
+  useTaskStore: mock((selector: (state: unknown) => unknown) => {
     const state = {
-      updateTask: vi.fn(),
-      deleteTask: vi.fn(),
-      duplicateTask: vi.fn(),
+      updateTask: mock(),
+      deleteTask: mock(),
+      duplicateTask: mock(),
       tasks: [mockTask],
     }
     return typeof selector === 'function' ? selector(state) : state
   }),
 }))
 
-vi.mock('@/store/projectStore', () => ({
-  useProjectStore: vi.fn((selector) => {
+mock.module('@/store/projectStore', () => ({
+  useProjectStore: mock((selector: (state: unknown) => unknown) => {
     const state = {
-      createProject: vi.fn(),
+      createProject: mock(),
       projects: [],
     }
     return typeof selector === 'function' ? selector(state) : state
@@ -56,67 +56,67 @@ vi.mock('@/store/projectStore', () => ({
 }))
 
 // Mock child components
-vi.mock('@/components/DatePickerInput', () => ({
+mock.module('@/components/DatePickerInput', () => ({
   DatePickerInput: () => <div data-testid="date-picker">Date Picker</div>,
 }))
 
-vi.mock('@/components/TimePickerInput', () => ({
+mock.module('@/components/TimePickerInput', () => ({
   TimePickerInput: () => <div data-testid="time-picker">Time Picker</div>,
 }))
 
-vi.mock('@/components/PrioritySelector', () => ({
+mock.module('@/components/PrioritySelector', () => ({
   PrioritySelector: () => <div data-testid="priority-selector">Priority Selector</div>,
 }))
 
-vi.mock('@/components/ProjectSelector', () => ({
+mock.module('@/components/ProjectSelector', () => ({
   ProjectSelector: () => <div data-testid="project-selector">Project Selector</div>,
 }))
 
-vi.mock('@/components/SectionSelector', () => ({
+mock.module('@/components/SectionSelector', () => ({
   SectionSelector: () => <div data-testid="section-selector">Section Selector</div>,
 }))
 
-vi.mock('@/components/LabelSelector', () => ({
+mock.module('@/components/LabelSelector', () => ({
   LabelSelector: () => <div data-testid="label-selector">Label Selector</div>,
 }))
 
-vi.mock('@/components/RecurrenceSelector', () => ({
+mock.module('@/components/RecurrenceSelector', () => ({
   RecurrenceSelector: () => <div data-testid="recurrence-selector">Recurrence Selector</div>,
 }))
 
-vi.mock('@/components/SubTaskList', () => ({
+mock.module('@/components/SubTaskList', () => ({
   SubTaskList: () => <div data-testid="subtask-list">Subtask List</div>,
 }))
 
-vi.mock('@/components/AssigneeSelector', () => ({
+mock.module('@/components/AssigneeSelector', () => ({
   AssigneeSelector: () => <div data-testid="assignee-selector">Assignee Selector</div>,
 }))
 
-vi.mock('@/components/CommentThread', () => ({
+mock.module('@/components/CommentThread', () => ({
   CommentThread: () => <div data-testid="comment-thread">Comment Thread</div>,
 }))
 
-vi.mock('@/components/ActivityFeed', () => ({
+mock.module('@/components/ActivityFeed', () => ({
   ActivityFeed: () => <div data-testid="activity-feed">Activity Feed</div>,
 }))
 
-vi.mock('@/components/RecurrenceExceptionManager', () => ({
+mock.module('@/components/RecurrenceExceptionManager', () => ({
   RecurrenceExceptionManager: () => <div data-testid="recurrence-exception">Recurrence Exception Manager</div>,
 }))
 
-vi.mock('@/components/RecurrenceInstancesList', () => ({
+mock.module('@/components/RecurrenceInstancesList', () => ({
   RecurrenceInstancesList: () => <div data-testid="recurrence-instances">Recurrence Instances</div>,
 }))
 
-vi.mock('@/components/RecurrenceCalendarView', () => ({
+mock.module('@/components/RecurrenceCalendarView', () => ({
   RecurrenceCalendarView: () => <div data-testid="recurrence-calendar">Recurrence Calendar</div>,
 }))
 
-vi.mock('@/components/RichTextEditor', () => ({
+mock.module('@/components/RichTextEditor', () => ({
   RichTextEditor: () => <div data-testid="rich-text-editor">Rich Text Editor</div>,
 }))
 
-vi.mock('@/components/Input', () => ({
+mock.module('@/components/Input', () => ({
   Input: ({ placeholder }: { placeholder?: string }) => (
     <input data-testid="input" placeholder={placeholder} type="text" />
   ),
@@ -124,7 +124,6 @@ vi.mock('@/components/Input', () => ({
 
 describe('TaskDetailPanel Component', () => {
   beforeEach(() => {
-    vi.clearAllMocks()
   })
 
   describe('rendering', () => {

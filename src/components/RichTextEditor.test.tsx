@@ -1,10 +1,10 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, mock } from 'bun:test'
 import { render, screen } from '@testing-library/react'
 import { RichTextEditor } from '@/components/RichTextEditor'
 
 describe('RichTextEditor', () => {
   it('should render the editor', async () => {
-    const onChange = vi.fn()
+    const onChange = mock()
     render(
       <RichTextEditor
         value=""
@@ -22,7 +22,7 @@ describe('RichTextEditor', () => {
   })
 
   it('should call onChange when content changes', async () => {
-    const onChange = vi.fn()
+    const onChange = mock()
     render(
       <RichTextEditor
         value=""
@@ -39,7 +39,7 @@ describe('RichTextEditor', () => {
 
   it('should display initial value', async () => {
     const initialValue = '<p>Test content</p>'
-    const onChange = vi.fn()
+    const onChange = mock()
     render(
       <RichTextEditor
         value={initialValue}
@@ -55,7 +55,7 @@ describe('RichTextEditor', () => {
   })
 
   it('should have formatting toolbar buttons', async () => {
-    const onChange = vi.fn()
+    const onChange = mock()
     render(
       <RichTextEditor
         value=""

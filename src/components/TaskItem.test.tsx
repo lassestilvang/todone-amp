@@ -1,19 +1,19 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, mock, beforeEach } from 'bun:test'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { TaskItem } from './TaskItem'
 import { Task } from '@/types'
 
 // Mock the stores
-vi.mock('@/store/taskDetailStore', () => ({
-  useTaskDetailStore: vi.fn(() => ({
-    openTaskDetail: vi.fn(),
+mock.module('@/store/taskDetailStore', () => ({
+  useTaskDetailStore: mock(() => ({
+    openTaskDetail: mock(),
   })),
 }))
 
-vi.mock('@/store/taskStore', () => ({
-  useTaskStore: vi.fn(() => ({
-    getSubtasks: vi.fn(() => []),
+mock.module('@/store/taskStore', () => ({
+  useTaskStore: mock(() => ({
+    getSubtasks: mock(() => []),
   })),
 }))
 
@@ -35,7 +35,6 @@ const mockTask: Task = {
 
 describe('TaskItem Component', () => {
   beforeEach(() => {
-    vi.clearAllMocks()
   })
 
   describe('rendering', () => {
@@ -101,7 +100,7 @@ describe('TaskItem Component', () => {
   describe('interactions', () => {
     it('should call onToggle when checkbox is clicked', async () => {
       const user = userEvent.setup()
-      const handleToggle = vi.fn()
+      const handleToggle = mock()
       render(<TaskItem task={mockTask} onToggle={handleToggle} />)
 
       const checkbox = screen.getByRole('checkbox')
@@ -111,7 +110,7 @@ describe('TaskItem Component', () => {
 
     it('should call onSelect when task area is clicked', async () => {
       const user = userEvent.setup()
-      const handleSelect = vi.fn()
+      const handleSelect = mock()
       render(<TaskItem task={mockTask} onSelect={handleSelect} />)
 
       const container = screen.getByText('Test task').closest('div')?.parentElement
@@ -123,8 +122,8 @@ describe('TaskItem Component', () => {
 
     it('should prevent event bubbling on checkbox click', async () => {
       const user = userEvent.setup()
-      const handleToggle = vi.fn()
-      const handleSelect = vi.fn()
+      const handleToggle = mock()
+      const handleSelect = mock()
       render(<TaskItem task={mockTask} onToggle={handleToggle} onSelect={handleSelect} />)
 
       const checkbox = screen.getByRole('checkbox')
@@ -195,7 +194,7 @@ describe('TaskItem Component', () => {
 
     it('should support space key for checkbox toggle', async () => {
       const user = userEvent.setup()
-      const handleToggle = vi.fn()
+      const handleToggle = mock()
       render(<TaskItem task={mockTask} onToggle={handleToggle} />)
 
       const checkbox = screen.getByRole('checkbox')

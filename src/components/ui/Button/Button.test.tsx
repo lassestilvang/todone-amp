@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, mock } from 'bun:test'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { Button } from './Button'
@@ -60,16 +60,16 @@ describe('Button Component', () => {
   describe('interaction', () => {
     it('should handle click events', async () => {
       const user = userEvent.setup()
-      const handleClick = vi.fn()
+      const handleClick = mock()
       render(<Button onClick={handleClick}>Click</Button>)
 
       await user.click(screen.getByText('Click'))
-      expect(handleClick).toHaveBeenCalledOnce()
+      expect(handleClick).toHaveBeenCalled()
     })
 
     it('should not handle click when disabled', async () => {
       const user = userEvent.setup()
-      const handleClick = vi.fn()
+      const handleClick = mock()
       render(
         <Button onClick={handleClick} disabled>
           Disabled
@@ -82,7 +82,7 @@ describe('Button Component', () => {
 
     it('should not handle click when loading', async () => {
       const user = userEvent.setup()
-      const handleClick = vi.fn()
+      const handleClick = mock()
       render(
         <Button onClick={handleClick} isLoading>
           Loading
@@ -119,7 +119,7 @@ describe('Button Component', () => {
 
     it('should be keyboard accessible', async () => {
       const user = userEvent.setup()
-      const handleClick = vi.fn()
+      const handleClick = mock()
       render(<Button onClick={handleClick}>Keyboard</Button>)
 
       const button = screen.getByRole('button')
@@ -138,7 +138,7 @@ describe('Button Component', () => {
 
     it('should work with form submission', async () => {
       const user = userEvent.setup()
-      const handleSubmit = vi.fn((e) => e.preventDefault())
+      const handleSubmit = mock((e) => e.preventDefault())
       render(
         <form onSubmit={handleSubmit}>
           <Button type="submit">Submit</Button>

@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, mock, beforeEach, afterEach } from 'bun:test';
 import { render, screen, fireEvent } from '@testing-library/react';
 import AccessibilityAuditor from './AccessibilityAuditor';
 import { wcagAuditor } from '@/utils/wcagAuditor';
@@ -133,7 +133,7 @@ describe('AccessibilityAuditor', () => {
     });
 
     it('calls onIssuesFound callback', () => {
-      const onIssuesFound = vi.fn();
+      const onIssuesFound = mock();
       render(
         <AccessibilityAuditor
           onIssuesFound={onIssuesFound}

@@ -28,7 +28,7 @@
     },
 
     /* Testing */
-    "types": ["vitest/globals", "vite/client"]
+    "types": ["bun-types", "vite/client", "@testing-library/jest-dom"]
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

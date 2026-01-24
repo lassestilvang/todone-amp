@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, mock, beforeEach } from 'bun:test'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { SettingsView } from './SettingsView'
@@ -29,19 +29,19 @@ const mockUser: User = {
   karmaLevel: 'intermediate',
 }
 
-vi.mock('@/store/authStore', () => ({
-  useAuthStore: vi.fn((selector) => {
+mock.module('@/store/authStore', () => ({
+  useAuthStore: mock((selector) => {
     const state = {
       user: mockUser,
-      updateUser: vi.fn(),
-      logout: vi.fn(),
+      updateUser: mock(),
+      logout: mock(),
     }
     return typeof selector === 'function' ? selector(state) : state
   }),
 }))
 
-vi.mock('@/store/taskStore', () => ({
-  useTaskStore: vi.fn((selector) => {
+mock.module('@/store/taskStore', () => ({
+  useTaskStore: mock((selector) => {
     const state = {
       tasks: [],
     }
@@ -49,8 +49,8 @@ vi.mock('@/store/taskStore', () => ({
   }),
 }))
 
-vi.mock('@/store/projectStore', () => ({
-  useProjectStore: vi.fn((selector) => {
+mock.module('@/store/projectStore', () => ({
+  useProjectStore: mock((selector) => {
     const state = {
       projects: [],
     }
@@ -58,8 +58,8 @@ vi.mock('@/store/projectStore', () => ({
   }),
 }))
 
-vi.mock('@/store/sectionStore', () => ({
-  useSectionStore: vi.fn((selector) => {
+mock.module('@/store/sectionStore', () => ({
+  useSectionStore: mock((selector) => {
     const state = {
       sections: [],
     }
@@ -67,8 +67,8 @@ vi.mock('@/store/sectionStore', () => ({
   }),
 }))
 
-vi.mock('@/store/labelStore', () => ({
-  useLabelStore: vi.fn((selector) => {
+mock.module('@/store/labelStore', () => ({
+  useLabelStore: mock((selector) => {
     const state = {
       labels: [],
     }
@@ -76,8 +76,8 @@ vi.mock('@/store/labelStore', () => ({
   }),
 }))
 
-vi.mock('@/store/filterStore', () => ({
-  useFilterStore: vi.fn((selector) => {
+mock.module('@/store/filterStore', () => ({
+  useFilterStore: mock((selector) => {
     const state = {
       filters: [],
     }
@@ -85,26 +85,26 @@ vi.mock('@/store/filterStore', () => ({
   }),
 }))
 
-vi.mock('@/store/gamificationStore', () => ({
-  useGamificationStore: vi.fn(() => ({})),
+mock.module('@/store/gamificationStore', () => ({
+  useGamificationStore: mock(() => ({})),
 }))
 
-vi.mock('@/hooks/useDyslexiaFont', () => ({
-  useDyslexiaFont: vi.fn(() => ({
+mock.module('@/hooks/useDyslexiaFont', () => ({
+  useDyslexiaFont: mock(() => ({
     enabled: false,
-    toggle: vi.fn(),
+    toggle: mock(),
   })),
 }))
 
-vi.mock('@/utils/exportImport', () => ({
-  exportDataAsJSON: vi.fn(() => ({})),
-  exportTasksAsCSV: vi.fn(() => 'csv,data'),
-  downloadFile: vi.fn(),
+mock.module('@/utils/exportImport', () => ({
+  exportDataAsJSON: mock(() => ({})),
+  exportTasksAsCSV: mock(() => 'csv,data'),
+  downloadFile: mock(),
 }))
 
 describe('SettingsView Component', () => {
   beforeEach(() => {
-    vi.clearAllMocks()
+    
   })
 
   describe('rendering', () => {

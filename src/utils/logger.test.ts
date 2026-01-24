@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
+import { describe, it, expect, beforeEach, afterEach } from 'bun:test'
 
 describe('Logger utility', () => {
   beforeEach(() => {
@@ -6,7 +6,6 @@ describe('Logger utility', () => {
   })
 
   afterEach(() => {
-    vi.unstubAllEnvs()
   })
 
   it('should export logger object with all methods', async () => {

@@ -1,13 +1,13 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, mock, beforeEach } from 'bun:test'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { CreateProjectModal } from './CreateProjectModal'
 
 // Mock stores
-vi.mock('@/store/projectStore', () => ({
-  useProjectStore: vi.fn((selector) => {
+mock.module('@/store/projectStore', () => ({
+  useProjectStore: mock((selector: (state: unknown) => unknown) => {
     const state = {
-      createProject: vi.fn(),
+      createProject: mock(),
       projects: [],
     }
     return typeof selector === 'function' ? selector(state) : state
@@ -15,10 +15,9 @@ vi.mock('@/store/projectStore', () => ({
 }))
 
 describe('CreateProjectModal Component', () => {
-  const mockOnClose = vi.fn()
+  const mockOnClose = mock()
 
   beforeEach(() => {
-    vi.clearAllMocks()
   })
 
   describe('visibility', () => {

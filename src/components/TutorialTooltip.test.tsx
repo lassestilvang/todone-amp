@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, mock } from 'bun:test'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { TutorialTooltip, type TutorialStep } from '@/components/TutorialTooltip'
 
@@ -18,7 +18,7 @@ const mockSteps: TutorialStep[] = [
     title: 'Final Step',
     description: 'This is the final step',
     action: 'Complete',
-    onAction: vi.fn(),
+    onAction: mock(),
   },
 ]
 
@@ -98,7 +98,7 @@ describe('TutorialTooltip', () => {
   })
 
   it('calls onComplete when finishing', () => {
-    const onComplete = vi.fn()
+    const onComplete = mock()
 
     render(
       <TutorialTooltip
@@ -115,7 +115,7 @@ describe('TutorialTooltip', () => {
   })
 
   it('calls onSkip when closing', () => {
-    const onSkip = vi.fn()
+    const onSkip = mock()
 
     const { container } = render(
       <TutorialTooltip
@@ -145,7 +145,7 @@ describe('TutorialTooltip', () => {
   })
 
   it('calls action callback when clicked', () => {
-    const actionCallback = vi.fn()
+    const actionCallback = mock()
     const stepsWithAction: TutorialStep[] = [
       {
         id: 'step1',

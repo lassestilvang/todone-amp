@@ -1,26 +1,24 @@
+import { describe, it, expect, mock } from 'bun:test'
 import { renderHook } from '@testing-library/react'
 import { useReducedMotion } from './useReducedMotion'
 
 describe('useReducedMotion Hook', () => {
   const mockMatchMedia = (matches: boolean) => {
-    Object.defineProperty(window, 'matchMedia', {
+    Object.defineProperty(globalThis.window, 'matchMedia', {
       writable: true,
-      value: vi.fn().mockImplementation(() => ({
+      configurable: true,
+      value: mock((_query: string) => ({
         matches,
         media: '(prefers-reduced-motion: reduce)',
         onchange: null,
-        addListener: vi.fn(),
-        removeListener: vi.fn(),
-        addEventListener: vi.fn(),
-        removeEventListener: vi.fn(),
-        dispatchEvent: vi.fn(),
+        addListener: mock(() => {}),
+        removeListener: mock(() => {}),
+        addEventListener: mock(() => {}),
+        removeEventListener: mock(() => {}),
+        dispatchEvent: mock(() => {}),
       })),
     })
   }
-
-  beforeEach(() => {
-    vi.clearAllMocks()
-  })
 
   it('should return false when reduced motion is not preferred', () => {
     mockMatchMedia(false)
@@ -42,18 +40,19 @@ describe('useReducedMotion Hook', () => {
 
   it('should set up listener on mount', () => {
     mockMatchMedia(false)
-    const mockAddListener = vi.fn()
-    Object.defineProperty(window, 'matchMedia', {
+    const mockAddListener = mock(() => {})
+    Object.defineProperty(globalThis.window, 'matchMedia', {
       writable: true,
-      value: vi.fn().mockImplementation(() => ({
+      configurable: true,
+      value: mock((_query: string) => ({
         matches: false,
         media: '(prefers-reduced-motion: reduce)',
         onchange: null,
         addListener: mockAddListener,
-        removeListener: vi.fn(),
+        removeListener: mock(() => {}),
         addEventListener: mockAddListener,
-        removeEventListener: vi.fn(),
-        dispatchEvent: vi.fn(),
+        removeEventListener: mock(() => {}),
+        dispatchEvent: mock(() => {}),
       })),
     })
 

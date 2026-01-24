@@ -1,16 +1,8 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { render, screen, fireEvent, act } from '@testing-library/react'
+import { describe, it, expect } from 'bun:test'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import { Tooltip } from './Tooltip'
 
 describe('Tooltip', () => {
-  beforeEach(() => {
-    vi.useFakeTimers()
-  })
-
-  afterEach(() => {
-    vi.useRealTimers()
-  })
-
   it('renders children', () => {
     render(
       <Tooltip content="Tooltip text">
@@ -20,9 +12,9 @@ describe('Tooltip', () => {
     expect(screen.getByText('Hover me')).toBeInTheDocument()
   })
 
-  it('shows tooltip on hover after delay', () => {
+  it('shows tooltip on hover after delay', async () => {
     render(
-      <Tooltip content="Tooltip text" delay={200}>
+      <Tooltip content="Tooltip text" delay={50}>
         <button>Hover me</button>
       </Tooltip>
     )
@@ -32,17 +24,15 @@ describe('Tooltip', () => {
 
     expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
 
-    act(() => {
-      vi.advanceTimersByTime(200)
+    await waitFor(() => {
+      expect(screen.getByRole('tooltip')).toBeInTheDocument()
     })
-
-    expect(screen.getByRole('tooltip')).toBeInTheDocument()
     expect(screen.getByText('Tooltip text')).toBeInTheDocument()
   })
 
-  it('hides tooltip on mouse leave', () => {
+  it('hides tooltip on mouse leave', async () => {
     render(
-      <Tooltip content="Tooltip text" delay={200}>
+      <Tooltip content="Tooltip text" delay={50}>
         <button>Hover me</button>
       </Tooltip>
     )
@@ -50,20 +40,20 @@ describe('Tooltip', () => {
     const trigger = screen.getByText('Hover me')
     fireEvent.mouseEnter(trigger)
 
-    act(() => {
-      vi.advanceTimersByTime(200)
+    await waitFor(() => {
+      expect(screen.getByRole('tooltip')).toBeInTheDocument()
     })
-
-    expect(screen.getByRole('tooltip')).toBeInTheDocument()
 
     fireEvent.mouseLeave(trigger)
 
-    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
+    await waitFor(() => {
+      expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
+    })
   })
 
-  it('does not show tooltip if mouse leaves before delay', () => {
+  it('does not show tooltip if mouse leaves before delay', async () => {
     render(
-      <Tooltip content="Tooltip text" delay={200}>
+      <Tooltip content="Tooltip text" delay={100}>
         <button>Hover me</button>
       </Tooltip>
     )
@@ -71,44 +61,68 @@ describe('Tooltip', () => {
     const trigger = screen.getByText('Hover me')
     fireEvent.mouseEnter(trigger)
 
-    act(() => {
-      vi.advanceTimersByTime(100)
-    })
-
+    // Leave immediately before delay triggers
     fireEvent.mouseLeave(trigger)
 
-    act(() => {
-      vi.advanceTimersByTime(200)
-    })
+    // Wait a bit and confirm tooltip never appeared
+    await new Promise((r) => setTimeout(r, 150))
 
     expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
   })
 
   describe('positions', () => {
-    it.each(['top', 'bottom', 'left', 'right'] as const)(
-      'renders with position %s',
-      (position) => {
-        render(
-          <Tooltip content="Tooltip text" position={position} delay={0}>
-            <button>Hover me</button>
-          </Tooltip>
-        )
-
-        const trigger = screen.getByText('Hover me')
-        fireEvent.mouseEnter(trigger)
-
-        act(() => {
-          vi.advanceTimersByTime(0)
-        })
-
+    it('renders with position top', async () => {
+      render(
+        <Tooltip content="Tooltip text" position="top" delay={0}>
+          <button>Hover me</button>
+        </Tooltip>
+      )
+      fireEvent.mouseEnter(screen.getByText('Hover me'))
+      await waitFor(() => {
         expect(screen.getByRole('tooltip')).toBeInTheDocument()
-      }
-    )
+      })
+    })
+
+    it('renders with position bottom', async () => {
+      render(
+        <Tooltip content="Tooltip text" position="bottom" delay={0}>
+          <button>Hover me</button>
+        </Tooltip>
+      )
+      fireEvent.mouseEnter(screen.getByText('Hover me'))
+      await waitFor(() => {
+        expect(screen.getByRole('tooltip')).toBeInTheDocument()
+      })
+    })
+
+    it('renders with position left', async () => {
+      render(
+        <Tooltip content="Tooltip text" position="left" delay={0}>
+          <button>Hover me</button>
+        </Tooltip>
+      )
+      fireEvent.mouseEnter(screen.getByText('Hover me'))
+      await waitFor(() => {
+        expect(screen.getByRole('tooltip')).toBeInTheDocument()
+      })
+    })
+
+    it('renders with position right', async () => {
+      render(
+        <Tooltip content="Tooltip text" position="right" delay={0}>
+          <button>Hover me</button>
+        </Tooltip>
+      )
+      fireEvent.mouseEnter(screen.getByText('Hover me'))
+      await waitFor(() => {
+        expect(screen.getByRole('tooltip')).toBeInTheDocument()
+      })
+    })
   })
 
-  it('shows tooltip on focus', () => {
+  it('shows tooltip on focus', async () => {
     render(
-      <Tooltip content="Tooltip text" delay={200}>
+      <Tooltip content="Tooltip text" delay={50}>
         <button>Focus me</button>
       </Tooltip>
     )
@@ -116,16 +130,14 @@ describe('Tooltip', () => {
     const trigger = screen.getByText('Focus me')
     fireEvent.focus(trigger)
 
-    act(() => {
-      vi.advanceTimersByTime(200)
+    await waitFor(() => {
+      expect(screen.getByRole('tooltip')).toBeInTheDocument()
     })
-
-    expect(screen.getByRole('tooltip')).toBeInTheDocument()
   })
 
-  it('hides tooltip on blur', () => {
+  it('hides tooltip on blur', async () => {
     render(
-      <Tooltip content="Tooltip text" delay={200}>
+      <Tooltip content="Tooltip text" delay={50}>
         <button>Focus me</button>
       </Tooltip>
     )
@@ -133,18 +145,18 @@ describe('Tooltip', () => {
     const trigger = screen.getByText('Focus me')
     fireEvent.focus(trigger)
 
-    act(() => {
-      vi.advanceTimersByTime(200)
+    await waitFor(() => {
+      expect(screen.getByRole('tooltip')).toBeInTheDocument()
     })
-
-    expect(screen.getByRole('tooltip')).toBeInTheDocument()
 
     fireEvent.blur(trigger)
 
-    expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
+    await waitFor(() => {
+      expect(screen.queryByRole('tooltip')).not.toBeInTheDocument()
+    })
   })
 
-  it('applies custom className', () => {
+  it('applies custom className', async () => {
     render(
       <Tooltip content="Tooltip text" delay={0} className="custom-class">
         <button>Hover me</button>
@@ -154,10 +166,8 @@ describe('Tooltip', () => {
     const trigger = screen.getByText('Hover me')
     fireEvent.mouseEnter(trigger)
 
-    act(() => {
-      vi.advanceTimersByTime(0)
+    await waitFor(() => {
+      expect(screen.getByRole('tooltip')).toHaveClass('custom-class')
     })
-
-    expect(screen.getByRole('tooltip')).toHaveClass('custom-class')
   })
 })

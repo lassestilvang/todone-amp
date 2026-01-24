@@ -1,11 +1,11 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, mock } from 'bun:test'
 import { render } from '@testing-library/react'
 import { LabelSelector } from '@/components/LabelSelector'
 
 describe('LabelSelector', () => {
   it('renders without crashing', () => {
-    const onAdd = vi.fn()
-    const onRemove = vi.fn()
+    const onAdd = mock()
+    const onRemove = mock()
     expect(() => {
       render(
         <LabelSelector
@@ -18,8 +18,8 @@ describe('LabelSelector', () => {
   })
 
   it('accepts props correctly', () => {
-    const onAdd = vi.fn()
-    const onRemove = vi.fn()
+    const onAdd = mock()
+    const onRemove = mock()
     const { container } = render(
       <LabelSelector
         selectedLabelIds={['1', '2']}

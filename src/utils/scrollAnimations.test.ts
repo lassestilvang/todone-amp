@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest'
+import { describe, it, expect, beforeEach, mock, afterEach, spyOn } from 'bun:test'
 import {
   observeElementEntry,
   observeAndAnimate,
@@ -27,17 +27,17 @@ describe('Scroll Animations', () => {
 
     // Mock IntersectionObserver - eslint-disable-next-line
     // @ts-expect-error - IntersectionObserver is a mock object
-    global.IntersectionObserver = vi.fn((callback: IntersectionObserverCallback) => {
+    global.IntersectionObserver = mock((callback: IntersectionObserverCallback) => {
       const observer = {
-        observe: vi.fn((el: Element) => {
+        observe: mock((el: Element) => {
           // Defer callback to next tick to allow style setup
           setTimeout(() => {
             // @ts-expect-error - IntersectionObserverEntry mock
             callback([{ target: el, isIntersecting: true }], observer)
           }, 0)
         }),
-        unobserve: vi.fn(),
-        disconnect: vi.fn(),
+        unobserve: mock(() => {}),
+        disconnect: mock(() => {}),
       }
       return observer
     })
@@ -46,74 +46,67 @@ describe('Scroll Animations', () => {
   afterEach(() => {
     document.body.removeChild(mockElement)
     mockElements.forEach((el) => document.body.removeChild(el))
-    vi.clearAllMocks()
   })
 
   describe('observeElementEntry', () => {
-    it('should observe element and call callback when visible', () => {
-      vi.useFakeTimers()
-      const callback = vi.fn()
+    it('should observe element and call callback when visible', async () => {
+      const callback = mock(() => {})
       const observer = observeElementEntry(mockElement, callback)
-      vi.advanceTimersByTime(0)
+      await new Promise(resolve => setTimeout(resolve, 10))
 
       expect(callback).toHaveBeenCalled()
       expect(observer).toBeDefined()
-      vi.useRealTimers()
     })
 
     it('should unobserve after first intersection', () => {
-      const unobserveSpy = vi.fn()
-      const observeSpy = vi.fn()
+      const unobserveSpy = mock(() => {})
+      const observeSpy = mock(() => {})
 
       // @ts-expect-error - IntersectionObserver is a mock object
-      global.IntersectionObserver = vi.fn(
+      global.IntersectionObserver = mock(
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
         (_callback: IntersectionObserverCallback) => ({
           observe: observeSpy,
           unobserve: unobserveSpy,
-          disconnect: vi.fn(),
+          disconnect: mock(() => {}),
         })
       )
 
-      observeElementEntry(mockElement, vi.fn())
+      observeElementEntry(mockElement, mock(() => {}))
       expect(observeSpy).toHaveBeenCalled()
     })
   })
 
   describe('observeAndAnimate', () => {
-    it('should add animation class when element enters viewport', () => {
-      vi.useFakeTimers()
+    it('should add animation class when element enters viewport', async () => {
       observeAndAnimate(mockElement, 'animate-test')
-      vi.advanceTimersByTime(0)
+      await new Promise(resolve => setTimeout(resolve, 10))
       // Animation class should be added by the observer
       expect(mockElement.classList.contains('animate-test')).toBe(true)
-      vi.useRealTimers()
     })
 
-    it('should use default fadeIn animation class', () => {
-      vi.useFakeTimers()
+    it('should use default fadeIn animation class', async () => {
       observeAndAnimate(mockElement)
-      vi.advanceTimersByTime(0)
+      await new Promise(resolve => setTimeout(resolve, 10))
       expect(mockElement.classList.contains('animate-fadeIn')).toBe(true)
-      vi.useRealTimers()
     })
   })
 
   describe('smoothScrollToElement', () => {
     it('should scroll to element', () => {
-      const scrollSpy = vi.spyOn(window, 'scrollTo')
+      const scrollSpy = spyOn(window, 'scrollTo')
       smoothScrollToElement(mockElement)
       expect(scrollSpy).toHaveBeenCalled()
     })
 
     it('should apply offset to scroll position', () => {
-      const scrollSpy = vi.spyOn(window, 'scrollTo')
+      const scrollSpy = spyOn(window, 'scrollTo')
       smoothScrollToElement(mockElement, 100)
       expect(scrollSpy).toHaveBeenCalled()
     })
 
     it('should use smooth behavior by default', () => {
-      const scrollSpy = vi.spyOn(window, 'scrollTo')
+      const scrollSpy = spyOn(window, 'scrollTo')
       smoothScrollToElement(mockElement)
       const call = scrollSpy.mock.calls[0][0] as ScrollToOptions
       expect(call.behavior).toBe('smooth')
@@ -122,7 +115,7 @@ describe('Scroll Animations', () => {
 
   describe('smoothScrollToTop', () => {
     it('should scroll to top', () => {
-      const scrollSpy = vi.spyOn(window, 'scrollTo')
+      const scrollSpy = spyOn(window, 'scrollTo')
       smoothScrollToTop()
       expect(scrollSpy).toHaveBeenCalledWith({
         top: 0,
@@ -131,7 +124,7 @@ describe('Scroll Animations', () => {
     })
 
     it('should support instant behavior', () => {
-      const scrollSpy = vi.spyOn(window, 'scrollTo')
+      const scrollSpy = spyOn(window, 'scrollTo')
       smoothScrollToTop('auto')
       const call = scrollSpy.mock.calls[0][0] as ScrollToOptions
       expect(call.behavior).toBe('auto')
@@ -141,7 +134,7 @@ describe('Scroll Animations', () => {
   describe('isElementInViewport', () => {
     it('should return true for elements in viewport', () => {
       // Set element position to be visible
-      mockElement.getBoundingClientRect = vi.fn(() => ({
+      mockElement.getBoundingClientRect = mock(() => ({
         top: 100,
         left: 100,
         bottom: 200,
@@ -158,7 +151,7 @@ describe('Scroll Animations', () => {
     })
 
     it('should return false for elements outside viewport', () => {
-      mockElement.getBoundingClientRect = vi.fn(() => ({
+      mockElement.getBoundingClientRect = mock(() => ({
         top: 10000,
         left: 10000,
         bottom: 11000,
@@ -182,7 +175,7 @@ describe('Scroll Animations', () => {
     })
 
     it('should remove event listener on cleanup', () => {
-      vi.spyOn(window, 'removeEventListener')
+      spyOn(window, 'removeEventListener')
       const cleanup = applyParallaxEffect(mockElement)
       cleanup()
       // Cleanup function executed without error
@@ -231,38 +224,30 @@ describe('Scroll Animations', () => {
   })
 
   describe('scaleOnScroll', () => {
-    it('should set initial scale transform', () => {
-      vi.useFakeTimers()
+    it('should set initial scale transform', async () => {
       const observer = scaleOnScroll(mockElement, 0.8, 1)
-      vi.advanceTimersByTime(0)
+      await new Promise(resolve => setTimeout(resolve, 10))
       expect(observer).toBeDefined()
-      vi.useRealTimers()
     })
 
-    it('should animate to target scale', () => {
-      vi.useFakeTimers()
+    it('should animate to target scale', async () => {
       const observer = scaleOnScroll(mockElement, 0.5, 1.2)
-      vi.advanceTimersByTime(0)
+      await new Promise(resolve => setTimeout(resolve, 10))
       expect(observer).toBeDefined()
-      vi.useRealTimers()
     })
   })
 
   describe('rotateOnScroll', () => {
-    it('should set rotation animation', () => {
-      vi.useFakeTimers()
+    it('should set rotation animation', async () => {
       const observer = rotateOnScroll(mockElement)
-      vi.advanceTimersByTime(0)
+      await new Promise(resolve => setTimeout(resolve, 10))
       expect(observer).toBeDefined()
-      vi.useRealTimers()
     })
 
-    it('should support custom rotation degrees', () => {
-      vi.useFakeTimers()
+    it('should support custom rotation degrees', async () => {
       const observer = rotateOnScroll(mockElement, 720)
-      vi.advanceTimersByTime(0)
+      await new Promise(resolve => setTimeout(resolve, 10))
       expect(observer).toBeDefined()
-      vi.useRealTimers()
     })
   })
 
@@ -281,19 +266,15 @@ describe('Scroll Animations', () => {
   })
 
   describe('animateCounter', () => {
-    it('should animate counter to final value', () => {
-      vi.useFakeTimers()
+    it('should animate counter to final value', async () => {
       animateCounter(mockElement as HTMLElement, 100, 1000)
-      vi.advanceTimersByTime(1000)
-      vi.useRealTimers()
+      await new Promise(resolve => setTimeout(resolve, 1100))
       expect(mockElement.textContent).toBeTruthy()
     })
 
     it('should respect animation duration', () => {
-      vi.useFakeTimers()
       const observer = animateCounter(mockElement as HTMLElement, 50, 500)
       expect(observer).toBeDefined()
-      vi.useRealTimers()
     })
   })
 

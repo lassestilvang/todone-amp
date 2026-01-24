@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, it, expect, beforeEach, mock } from 'bun:test'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { FeatureDiscovery, type FeatureNudge } from './FeatureDiscovery'
 
@@ -14,7 +14,7 @@ describe('FeatureDiscovery', () => {
         description: 'Press Ctrl+K to quickly add new tasks',
         action: {
           label: 'Learn more',
-          onClick: vi.fn(),
+          onClick: mock(),
         },
       },
       {
@@ -94,7 +94,7 @@ describe('FeatureDiscovery', () => {
 
   describe('action handling', () => {
     it('should call action onClick when button clicked', () => {
-      const onAction = vi.fn()
+      const onAction = mock()
       const nudgesWithAction = [
         {
           id: 'test-1',

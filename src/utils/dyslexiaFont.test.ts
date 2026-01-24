@@ -1,3 +1,4 @@
+import { describe, it, expect, beforeEach } from 'bun:test'
 import {
   isDyslexiaFontEnabled,
   enableDyslexiaFont,
@@ -51,7 +52,7 @@ describe('Dyslexia Font Utilities', () => {
     it('should create style tag', () => {
       enableDyslexiaFont()
       const styleTag = document.getElementById('dyslexia-font-styles')
-      expect(styleTag).toBeInTheDocument()
+      expect(styleTag).not.toBeNull()
     })
 
     it('should add style content', () => {
@@ -79,7 +80,7 @@ describe('Dyslexia Font Utilities', () => {
     it('should remove style tag', () => {
       disableDyslexiaFont()
       const styleTag = document.getElementById('dyslexia-font-styles')
-      expect(styleTag).not.toBeInTheDocument()
+      expect(styleTag).toBeNull()
     })
   })
 
@@ -91,7 +92,7 @@ describe('Dyslexia Font Utilities', () => {
 
     it('should create style tag if not present', () => {
       applyDyslexiaFont()
-      expect(document.getElementById('dyslexia-font-styles')).toBeInTheDocument()
+      expect(document.getElementById('dyslexia-font-styles')).not.toBeNull()
     })
 
     it('should not duplicate style tag', () => {
@@ -114,7 +115,7 @@ describe('Dyslexia Font Utilities', () => {
 
     it('should remove style tag', () => {
       removeDyslexiaFont()
-      expect(document.getElementById('dyslexia-font-styles')).not.toBeInTheDocument()
+      expect(document.getElementById('dyslexia-font-styles')).toBeNull()
     })
   })
 

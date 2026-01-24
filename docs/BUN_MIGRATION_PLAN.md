@@ -194,36 +194,32 @@ rm package-lock.json
 
 ## Phase 2: Test Runner Migration
 
+**Status:** ⚠️ In Progress - 1746/1793 tests passing (97.4%)
+
+✅ Type-check, lint, and build all pass
+
+### Known Issues
+- **Zustand store isolation**: Tests pass individually but fail together due to shared state
+- **mock.module**: Bun's `mock.module` works differently than Vitest's `vi.mock` (not hoisted)
+- **Some jest-dom matchers**: `toHaveStyle` with string values has compatibility issues
+
 ### 2.1 Create Bun Test Configuration
 
 Create `bunfig.toml` in project root:
 
 ```toml
 [test]
-# Preload test setup
-preload = ["./src/test/setup.ts"]
+# Preload test setup - happydom must be first to set up globals before testing-library
+preload = ["./src/test/happydom.ts", "./src/test/setup.ts"]
 
 # Timeout per test (ms)
 timeout = 10000
 
 # Test file patterns
 root = "./src"
-
-# Coverage (optional - enable when needed)
-# coverage = true
-# coverageReporter = ["text", "lcov"]
-# coverageDir = "./coverage"
-
-[test.coverage]
-# Exclude patterns from coverage
-exclude = [
-  "**/node_modules/**",
-  "**/*.test.{ts,tsx}",
-  "**/*.spec.{ts,tsx}",
-  "**/test/**",
-  "**/__tests__/**"
-]
 ```
+
+✅ **Done:** Created `bunfig.toml` with happy-dom preload
 
 ### 2.2 Update Test Setup File
 

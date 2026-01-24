@@ -1,13 +1,13 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, mock } from 'bun:test'
 import { render } from '@testing-library/react'
 import { CalendarIntegration } from './CalendarIntegration'
 
 // Mock the integrationStore
-vi.mock('@/store/integrationStore', () => ({
+mock.module('@/store/integrationStore', () => ({
   useIntegrationStore: () => ({
     calendarIntegrations: [],
-    updateCalendarIntegration: vi.fn(),
-    removeCalendarIntegration: vi.fn(),
+    updateCalendarIntegration: mock(),
+    removeCalendarIntegration: mock(),
   }),
 }))
 
@@ -25,7 +25,7 @@ describe('CalendarIntegration', () => {
   })
 
   it('should call onSyncComplete callback when sync completes', async () => {
-    const mockCallback = vi.fn()
+    const mockCallback = mock()
     render(<CalendarIntegration platform="google" onSyncComplete={mockCallback} />)
     // Callback would be called on sync in connected state
     expect(mockCallback).not.toHaveBeenCalled()

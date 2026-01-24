@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, mock, beforeEach } from 'bun:test'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { QuickAddModal } from './QuickAddModal'
@@ -48,31 +48,31 @@ const mockLabels: Label[] = [
   },
 ]
 
-vi.mock('@/store/quickAddStore', () => ({
-  useQuickAddStore: vi.fn((selector) => {
+mock.module('@/store/quickAddStore', () => ({
+  useQuickAddStore: mock((selector: (state: unknown) => unknown) => {
     const state = {
       isOpen: true,
-      closeQuickAdd: vi.fn(),
+      closeQuickAdd: mock(),
       recentItems: [],
-      addToRecent: vi.fn(),
-      clearRecent: vi.fn(),
+      addToRecent: mock(),
+      clearRecent: mock(),
     }
     return typeof selector === 'function' ? selector(state) : state
   }),
 }))
 
-vi.mock('@/store/taskStore', () => ({
-  useTaskStore: vi.fn((selector) => {
+mock.module('@/store/taskStore', () => ({
+  useTaskStore: mock((selector: (state: unknown) => unknown) => {
     const state = {
-      createTask: vi.fn(),
+      createTask: mock(),
       tasks: mockTasks,
     }
     return typeof selector === 'function' ? selector(state) : state
   }),
 }))
 
-vi.mock('@/store/labelStore', () => ({
-  useLabelStore: vi.fn((selector) => {
+mock.module('@/store/labelStore', () => ({
+  useLabelStore: mock((selector: (state: unknown) => unknown) => {
     const state = {
       labels: mockLabels,
     }
@@ -80,8 +80,8 @@ vi.mock('@/store/labelStore', () => ({
   }),
 }))
 
-vi.mock('@/store/projectStore', () => ({
-  useProjectStore: vi.fn((selector) => {
+mock.module('@/store/projectStore', () => ({
+  useProjectStore: mock((selector: (state: unknown) => unknown) => {
     const state = {
       projects: mockProjects,
     }
@@ -89,8 +89,8 @@ vi.mock('@/store/projectStore', () => ({
   }),
 }))
 
-vi.mock('@/store/authStore', () => ({
-  useAuthStore: vi.fn((selector) => {
+mock.module('@/store/authStore', () => ({
+  useAuthStore: mock((selector: (state: unknown) => unknown) => {
     const state = {
       user: { id: 'user1', name: 'Test User', email: 'test@example.com' },
     }
@@ -98,26 +98,25 @@ vi.mock('@/store/authStore', () => ({
   }),
 }))
 
-vi.mock('@/utils/date', () => ({
-  parseNaturalLanguageDate: vi.fn((text: string) => {
+mock.module('@/utils/date', () => ({
+  parseNaturalLanguageDate: mock((text: string) => {
     if (text.includes('tomorrow')) return new Date(Date.now() + 24 * 60 * 60 * 1000)
     if (text.includes('today')) return new Date()
     return undefined
   }),
-  parseNaturalLanguageTime: vi.fn((text: string) => {
+  parseNaturalLanguageTime: mock((text: string) => {
     if (text.includes('3pm')) return '15:00'
     if (text.includes('14:00')) return '14:00'
     return undefined
   }),
 }))
 
-vi.mock('@/utils/recurrence', () => ({
-  parseRecurrenceFromText: vi.fn(() => null),
+mock.module('@/utils/recurrence', () => ({
+  parseRecurrenceFromText: mock(() => null),
 }))
 
 describe('QuickAddModal Component', () => {
   beforeEach(() => {
-    vi.clearAllMocks()
   })
 
   describe('rendering', () => {

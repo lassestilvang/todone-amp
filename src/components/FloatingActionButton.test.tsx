@@ -1,11 +1,11 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, mock, beforeEach } from 'bun:test';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { Plus } from 'lucide-react';
 import { FloatingActionButton } from './FloatingActionButton';
 
 describe('FloatingActionButton', () => {
-  const mockOnClick = vi.fn();
-  const mockMainAction = vi.fn();
+  const mockOnClick = mock();
+  const mockMainAction = mock();
 
   const defaultActions = [
     {
@@ -55,7 +55,7 @@ describe('FloatingActionButton', () => {
   });
 
   it('executes action callback when action button is clicked', () => {
-    const onAddTask = vi.fn();
+    const onAddTask = mock();
     const actions = [
       {
         id: 'add-task',
@@ -192,7 +192,7 @@ describe('FloatingActionButton', () => {
         id: 'delete',
         label: 'Delete',
         icon: <Plus size={20} />,
-        onClick: vi.fn(),
+        onClick: mock(),
         color: 'danger' as const,
       },
     ];

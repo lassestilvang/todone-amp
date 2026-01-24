@@ -1,16 +1,15 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, mock, beforeEach } from 'bun:test'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { Modal } from './Modal'
 
 describe('Modal', () => {
   const defaultProps = {
     isOpen: true,
-    onClose: vi.fn(),
+    onClose: mock(),
     children: <div>Modal content</div>,
   }
 
   beforeEach(() => {
-    vi.clearAllMocks()
   })
 
   it('renders when open', () => {
@@ -25,7 +24,7 @@ describe('Modal', () => {
   })
 
   it('closes on escape key', () => {
-    const onClose = vi.fn()
+    const onClose = mock()
     render(<Modal {...defaultProps} onClose={onClose} />)
 
     fireEvent.keyDown(document, { key: 'Escape' })
@@ -33,7 +32,7 @@ describe('Modal', () => {
   })
 
   it('does not close on escape key when closeOnEscape is false', () => {
-    const onClose = vi.fn()
+    const onClose = mock()
     render(<Modal {...defaultProps} onClose={onClose} closeOnEscape={false} />)
 
     fireEvent.keyDown(document, { key: 'Escape' })
@@ -41,7 +40,7 @@ describe('Modal', () => {
   })
 
   it('closes on overlay click', () => {
-    const onClose = vi.fn()
+    const onClose = mock()
     render(<Modal {...defaultProps} onClose={onClose} />)
 
     const overlay = screen.getByRole('dialog').parentElement?.querySelector('[aria-hidden="true"]')
@@ -51,7 +50,7 @@ describe('Modal', () => {
   })
 
   it('does not close on overlay click when closeOnOverlayClick is false', () => {
-    const onClose = vi.fn()
+    const onClose = mock()
     render(<Modal {...defaultProps} onClose={onClose} closeOnOverlayClick={false} />)
 
     const overlay = screen.getByRole('dialog').parentElement?.querySelector('[aria-hidden="true"]')
@@ -76,7 +75,7 @@ describe('Modal', () => {
   })
 
   it('calls onClose when close button is clicked', () => {
-    const onClose = vi.fn()
+    const onClose = mock()
     render(<Modal {...defaultProps} onClose={onClose} />)
 
     fireEvent.click(screen.getByRole('button', { name: 'Close modal' }))

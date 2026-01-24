@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, mock, beforeEach } from 'bun:test'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { ThemeSwitcher } from './ThemeSwitcher'
 import { ThemeContext, ThemeContextValue } from '@/contexts/ThemeContext'
@@ -8,8 +8,8 @@ const createMockThemeContext = (overrides: Partial<ThemeContextValue> = {}): The
   theme: 'default',
   resolvedMode: 'light',
   isDark: false,
-  setMode: vi.fn(),
-  setTheme: vi.fn(),
+  setMode: mock(),
+  setTheme: mock(),
   ...overrides,
 })
 
@@ -23,7 +23,6 @@ const renderWithTheme = (ui: React.ReactElement, contextValue?: Partial<ThemeCon
 
 describe('ThemeSwitcher', () => {
   beforeEach(() => {
-    vi.clearAllMocks()
   })
 
   describe('icon variant', () => {

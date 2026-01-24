@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect } from 'bun:test'
 
 describe('useSwipeGestures', () => {
   // useSwipeGestures hook tests focus on gesture detection logic

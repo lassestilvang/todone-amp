@@ -1,13 +1,13 @@
+import { describe, it, expect, beforeEach } from 'bun:test'
 import { renderHook, act } from '@testing-library/react'
 import { useDyslexiaFont } from './useDyslexiaFont'
 
 describe('useDyslexiaFont Hook', () => {
   beforeEach(() => {
-    localStorage.clear()
-    document.documentElement.classList.remove('dyslexia-font')
-    const styleTag = document.getElementById('dyslexia-font-styles')
-    if (styleTag) {
-      styleTag.remove()
+    globalThis.localStorage.clear()
+    // Mock document operations if available
+    if (globalThis.document?.documentElement?.classList) {
+      globalThis.document.documentElement.classList.remove('dyslexia-font')
     }
   })
 
@@ -17,7 +17,7 @@ describe('useDyslexiaFont Hook', () => {
   })
 
   it('should initialize with true when enabled in localStorage', () => {
-    localStorage.setItem('enableDyslexiaFont', 'true')
+    globalThis.localStorage.setItem('enableDyslexiaFont', 'true')
     const { result } = renderHook(() => useDyslexiaFont())
     expect(result.current.enabled).toBe(true)
   })
@@ -46,11 +46,11 @@ describe('useDyslexiaFont Hook', () => {
     })
 
     expect(result.current.enabled).toBe(true)
-    expect(localStorage.getItem('enableDyslexiaFont')).toBe('true')
+    expect(globalThis.localStorage.getItem('enableDyslexiaFont')).toBe('true')
   })
 
   it('should disable font', () => {
-    localStorage.setItem('enableDyslexiaFont', 'true')
+    globalThis.localStorage.setItem('enableDyslexiaFont', 'true')
     const { result } = renderHook(() => useDyslexiaFont())
 
     expect(result.current.enabled).toBe(true)
@@ -60,7 +60,7 @@ describe('useDyslexiaFont Hook', () => {
     })
 
     expect(result.current.enabled).toBe(false)
-    expect(localStorage.getItem('enableDyslexiaFont')).toBe('false')
+    expect(globalThis.localStorage.getItem('enableDyslexiaFont')).toBe('false')
   })
 
   it('should handle multiple enable calls', () => {
@@ -75,7 +75,7 @@ describe('useDyslexiaFont Hook', () => {
   })
 
   it('should handle multiple disable calls', () => {
-    localStorage.setItem('enableDyslexiaFont', 'true')
+    globalThis.localStorage.setItem('enableDyslexiaFont', 'true')
     const { result } = renderHook(() => useDyslexiaFont())
 
     act(() => {

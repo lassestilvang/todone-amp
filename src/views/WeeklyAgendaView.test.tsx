@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, mock, beforeEach } from 'bun:test'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { WeeklyAgendaView } from './WeeklyAgendaView'
@@ -46,20 +46,20 @@ const mockTasks: Task[] = [
   },
 ]
 
-vi.mock('@/store/taskStore', () => ({
-  useTaskStore: vi.fn((selector) => {
+mock.module('@/store/taskStore', () => ({
+  useTaskStore: mock((selector) => {
     const state = {
       tasks: mockTasks,
-      toggleTask: vi.fn(),
+      toggleTask: mock(),
     }
     return typeof selector === 'function' ? selector(state) : state
   }),
 }))
 
-vi.mock('@/store/taskDetailStore', () => ({
-  useTaskDetailStore: vi.fn((selector) => {
+mock.module('@/store/taskDetailStore', () => ({
+  useTaskDetailStore: mock((selector) => {
     const state = {
-      openTaskDetail: vi.fn(),
+      openTaskDetail: mock(),
     }
     return typeof selector === 'function' ? selector(state) : state
   }),
@@ -67,7 +67,7 @@ vi.mock('@/store/taskDetailStore', () => ({
 
 describe('WeeklyAgendaView Component', () => {
   beforeEach(() => {
-    vi.clearAllMocks()
+    
   })
 
   describe('rendering', () => {

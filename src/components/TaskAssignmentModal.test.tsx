@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, mock, beforeEach } from 'bun:test'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { TaskAssignmentModal } from '@/components/TaskAssignmentModal'
 import * as authStore from '@/store/authStore'
@@ -7,9 +7,9 @@ import * as taskStore from '@/store/taskStore'
 import type { Task, User } from '@/types'
 
 // Mock the stores
-vi.mock('@/store/authStore')
-vi.mock('@/store/projectStore')
-vi.mock('@/store/taskStore')
+mock.module('@/store/authStore', () => authStore)
+mock.module('@/store/projectStore', () => projectStore)
+mock.module('@/store/taskStore', () => taskStore)
 
 const mockUser: User = {
   id: 'user1',
@@ -52,7 +52,7 @@ const mockTask: Task = {
 
 describe('TaskAssignmentModal', () => {
   beforeEach(() => {
-    vi.clearAllMocks()
+    
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ;(authStore.useAuthStore as any).mockReturnValue({
       user: mockUser,
@@ -69,12 +69,12 @@ describe('TaskAssignmentModal', () => {
     })
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ;(taskStore.useTaskStore as any).mockReturnValue({
-      updateTask: vi.fn(),
+      updateTask: mock(),
     })
   })
 
   it('renders modal with task title', () => {
-    const onClose = vi.fn()
+    const onClose = mock()
     render(
       <TaskAssignmentModal
         task={mockTask}
@@ -88,7 +88,7 @@ describe('TaskAssignmentModal', () => {
   })
 
   it('displays assignee options', () => {
-    const onClose = vi.fn()
+    const onClose = mock()
 
     render(
       <TaskAssignmentModal
@@ -104,7 +104,7 @@ describe('TaskAssignmentModal', () => {
   })
 
   it('calls onClose when done button clicked', () => {
-    const onClose = vi.fn()
+    const onClose = mock()
     render(
       <TaskAssignmentModal
         task={mockTask}
@@ -118,8 +118,8 @@ describe('TaskAssignmentModal', () => {
   })
 
   it('calls updateTask when assignee selected', () => {
-    const onClose = vi.fn()
-    const updateTaskMock = vi.fn()
+    const onClose = mock()
+    const updateTaskMock = mock()
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ;(taskStore.useTaskStore as any).mockReturnValue({
       updateTask: updateTaskMock,
@@ -140,7 +140,7 @@ describe('TaskAssignmentModal', () => {
   })
 
   it('closes modal on X button click', () => {
-    const onClose = vi.fn()
+    const onClose = mock()
     const { container } = render(
       <TaskAssignmentModal
         task={mockTask}

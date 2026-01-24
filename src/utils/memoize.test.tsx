@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect } from 'bun:test'
 import { deepEqual, shallowEqualIgnoreFunctions, listItemPropsEqual } from './memoize'
 
 describe('memoize utilities', () => {

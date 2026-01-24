@@ -1,12 +1,12 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, mock } from 'bun:test'
 import { CommentThread } from '@/components/CommentThread'
 
-vi.mock('@/store/commentStore', () => ({
-  useCommentStore: vi.fn(() => ({
-    getTaskComments: vi.fn(() => []),
-    createComment: vi.fn(),
-    updateComment: vi.fn(),
-    deleteComment: vi.fn(),
+mock.module('@/store/commentStore', () => ({
+  useCommentStore: mock(() => ({
+    getTaskComments: mock(() => []),
+    createComment: mock(),
+    updateComment: mock(),
+    deleteComment: mock(),
   })),
 }))
 

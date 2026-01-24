@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, it, expect, beforeEach } from 'bun:test'
 import {
   generateICalFeed,
   downloadICalFeed,
@@ -157,7 +157,6 @@ describe('iCal Feed Generation', () => {
 
 describe('iCal Feed Download', () => {
   beforeEach(() => {
-    vi.clearAllMocks()
   })
 
   it('generates feed content', () => {
@@ -180,7 +179,6 @@ describe('iCal Feed URL', () => {
 
 describe('iCal Clipboard', () => {
   beforeEach(() => {
-    vi.clearAllMocks()
   })
 
   it('has clipboard utility exported', () => {

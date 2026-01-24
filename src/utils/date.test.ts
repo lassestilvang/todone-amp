@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
+import { describe, it, expect, beforeEach, afterEach, setSystemTime } from 'bun:test'
 import {
   isTaskOverdue,
   isTaskDueToday,
@@ -17,12 +17,11 @@ describe('Date Utilities', () => {
   beforeEach(() => {
     // Mock current date to 2025-01-15 (Wednesday)
     now = new Date('2025-01-15T10:00:00Z')
-    vi.useFakeTimers()
-    vi.setSystemTime(now)
+    setSystemTime(now)
   })
 
   afterEach(() => {
-    vi.useRealTimers()
+    setSystemTime()
   })
 
   describe('isTaskOverdue', () => {

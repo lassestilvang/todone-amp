@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, mock, beforeEach } from 'bun:test'
 import { render, screen } from '@testing-library/react'
 import { InboxView } from './InboxView'
 import { Task } from '@/types'
@@ -32,52 +32,52 @@ const mockTasks: Task[] = [
   },
 ]
 
-vi.mock('@/store/taskStore', () => ({
-  useTaskStore: vi.fn((selector) => {
+mock.module('@/store/taskStore', () => ({
+  useTaskStore: mock((selector) => {
     const state = {
       getFilteredTasks: () => mockTasks,
-      toggleTask: vi.fn(),
-      selectTask: vi.fn(),
+      toggleTask: mock(),
+      selectTask: mock(),
       selectedTaskId: null,
-      loadTasks: vi.fn(),
-      setFilter: vi.fn(),
+      loadTasks: mock(),
+      setFilter: mock(),
       filter: { completed: false },
     }
     return typeof selector === 'function' ? selector(state) : state
   }),
 }))
 
-vi.mock('@/store/filterStore', () => ({
-  useFilterStore: vi.fn((selector) => {
+mock.module('@/store/filterStore', () => ({
+  useFilterStore: mock((selector) => {
     const state = {
-      applyFilterQuery: vi.fn((_query, tasks) => tasks),
+      applyFilterQuery: mock((_query, tasks) => tasks),
       filters: [],
     }
     return typeof selector === 'function' ? selector(state) : state
   }),
 }))
 
-vi.mock('@/store/quickAddStore', () => ({
-  useQuickAddStore: vi.fn((selector) => {
+mock.module('@/store/quickAddStore', () => ({
+  useQuickAddStore: mock((selector) => {
     const state = {
-      openQuickAdd: vi.fn(),
+      openQuickAdd: mock(),
     }
     return typeof selector === 'function' ? selector(state) : state
   }),
 }))
 
-vi.mock('@/store/viewStore', () => ({
-  useViewStore: vi.fn((selector) => {
+mock.module('@/store/viewStore', () => ({
+  useViewStore: mock((selector) => {
     const state = {
       currentView: 'inbox',
-      setCurrentView: vi.fn(),
+      setCurrentView: mock(),
       listGroupBy: undefined,
     }
     return typeof selector === 'function' ? selector(state) : state
   }),
 }))
 
-vi.mock('@/components/TaskList', () => ({
+mock.module('@/components/TaskList', () => ({
   TaskList: ({ tasks }: { tasks: Task[] }) => (
     <div data-testid="task-list">
       {tasks.map((task) => (
@@ -89,15 +89,15 @@ vi.mock('@/components/TaskList', () => ({
   ),
 }))
 
-vi.mock('@/components/ViewSwitcher', () => ({
+mock.module('@/components/ViewSwitcher', () => ({
   ViewSwitcher: () => <div data-testid="view-switcher">View Switcher</div>,
 }))
 
-vi.mock('@/components/ListViewOptions', () => ({
+mock.module('@/components/ListViewOptions', () => ({
   ListViewOptions: () => <div data-testid="list-view-options">List Options</div>,
 }))
 
-vi.mock('@/components/GroupedTaskList', () => ({
+mock.module('@/components/GroupedTaskList', () => ({
   GroupedTaskList: ({ tasks }: { tasks: Task[] }) => (
     <div data-testid="grouped-task-list">
       {tasks.map((task) => (
@@ -107,19 +107,19 @@ vi.mock('@/components/GroupedTaskList', () => ({
   ),
 }))
 
-vi.mock('@/components/FilterPanel', () => ({
+mock.module('@/components/FilterPanel', () => ({
   FilterPanel: ({ isOpen }: { isOpen: boolean }) => (
     isOpen ? <div data-testid="filter-panel">Filter Panel</div> : null
   ),
 }))
 
-vi.mock('@/components/EmptyInboxState', () => ({
+mock.module('@/components/EmptyInboxState', () => ({
   EmptyInboxState: () => <div data-testid="empty-inbox">No tasks in inbox</div>,
 }))
 
 describe('InboxView Component', () => {
   beforeEach(() => {
-    vi.clearAllMocks()
+    
   })
 
   describe('rendering', () => {

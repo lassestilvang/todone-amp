@@ -1,14 +1,15 @@
-import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest'
+import { describe, it, expect, beforeEach, afterEach, setSystemTime } from 'bun:test'
 import { suggestDueDate, extractAllDateMatches } from '../dueDateSuggester'
 
 describe('dueDateSuggester', () => {
   beforeEach(() => {
-    vi.useFakeTimers()
-    vi.setSystemTime(new Date('2026-01-22T10:00:00'))
+    // Set fixed date for testing: Thursday, January 22, 2026
+    setSystemTime(new Date('2026-01-22T10:00:00'))
   })
 
   afterEach(() => {
-    vi.useRealTimers()
+    // Reset to real time
+    setSystemTime()
   })
 
   describe('suggestDueDate', () => {

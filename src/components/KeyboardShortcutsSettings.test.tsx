@@ -1,11 +1,10 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, it, expect, beforeEach, mock } from 'bun:test'
 import { render, screen } from '@testing-library/react'
 import { KeyboardShortcutsSettings } from './KeyboardShortcutsSettings'
 
 describe('KeyboardShortcutsSettings', () => {
   beforeEach(() => {
     localStorage.clear()
-    vi.clearAllMocks()
   })
 
   it('renders keyboard shortcuts settings panel', () => {
@@ -43,7 +42,7 @@ describe('KeyboardShortcutsSettings', () => {
   })
 
   it('calls onClose when provided', () => {
-    const onClose = vi.fn()
+    const onClose = mock()
     const { container } = render(<KeyboardShortcutsSettings onClose={onClose} />)
     expect(container).toBeTruthy()
     // Component should render successfully

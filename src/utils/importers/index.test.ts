@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect } from 'bun:test';
 import { importTasks, detectImportSource } from './index';
 
 describe('Task Importers', () => {
@@ -144,16 +144,12 @@ describe('Task Importers', () => {
 
   describe('Error Handling', () => {
     it('should throw on invalid JSON', async () => {
-      expect(async () => {
-        await importTasks('json', 'invalid json {');
-      }).rejects.toThrow();
+      await expect(importTasks('json', 'invalid json {')).rejects.toThrow();
     });
 
     it('should throw on unknown source', async () => {
-      expect(async () => {
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        await importTasks('unknown' as any, '{}');
-      }).rejects.toThrow('Unknown import source');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      await expect(importTasks('unknown' as any, '{}')).rejects.toThrow('Unknown import source');
     });
   });
 });

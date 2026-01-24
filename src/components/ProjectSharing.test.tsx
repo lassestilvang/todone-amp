@@ -1,9 +1,9 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, mock } from 'bun:test'
 import { render, screen } from '@testing-library/react'
 import { ProjectSharing } from './ProjectSharing'
 
 // Mock the stores
-vi.mock('@/store/authStore', () => ({
+mock.module('@/store/authStore', () => ({
   useAuthStore: () => ({
     user: { id: 'user1', role: 'admin' },
   }),
@@ -34,7 +34,7 @@ describe('ProjectSharing', () => {
   })
 
   it('should have close button when onClose prop provided', () => {
-    const mockClose = vi.fn()
+    const mockClose = mock()
     render(<ProjectSharing projectId="proj1" onClose={mockClose} />)
     const closeButton = screen.getByText('×')
     expect(closeButton).toBeInTheDocument()

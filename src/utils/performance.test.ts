@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, mock } from 'bun:test'
 import {
   debounce,
   throttle,
@@ -9,78 +9,62 @@ import {
 
 describe('Performance Utilities', () => {
   describe('debounce', () => {
-    it('should debounce function calls', () => {
-      return new Promise<void>((resolve) => {
-        const callback = vi.fn()
-        const debounced = debounce(callback, 50)
+    it('should debounce function calls', async () => {
+      const callback = mock(() => {})
+      const debounced = debounce(callback, 50)
 
-        debounced()
-        debounced()
-        debounced()
+      debounced()
+      debounced()
+      debounced()
 
-        expect(callback).not.toHaveBeenCalled()
+      expect(callback).not.toHaveBeenCalled()
 
-        setTimeout(() => {
-          expect(callback).toHaveBeenCalledTimes(1)
-          resolve()
-        }, 100)
-      })
+      await new Promise((resolve) => setTimeout(resolve, 100))
+      expect(callback).toHaveBeenCalledTimes(1)
     })
 
-    it('should pass arguments to debounced function', () => {
-      return new Promise<void>((resolve) => {
-        const callback = vi.fn()
-        const debounced = debounce(callback, 50)
+    it('should pass arguments to debounced function', async () => {
+      const callback = mock((..._args: unknown[]) => {})
+      const debounced = debounce(callback, 50)
 
-        debounced(1, 2, 3)
+      debounced(1, 2, 3)
 
-        setTimeout(() => {
-          expect(callback).toHaveBeenCalledWith(1, 2, 3)
-          resolve()
-        }, 100)
-      })
+      await new Promise((resolve) => setTimeout(resolve, 100))
+      expect(callback).toHaveBeenCalledWith(1, 2, 3)
     })
   })
 
   describe('throttle', () => {
-    it('should throttle function calls', () => {
-      return new Promise<void>((resolve) => {
-        const callback = vi.fn()
-        const throttled = throttle(callback, 50)
+    it('should throttle function calls', async () => {
+      const callback = mock(() => {})
+      const throttled = throttle(callback, 50)
 
-        throttled()
+      throttled()
 
-        setTimeout(() => {
-          throttled()
-          throttled()
+      await new Promise((resolve) => setTimeout(resolve, 75))
+      throttled()
+      throttled()
 
-          // Should have been called at least once due to throttle behavior
-          expect(callback.mock.calls.length).toBeGreaterThan(0)
-          resolve()
-        }, 75)
-      })
+      // Should have been called at least once due to throttle behavior
+      expect(callback.mock.calls.length).toBeGreaterThan(0)
     })
 
-    it('should respect throttle interval', () => {
-      return new Promise<void>((resolve) => {
-        const callback = vi.fn()
-        const throttled = throttle(callback, 100)
+    it('should respect throttle interval', async () => {
+      const callback = mock(() => {})
+      const throttled = throttle(callback, 100)
 
-        throttled()
-        const firstCallTime = Date.now()
+      throttled()
+      const firstCallTime = Date.now()
 
-        // Try to call again immediately
-        throttled()
-        const timeElapsed = Date.now() - firstCallTime
+      // Try to call again immediately
+      throttled()
+      const timeElapsed = Date.now() - firstCallTime
 
-        // Second call should not execute immediately
-        expect(timeElapsed).toBeLessThan(100)
+      // Second call should not execute immediately
+      expect(timeElapsed).toBeLessThan(100)
 
-        setTimeout(() => {
-          throttled()
-          resolve()
-        }, 150)
-      })
+      await new Promise((resolve) => setTimeout(resolve, 150))
+      throttled()
     })
   })
 

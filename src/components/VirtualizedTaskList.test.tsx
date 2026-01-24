@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect } from 'bun:test'
 import { render } from '@testing-library/react'
 import { VirtualizedTaskList } from '@/components/VirtualizedTaskList'
 import { Task, Priority } from '@/types'

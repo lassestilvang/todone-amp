@@ -1,19 +1,19 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, it, expect, beforeEach, mock } from 'bun:test'
 import { useWeeklyReviewStore } from './weeklyReviewStore'
 import type { Task, Project } from '@/types'
 
-vi.mock('@/db/database', () => ({
+mock.module('@/db/database', () => ({
   db: {
     tasks: {
-      toArray: vi.fn().mockResolvedValue([]),
+      toArray: mock(() => Promise.resolve([])),
     },
     projects: {
-      where: vi.fn().mockReturnThis(),
-      equals: vi.fn().mockReturnThis(),
-      toArray: vi.fn().mockResolvedValue([]),
+      where: mock(function (this: unknown) { return this }),
+      equals: mock(function (this: unknown) { return this }),
+      toArray: mock(() => Promise.resolve([])),
     },
     userStats: {
-      get: vi.fn().mockResolvedValue(null),
+      get: mock(() => Promise.resolve(null)),
     },
   },
 }))

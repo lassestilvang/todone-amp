@@ -1,9 +1,9 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, mock } from 'bun:test'
 import { render, screen } from '@testing-library/react'
 import { IntegrationManager } from './IntegrationManager'
 
 // Mock the integrationStore
-vi.mock('@/store/integrationStore', () => ({
+mock.module('@/store/integrationStore', () => ({
   useIntegrationStore: () => ({
     userIntegrations: [],
     calendarIntegrations: [],

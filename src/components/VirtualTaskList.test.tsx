@@ -1,10 +1,10 @@
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, mock } from 'bun:test'
 import { render, screen } from '@testing-library/react'
 import { VirtualTaskList } from './VirtualTaskList'
 import type { Task } from '@/types'
 
 // Mock TaskItem component
-vi.mock('./TaskItem', () => ({
+mock.module('./TaskItem', () => ({
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   TaskItem: ({ task, onToggle, onSelect }: any) => (
     <div data-testid={`task-${task.id}`} onClick={() => onSelect?.(task.id)}>
@@ -43,8 +43,8 @@ describe('VirtualTaskList', () => {
     const { container } = render(
       <VirtualTaskList
         tasks={[]}
-        onToggle={vi.fn()}
-        onSelect={vi.fn()}
+        onToggle={mock()}
+        onSelect={mock()}
         emptyMessage="No tasks available"
       />
     )
@@ -56,8 +56,8 @@ describe('VirtualTaskList', () => {
     const { container } = render(
       <VirtualTaskList
         tasks={mockTasks}
-        onToggle={vi.fn()}
-        onSelect={vi.fn()}
+        onToggle={mock()}
+        onSelect={mock()}
         itemHeight={56}
         containerHeight={600}
       />
@@ -69,12 +69,12 @@ describe('VirtualTaskList', () => {
   })
 
   it('calls onToggle when task checkbox is clicked', async () => {
-    const onToggle = vi.fn()
+    const onToggle = mock()
     const { container } = render(
       <VirtualTaskList
         tasks={mockTasks.slice(0, 10)}
         onToggle={onToggle}
-        onSelect={vi.fn()}
+        onSelect={mock()}
         itemHeight={56}
         containerHeight={400}
       />
@@ -86,11 +86,11 @@ describe('VirtualTaskList', () => {
   })
 
   it('calls onSelect when task is clicked', async () => {
-    const onSelect = vi.fn()
+    const onSelect = mock()
     const { container } = render(
       <VirtualTaskList
         tasks={mockTasks.slice(0, 10)}
-        onToggle={vi.fn()}
+        onToggle={mock()}
         onSelect={onSelect}
         itemHeight={56}
         containerHeight={400}
@@ -107,8 +107,8 @@ describe('VirtualTaskList', () => {
       <VirtualTaskList
         tasks={mockTasks.slice(0, 10)}
         selectedTaskId="task-0"
-        onToggle={vi.fn()}
-        onSelect={vi.fn()}
+        onToggle={mock()}
+        onSelect={mock()}
         itemHeight={56}
         containerHeight={400}
       />
@@ -121,8 +121,8 @@ describe('VirtualTaskList', () => {
     const { container } = render(
       <VirtualTaskList
         tasks={mockTasks.slice(0, 20)}
-        onToggle={vi.fn()}
-        onSelect={vi.fn()}
+        onToggle={mock()}
+        onSelect={mock()}
         itemHeight={56}
         containerHeight={400}
       />
@@ -137,8 +137,8 @@ describe('VirtualTaskList', () => {
     render(
       <VirtualTaskList
         tasks={[]}
-        onToggle={vi.fn()}
-        onSelect={vi.fn()}
+        onToggle={mock()}
+        onSelect={mock()}
         emptyMessage={customMessage}
       />
     )
@@ -150,8 +150,8 @@ describe('VirtualTaskList', () => {
       <VirtualTaskList
         tasks={mockTasks.slice(0, 10)}
         selectedTaskId="task-0"
-        onToggle={vi.fn()}
-        onSelect={vi.fn()}
+        onToggle={mock()}
+        onSelect={mock()}
       />
     )
 
@@ -162,8 +162,8 @@ describe('VirtualTaskList', () => {
       <VirtualTaskList
         tasks={mockTasks.slice(0, 10)}
         selectedTaskId="task-5"
-        onToggle={vi.fn()}
-        onSelect={vi.fn()}
+        onToggle={mock()}
+        onSelect={mock()}
       />
     )
 
