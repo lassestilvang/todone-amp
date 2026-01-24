@@ -1,6 +1,6 @@
 import { ReactElement } from 'react'
 import { render, RenderOptions } from '@testing-library/react'
-import { expect } from 'vitest'
+import { expect } from 'bun:test'
 import type { User, Task, Project, Team } from '@/types'
 
 // Mock data factories
