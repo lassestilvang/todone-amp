@@ -3,6 +3,13 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { SettingsView } from './SettingsView'
 import { User } from '@/types'
+import { useAuthStore } from '@/store/authStore'
+import { useTaskStore } from '@/store/taskStore'
+import { useProjectStore } from '@/store/projectStore'
+import { useSectionStore } from '@/store/sectionStore'
+import { useLabelStore } from '@/store/labelStore'
+import { useFilterStore } from '@/store/filterStore'
+import { useGamificationStore } from '@/store/gamificationStore'
 
 const mockUser: User = {
   id: 'user1',
@@ -29,64 +36,15 @@ const mockUser: User = {
   karmaLevel: 'intermediate',
 }
 
-mock.module('@/store/authStore', () => ({
-  useAuthStore: mock((selector) => {
-    const state = {
-      user: mockUser,
-      updateUser: mock(),
-      logout: mock(),
-    }
-    return typeof selector === 'function' ? selector(state) : state
-  }),
-}))
-
-mock.module('@/store/taskStore', () => ({
-  useTaskStore: mock((selector) => {
-    const state = {
-      tasks: [],
-    }
-    return typeof selector === 'function' ? selector(state) : state
-  }),
-}))
-
-mock.module('@/store/projectStore', () => ({
-  useProjectStore: mock((selector) => {
-    const state = {
-      projects: [],
-    }
-    return typeof selector === 'function' ? selector(state) : state
-  }),
-}))
-
-mock.module('@/store/sectionStore', () => ({
-  useSectionStore: mock((selector) => {
-    const state = {
-      sections: [],
-    }
-    return typeof selector === 'function' ? selector(state) : state
-  }),
-}))
-
-mock.module('@/store/labelStore', () => ({
-  useLabelStore: mock((selector) => {
-    const state = {
-      labels: [],
-    }
-    return typeof selector === 'function' ? selector(state) : state
-  }),
-}))
-
-mock.module('@/store/filterStore', () => ({
-  useFilterStore: mock((selector) => {
-    const state = {
-      filters: [],
-    }
-    return typeof selector === 'function' ? selector(state) : state
-  }),
-}))
-
-mock.module('@/store/gamificationStore', () => ({
-  useGamificationStore: mock(() => ({})),
+mock.module('@/db/database', () => ({
+  db: {
+    users: { get: mock(), put: mock(), update: mock() },
+    tasks: { toArray: mock(() => Promise.resolve([])) },
+    projects: { toArray: mock(() => Promise.resolve([])), where: mock(() => ({ equals: () => ({ toArray: () => Promise.resolve([]) }) })) },
+    sections: { toArray: mock(() => Promise.resolve([])) },
+    labels: { toArray: mock(() => Promise.resolve([])), where: mock(() => ({ equals: () => ({ toArray: () => Promise.resolve([]) }) })) },
+    filters: { toArray: mock(() => Promise.resolve([])), where: mock(() => ({ equals: () => ({ toArray: () => Promise.resolve([]) }) })) },
+  },
 }))
 
 mock.module('@/hooks/useDyslexiaFont', () => ({
@@ -104,7 +62,42 @@ mock.module('@/utils/exportImport', () => ({
 
 describe('SettingsView Component', () => {
   beforeEach(() => {
-    
+    useAuthStore.setState({
+      user: mockUser,
+      isAuthenticated: true,
+      isLoading: false,
+    })
+    useTaskStore.setState({
+      tasks: [],
+      selectedTaskId: null,
+      expandedTaskIds: new Set(),
+      filter: {},
+    })
+    useProjectStore.setState({
+      projects: [],
+      selectedProjectId: null,
+    })
+    useSectionStore.setState({
+      sections: [],
+    })
+    useLabelStore.setState({
+      labels: [],
+      selectedLabels: [],
+    })
+    useFilterStore.setState({
+      filters: [],
+      activeFilterId: null,
+      savedQueries: [],
+      queryCache: new Map(),
+      recentQueries: [],
+    })
+    // Only reset user-related state, preserve default achievements
+    useGamificationStore.setState({
+      userStats: null,
+      leaderboard: [],
+      loading: false,
+      error: null,
+    })
   })
 
   describe('rendering', () => {
@@ -172,7 +165,6 @@ describe('SettingsView Component', () => {
   describe('theme settings', () => {
     it('should display theme options', () => {
       render(<SettingsView />)
-      // Theme section should be rendered
       const heading = screen.queryByText(/Theme|theme/)
       if (heading) {
         expect(heading).toBeInTheDocument()
@@ -191,8 +183,9 @@ describe('SettingsView Component', () => {
 
       const buttons = screen.getAllByRole('button')
       if (buttons.length > 0) {
-        // Find and click a theme button
-        const themeButton = buttons.find((btn) => btn.textContent?.includes('Light') || btn.textContent?.includes('Dark'))
+        const themeButton = buttons.find(
+          (btn) => btn.textContent?.includes('Light') || btn.textContent?.includes('Dark')
+        )
         if (themeButton) {
           await user.click(themeButton)
         }
@@ -203,14 +196,12 @@ describe('SettingsView Component', () => {
   describe('language settings', () => {
     it('should display language dropdown', () => {
       render(<SettingsView />)
-      // Language selection should be visible
       const buttons = screen.getAllByRole('button')
       expect(buttons.length).toBeGreaterThan(0)
     })
 
     it('should show multiple language options', () => {
       render(<SettingsView />)
-      // Component should render without error
       expect(screen.queryByRole('heading', { level: 1 })).toBeTruthy()
     })
 
@@ -242,7 +233,6 @@ describe('SettingsView Component', () => {
       const checkboxes = screen.queryAllByRole('checkbox')
       if (checkboxes.length > 0) {
         await user.click(checkboxes[0])
-        // Setting should be updated
       }
     })
   })
@@ -356,8 +346,9 @@ describe('SettingsView Component', () => {
 
       const inputs = screen.queryAllByRole('textbox') as HTMLInputElement[]
       if (inputs.length > 1) {
-        // Skip name/email fields and find numeric inputs
-        const numericInputs = inputs.filter((input) => input.type === 'number' || input.placeholder?.includes('goal'))
+        const numericInputs = inputs.filter(
+          (input) => input.type === 'number' || input.placeholder?.includes('goal')
+        )
         if (numericInputs.length > 0) {
           const goalInput = numericInputs[0]
           await user.clear(goalInput)
@@ -408,9 +399,7 @@ describe('SettingsView Component', () => {
       render(<SettingsView />)
 
       const buttons = screen.getAllByRole('button')
-      if (buttons.length > 0) {
-        // Find dyslexia toggle if present
-      }
+      expect(buttons.length).toBeGreaterThan(0)
     })
   })
 
