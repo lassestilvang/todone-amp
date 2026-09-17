@@ -126,8 +126,9 @@ describe('Scroll Animations', () => {
     it('should support instant behavior', () => {
       const scrollSpy = spyOn(window, 'scrollTo')
       smoothScrollToTop('auto')
-      const call = scrollSpy.mock.calls[0][0] as ScrollToOptions
-      expect(call.behavior).toBe('auto')
+      // Get the last call to handle accumulated spy calls
+      const lastCall = scrollSpy.mock.calls[scrollSpy.mock.calls.length - 1][0] as ScrollToOptions
+      expect(lastCall.behavior).toBe('auto')
     })
   })
 
