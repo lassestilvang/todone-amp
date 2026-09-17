@@ -1,5 +1,6 @@
 import { describe, it, expect, beforeEach, mock } from 'bun:test'
 import { useHabitStore, isHabitDueOnDate } from './habitStore'
+import { useGamificationStore } from './gamificationStore'
 import type { Habit, HabitCompletion } from '@/types'
 
 mock.module('@/db/database', () => ({
@@ -21,14 +22,6 @@ mock.module('@/db/database', () => ({
       put: mock(() => Promise.resolve(undefined)),
       delete: mock(() => Promise.resolve(undefined)),
     },
-  },
-}))
-
-mock.module('./gamificationStore', () => ({
-  useGamificationStore: {
-    getState: () => ({
-      addKarma: mock(() => Promise.resolve(undefined)),
-    }),
   },
 }))
 
@@ -61,6 +54,13 @@ describe('habitStore', () => {
       loading: false,
       error: null,
       selectedHabitId: null,
+    })
+    // Only reset user-related state, preserve default achievements
+    useGamificationStore.setState({
+      userStats: null,
+      leaderboard: [],
+      loading: false,
+      error: null,
     })
   })
 
