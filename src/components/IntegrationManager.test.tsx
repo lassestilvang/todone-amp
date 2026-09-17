@@ -1,16 +1,20 @@
-import { describe, it, expect, mock } from 'bun:test'
+import { describe, it, expect, beforeEach } from 'bun:test'
 import { render, screen } from '@testing-library/react'
 import { IntegrationManager } from './IntegrationManager'
-
-// Mock the integrationStore
-mock.module('@/store/integrationStore', () => ({
-  useIntegrationStore: () => ({
-    userIntegrations: [],
-    calendarIntegrations: [],
-  }),
-}))
+import { useIntegrationStore } from '@/store/integrationStore'
 
 describe('IntegrationManager', () => {
+  beforeEach(() => {
+    useIntegrationStore.setState({
+      calendarIntegrations: [],
+      calendarEvents: [],
+      syncHistory: [],
+      userIntegrations: [],
+      isLoading: false,
+      error: null,
+    })
+  })
+
   it('should render integration manager component', () => {
     const { container } = render(<IntegrationManager />)
     expect(container.firstChild).toBeInTheDocument()
