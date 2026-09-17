@@ -1,17 +1,20 @@
-import { describe, it, expect, mock } from 'bun:test'
+import { describe, it, expect, mock, beforeEach } from 'bun:test'
 import { render } from '@testing-library/react'
 import { CalendarIntegration } from './CalendarIntegration'
-
-// Mock the integrationStore
-mock.module('@/store/integrationStore', () => ({
-  useIntegrationStore: () => ({
-    calendarIntegrations: [],
-    updateCalendarIntegration: mock(),
-    removeCalendarIntegration: mock(),
-  }),
-}))
+import { useIntegrationStore } from '@/store/integrationStore'
 
 describe('CalendarIntegration', () => {
+  beforeEach(() => {
+    useIntegrationStore.setState({
+      calendarIntegrations: [],
+      calendarEvents: [],
+      syncHistory: [],
+      userIntegrations: [],
+      isLoading: false,
+      error: null,
+    })
+  })
+
   it('should render calendar integration component', () => {
     const { container } = render(<CalendarIntegration platform="google" />)
     expect(container.firstChild).toBeInTheDocument()
