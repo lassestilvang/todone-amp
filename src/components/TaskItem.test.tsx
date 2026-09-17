@@ -3,19 +3,8 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { TaskItem } from './TaskItem'
 import { Task } from '@/types'
-
-// Mock the stores
-mock.module('@/store/taskDetailStore', () => ({
-  useTaskDetailStore: mock(() => ({
-    openTaskDetail: mock(),
-  })),
-}))
-
-mock.module('@/store/taskStore', () => ({
-  useTaskStore: mock(() => ({
-    getSubtasks: mock(() => []),
-  })),
-}))
+import { useTaskDetailStore } from '@/store/taskDetailStore'
+import { useTaskStore } from '@/store/taskStore'
 
 const mockTask: Task = {
   id: '1',
@@ -35,6 +24,17 @@ const mockTask: Task = {
 
 describe('TaskItem Component', () => {
   beforeEach(() => {
+    useTaskDetailStore.setState({
+      isOpen: false,
+      selectedTask: null,
+      selectedTaskId: null,
+      hasUnsavedChanges: false,
+      isEditing: false,
+    })
+
+    useTaskStore.setState({
+      tasks: [mockTask],
+    })
   })
 
   describe('rendering', () => {
