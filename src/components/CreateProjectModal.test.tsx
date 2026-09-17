@@ -2,22 +2,16 @@ import { describe, it, expect, mock, beforeEach } from 'bun:test'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { CreateProjectModal } from './CreateProjectModal'
-
-// Mock stores
-mock.module('@/store/projectStore', () => ({
-  useProjectStore: mock((selector: (state: unknown) => unknown) => {
-    const state = {
-      createProject: mock(),
-      projects: [],
-    }
-    return typeof selector === 'function' ? selector(state) : state
-  }),
-}))
+import { useProjectStore } from '@/store/projectStore'
 
 describe('CreateProjectModal Component', () => {
   const mockOnClose = mock()
 
   beforeEach(() => {
+    useProjectStore.setState({
+      projects: [],
+      selectedProjectId: null,
+    })
   })
 
   describe('visibility', () => {
@@ -62,7 +56,7 @@ describe('CreateProjectModal Component', () => {
     it('should update input fields', async () => {
       const user = userEvent.setup()
       render(<CreateProjectModal isOpen={true} onClose={mockOnClose} />)
-      
+
       const inputs = screen.getAllByRole('textbox') as HTMLInputElement[]
       if (inputs.length > 0) {
         await user.type(inputs[0], 'My Project')
@@ -73,7 +67,7 @@ describe('CreateProjectModal Component', () => {
     it('should handle color button clicks', async () => {
       const user = userEvent.setup()
       render(<CreateProjectModal isOpen={true} onClose={mockOnClose} />)
-      
+
       const buttons = screen.getAllByRole('button')
       if (buttons.length > 1) {
         await user.click(buttons[0])
@@ -87,7 +81,7 @@ describe('CreateProjectModal Component', () => {
     it('should allow form submission', async () => {
       const user = userEvent.setup()
       render(<CreateProjectModal isOpen={true} onClose={mockOnClose} />)
-      
+
       const inputs = screen.getAllByRole('textbox') as HTMLInputElement[]
       if (inputs.length > 0) {
         await user.type(inputs[0], 'New Project')
@@ -97,10 +91,10 @@ describe('CreateProjectModal Component', () => {
 
     it('should render with valid form structure', () => {
       render(<CreateProjectModal isOpen={true} onClose={mockOnClose} />)
-      
+
       const inputs = screen.getAllByRole('textbox')
       const buttons = screen.getAllByRole('button')
-      
+
       expect(inputs.length).toBeGreaterThan(0)
       expect(buttons.length).toBeGreaterThan(0)
     })
@@ -109,14 +103,14 @@ describe('CreateProjectModal Component', () => {
   describe('modal controls', () => {
     it('should have close buttons', () => {
       render(<CreateProjectModal isOpen={true} onClose={mockOnClose} />)
-      
+
       const buttons = screen.getAllByRole('button')
       expect(buttons.length).toBeGreaterThan(0)
     })
 
     it('should respond to keyboard navigation', () => {
       render(<CreateProjectModal isOpen={true} onClose={mockOnClose} />)
-      
+
       const modal = screen.getByText(/Create Project/i)
       expect(modal).toBeInTheDocument()
     })
@@ -133,7 +127,7 @@ describe('CreateProjectModal Component', () => {
       render(<CreateProjectModal isOpen={true} onClose={mockOnClose} />)
       const inputs = screen.getAllByRole('textbox')
       const buttons = screen.getAllByRole('button')
-      
+
       expect(inputs.length).toBeGreaterThan(0)
       expect(buttons.length).toBeGreaterThan(0)
     })
@@ -141,7 +135,7 @@ describe('CreateProjectModal Component', () => {
     it('should support keyboard interaction', async () => {
       const user = userEvent.setup()
       render(<CreateProjectModal isOpen={true} onClose={mockOnClose} />)
-      
+
       const inputs = screen.getAllByRole('textbox') as HTMLInputElement[]
       if (inputs.length > 0) {
         await user.type(inputs[0], 'Test')
@@ -153,7 +147,7 @@ describe('CreateProjectModal Component', () => {
   describe('form validation', () => {
     it('should have input elements', () => {
       render(<CreateProjectModal isOpen={true} onClose={mockOnClose} />)
-      
+
       const inputs = screen.getAllByRole('textbox') as HTMLInputElement[]
       expect(inputs.length).toBeGreaterThan(0)
       expect(inputs[0].value).toBe('')
@@ -162,7 +156,7 @@ describe('CreateProjectModal Component', () => {
     it('should accept user input', async () => {
       const user = userEvent.setup()
       render(<CreateProjectModal isOpen={true} onClose={mockOnClose} />)
-      
+
       const inputs = screen.getAllByRole('textbox') as HTMLInputElement[]
       if (inputs.length > 0) {
         await user.type(inputs[0], '  Project Name  ')
@@ -175,7 +169,7 @@ describe('CreateProjectModal Component', () => {
   describe('loading state', () => {
     it('should render buttons', () => {
       render(<CreateProjectModal isOpen={true} onClose={mockOnClose} />)
-      
+
       const buttons = screen.getAllByRole('button')
       expect(buttons.length).toBeGreaterThan(0)
     })
