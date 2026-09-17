@@ -1,15 +1,17 @@
-import { describe, it, expect, mock } from 'bun:test'
+import { describe, it, expect, beforeEach } from 'bun:test'
 import { render, screen } from '@testing-library/react'
 import { TeamDashboard } from './TeamDashboard'
-
-// Mock the teamStore
-mock.module('@/store/teamStore', () => ({
-  useTeamStore: () => ({
-    teams: [{ id: 'team1', name: 'Test Team' }],
-  }),
-}))
+import { useTeamStore } from '@/store/teamStore'
 
 describe('TeamDashboard', () => {
+  beforeEach(() => {
+    useTeamStore.setState({
+      teams: [{ id: 'team1', name: 'Test Team', ownerId: 'user1', createdAt: new Date(), updatedAt: new Date() }],
+      currentTeamId: null,
+      isLoading: false,
+    })
+  })
+
   it('should render team dashboard', () => {
     render(<TeamDashboard />)
     expect(screen.getByText(/Team Dashboard/i)).toBeInTheDocument()
