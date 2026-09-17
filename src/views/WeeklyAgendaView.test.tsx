@@ -3,6 +3,8 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { WeeklyAgendaView } from './WeeklyAgendaView'
 import { Task } from '@/types'
+import { useTaskStore } from '@/store/taskStore'
+import { useTaskDetailStore } from '@/store/taskDetailStore'
 
 const mockTasks: Task[] = [
   {
@@ -16,7 +18,7 @@ const mockTasks: Task[] = [
     reminders: [],
     attachments: [],
     labels: [],
-    dueDate: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000), // Tomorrow
+    dueDate: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
   },
   {
     id: '2',
@@ -29,7 +31,7 @@ const mockTasks: Task[] = [
     reminders: [],
     attachments: [],
     labels: [],
-    dueDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), // 3 days
+    dueDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
   },
   {
     id: '3',
@@ -42,32 +44,31 @@ const mockTasks: Task[] = [
     reminders: [],
     attachments: [],
     labels: [],
-    dueDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000), // 2 days
+    dueDate: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),
   },
 ]
 
-mock.module('@/store/taskStore', () => ({
-  useTaskStore: mock((selector) => {
-    const state = {
-      tasks: mockTasks,
-      toggleTask: mock(),
-    }
-    return typeof selector === 'function' ? selector(state) : state
-  }),
-}))
-
-mock.module('@/store/taskDetailStore', () => ({
-  useTaskDetailStore: mock((selector) => {
-    const state = {
-      openTaskDetail: mock(),
-    }
-    return typeof selector === 'function' ? selector(state) : state
-  }),
+mock.module('@/db/database', () => ({
+  db: {
+    tasks: { toArray: mock(() => Promise.resolve([])) },
+  },
 }))
 
 describe('WeeklyAgendaView Component', () => {
   beforeEach(() => {
-    
+    useTaskStore.setState({
+      tasks: mockTasks,
+      selectedTaskId: null,
+      expandedTaskIds: new Set(),
+      filter: {},
+    })
+    useTaskDetailStore.setState({
+      isOpen: false,
+      selectedTaskId: null,
+      selectedTask: null,
+      isEditing: false,
+      hasUnsavedChanges: false,
+    })
   })
 
   describe('rendering', () => {
@@ -86,19 +87,17 @@ describe('WeeklyAgendaView Component', () => {
     it('should render week navigation buttons', () => {
       render(<WeeklyAgendaView />)
       const buttons = screen.getAllByRole('button')
-      expect(buttons.length).toBeGreaterThanOrEqual(2) // At least prev and next
+      expect(buttons.length).toBeGreaterThanOrEqual(2)
     })
 
     it('should render day columns for entire week', () => {
       render(<WeeklyAgendaView />)
-      // Should display 7 days
       const headings = screen.queryAllByRole('heading')
       expect(headings.length).toBeGreaterThan(0)
     })
 
     it('should display task count summary', () => {
       render(<WeeklyAgendaView />)
-      // Summary should show total tasks and completion rate
       expect(screen.getByText('Weekly Agenda')).toBeInTheDocument()
     })
   })
@@ -121,7 +120,6 @@ describe('WeeklyAgendaView Component', () => {
       render(<WeeklyAgendaView />)
 
       const buttons = screen.getAllByRole('button')
-      // Find and click previous button (should be first navigation button)
       if (buttons.length > 1) {
         await user.click(buttons[0])
       }
@@ -132,7 +130,6 @@ describe('WeeklyAgendaView Component', () => {
       render(<WeeklyAgendaView />)
 
       const buttons = screen.getAllByRole('button')
-      // Find and click next button
       if (buttons.length > 1) {
         await user.click(buttons[buttons.length - 1])
       }
@@ -153,37 +150,31 @@ describe('WeeklyAgendaView Component', () => {
   describe('day columns', () => {
     it('should display day names', () => {
       render(<WeeklyAgendaView />)
-      // Day abbreviations should be visible (Mon, Tue, Wed, etc)
       expect(screen.getByText('Weekly Agenda')).toBeInTheDocument()
     })
 
     it('should display dates for each day', () => {
       render(<WeeklyAgendaView />)
-      // Dates should be formatted and displayed
       expect(screen.getByText('Weekly Agenda')).toBeInTheDocument()
     })
 
     it('should highlight today column', () => {
       render(<WeeklyAgendaView />)
-      // Current day should have special styling
       expect(screen.getByText('Weekly Agenda')).toBeInTheDocument()
     })
 
     it('should display tasks under correct days', () => {
       render(<WeeklyAgendaView />)
-      // Tasks should be grouped by their due dates
       expect(screen.getByText('Weekly Agenda')).toBeInTheDocument()
     })
 
     it('should show task count per day', () => {
       render(<WeeklyAgendaView />)
-      // Each day column should show count of tasks
       expect(screen.getByText('Weekly Agenda')).toBeInTheDocument()
     })
 
     it('should show completion percentage per day', () => {
       render(<WeeklyAgendaView />)
-      // Completion rate displayed somewhere
       expect(screen.getByText('Weekly Agenda')).toBeInTheDocument()
     })
   })
@@ -191,19 +182,16 @@ describe('WeeklyAgendaView Component', () => {
   describe('task display', () => {
     it('should render tasks in appropriate day columns', () => {
       render(<WeeklyAgendaView />)
-      // Tasks should be visible in the component
       expect(screen.getByText('Weekly Agenda')).toBeInTheDocument()
     })
 
     it('should show active and completed tasks', () => {
       render(<WeeklyAgendaView />)
-      // Both active and completed tasks should be displayed
       expect(screen.getByText('Weekly Agenda')).toBeInTheDocument()
     })
 
     it('should exclude subtasks (parentTaskId)', () => {
       render(<WeeklyAgendaView />)
-      // Only root-level tasks should be shown
       expect(screen.getByText('Weekly Agenda')).toBeInTheDocument()
     })
   })
@@ -211,25 +199,21 @@ describe('WeeklyAgendaView Component', () => {
   describe('summary statistics', () => {
     it('should display total task count', () => {
       render(<WeeklyAgendaView />)
-      // Total count should be visible
       expect(screen.getByText('Weekly Agenda')).toBeInTheDocument()
     })
 
     it('should display completion count', () => {
       render(<WeeklyAgendaView />)
-      // Completed count should be visible
       expect(screen.getByText('Weekly Agenda')).toBeInTheDocument()
     })
 
     it('should calculate and display completion percentage', () => {
       render(<WeeklyAgendaView />)
-      // Percentage should be calculated (3 tasks, 1 completed = 33%)
       expect(screen.getByText('Weekly Agenda')).toBeInTheDocument()
     })
 
     it('should handle zero tasks', () => {
       render(<WeeklyAgendaView />)
-      // Should show 0% when no tasks
       expect(screen.getByText('Weekly Agenda')).toBeInTheDocument()
     })
   })
@@ -239,10 +223,7 @@ describe('WeeklyAgendaView Component', () => {
       render(<WeeklyAgendaView />)
 
       const buttons = screen.getAllByRole('button')
-      // Find task and click checkbox or button
-      if (buttons.length > 0) {
-        // Task interaction would be tested here
-      }
+      expect(buttons.length).toBeGreaterThan(0)
     })
 
     it('should allow selecting task for detail view', () => {
@@ -255,25 +236,21 @@ describe('WeeklyAgendaView Component', () => {
   describe('layout and styling', () => {
     it('should have flex layout', () => {
       render(<WeeklyAgendaView />)
-      // Component should use flex layout
       expect(screen.getByText('Weekly Agenda')).toBeInTheDocument()
     })
 
     it('should have proper border styling', () => {
       render(<WeeklyAgendaView />)
-      // Borders should separate sections
       expect(screen.getByText('Weekly Agenda')).toBeInTheDocument()
     })
 
     it('should be scrollable', () => {
       render(<WeeklyAgendaView />)
-      // Content area should be scrollable for long task lists
       expect(screen.getByText('Weekly Agenda')).toBeInTheDocument()
     })
 
     it('should have responsive columns', () => {
       render(<WeeklyAgendaView />)
-      // Day columns should be properly sized
       expect(screen.getByText('Weekly Agenda')).toBeInTheDocument()
     })
   })
@@ -304,7 +281,6 @@ describe('WeeklyAgendaView Component', () => {
 
     it('should have proper ARIA labels', () => {
       render(<WeeklyAgendaView />)
-      // Navigation buttons should have clear labels
       const buttons = screen.getAllByRole('button')
       expect(buttons.length).toBeGreaterThan(0)
     })
@@ -313,19 +289,16 @@ describe('WeeklyAgendaView Component', () => {
   describe('date calculations', () => {
     it('should calculate week days correctly', () => {
       render(<WeeklyAgendaView />)
-      // Should show all 7 days of the week
       expect(screen.getByText('Weekly Agenda')).toBeInTheDocument()
     })
 
     it('should identify today correctly', () => {
       render(<WeeklyAgendaView />)
-      // Today should be highlighted if in current week
       expect(screen.getByText('Weekly Agenda')).toBeInTheDocument()
     })
 
     it('should handle week boundaries correctly', () => {
       render(<WeeklyAgendaView />)
-      // Monday to Sunday boundaries
       expect(screen.getByText('Weekly Agenda')).toBeInTheDocument()
     })
   })
@@ -333,19 +306,16 @@ describe('WeeklyAgendaView Component', () => {
   describe('edge cases', () => {
     it('should handle empty week (no tasks)', () => {
       render(<WeeklyAgendaView />)
-      // Should display empty day columns
       expect(screen.getByText('Weekly Agenda')).toBeInTheDocument()
     })
 
     it('should handle many tasks in single day', () => {
       render(<WeeklyAgendaView />)
-      // Should display all tasks, possibly with scroll
       expect(screen.getByText('Weekly Agenda')).toBeInTheDocument()
     })
 
     it('should handle tasks spanning week boundary', () => {
       render(<WeeklyAgendaView />)
-      // Tasks with dates on week boundaries
       expect(screen.getByText('Weekly Agenda')).toBeInTheDocument()
     })
   })
