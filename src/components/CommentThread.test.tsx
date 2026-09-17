@@ -1,16 +1,15 @@
-import { describe, it, expect, mock } from 'bun:test'
+import { describe, it, expect, beforeEach } from 'bun:test'
 import { CommentThread } from '@/components/CommentThread'
-
-mock.module('@/store/commentStore', () => ({
-  useCommentStore: mock(() => ({
-    getTaskComments: mock(() => []),
-    createComment: mock(),
-    updateComment: mock(),
-    deleteComment: mock(),
-  })),
-}))
+import { useCommentStore } from '@/store/commentStore'
 
 describe('CommentThread', () => {
+  beforeEach(() => {
+    useCommentStore.setState({
+      comments: [],
+      isLoading: false,
+    })
+  })
+
   it('renders a comment thread component', () => {
     expect(CommentThread).toBeTruthy()
   })
