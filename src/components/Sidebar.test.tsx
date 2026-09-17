@@ -2,6 +2,9 @@ import { describe, it, expect, mock, beforeEach } from 'bun:test'
 import { render, screen } from '@testing-library/react'
 import { Sidebar } from './Sidebar'
 import { ThemeContext, ThemeContextValue } from '@/contexts/ThemeContext'
+import { useViewStore } from '@/store/viewStore'
+import { useProjectStore } from '@/store/projectStore'
+import { useTaskStore } from '@/store/taskStore'
 
 const mockThemeContext: ThemeContextValue = {
   mode: 'system',
@@ -20,37 +23,32 @@ const renderWithTheme = (ui: React.ReactElement) => {
   )
 }
 
-// Mock stores
-mock.module('@/store/viewStore', () => ({
-  useViewStore: mock(() => ({
-    currentView: 'inbox',
-    setCurrentView: mock(),
-    expandedProjectIds: [],
-    toggleProjectExpanded: mock(),
-  })),
-}))
-
-mock.module('@/store/projectStore', () => ({
-  useProjectStore: mock((selector: (state: unknown) => unknown) => {
-    const state = {
-      projects: [
-        { id: '1', name: 'Work', color: '#3B82F6', archived: false, createdAt: new Date(), updatedAt: new Date(), userId: 'user1' },
-        { id: '2', name: 'Personal', color: '#EC4899', archived: false, createdAt: new Date(), updatedAt: new Date(), userId: 'user1' },
-      ],
-      favoriteProjectIds: ['1'],
-    }
-    return typeof selector === 'function' ? selector(state) : state
-  }),
-}))
-
-mock.module('@/store/taskStore', () => ({
-  useTaskStore: mock(() => ({
-    tasks: [],
-  })),
-}))
-
 describe('Sidebar Component', () => {
   beforeEach(() => {
+    useViewStore.setState({
+      selectedView: 'list',
+      projectViewPreferences: {},
+      boardColumnType: 'section',
+      listGroupBy: 'none',
+      listSortBy: 'custom',
+      listColumns: undefined,
+      collapsedGroups: new Set(),
+    })
+
+    useProjectStore.setState({
+      projects: [
+        { id: '1', name: 'Work', color: '#3B82F6', archived: false, createdAt: new Date(), updatedAt: new Date(), ownerId: 'user1', order: 0, isFavorite: true, viewType: 'list', isShared: false },
+        { id: '2', name: 'Personal', color: '#EC4899', archived: false, createdAt: new Date(), updatedAt: new Date(), ownerId: 'user1', order: 1, isFavorite: false, viewType: 'list', isShared: false },
+      ],
+      selectedProjectId: null,
+    })
+
+    useTaskStore.setState({
+      tasks: [],
+      selectedTaskId: null,
+      expandedTaskIds: new Set(),
+      filter: {},
+    })
   })
 
   describe('rendering', () => {
