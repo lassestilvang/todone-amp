@@ -2,9 +2,13 @@ import { describe, it, expect, mock, beforeEach } from 'bun:test'
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { UpcomingView } from './UpcomingView'
-import { Task } from '@/types'
+import { Task, User } from '@/types'
+import { useTaskStore } from '@/store/taskStore'
+import { useFilterStore } from '@/store/filterStore'
+import { useQuickAddStore } from '@/store/quickAddStore'
+import { useAuthStore } from '@/store/authStore'
+import { useIntegrationStore } from '@/store/integrationStore'
 
-// Mock tasks with due dates in next 7 days
 const mockTasks: Task[] = [
   {
     id: '1',
@@ -17,7 +21,7 @@ const mockTasks: Task[] = [
     reminders: [],
     attachments: [],
     labels: [],
-    dueDate: new Date(Date.now() + 24 * 60 * 60 * 1000), // Tomorrow
+    dueDate: new Date(Date.now() + 24 * 60 * 60 * 1000),
   },
   {
     id: '2',
@@ -47,54 +51,10 @@ const mockTasks: Task[] = [
   },
 ]
 
-mock.module('@/store/taskStore', () => ({
-  useTaskStore: mock((selector) => {
-    const state = {
-      getFilteredTasks: () => mockTasks,
-      toggleTask: mock(),
-      selectTask: mock(),
-      selectedTaskId: null,
-      loadTasks: mock(),
-    }
-    return typeof selector === 'function' ? selector(state) : state
-  }),
-}))
-
-mock.module('@/store/filterStore', () => ({
-  useFilterStore: mock((selector) => {
-    const state = {
-      applyFilterQuery: mock((_query, tasks) => tasks),
-    }
-    return typeof selector === 'function' ? selector(state) : state
-  }),
-}))
-
-mock.module('@/store/quickAddStore', () => ({
-  useQuickAddStore: mock((selector) => {
-    const state = {
-      openQuickAdd: mock(),
-    }
-    return typeof selector === 'function' ? selector(state) : state
-  }),
-}))
-
-mock.module('@/store/authStore', () => ({
-  useAuthStore: mock((selector) => {
-    const state = {
-      user: { id: 'user1', name: 'Test User', email: 'test@example.com' },
-    }
-    return typeof selector === 'function' ? selector(state) : state
-  }),
-}))
-
-mock.module('@/store/integrationStore', () => ({
-  useIntegrationStore: mock((selector) => {
-    const state = {
-      calendarEvents: [],
-      getCalendarEvents: mock(),
-    }
-    return typeof selector === 'function' ? selector(state) : state
-  }),
+mock.module('@/db/database', () => ({
+  db: {
+    tasks: { toArray: mock(() => Promise.resolve([])) },
+  },
 }))
 
 mock.module('@/components/VirtualTaskList', () => ({
@@ -124,7 +84,56 @@ mock.module('@/components/ExternalCalendarEvents', () => ({
 
 describe('UpcomingView Component', () => {
   beforeEach(() => {
-    
+    useTaskStore.setState({
+      tasks: mockTasks,
+      selectedTaskId: null,
+      expandedTaskIds: new Set(),
+      filter: {},
+    })
+    useFilterStore.setState({
+      filters: [],
+      activeFilterId: null,
+      savedQueries: [],
+      queryCache: new Map(),
+      recentQueries: [],
+    })
+    useQuickAddStore.setState({
+      isOpen: false,
+      recentItems: [],
+    })
+    useAuthStore.setState({
+      user: {
+        id: 'user1',
+        name: 'Test User',
+        email: 'test@example.com',
+        createdAt: new Date(),
+        settings: {
+          theme: 'light',
+          language: 'en',
+          timeFormat: '24h',
+          dateFormat: 'MM/dd/yyyy',
+          startOfWeek: 0,
+          defaultView: 'list',
+          defaultPriority: null,
+          enableKarma: true,
+          dailyGoal: 5,
+          weeklyGoal: 30,
+          daysOff: [],
+          vacationMode: false,
+          enableNotifications: true,
+        },
+        karmaPoints: 100,
+        karmaLevel: 'intermediate',
+      } as User,
+      isAuthenticated: true,
+      isLoading: false,
+    })
+    useIntegrationStore.setState({
+      calendarIntegrations: [],
+      calendarEvents: [],
+      syncHistory: [],
+      userIntegrations: [],
+    })
   })
 
   describe('rendering', () => {
@@ -166,21 +175,18 @@ describe('UpcomingView Component', () => {
   describe('task grouping', () => {
     it('should group tasks by date', () => {
       render(<UpcomingView />)
-      // Should have multiple sections for different dates
       const taskLists = screen.getAllByTestId('virtual-task-list')
       expect(taskLists.length).toBeGreaterThan(1)
     })
 
     it('should display date headers for each group', () => {
       render(<UpcomingView />)
-      // Check for date-like headers (day name, month, date)
       const headers = screen.getAllByRole('heading', { level: 3 })
       expect(headers.length).toBeGreaterThan(0)
     })
 
     it('should display tasks under correct date sections', () => {
       render(<UpcomingView />)
-      // Tasks should be rendered within task lists
       expect(screen.getByText('Task due tomorrow')).toBeInTheDocument()
       expect(screen.getByText('Task due in 3 days')).toBeInTheDocument()
       expect(screen.getByText('Task due in 5 days')).toBeInTheDocument()
@@ -217,7 +223,7 @@ describe('UpcomingView Component', () => {
       render(<UpcomingView />)
 
       const buttons = screen.getAllByRole('button')
-      const filterButton = buttons[0] // First button is filter
+      const filterButton = buttons[0]
       await user.click(filterButton)
 
       const filterPanel = screen.queryByTestId('filter-panel')
@@ -244,7 +250,6 @@ describe('UpcomingView Component', () => {
       const hideButtons = screen.getAllByText('Hide')
       if (hideButtons.length > 0) {
         await user.click(hideButtons[0])
-        // Calendar events should be hidden
         expect(screen.queryByTestId('calendar-events')).not.toBeInTheDocument()
       }
     })
@@ -274,7 +279,6 @@ describe('UpcomingView Component', () => {
   describe('empty states', () => {
     it('should handle empty upcoming tasks gracefully', () => {
       render(<UpcomingView />)
-      // Component should render without errors
       expect(screen.getByText('Upcoming')).toBeInTheDocument()
     })
   })
@@ -284,7 +288,6 @@ describe('UpcomingView Component', () => {
       render(<UpcomingView />)
       const heading = screen.getByText('Upcoming')
       expect(heading).toBeInTheDocument()
-      // Verify heading is inside main container
       expect(heading.closest('div')).toBeTruthy()
     })
 
@@ -304,7 +307,6 @@ describe('UpcomingView Component', () => {
   describe('7-day window', () => {
     it('should only show tasks within next 7 days', () => {
       render(<UpcomingView />)
-      // All rendered tasks should be within next 7 days
       expect(screen.getByText('Task due tomorrow')).toBeInTheDocument()
       expect(screen.getByText('Task due in 3 days')).toBeInTheDocument()
       expect(screen.getByText('Task due in 5 days')).toBeInTheDocument()
