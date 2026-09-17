@@ -1,35 +1,53 @@
 import { describe, it, expect, mock, beforeEach } from 'bun:test'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { NotificationPreferences } from './NotificationPreferences'
+import { useAuthStore } from '@/store/authStore'
 
 const mockUpdateUser = mock()
 
-mock.module('@/store/authStore', () => ({
-  useAuthStore: () => ({
-    user: {
-      id: '1',
-      name: 'Test User',
-      email: 'test@example.com',
-      settings: {
-        notificationPreferences: {
-          enableBrowserNotifications: true,
-          enableEmailNotifications: true,
-          enablePushNotifications: false,
-          enableSoundNotifications: true,
-          quietHours: {
-            enabled: true,
-            startTime: '22:00',
-            endTime: '08:00',
+describe('NotificationPreferences', () => {
+  beforeEach(() => {
+    mockUpdateUser.mockClear()
+
+    useAuthStore.setState({
+      user: {
+        id: '1',
+        name: 'Test User',
+        email: 'test@example.com',
+        createdAt: new Date(),
+        karmaPoints: 0,
+        karmaLevel: 'beginner',
+        settings: {
+          theme: 'system',
+          language: 'en',
+          timeFormat: '12h',
+          dateFormat: 'MMM d, yyyy',
+          startOfWeek: 0,
+          defaultView: 'list',
+          defaultPriority: null,
+          enableKarma: true,
+          dailyGoal: 5,
+          weeklyGoal: 25,
+          daysOff: [],
+          vacationMode: false,
+          enableNotifications: true,
+          notificationPreferences: {
+            enableBrowserNotifications: true,
+            enableEmailNotifications: true,
+            enablePushNotifications: false,
+            enableSoundNotifications: true,
+            quietHours: {
+              enabled: true,
+              startTime: '22:00',
+              endTime: '08:00',
+            },
           },
         },
       },
-    },
-    updateUser: mockUpdateUser,
-  }),
-}))
-
-describe('NotificationPreferences', () => {
-  beforeEach(() => {
+      isAuthenticated: true,
+      isLoading: false,
+      updateUser: mockUpdateUser,
+    })
   })
 
   it('should not render when closed', () => {
