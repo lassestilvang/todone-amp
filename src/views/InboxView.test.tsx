@@ -2,8 +2,12 @@ import { describe, it, expect, mock, beforeEach } from 'bun:test'
 import { render, screen } from '@testing-library/react'
 import { InboxView } from './InboxView'
 import { Task } from '@/types'
+import { useTaskStore } from '@/store/taskStore'
+import { useFilterStore } from '@/store/filterStore'
+import { useQuickAddStore } from '@/store/quickAddStore'
+import { useViewStore } from '@/store/viewStore'
 
-// Mock stores
+// Mock tasks data
 const mockTasks: Task[] = [
   {
     id: '1',
@@ -32,51 +36,7 @@ const mockTasks: Task[] = [
   },
 ]
 
-mock.module('@/store/taskStore', () => ({
-  useTaskStore: mock((selector) => {
-    const state = {
-      getFilteredTasks: () => mockTasks,
-      toggleTask: mock(),
-      selectTask: mock(),
-      selectedTaskId: null,
-      loadTasks: mock(),
-      setFilter: mock(),
-      filter: { completed: false },
-    }
-    return typeof selector === 'function' ? selector(state) : state
-  }),
-}))
-
-mock.module('@/store/filterStore', () => ({
-  useFilterStore: mock((selector) => {
-    const state = {
-      applyFilterQuery: mock((_query, tasks) => tasks),
-      filters: [],
-    }
-    return typeof selector === 'function' ? selector(state) : state
-  }),
-}))
-
-mock.module('@/store/quickAddStore', () => ({
-  useQuickAddStore: mock((selector) => {
-    const state = {
-      openQuickAdd: mock(),
-    }
-    return typeof selector === 'function' ? selector(state) : state
-  }),
-}))
-
-mock.module('@/store/viewStore', () => ({
-  useViewStore: mock((selector) => {
-    const state = {
-      currentView: 'inbox',
-      setCurrentView: mock(),
-      listGroupBy: undefined,
-    }
-    return typeof selector === 'function' ? selector(state) : state
-  }),
-}))
-
+// Mock UI components (these are fine to keep as mock.module)
 mock.module('@/components/TaskList', () => ({
   TaskList: ({ tasks }: { tasks: Task[] }) => (
     <div data-testid="task-list">
@@ -119,7 +79,35 @@ mock.module('@/components/EmptyInboxState', () => ({
 
 describe('InboxView Component', () => {
   beforeEach(() => {
-    
+    useTaskStore.setState({
+      tasks: mockTasks,
+      selectedTaskId: null,
+      expandedTaskIds: new Set(),
+      filter: { completed: false },
+    })
+
+    useFilterStore.setState({
+      filters: [],
+      activeFilterId: null,
+      savedQueries: [],
+      queryCache: new Map(),
+      recentQueries: [],
+    })
+
+    useQuickAddStore.setState({
+      isOpen: false,
+      recentItems: [],
+    })
+
+    useViewStore.setState({
+      selectedView: 'list',
+      projectViewPreferences: {},
+      boardColumnType: 'section',
+      listGroupBy: undefined,
+      listSortBy: 'custom',
+      listColumns: undefined,
+      collapsedGroups: new Set(),
+    })
   })
 
   describe('rendering', () => {
