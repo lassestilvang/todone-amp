@@ -3,6 +3,8 @@ import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { DailyAgendaView } from './DailyAgendaView'
 import { Task } from '@/types'
+import { useTaskStore } from '@/store/taskStore'
+import { useTaskDetailStore } from '@/store/taskDetailStore'
 
 const today = new Date()
 const mockTasks: Task[] = [
@@ -47,23 +49,10 @@ const mockTasks: Task[] = [
   },
 ]
 
-mock.module('@/store/taskStore', () => ({
-  useTaskStore: mock((selector) => {
-    const state = {
-      tasks: mockTasks,
-      toggleTask: mock(),
-    }
-    return typeof selector === 'function' ? selector(state) : state
-  }),
-}))
-
-mock.module('@/store/taskDetailStore', () => ({
-  useTaskDetailStore: mock((selector) => {
-    const state = {
-      openTaskDetail: mock(),
-    }
-    return typeof selector === 'function' ? selector(state) : state
-  }),
+mock.module('@/db/database', () => ({
+  db: {
+    tasks: { toArray: mock(() => Promise.resolve([])) },
+  },
 }))
 
 mock.module('@/components/TaskItem', () => ({
@@ -72,7 +61,19 @@ mock.module('@/components/TaskItem', () => ({
 
 describe('DailyAgendaView Component', () => {
   beforeEach(() => {
-    
+    useTaskStore.setState({
+      tasks: mockTasks,
+      selectedTaskId: null,
+      expandedTaskIds: new Set(),
+      filter: {},
+    })
+    useTaskDetailStore.setState({
+      isOpen: false,
+      selectedTaskId: null,
+      selectedTask: null,
+      isEditing: false,
+      hasUnsavedChanges: false,
+    })
   })
 
   describe('rendering', () => {
@@ -91,18 +92,16 @@ describe('DailyAgendaView Component', () => {
     it('should render date navigation buttons', () => {
       render(<DailyAgendaView />)
       const buttons = screen.getAllByRole('button')
-      expect(buttons.length).toBeGreaterThanOrEqual(2) // At least prev and next
+      expect(buttons.length).toBeGreaterThanOrEqual(2)
     })
 
     it('should display selected date', () => {
       render(<DailyAgendaView />)
-      // Current date should be displayed
       expect(screen.getByText('Daily Agenda')).toBeInTheDocument()
     })
 
     it('should display task count and completion rate', () => {
       render(<DailyAgendaView />)
-      // Summary should show task count and completion percentage
       expect(screen.getByText('Daily Agenda')).toBeInTheDocument()
     })
   })
@@ -126,7 +125,6 @@ describe('DailyAgendaView Component', () => {
 
       const buttons = screen.getAllByRole('button')
       if (buttons.length > 1) {
-        // Find and click previous button
         await user.click(buttons[0])
       }
     })
@@ -137,7 +135,6 @@ describe('DailyAgendaView Component', () => {
 
       const buttons = screen.getAllByRole('button')
       if (buttons.length > 1) {
-        // Find and click next button
         await user.click(buttons[buttons.length - 1])
       }
     })
@@ -157,7 +154,6 @@ describe('DailyAgendaView Component', () => {
   describe('date display', () => {
     it('should display full date with day name', () => {
       render(<DailyAgendaView />)
-      // Format: "Wednesday, December 15, 2025"
       expect(screen.getByText('Daily Agenda')).toBeInTheDocument()
     })
 
@@ -169,7 +165,6 @@ describe('DailyAgendaView Component', () => {
       if (buttons.length > 0) {
         const prevButton = buttons[0]
         await user.click(prevButton)
-        // Date should change
       }
     })
   })
@@ -177,37 +172,31 @@ describe('DailyAgendaView Component', () => {
   describe('task display', () => {
     it('should display active tasks section', () => {
       render(<DailyAgendaView />)
-      // Active tasks should be shown
       expect(screen.getByText('Daily Agenda')).toBeInTheDocument()
     })
 
     it('should display completed tasks section', () => {
       render(<DailyAgendaView />)
-      // Completed tasks should be shown
       expect(screen.getByText('Daily Agenda')).toBeInTheDocument()
     })
 
     it('should render tasks with TaskItem component', () => {
       render(<DailyAgendaView />)
-      // Tasks should be rendered
       expect(screen.getByText('Daily Agenda')).toBeInTheDocument()
     })
 
     it('should separate active and completed tasks', () => {
       render(<DailyAgendaView />)
-      // Tasks should be grouped by status
       expect(screen.getByText('Daily Agenda')).toBeInTheDocument()
     })
 
     it('should show task count for active tasks', () => {
       render(<DailyAgendaView />)
-      // "2 tasks" should be visible in summary
       expect(screen.getByText('Daily Agenda')).toBeInTheDocument()
     })
 
     it('should exclude subtasks (parentTaskId)', () => {
       render(<DailyAgendaView />)
-      // Only root-level tasks should be shown
       expect(screen.getByText('Daily Agenda')).toBeInTheDocument()
     })
   })
@@ -215,25 +204,21 @@ describe('DailyAgendaView Component', () => {
   describe('completion rate', () => {
     it('should calculate completion percentage', () => {
       render(<DailyAgendaView />)
-      // 3 tasks: 1 completed = 33%
       expect(screen.getByText('Daily Agenda')).toBeInTheDocument()
     })
 
     it('should show 0% when no tasks completed', () => {
       render(<DailyAgendaView />)
-      // Percentage should be correctly calculated
       expect(screen.getByText('Daily Agenda')).toBeInTheDocument()
     })
 
     it('should show 100% when all tasks completed', () => {
       render(<DailyAgendaView />)
-      // If all tasks completed, should show 100%
       expect(screen.getByText('Daily Agenda')).toBeInTheDocument()
     })
 
     it('should display completion rate in header', () => {
       render(<DailyAgendaView />)
-      // "% done" or similar should be shown
       expect(screen.getByText('Daily Agenda')).toBeInTheDocument()
     })
   })
@@ -255,19 +240,16 @@ describe('DailyAgendaView Component', () => {
   describe('empty states', () => {
     it('should handle day with no tasks', () => {
       render(<DailyAgendaView />)
-      // Should display empty state or empty sections
       expect(screen.getByText('Daily Agenda')).toBeInTheDocument()
     })
 
     it('should handle day with only completed tasks', () => {
       render(<DailyAgendaView />)
-      // Should show empty active section, show completed section
       expect(screen.getByText('Daily Agenda')).toBeInTheDocument()
     })
 
     it('should handle day with only active tasks', () => {
       render(<DailyAgendaView />)
-      // Should show active section, empty/hidden completed section
       expect(screen.getByText('Daily Agenda')).toBeInTheDocument()
     })
   })
@@ -275,25 +257,21 @@ describe('DailyAgendaView Component', () => {
   describe('layout and styling', () => {
     it('should have flex layout', () => {
       render(<DailyAgendaView />)
-      // Component should use flex for layout
       expect(screen.getByText('Daily Agenda')).toBeInTheDocument()
     })
 
     it('should have proper spacing', () => {
       render(<DailyAgendaView />)
-      // Sections should be properly spaced
       expect(screen.getByText('Daily Agenda')).toBeInTheDocument()
     })
 
     it('should have scrollable content', () => {
       render(<DailyAgendaView />)
-      // Content area should be scrollable for many tasks
       expect(screen.getByText('Daily Agenda')).toBeInTheDocument()
     })
 
     it('should have border separators', () => {
       render(<DailyAgendaView />)
-      // Dividers between sections
       expect(screen.getByText('Daily Agenda')).toBeInTheDocument()
     })
   })
@@ -332,19 +310,16 @@ describe('DailyAgendaView Component', () => {
   describe('date calculations', () => {
     it('should handle date boundaries correctly', () => {
       render(<DailyAgendaView />)
-      // Tasks should be filtered correctly for 24-hour period
       expect(screen.getByText('Daily Agenda')).toBeInTheDocument()
     })
 
     it('should identify tasks for correct date only', () => {
       render(<DailyAgendaView />)
-      // Should only show tasks with dueDate matching selected date
       expect(screen.getByText('Daily Agenda')).toBeInTheDocument()
     })
 
     it('should handle midnight boundaries', () => {
       render(<DailyAgendaView />)
-      // Tasks at exact midnight should be included correctly
       expect(screen.getByText('Daily Agenda')).toBeInTheDocument()
     })
   })
@@ -352,19 +327,16 @@ describe('DailyAgendaView Component', () => {
   describe('edge cases', () => {
     it('should handle empty day', () => {
       render(<DailyAgendaView />)
-      // Should display empty state
       expect(screen.getByText('Daily Agenda')).toBeInTheDocument()
     })
 
     it('should handle many tasks in single day', () => {
       render(<DailyAgendaView />)
-      // Should display all tasks, scrollable
       expect(screen.getByText('Daily Agenda')).toBeInTheDocument()
     })
 
     it('should handle very long task content', () => {
       render(<DailyAgendaView />)
-      // Long task names should wrap or truncate properly
       expect(screen.getByText('Daily Agenda')).toBeInTheDocument()
     })
 
@@ -372,12 +344,7 @@ describe('DailyAgendaView Component', () => {
       render(<DailyAgendaView />)
 
       const buttons = screen.getAllByRole('button')
-      // Navigate backwards many times
-      for (let i = 0; i < 100; i++) {
-        if (buttons.length > 0) {
-          // Could navigate back
-        }
-      }
+      expect(buttons.length).toBeGreaterThan(0)
     })
   })
 })
